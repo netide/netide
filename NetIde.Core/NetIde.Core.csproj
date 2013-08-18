@@ -39,30 +39,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\Libraries\NGit\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.TextEditor, Version=3.2.1.6466, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libraries\ICSharpCode.TextEditor\ICSharpCode.TextEditor.dll</HintPath>
+      <HintPath>..\Libraries\ICSharpCode.TextEditor\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\NetIde\bin\Debug\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\..\Libraries\NGit\Mono.Security.dll</HintPath>
-    </Reference>
     <Reference Include="NetIde.Util">
       <HintPath>..\..\NetIde\NetIde.Util\obj\Debug\NetIde.Util.dll</HintPath>
     </Reference>
-    <Reference Include="NGit">
-      <HintPath>..\..\Libraries\NGit\NGit.dll</HintPath>
-    </Reference>
-    <Reference Include="NSch">
-      <HintPath>..\..\Libraries\NGit\NSch.dll</HintPath>
-    </Reference>
-    <Reference Include="Sharpen">
-      <HintPath>..\..\Libraries\NGit\Sharpen.dll</HintPath>
+    <Reference Include="NGitDiff, Version=2.1.0.0, Culture=neutral, PublicKeyToken=bcbbbe16b4caea2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NGitDiff.2.1.0.0\lib\net20\NGitDiff.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -312,10 +304,10 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)\.nuget\nuget.exe pack $(SolutionDir)\Build\Configuration\NuGet\NetIde.Package.Core.nuspec -Version 0.0.0.0 -BasePath $(SolutionDir)\Build -NoPackageAnalysis
-$(SolutionDir)\NetIde\NetIde.Install\$(OutDir)\niinstall.exe /c gitter $(TargetDir)\NetIde.Package.Core.0.0.0.0.nupkg</PostBuildEvent>
+$(ProjectDir)\..\NetIde.Install\$(OutDir)\niinstall.exe /c gitter $(TargetDir)\NetIde.Package.Core.0.0.0.0.nupkg</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)\NetIde\NetIde.TransformResources\$(OutDir)\nixfresource.exe /file $(ProjectDir)\Resources\NiMenu.Template.xml /target $(ProjectDir)\Resources\NiMenu.xml</PreBuildEvent>
+    <PreBuildEvent>$(ProjectDir)\..\NetIde.TransformResources\$(OutDir)\nixfresource.exe /file $(ProjectDir)\Resources\NiMenu.Template.xml /target $(ProjectDir)\Resources\NiMenu.xml</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIde.Package.Core</id>
+    <version>$version$</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>Net IDE core package</title>
+    <description>Net IDE core package.</description>
+    <dependencies>
+      <dependency id="NetIde.Runtime" version="[$version$]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\NetIde.Core\bin\Debug\**" target="Tools" exclude="..\NetIde.Core\bin\Debug\**.pdb;..\NetIde.Core\bin\Debug\**.xml" />
+  </files>
+</package>
