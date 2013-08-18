@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.TextEditor, Version=3.2.1.6466, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -47,14 +47,13 @@
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NetIde\bin\Debug\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NetIde.Util">
       <HintPath>..\..\NetIde\NetIde.Util\obj\Debug\NetIde.Util.dll</HintPath>
     </Reference>
-    <Reference Include="NGitDiff, Version=2.1.0.0, Culture=neutral, PublicKeyToken=bcbbbe16b4caea2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NGitDiff.2.1.0.0\lib\net20\NGitDiff.dll</HintPath>
+    <Reference Include="NGitDiff">
+      <HintPath>..\..\packages\NGitDiff.2.1.0.0\lib\net20\NGitDiff.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -208,7 +207,6 @@
     <None Include="NiPackage.manifest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
@@ -288,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\NiMenu.xml" />
+    <None Include="packages.config" />
     <None Include="Resources\PageRight.png" />
     <None Include="Resources\PageLeft.png" />
     <None Include="Resources\NuGetPackage.png" />
