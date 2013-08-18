@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5CCA6341-958E-4170-83BA-C8BB88D95FF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetIde.Util</RootNamespace>
+    <AssemblyName>NetIde.Util</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Conversion.cs" />
+    <Compile Include="Encryption.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Escaping.cs" />
+    <Compile Include="FileType.cs" />
+    <Compile Include="FileTypeType.cs" />
+    <Compile Include="Forms\BrowseButton.cs" />
+    <Compile Include="Forms\BrowseButtonEventHandler.cs" />
+    <Compile Include="Forms\BrowserControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\BrowserControl.Designer.cs">
+      <DependentUpon>BrowserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CancelPreviewEventHandler.cs" />
+    <Compile Include="Forms\ControlUtil.cs" />
+    <Compile Include="Forms\DateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FileBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FileBrowser.Designer.cs">
+      <DependentUpon>FileBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FolderBrowser.cs" />
+    <Compile Include="Forms\FolderBrowser.NativeMethods.cs" />
+    <Compile Include="Forms\FolderBrowserMode.cs" />
+    <Compile Include="Forms\Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFooter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFooterStyle.cs" />
+    <Compile Include="Forms\FormHeader.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FormHelper.cs" />
+    <Compile Include="Forms\NumericBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\TextBoxBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\TextBoxBrowser.Designer.cs">
+      <DependentUpon>TextBoxBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ThemedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\VisualStyleUtil.cs" />
+    <Compile Include="IKeyedCollection.cs" />
+    <Compile Include="ImageFileType.cs" />
+    <Compile Include="ImageListManager.cs" />
+    <Compile Include="KeyedCollection.cs" />
+    <Compile Include="LineTermination.cs" />
+    <Compile Include="PlatformUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadOnlyKeyedCollection.cs" />
+    <Compile Include="Forms\SiteProxy.cs" />
+    <Compile Include="TextFileType.cs" />
+    <Compile Include="Forms\TreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Win32\ExternDll.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Support\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\BrowserControl.resx">
+      <DependentUpon>BrowserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileBrowser.resx">
+      <DependentUpon>FileBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TextBoxBrowser.resx">
+      <DependentUpon>TextBoxBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

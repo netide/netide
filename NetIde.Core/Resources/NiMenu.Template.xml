@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns="https://github.com/pvginkel/NetIde/schemas/Resources">
+  <imports>
+    <import from="..\..\NetIde.Shell\bin\Debug\NetIde.Shell.dll" type="NetIde.Shell.NiResources" />
+  </imports>
+  <ui>
+    <menu id="Menu_File" text="@MenuFile" priority="100" kind="Menu">
+      <group priority="1000">
+        <button id="File_Exit" priority="1000" text="@MenuFileExit" key="Alt+F4" image="@Exit" />
+      </group>
+    </menu>
+    <menu id="Menu_Tools" text="@MenuTools" priority="1000" kind="Menu">
+      <group priority="100">
+        <button id="Tools_PackageManagement" priority="100" text="@MenuToolsPackageManagement"/>
+      </group>
+      <group priority="200">
+        <button id="Tools_Options" priority="100" text="@MenuToolsOptions" />
+      </group>
+    </menu>
+  </ui>
+</resources>

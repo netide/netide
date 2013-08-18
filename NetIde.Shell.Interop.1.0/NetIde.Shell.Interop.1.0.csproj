@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetIde.Shell.Interop</RootNamespace>
+    <AssemblyName>NetIde.Shell.Interop.1.0</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="INiList.cs" />
+    <Compile Include="INiLanguageServiceRegistry.cs" />
+    <Compile Include="INiOptionPage.cs" />
+    <Compile Include="INiToolsOptions.cs" />
+    <Compile Include="INiWindowPaneSelection.cs" />
+    <Compile Include="INiWindowPaneSelectionNotify.cs" />
+    <Compile Include="NiDiffViewerState.cs" />
+    <Compile Include="INiDiffViewerWindow.cs" />
+    <Compile Include="INiDiffViewerWindowNotify.cs" />
+    <Compile Include="IStream.cs" />
+    <Compile Include="NiBrowseForFolderOptions.cs" />
+    <Compile Include="NiCommandBarKind.cs" />
+    <Compile Include="NiCommandDisplayStyle.cs" />
+    <Compile Include="NiCommandComboBoxStyle.cs" />
+    <Compile Include="NiCommandStatus.cs" />
+    <Compile Include="NiDockStyle.cs" />
+    <Compile Include="HResult.cs" />
+    <Compile Include="INiCodeWindow.cs" />
+    <Compile Include="INiCommandBarButton.cs" />
+    <Compile Include="INiCommandBar.cs" />
+    <Compile Include="INiCommandBarComboBox.cs" />
+    <Compile Include="INiCommandBarControl.cs" />
+    <Compile Include="INiCommandBarGroup.cs" />
+    <Compile Include="INiCommandBarPopup.cs" />
+    <Compile Include="INiCommandLine.cs" />
+    <Compile Include="INiCommandManager.cs" />
+    <Compile Include="INiCommandTarget.cs" />
+    <Compile Include="INiSettings.cs" />
+    <Compile Include="INiSettingsNotify.cs" />
+    <Compile Include="INiConnectionPoint.cs" />
+    <Compile Include="INiEditorFactory.cs" />
+    <Compile Include="INiEnv.cs" />
+    <Compile Include="INiJobHandler.cs" />
+    <Compile Include="INiLogEvent.cs" />
+    <Compile Include="INiLogger.cs" />
+    <Compile Include="INiPreMessageFilter.cs" />
+    <Compile Include="INiLocalRegistry.cs" />
+    <Compile Include="INiJob.cs" />
+    <Compile Include="INiJobManager.cs" />
+    <Compile Include="INiMenuManager.cs" />
+    <Compile Include="INiPackage.cs" />
+    <Compile Include="INiShell.cs" />
+    <Compile Include="INiPackageManager.cs" />
+    <Compile Include="INiRegistrationContext.cs" />
+    <Compile Include="INiRegistrationKey.cs" />
+    <Compile Include="IResource.cs" />
+    <Compile Include="INiTextBuffer.cs" />
+    <Compile Include="INiTextLines.cs" />
+    <Compile Include="INiWindowPane.cs" />
+    <Compile Include="INiWindow.cs" />
+    <Compile Include="INiWindowFrame.cs" />
+    <Compile Include="INiWindowFrameNotify.cs" />
+    <Compile Include="NiMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NiTextBufferState.cs" />
+    <Compile Include="NiToolWindowOrientation.cs" />
+    <Compile Include="NiWindowShow.cs" />
+    <Compile Include="StreamState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Support\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

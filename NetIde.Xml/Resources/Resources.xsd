@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="https://github.com/pvginkel/NetIde/schemas/Resources"
+           xmlns:tns="https://github.com/pvginkel/NetIde/schemas/Resources"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="resources">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tns:imports" minOccurs="0" />
+        <xs:element ref="tns:ui" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="imports">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="import">
+          <xs:complexType>
+            <xs:attribute name="from" type="xs:string" use="required" />
+            <xs:attribute name="type" type="xs:string" use="required" />
+            <xs:attribute name="prefix" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ui">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="tns:menu" />
+          <xs:element ref="tns:menuRef" />
+          <xs:element ref="tns:group" />
+          <xs:element ref="tns:groupRef" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="menu">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiObject">
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tns:group" />
+              <xs:element ref="tns:groupRef" />
+            </xs:choice>
+          </xs:sequence>
+          <xs:attribute name="image" use="optional" />
+          <xs:attribute name="kind" type="tns:MenuKind" use="optional" />
+          <xs:attribute name="style" type="tns:DisplayStyle" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="menuRef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiObjectRef">
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tns:group" />
+              <xs:element ref="tns:groupRef" />
+            </xs:choice>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="group">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiObject">
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tns:menu" />
+              <xs:element ref="tns:menuRef" />
+              <xs:element ref="tns:button" />
+              <xs:element ref="tns:buttonRef" />
+              <xs:element ref="tns:comboBox" />
+              <xs:element ref="tns:comboBoxRef" />
+            </xs:choice>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="groupRef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiObjectRef">
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tns:menu" />
+              <xs:element ref="tns:menuRef" />
+              <xs:element ref="tns:button" />
+              <xs:element ref="tns:buttonRef" />
+              <xs:element ref="tns:comboBox" />
+              <xs:element ref="tns:comboBoxRef" />
+            </xs:choice>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="button">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiControl">
+          <xs:attribute name="image" use="optional" />
+          <xs:attribute name="key" use="optional" />
+          <xs:attribute name="style" type="tns:DisplayStyle" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="buttonRef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiObjectRef" />
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="comboBox">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiControl">
+          <xs:attribute name="style" type="tns:ComboBoxStyle" use="optional" />
+          <xs:attribute name="fillCommandGuid" use="optional" />
+          <xs:attribute name="fillCommandId" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="comboBoxRef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:UiObjectRef" />
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:complexType name="UiObjectRef">
+    <xs:attribute name="id" use="optional" />
+    <xs:attribute name="guid" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="UiObject">
+    <xs:complexContent>
+      <xs:extension base="tns:UiObjectRef">
+        <xs:attribute name="priority" type="xs:int" use="optional" />
+        <xs:attribute name="text" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UiControl">
+    <xs:complexContent>
+      <xs:extension base="tns:UiObject">
+        <xs:attribute name="tooltip" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="DisplayStyle">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Image" />
+      <xs:enumeration value="Text" />
+      <xs:enumeration value="ImageAndText" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ComboBoxStyle">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DropDown" />
+      <xs:enumeration value="DropDownList" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MenuKind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Popup" />
+      <xs:enumeration value="Menu" />
+      <xs:enumeration value="Toolbar" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

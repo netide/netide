@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{936731A7-C461-4EE7-8E95-87FDBBCE5F52}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetIde</RootNamespace>
+    <AssemblyName>NetIde</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Gitter\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DockPanelSuite.3.0.0-alpha\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.Proxy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NetIdeException.cs" />
+    <Compile Include="NeutralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NeutralResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryUtil.cs" />
+    <Compile Include="SEH.cs" />
+    <Compile Include="Services\CommandLine\NiCommandLine.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarButton.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBar.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarComboBox.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarPopup.cs" />
+    <Compile Include="Services\CommandManager\Controls\ComboBoxControl.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarControl.cs" />
+    <Compile Include="Services\CommandManager\Controls\ContextMenuStripBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\CommandManager\Controls\ControlControl.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarGroup.cs" />
+    <Compile Include="Services\CommandManager\Controls\DropDownButtonBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\CommandManager\Controls\GroupControl.cs" />
+    <Compile Include="Services\CommandManager\NiCommandManager.cs" />
+    <Compile Include="Services\CommandManager\Controls\BarControl.cs" />
+    <Compile Include="Services\CommandManager\Controls\ButtonControl.cs" />
+    <Compile Include="Services\CommandManager\Controls\GroupManager.cs" />
+    <Compile Include="Services\CommandManager\Controls\IBarControl.cs" />
+    <Compile Include="Services\CommandManager\Controls\IBarControlExtensions.cs" />
+    <Compile Include="Services\CommandManager\Controls\MenuItemBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\CommandManager\Controls\PopupControl.cs" />
+    <Compile Include="Services\CommandManager\Controls\ToolStripBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\CommandManager\ICommandBarContainer.cs" />
+    <Compile Include="Services\CommandManager\MenuBuilder.cs" />
+    <Compile Include="Services\Env\NiEnv.cs" />
+    <Compile Include="Services\JobManager\JobForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\JobManager\JobForm.Designer.cs">
+      <DependentUpon>JobForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\JobManager\JobProgressControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Services\JobManager\JobProgressControl.Designer.cs">
+      <DependentUpon>JobProgressControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\JobManager\NiJob.cs" />
+    <Compile Include="Services\JobManager\JobEventHandler.cs" />
+    <Compile Include="Services\JobManager\NiJobManager.cs" />
+    <Compile Include="Services\LocalRegistry\EditorFactoryRegistration.cs" />
+    <Compile Include="Services\LocalRegistry\IRegistration.cs" />
+    <Compile Include="Services\LocalRegistry\ITypeRegistration.cs" />
+    <Compile Include="Services\LocalRegistry\Settings.cs" />
+    <Compile Include="Services\LocalRegistry\ToolWindowRegistration.cs" />
+    <Compile Include="Services\LocalRegistry\TypeRegistration.cs" />
+    <Compile Include="Services\Logger\NiLogger.cs" />
+    <Compile Include="Services\MenuManager\NiMenuManager.cs" />
+    <Compile Include="Services\PackageManager\ExceptionEventHandler.cs" />
+    <Compile Include="Services\PackageManager\LoadOrderResolver.cs" />
+    <Compile Include="Services\PackageManager\PackageUpdater.cs" />
+    <Compile Include="Services\PackageManager\PendingUpdate.cs" />
+    <Compile Include="Services\PackageManager\PendingUpdateType.cs" />
+    <Compile Include="Services\PackageManager\ProgressEventHandler.cs" />
+    <Compile Include="Services\PackageManager\UpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\PackageManager\UpdateForm.Designer.cs">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Shell\DockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\Shell\NiShell.cs" />
+    <Compile Include="Services\PackageManager\PackageDomain.cs" />
+    <Compile Include="Services\PackageManager\NiPackageManager.cs" />
+    <Compile Include="Services\PackageManager\PackageRegistration.cs" />
+    <Compile Include="Services\LocalRegistry\NiLocalRegistry.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\ToolsOptions\NiToolsOptions.cs" />
+    <Compile Include="Services\LocalRegistry\OptionPageRegistration.cs" />
+    <Compile Include="Services\ToolsOptions\PageContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\ToolsOptions\PageHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\ToolsOptions\ToolsOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\ToolsOptions\ToolsOptionsForm.Designer.cs">
+      <DependentUpon>ToolsOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\WindowPaneSelection\NiWindowPaneSelection.cs" />
+    <Compile Include="SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashForm.Designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Support\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Support\DialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Support\DockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Support\DockPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TypeUtil.cs" />
+    <Compile Include="Win32\ExternDll.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+    <EmbeddedResource Include="Labels.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NeutralResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\JobManager\JobForm.resx">
+      <DependentUpon>JobForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\JobManager\JobProgressControl.resx">
+      <DependentUpon>JobProgressControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\PackageManager\UpdateForm.resx">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\ToolsOptions\ToolsOptionsForm.resx">
+      <DependentUpon>ToolsOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="..\Support\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetIde\NetIde.Util\NetIde.Util.csproj">
+      <Project>{5cca6341-958e-4170-83ba-c8bb88d95ff4}</Project>
+      <Name>NetIde.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
+      <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
+      <Name>NetIde.Shell.Interop.1.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Shell\NetIde.Shell.csproj">
+      <Project>{3fad510a-bad9-4167-8e23-9bdc794cbb31}</Project>
+      <Name>NetIde.Shell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Update\NetIde.Update.csproj">
+      <Project>{564738D0-E4E6-4E51-A5E8-17C07F03AF25}</Project>
+      <Name>NetIde.Update</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Xml\NetIde.Xml.csproj">
+      <Project>{da664118-05ba-40fe-a51e-36e324c7be43}</Project>
+      <Name>NetIde.Xml</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Information.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

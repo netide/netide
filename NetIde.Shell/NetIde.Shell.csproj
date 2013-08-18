@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FAD510A-BAD9-4167-8E23-9BDC794CBB31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetIde.Shell</RootNamespace>
+    <AssemblyName>NetIde.Shell</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppDomainSetup.cs" />
+    <Compile Include="NiList.cs" />
+    <Compile Include="NiOptionPage.cs" />
+    <Compile Include="NiResourcesAttribute.cs" />
+    <Compile Include="NiStringResourcesAttribute.cs" />
+    <Compile Include="NiWindow.cs" />
+    <Compile Include="NiWindowHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProvideObjectAttribute.cs" />
+    <Compile Include="NiSettingsExtensions.cs" />
+    <Compile Include="NiEditorFactory.cs" />
+    <Compile Include="ErrorUtil.cs" />
+    <Compile Include="NiEventSink.cs" />
+    <Compile Include="NiExecEventArgs.cs" />
+    <Compile Include="NiLogEvent.cs" />
+    <Compile Include="NiJobHandler.cs" />
+    <Compile Include="LoggingRedirection.cs" />
+    <Compile Include="NiEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NiResources.cs" />
+    <Compile Include="NiPreMessageEventHandler.cs" />
+    <Compile Include="NiConnectionPoint.cs" />
+    <Compile Include="ProvideCommandLineSwitchAttribute.cs" />
+    <Compile Include="ProvideEditorFactoryAttribute.cs" />
+    <Compile Include="NiCommandMapper.cs" />
+    <Compile Include="Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
+    <Compile Include="NativeWindowHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NiPackage.cs" />
+    <Compile Include="NiConstants.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvideOptionPageAttribute.cs" />
+    <Compile Include="ProvideStartupSplashImageAttribute.cs" />
+    <Compile Include="ProvideToolWindowAttribute.cs" />
+    <Compile Include="NiQueryEventArgs.cs" />
+    <Compile Include="RegistrationAttribute.cs" />
+    <Compile Include="ResourceManager.cs" />
+    <Compile Include="NiServiceContainer.cs" />
+    <Compile Include="ResourceUtil.cs" />
+    <Compile Include="ServiceObject.cs" />
+    <Compile Include="NiSettings.cs" />
+    <Compile Include="NiWindowPane.cs" />
+    <Compile Include="NiWindowShowEventHandler.cs" />
+    <Compile Include="StreamInfo.cs" />
+    <Compile Include="StreamUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Support\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetIde\NetIde.Util\NetIde.Util.csproj">
+      <Project>{5cca6341-958e-4170-83ba-c8bb88d95ff4}</Project>
+      <Name>NetIde.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
+      <Project>{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}</Project>
+      <Name>NetIde.Shell.Interop.1.0</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Labels.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
