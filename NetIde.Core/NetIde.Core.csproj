@@ -303,8 +303,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)\.nuget\nuget.exe pack $(SolutionDir)\Build\Configuration\NuGet\NetIde.Package.Core.nuspec -Version 0.0.0.0 -BasePath $(SolutionDir)\Build -NoPackageAnalysis
-$(ProjectDir)\..\NetIde.Install\$(OutDir)\niinstall.exe /c gitter $(TargetDir)\NetIde.Package.Core.0.0.0.0.nupkg</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)\.nuget\nuget.exe pack $(ProjectDir)\..\Build\Configuration\NuGet\NetIde.Package.Core.nuspec -Version 0.0.0.0 -BasePath $(ProjectDir)\..\Build -NoPackageAnalysis</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>$(ProjectDir)\..\NetIde.TransformResources\$(OutDir)\nixfresource.exe /file $(ProjectDir)\Resources\NiMenu.Template.xml /target $(ProjectDir)\Resources\NiMenu.xml</PreBuildEvent>
