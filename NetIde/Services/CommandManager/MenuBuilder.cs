@@ -84,7 +84,7 @@ namespace NetIde.Services.CommandManager
                     out popup
                 ));
 
-                popup.Text = ResolveResourceString(menu.Text);
+                popup.Text = _package.ResolveStringResource(menu.Text);
                 popup.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(menu.Style.ToString());
                 ((NiCommandBarPopup)popup).Bitmap = ResolveBitmapResource(menu.Image);
 
@@ -105,7 +105,7 @@ namespace NetIde.Services.CommandManager
                     out commandBar
                 ));
 
-                commandBar.Text = ResolveResourceString(menu.Text);
+                commandBar.Text = _package.ResolveStringResource(menu.Text);
                 commandBar.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(menu.Style.ToString());
                 ((NiCommandBar)commandBar).Bitmap = ResolveBitmapResource(menu.Image);
 
@@ -182,8 +182,8 @@ namespace NetIde.Services.CommandManager
                 out command
             ));
 
-            command.Text = ResolveResourceString(button.Text);
-            command.ToolTip = ResolveResourceString(button.ToolTip);
+            command.Text = _package.ResolveStringResource(button.Text);
+            command.ToolTip = _package.ResolveStringResource(button.ToolTip);
             command.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(button.Style.ToString());
             command.ShortcutKeys = ParseShortcutKeys(button.Key);
             ((NiCommandBarButton)command).Bitmap = ResolveBitmapResource(button.Image);
@@ -215,8 +215,8 @@ namespace NetIde.Services.CommandManager
                 out command
             ));
 
-            command.Text = ResolveResourceString(comboBox.Text);
-            command.ToolTip = ResolveResourceString(comboBox.ToolTip);
+            command.Text = _package.ResolveStringResource(comboBox.Text);
+            command.ToolTip = _package.ResolveStringResource(comboBox.ToolTip);
             command.Style = Enum<NiCommandComboBoxStyle>.Parse(comboBox.Style.ToString());
 
             return command;
@@ -272,21 +272,6 @@ namespace NetIde.Services.CommandManager
             }
 
             return result;
-        }
-
-        private string ResolveResourceString(string key)
-        {
-            if (String.IsNullOrEmpty(key))
-                return null;
-
-            if (key.StartsWith("@"))
-            {
-                string value;
-                ErrorUtil.ThrowOnFailure(_package.GetStringResource(key.Substring(1), out value));
-                return value;
-            }
-
-            return key;
         }
     }
 }

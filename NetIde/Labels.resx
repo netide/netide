@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
+  </data>
   <data name="CannotCancelOperation" xml:space="preserve">
     <value>The current operation cannot be cancelled.</value>
   </data>
@@ -129,8 +132,14 @@
   <data name="CannotFindCommandGroup" xml:space="preserve">
     <value>Cannot find command group '{0}'.</value>
   </data>
+  <data name="CannotFindProjectFactory" xml:space="preserve">
+    <value>Cannot find project factory</value>
+  </data>
   <data name="CannotLoadContext" xml:space="preserve">
     <value>Cannot find the file NiContext.xml. Your installation may be corrupt.</value>
+  </data>
+  <data name="CannotOpenProject" xml:space="preserve">
+    <value>Cannot open project</value>
   </data>
   <data name="CannotProcessSwitch" xml:space="preserve">
     <value>Cannot process switch '{0}'.</value>
@@ -176,6 +185,9 @@
   </data>
   <data name="NiResourcesMissing" xml:space="preserve">
     <value>Resource file does not contain a NiResources resource</value>
+  </data>
+  <data name="OpenProject" xml:space="preserve">
+    <value>Open Project</value>
   </data>
   <data name="PackageEntryPointInvalid" xml:space="preserve">
     <value>Entry point '{0}' is invalid; must be of format '&lt;assembly&gt;, &lt;type&gt;'</value>

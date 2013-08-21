@@ -10,6 +10,7 @@ namespace NetIde.Core
     internal static class Resources
     {
         public static IResource Exit = GetResource("Exit.png");
+        public static IResource Folders = GetResource("folders.ico");
 
         private static IResource GetResource(string resourceKey)
         {

@@ -145,6 +145,7 @@
     <Compile Include="Resources.cs" />
     <Compile Include="Services\LanguageServiceRegistry\NiLanguageServiceRegistry.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\ProjectExplorer\NiProjectExplorer.cs" />
     <Compile Include="Settings\IFontSettings.cs" />
     <Compile Include="Support\SelectionItem.cs" />
     <Compile Include="Support\EditorWindow.cs" />
@@ -194,6 +195,13 @@
     <Compile Include="ToolWindows\DiffViewer\UnifiedViewer.Designer.cs">
       <DependentUpon>UnifiedViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerControl.Designer.cs">
+      <DependentUpon>ProjectExplorerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerWindow.cs" />
     <Compile Include="ToolWindows\TextEditor\LanguageServiceMapper.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextBuffer.cs" />
     <Compile Include="ToolWindows\TextEditor\TextEditorFactory.cs" />
@@ -283,8 +291,12 @@
     <EmbeddedResource Include="ToolWindows\DiffViewer\UnifiedViewer.resx">
       <DependentUpon>UnifiedViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolWindows\ProjectExplorer\ProjectExplorerControl.resx">
+      <DependentUpon>ProjectExplorerControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\folders.ico" />
     <Content Include="Resources\NiMenu.xml" />
     <None Include="packages.config" />
     <None Include="Resources\PageRight.png" />
@@ -299,6 +311,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>

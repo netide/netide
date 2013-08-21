@@ -256,4 +256,7 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="ProjectExplorer" xml:space="preserve">
+    <value>Project Explorer</value>
+  </data>
 </root>

@@ -161,6 +161,7 @@
     <Compile Include="Services\LocalRegistry\EditorFactoryRegistration.cs" />
     <Compile Include="Services\LocalRegistry\IRegistration.cs" />
     <Compile Include="Services\LocalRegistry\ITypeRegistration.cs" />
+    <Compile Include="Services\LocalRegistry\ProjectFactoryRegistration.cs" />
     <Compile Include="Services\LocalRegistry\Settings.cs" />
     <Compile Include="Services\LocalRegistry\ToolWindowRegistration.cs" />
     <Compile Include="Services\LocalRegistry\TypeRegistration.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Services\PackageManager\UpdateForm.Designer.cs">
       <DependentUpon>UpdateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\ProjectManager\NiProjectManager.cs" />
     <Compile Include="Services\Shell\DockContent.cs">
       <SubType>Form</SubType>
     </Compile>

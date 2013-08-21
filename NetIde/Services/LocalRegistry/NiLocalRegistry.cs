@@ -33,6 +33,7 @@ namespace NetIde.Services.LocalRegistry
             Registrations = ReadOnlyKeyedCollection.Create(_registrations);
 
             LoadEditorFactories();
+            LoadProjectFactories();
             LoadToolWindows();
             LoadClasses();
             LoadOptionPages();
@@ -54,6 +55,36 @@ namespace NetIde.Services.LocalRegistry
                                 packageId,
                                 Guid.Parse(editorId),
                                 (string)subKey.GetValue("DisplayName")
+                            ));
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error("Could not load editor", ex);
+                        }
+                    }
+                }
+            });
+        }
+
+        private void LoadProjectFactories()
+        {
+            RegistryUtil.ForEachPackage(this, "Projects", (packageId, key) =>
+            {
+                foreach (string projectId in key.GetSubKeyNames())
+                {
+                    using (var subKey = key.OpenSubKey(projectId))
+                    {
+                        Log.InfoFormat("Loading project factory {0}", projectId);
+
+                        try
+                        {
+                            _registrations.Add(new ProjectFactoryRegistration(
+                                packageId,
+                                Guid.Parse(projectId),
+                                (string)subKey.GetValue("DisplayName"),
+                                (string)subKey.GetValue("ProjectFileExtensions"),
+                                (string)subKey.GetValue("DefaultProjectExtension"),
+                                (string)subKey.GetValue("PossibleProjectExtensions")
                             ));
                         }
                         catch (Exception ex)

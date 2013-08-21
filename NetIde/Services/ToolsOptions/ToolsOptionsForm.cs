@@ -10,7 +10,6 @@ using NetIde.Services.LocalRegistry;
 using NetIde.Services.PackageManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
-using NetIde.Support;
 using NetIde.Util.Forms;
 
 namespace NetIde.Services.ToolsOptions

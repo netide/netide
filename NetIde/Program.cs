@@ -12,6 +12,7 @@ using NetIde.Services.JobManager;
 using NetIde.Services.LocalRegistry;
 using NetIde.Services.Logger;
 using NetIde.Services.MenuManager;
+using NetIde.Services.ProjectManager;
 using NetIde.Services.Shell;
 using NetIde.Services.PackageManager;
 using NetIde.Services.ToolsOptions;
@@ -71,6 +72,10 @@ namespace NetIde
 
                 var packageManager = new NiPackageManager(serviceContainer);
                 serviceContainer.AddService(typeof(INiPackageManager), packageManager);
+
+                // Project support.
+
+                serviceContainer.AddService(typeof(INiProjectManager), new NiProjectManager(serviceContainer));
 
                 // Initialize the required services.
 

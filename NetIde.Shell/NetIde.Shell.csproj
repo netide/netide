@@ -54,8 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainSetup.cs" />
+    <Compile Include="NiHierarchy.cs" />
+    <Compile Include="NiHierarchyExtensions.cs" />
     <Compile Include="NiList.cs" />
     <Compile Include="NiOptionPage.cs" />
+    <Compile Include="NiPackageExtensions.cs" />
+    <Compile Include="NiProjectFactory.cs" />
+    <Compile Include="NiProject.cs" />
+    <Compile Include="NiProjectItem.cs" />
     <Compile Include="NiResourcesAttribute.cs" />
     <Compile Include="NiStringResourcesAttribute.cs" />
     <Compile Include="NiWindow.cs" />
@@ -92,6 +98,7 @@
     <Compile Include="NiConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvideOptionPageAttribute.cs" />
+    <Compile Include="ProvideProjectFactoryAttribute.cs" />
     <Compile Include="ProvideStartupSplashImageAttribute.cs" />
     <Compile Include="ProvideToolWindowAttribute.cs" />
     <Compile Include="NiQueryEventArgs.cs" />

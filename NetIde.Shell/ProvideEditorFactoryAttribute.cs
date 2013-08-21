@@ -8,25 +8,25 @@ namespace NetIde.Shell
 {
     public sealed class ProvideEditorFactoryAttribute : RegistrationAttribute
     {
-        public Type EditorType { get; private set; }
+        public Type FactoryType { get; private set; }
         public string Name { get; private set; }
 
-        public ProvideEditorFactoryAttribute(Type editorType, string name)
+        public ProvideEditorFactoryAttribute(Type factoryType, string name)
         {
-            if (editorType == null)
-                throw new ArgumentNullException("editorType");
+            if (factoryType == null)
+                throw new ArgumentNullException("factoryType");
             if (name == null)
                 throw new ArgumentNullException("name");
 
-            EditorType = editorType;
+            FactoryType = factoryType;
             Name = name;
         }
 
         public override void Register(INiPackage package, INiRegistrationContext context, INiRegistrationKey packageKey)
         {
-            string editorGuid = EditorType.GUID.ToString("B").ToUpperInvariant();
+            string factoryGuid = FactoryType.GUID.ToString("B").ToUpperInvariant();
 
-            using (var key = packageKey.CreateSubKey("Editors\\" + editorGuid))
+            using (var key = packageKey.CreateSubKey("Editors\\" + factoryGuid))
             {
                 key.SetValue(null, ResolveStringResource(package, Name));
                 key.SetValue("DisplayName", Name);

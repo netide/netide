@@ -117,40 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CannotSetProperty" xml:space="preserve">
-    <value>Cannot set property</value>
-  </data>
-  <data name="CouldNotFindResourcesAttribute" xml:space="preserve">
-    <value>Could not find the NiResources attribute</value>
-  </data>
-  <data name="CouldNotFindStringResourcesAttribute" xml:space="preserve">
-    <value>Could not find the NiStringResources attribute</value>
-  </data>
-  <data name="InvalidPropertyType" xml:space="preserve">
-    <value>Invalid property type</value>
-  </data>
-  <data name="InvalidResource" xml:space="preserve">
-    <value>Resource '{0}' could not be resolved.</value>
-  </data>
-  <data name="NoImplGuidAttribute" xml:space="preserve">
-    <value>Type '{0}' does not specify an ImplGuidAttribute</value>
-  </data>
-  <data name="ParentMustBeHierarchy" xml:space="preserve">
-    <value>Parent must be a NiHierarchy</value>
-  </data>
-  <data name="ResourceNotFound" xml:space="preserve">
-    <value>Cannot find resource '{0}' in assembly '{1}'</value>
-  </data>
-  <data name="ServiceAlreadyRegistered" xml:space="preserve">
-    <value>Service is already registered</value>
-  </data>
-  <data name="ServiceNotOfValidType" xml:space="preserve">
-    <value>Provided service is not of a valid type</value>
-  </data>
-  <data name="ToolWindowNotRegistered" xml:space="preserve">
-    <value>No ProvideToolWindowAttribute registration is available for the tool type</value>
-  </data>
-  <data name="UnknownProperty" xml:space="preserve">
-    <value>Unknown property</value>
-  </data>
 </root>

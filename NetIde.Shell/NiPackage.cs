@@ -30,21 +30,6 @@ namespace NetIde.Shell
             AppDomainSetup.Setup();
         }
 
-        public string ResolveStringResource(string key)
-        {
-            if (key == null)
-                throw new ArgumentNullException("key");
-
-            if (key.StartsWith("@"))
-            {
-                string value;
-                ErrorUtil.ThrowOnFailure(GetStringResource(key.Substring(1), out value));
-                return value;
-            }
-
-            return key;
-        }
-
         public HResult GetStringResource(string key, out string value)
         {
             value = null;
@@ -138,15 +123,30 @@ namespace NetIde.Shell
 
             foreach (ProvideEditorFactoryAttribute attribute in GetType().GetCustomAttributes(typeof(ProvideEditorFactoryAttribute), true))
             {
-                var editorFactory = (INiEditorFactory)Activator.CreateInstance(attribute.EditorType);
+                var editorFactory = (INiEditorFactory)Activator.CreateInstance(attribute.FactoryType);
 
                 editorFactory.SetSite(this);
 
                 ErrorUtil.ThrowOnFailure(registry.RegisterEditorFactory(
-                    attribute.EditorType.GUID,
+                    attribute.FactoryType.GUID,
                     editorFactory
                 ));
             }
+        }
+
+        public void RegisterProjectFactory(INiProjectFactory projectFactory)
+        {
+            if (projectFactory == null)
+                throw new ArgumentNullException("projectFactory");
+
+            var projectManager = (INiProjectManager)GetService(typeof(INiProjectManager));
+
+            projectFactory.SetSite(this);
+
+            ErrorUtil.ThrowOnFailure(projectManager.RegisterProjectFactory(
+                projectFactory.GetType().GUID,
+                projectFactory
+            ));
         }
 
         public HResult SetSite(IServiceProvider serviceProvider)
@@ -292,7 +292,7 @@ namespace NetIde.Shell
 
                 using (var key = registrationContext.CreateKey("Packages\\" + packageGuid))
                 {
-                    key.SetValue(null, ResolveStringResource(description));
+                    key.SetValue(null, this.ResolveStringResource(description));
 
                     foreach (var type in GetType().Assembly.GetTypes())
                     {

@@ -20,14 +20,7 @@ namespace NetIde.Shell
             if (key == null)
                 throw new ArgumentNullException("key");
 
-            if (key.StartsWith("@"))
-            {
-                string value;
-                ErrorUtil.ThrowOnFailure(package.GetStringResource(key.Substring(1), out value));
-                return value;
-            }
-
-            return key;
+            return package.ResolveStringResource(key);
         }
     }
 }

@@ -47,9 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INiHierarchy.cs" />
+    <Compile Include="INiHierarchyNotify.cs" />
     <Compile Include="INiList.cs" />
     <Compile Include="INiLanguageServiceRegistry.cs" />
     <Compile Include="INiOptionPage.cs" />
+    <Compile Include="INiProject.cs" />
+    <Compile Include="INiProjectFactory.cs" />
+    <Compile Include="INiProjectItem.cs" />
+    <Compile Include="INiProjectManager.cs" />
+    <Compile Include="INiProjectManagerNotify.cs" />
+    <Compile Include="INiProjectExplorer.cs" />
     <Compile Include="INiToolsOptions.cs" />
     <Compile Include="INiWindowPaneSelection.cs" />
     <Compile Include="INiWindowPaneSelectionNotify.cs" />
@@ -99,7 +107,10 @@
     <Compile Include="INiWindow.cs" />
     <Compile Include="INiWindowFrame.cs" />
     <Compile Include="INiWindowFrameNotify.cs" />
+    <Compile Include="NiHierarchyProperty.cs" />
+    <Compile Include="NiHierarchyType.cs" />
     <Compile Include="NiMessage.cs" />
+    <Compile Include="NiProjectCreateMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NiTextBufferState.cs" />
     <Compile Include="NiToolWindowOrientation.cs" />

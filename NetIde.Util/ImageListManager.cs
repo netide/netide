@@ -15,7 +15,7 @@ namespace NetIde.Util
         private readonly Dictionary<int, int> _cache = new Dictionary<int, int>();
         private readonly Dictionary<Tuple<int, int>, int> _overlays = new Dictionary<Tuple<int, int>, int>();
         private bool _disposed;
-        private IntPtr _handle;
+        private readonly IntPtr _handle;
 
         public ImageList ImageList { get; private set; }
 

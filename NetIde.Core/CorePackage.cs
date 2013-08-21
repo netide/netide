@@ -9,7 +9,9 @@ using System.Windows.Forms;
 using NetIde.Core.OptionPages.Environment;
 using NetIde.Core.PackageManagement;
 using NetIde.Core.Services.LanguageServiceRegistry;
+using NetIde.Core.Services.ProjectExplorer;
 using NetIde.Core.ToolWindows.DiffViewer;
+using NetIde.Core.ToolWindows.ProjectExplorer;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Core.ToolWindows.TextEditor;
@@ -24,6 +26,7 @@ namespace NetIde.Core
     [NiResources("NiResources")]
     [NiStringResources("Labels")]
     [ProvideOptionPage(typeof(FontsOptionPage), "Environment", "Fonts", "@Environment", "@Fonts")]
+    [ProvideToolWindow(typeof(ProjectExplorerWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Right)]
     internal class CorePackage : NiPackage, INiCommandTarget
     {
         private readonly NiCommandMapper _commandMapper = new NiCommandMapper();
@@ -47,6 +50,11 @@ namespace NetIde.Core
                 serviceContainer.AddService(
                     typeof(INiSettings),
                     new NiSettings(this),
+                    true
+                );
+                serviceContainer.AddService(
+                    typeof(INiProjectExplorer),
+                    new NiProjectExplorer(this),
                     true
                 );
 
