@@ -178,11 +178,56 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No document is registered for the provided cookie.
+        /// </summary>
+        internal static string DocumentNotRegistered {
+            get {
+                return ResourceManager.GetString("DocumentNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Downloading package {0}.
         /// </summary>
         internal static string DownloadingPackage {
             get {
                 return ResourceManager.GetString("DownloadingPackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An editor is already open for this document.
+        /// </summary>
+        internal static string EditorAlreadyOpen {
+            get {
+                return ResourceManager.GetString("EditorAlreadyOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editor factory has already been registered.
+        /// </summary>
+        internal static string EditorFactoryAlreadyRegistered {
+            get {
+                return ResourceManager.GetString("EditorFactoryAlreadyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INS.
+        /// </summary>
+        internal static string InsertModeInsert {
+            get {
+                return ResourceManager.GetString("InsertModeInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OVR.
+        /// </summary>
+        internal static string InsertModeOverwrite {
+            get {
+                return ResourceManager.GetString("InsertModeOverwrite", resourceCulture);
             }
         }
         
@@ -291,6 +336,51 @@ namespace NetIde {
         internal static string PackageInitializationFailed {
             get {
                 return ResourceManager.GetString("PackageInitializationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify either the editor guid or document.
+        /// </summary>
+        internal static string SpecifyEitherDocumentOrEditorGuid {
+            get {
+                return ResourceManager.GetString("SpecifyEitherDocumentOrEditorGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ch {0}.
+        /// </summary>
+        internal static string StatusBarCharIndex {
+            get {
+                return ResourceManager.GetString("StatusBarCharIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        internal static string StatusBarDefaultStatus {
+            get {
+                return ResourceManager.GetString("StatusBarDefaultStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Col {0}.
+        /// </summary>
+        internal static string StatusBarIndex {
+            get {
+                return ResourceManager.GetString("StatusBarIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ln {0}.
+        /// </summary>
+        internal static string StatusBarLine {
+            get {
+                return ResourceManager.GetString("StatusBarLine", resourceCulture);
             }
         }
         

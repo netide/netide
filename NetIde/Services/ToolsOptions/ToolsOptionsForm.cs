@@ -200,11 +200,14 @@ namespace NetIde.Services.ToolsOptions
             if (_currentPage.Page == null)
             {
                 object instance;
-                ErrorUtil.ThrowOnFailure(_localRegistry.CreateInstance(_currentPage.Registration.Id, out instance));
+                ErrorUtil.ThrowOnFailure(_localRegistry.CreateInstance(
+                    _currentPage.Registration.Id,
+                    _currentPage.Package.Package,
+                    out instance
+                ));
 
                 _currentPage.Page = (INiOptionPage)instance;
 
-                ErrorUtil.ThrowOnFailure(_currentPage.Page.SetSite(_currentPage.Package.Package));
                 ErrorUtil.ThrowOnFailure(_currentPage.Page.Initialize());
             }
 

@@ -61,6 +61,15 @@ namespace NetIde.Shell {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot resolve project.
+        /// </summary>
+        internal static string CannotResolveProject {
+            get {
+                return ResourceManager.GetString("CannotResolveProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot set property.
         /// </summary>
         internal static string CannotSetProperty {

@@ -5,9 +5,8 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiProjectFactory : IServiceProvider
+    public interface INiProjectFactory : IServiceProvider, INiObjectWithSite
     {
-        HResult SetSite(IServiceProvider serviceProvider);
         HResult CreateProject(string fileName, NiProjectCreateMode createMode, out INiProject project);
     }
 }

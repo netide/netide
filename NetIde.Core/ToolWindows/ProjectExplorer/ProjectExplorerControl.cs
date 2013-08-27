@@ -115,6 +115,24 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
             }
         }
 
+        private void _treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node != null)
+            {
+                var manager = (TreeNodeManager)e.Node.Tag;
+                var projectItem = manager.Item as INiProjectItem;
+
+                if (projectItem != null)
+                {
+                    NiShellUtil.Checked(Site, () =>
+                    {
+                        INiWindowFrame unused;
+                        ErrorUtil.ThrowOnFailure(projectItem.Open(out unused));
+                    });
+                }
+            }
+        }
+
         private class Listener : NiEventSink, INiProjectManagerNotify
         {
             private readonly ProjectExplorerControl _owner;
@@ -226,22 +244,22 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
                     _manager = manager;
                 }
 
-                public void OnChildAdded(INiHierarchy item)
+                public void OnChildAdded(INiHierarchy hier)
                 {
                     throw new NotImplementedException();
                 }
 
-                public void OnChildRemoved(INiHierarchy item)
+                public void OnChildRemoved(INiHierarchy hier)
                 {
                     throw new NotImplementedException();
                 }
 
-                public void OnPropertyChanged(INiHierarchy item, int property)
+                public void OnPropertyChanged(INiHierarchy hier, int property)
                 {
                     switch ((NiHierarchyProperty)property)
                     {
                         case NiHierarchyProperty.Name:
-                            _manager.TreeNode.Text = (string)item.GetPropertyEx(NiHierarchyProperty.Name);
+                            _manager.TreeNode.Text = (string)hier.GetPropertyEx(NiHierarchyProperty.Name);
                             _manager.Reorder();
                             break;
 

@@ -12,6 +12,7 @@ namespace NetIde.Shell
     {
         private System.Resources.ResourceManager _stringResourceManager;
         private NiServiceContainer _serviceContainer;
+        private IServiceProvider _serviceProvider;
         private readonly Dictionary<Type, NiWindowPane> _toolWindows = new Dictionary<Type, NiWindowPane>();
         private int _commandTargetCookie;
         private bool _disposed;
@@ -119,7 +120,7 @@ namespace NetIde.Shell
 
         private void RegisterEditorFactories()
         {
-            var registry = (INiLocalRegistry)GetService(typeof(INiLocalRegistry));
+            var registry = (INiEditorFactoryRegistry)GetService(typeof(INiEditorFactoryRegistry));
 
             foreach (ProvideEditorFactoryAttribute attribute in GetType().GetCustomAttributes(typeof(ProvideEditorFactoryAttribute), true))
             {
@@ -161,6 +162,7 @@ namespace NetIde.Shell
 
                 LoggingRedirection.Install(serviceProvider);
 
+                _serviceProvider = serviceProvider;
                 _serviceContainer = new NiServiceContainer(serviceProvider);
 
                 return HResult.OK;
@@ -169,6 +171,12 @@ namespace NetIde.Shell
             {
                 return ErrorUtil.GetHResult(ex);
             }
+        }
+
+        public HResult GetSite(out IServiceProvider serviceProvider)
+        {
+            serviceProvider = _serviceProvider;
+            return HResult.OK;
         }
 
         [DebuggerStepThrough]

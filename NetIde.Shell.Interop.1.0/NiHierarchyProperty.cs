@@ -14,6 +14,8 @@ namespace NetIde.Shell.Interop
         OverlayImage = -5,
         Name = -6,
         SortPriority = -7,
-        ItemType = -8
+        ItemType = -8,
+        ContainingProject = -9,
+        Root = -10
     }
 }

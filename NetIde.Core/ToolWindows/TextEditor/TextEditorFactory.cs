@@ -11,9 +11,10 @@ namespace NetIde.Core.ToolWindows.TextEditor
     [Guid(NiConstants.TextEditor)]
     internal class TextEditorFactory : NiEditorFactory
     {
-        public override HResult CreateEditor(out INiWindowPane editor)
+        public override HResult CreateEditor(string document, INiHierarchy hier, out string editorCaption, out INiWindowPane editor)
         {
             editor = null;
+            editorCaption = null;
 
             try
             {

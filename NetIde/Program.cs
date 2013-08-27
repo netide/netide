@@ -7,12 +7,15 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using NetIde.Services.CommandLine;
 using NetIde.Services.CommandManager;
+using NetIde.Services.EditorFactoryRegistry;
 using NetIde.Services.Env;
 using NetIde.Services.JobManager;
 using NetIde.Services.LocalRegistry;
 using NetIde.Services.Logger;
 using NetIde.Services.MenuManager;
+using NetIde.Services.OpenDocumentManager;
 using NetIde.Services.ProjectManager;
+using NetIde.Services.RunningDocumentTable;
 using NetIde.Services.Shell;
 using NetIde.Services.PackageManager;
 using NetIde.Services.ToolsOptions;
@@ -63,19 +66,19 @@ namespace NetIde
                 Log.Info("Starting NetIDE");
 
                 serviceContainer.AddService(typeof(INiLocalRegistry), new NiLocalRegistry(serviceContainer));
+                serviceContainer.AddService(typeof(INiEditorFactoryRegistry), new NiEditorFactoryRegistry(serviceContainer));
                 serviceContainer.AddService(typeof(INiCommandManager), new NiCommandManager(serviceContainer));
                 serviceContainer.AddService(typeof(INiMenuManager), new NiMenuManager(serviceContainer));
                 serviceContainer.AddService(typeof(INiWindowPaneSelection), new NiWindowPaneSelection(serviceContainer));
                 serviceContainer.AddService(typeof(INiShell), new NiShell(serviceContainer));
                 serviceContainer.AddService(typeof(INiJobManager), new NiJobManager(serviceContainer));
                 serviceContainer.AddService(typeof(INiToolsOptions), new NiToolsOptions(serviceContainer));
+                serviceContainer.AddService(typeof(INiProjectManager), new NiProjectManager(serviceContainer));
+                serviceContainer.AddService(typeof(INiOpenDocumentManager), new NiOpenDocumentManager(serviceContainer));
+                serviceContainer.AddService(typeof(INiRunningDocumentTable), new NiRunningDocumentTable(serviceContainer));
 
                 var packageManager = new NiPackageManager(serviceContainer);
                 serviceContainer.AddService(typeof(INiPackageManager), packageManager);
-
-                // Project support.
-
-                serviceContainer.AddService(typeof(INiProjectManager), new NiProjectManager(serviceContainer));
 
                 // Initialize the required services.
 

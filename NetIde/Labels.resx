@@ -156,8 +156,23 @@
   <data name="CouldNotParseKeys" xml:space="preserve">
     <value>Could not parse keys '{0}'.</value>
   </data>
+  <data name="DocumentNotRegistered" xml:space="preserve">
+    <value>No document is registered for the provided cookie</value>
+  </data>
   <data name="DownloadingPackage" xml:space="preserve">
     <value>Downloading package {0}</value>
+  </data>
+  <data name="EditorAlreadyOpen" xml:space="preserve">
+    <value>An editor is already open for this document</value>
+  </data>
+  <data name="EditorFactoryAlreadyRegistered" xml:space="preserve">
+    <value>Editor factory has already been registered</value>
+  </data>
+  <data name="InsertModeInsert" xml:space="preserve">
+    <value>INS</value>
+  </data>
+  <data name="InsertModeOverwrite" xml:space="preserve">
+    <value>OVR</value>
   </data>
   <data name="InstallingPackage" xml:space="preserve">
     <value>Installing package {0}</value>
@@ -194,6 +209,21 @@
   </data>
   <data name="PackageInitializationFailed" xml:space="preserve">
     <value>Failed to load and initialize package '{0}'</value>
+  </data>
+  <data name="SpecifyEitherDocumentOrEditorGuid" xml:space="preserve">
+    <value>Specify either the editor guid or document</value>
+  </data>
+  <data name="StatusBarCharIndex" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="StatusBarDefaultStatus" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="StatusBarIndex" xml:space="preserve">
+    <value>Col {0}</value>
+  </data>
+  <data name="StatusBarLine" xml:space="preserve">
+    <value>Ln {0}</value>
   </data>
   <data name="UninstallingPackage" xml:space="preserve">
     <value>Removing package {0}</value>

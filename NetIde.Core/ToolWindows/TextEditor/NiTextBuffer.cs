@@ -11,7 +11,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
 {
     [Guid(NiConstants.TextBuffer)]
     [ProvideObject(typeof(NiTextBuffer))]
-    internal class NiTextBuffer : ServiceObject, INiTextBuffer
+    internal partial class NiTextBuffer : ServiceObject, INiTextBuffer
     {
         private bool _dirty;
         private Guid _languageService;
@@ -41,7 +41,6 @@ namespace NetIde.Core.ToolWindows.TextEditor
             _languageService = new Guid(NiConstants.LanguageServiceDefault);
 
             Document = new DocumentFactory().CreateDocument();
-
             Document.TextContentChanged += _document_TextContentChanged;
         }
 

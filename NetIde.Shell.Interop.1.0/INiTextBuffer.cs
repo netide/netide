@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiTextBuffer
+    public interface INiTextBuffer : INiPersistDocData, INiPersistFile, INiObjectWithSite
     {
         HResult InitializeContent(string text);
         HResult GetStateFlags(out NiTextBufferState flags);

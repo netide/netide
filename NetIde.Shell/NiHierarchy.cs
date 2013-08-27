@@ -23,7 +23,12 @@ namespace NetIde.Shell
         public HResult SetSite(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            return HResult.OK;
+        }
 
+        public HResult GetSite(out IServiceProvider serviceProvider)
+        {
+            serviceProvider = _serviceProvider;
             return HResult.OK;
         }
 
@@ -95,6 +100,14 @@ namespace NetIde.Shell
                         }
                         return HResult.False;
 
+                    case NiHierarchyProperty.ContainingProject:
+                        value = GetRoot() as INiProject;
+                        return HResult.OK;
+
+                    case NiHierarchyProperty.Root:
+                        value = GetRoot();
+                        return HResult.OK;
+
                     default:
                         if (_properties.TryGetValue(property, out value))
                             return HResult.OK;
@@ -105,6 +118,18 @@ namespace NetIde.Shell
             {
                 return ErrorUtil.GetHResult(ex);
             }
+        }
+
+        private object GetRoot()
+        {
+            var current = this;
+
+            while (current._parent != null)
+            {
+                current = current._parent;
+            }
+
+            return current;
         }
 
         public HResult SetProperty(int property, object value)
@@ -204,6 +229,7 @@ namespace NetIde.Shell
 
         private void AddChild(NiHierarchy item)
         {
+            item.SetSite(this);
             AddToChildren(item);
 
             _connectionPoint.ForAll(p => p.OnChildAdded(item));
@@ -241,6 +267,7 @@ namespace NetIde.Shell
         private void RemoveChild(NiHierarchy item)
         {
             RemoveFromChildren(item);
+            item.SetSite(null);
 
             _connectionPoint.ForAll(p => p.OnChildRemoved(item));
         }

@@ -204,7 +204,10 @@
     <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerWindow.cs" />
     <Compile Include="ToolWindows\TextEditor\LanguageServiceMapper.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextBuffer.cs" />
+    <Compile Include="ToolWindows\TextEditor\NiTextBuffer.Persist.cs" />
+    <Compile Include="ToolWindows\TextEditor\NiTextMarker.cs" />
     <Compile Include="ToolWindows\TextEditor\TextEditorFactory.cs" />
+    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.Commands.cs" />
     <Compile Include="ToolWindows\TextEditor\TextEditorWindow.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextLines.cs" />
   </ItemGroup>

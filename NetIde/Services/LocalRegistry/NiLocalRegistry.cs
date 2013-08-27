@@ -16,13 +16,11 @@ namespace NetIde.Services.LocalRegistry
 
         private static readonly Dictionary<Type, Func<NiLocalRegistry, IRegistration, object>> _builders = new Dictionary<Type, Func<NiLocalRegistry, IRegistration, object>>
         {
-            { typeof(EditorFactoryRegistration), (s, r) => s.CreateEditor((EditorFactoryRegistration)r) },
             { typeof(ToolWindowRegistration), (s, r) => s.CreateToolWindow((ToolWindowRegistration)r) },
             { typeof(TypeRegistration), (s, r) => s.CreateType((ITypeRegistration)r) },
             { typeof(OptionPageRegistration), (s, r) => s.CreateType((ITypeRegistration)r) },
         };
 
-        private readonly Dictionary<Guid, INiEditorFactory> _editorFactories = new Dictionary<Guid, INiEditorFactory>();
         private readonly RegistrationCollection _registrations = new RegistrationCollection();
 
         public IKeyedCollection<Guid, IRegistration> Registrations { get; private set; }
@@ -32,38 +30,10 @@ namespace NetIde.Services.LocalRegistry
         {
             Registrations = ReadOnlyKeyedCollection.Create(_registrations);
 
-            LoadEditorFactories();
             LoadProjectFactories();
             LoadToolWindows();
             LoadClasses();
             LoadOptionPages();
-        }
-
-        private void LoadEditorFactories()
-        {
-            RegistryUtil.ForEachPackage(this, "Editors", (packageId, key) =>
-            {
-                foreach (string editorId in key.GetSubKeyNames())
-                {
-                    using (var subKey = key.OpenSubKey(editorId))
-                    {
-                        Log.InfoFormat("Loading editor {0}", editorId);
-
-                        try
-                        {
-                            _registrations.Add(new EditorFactoryRegistration(
-                                packageId,
-                                Guid.Parse(editorId),
-                                (string)subKey.GetValue("DisplayName")
-                            ));
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Error("Could not load editor", ex);
-                        }
-                    }
-                }
-            });
         }
 
         private void LoadProjectFactories()
@@ -205,25 +175,6 @@ namespace NetIde.Services.LocalRegistry
             }
         }
 
-        private object CreateEditor(EditorFactoryRegistration registration)
-        {
-            INiEditorFactory editorFactory;
-
-            if (_editorFactories.TryGetValue(registration.Id, out editorFactory))
-            {
-                INiWindowPane editor;
-                ErrorUtil.ThrowOnFailure(editorFactory.CreateEditor(out editor));
-
-                return editor;
-            }
-            else
-            {
-                Log.InfoFormat("No editor factory registered for editor '{0}'", registration.Id);
-            }
-
-            return null;
-        }
-
         private object CreateToolWindow(ToolWindowRegistration registration)
         {
             var packageManager = (NiPackageManager)GetService(typeof(INiPackageManager));
@@ -241,23 +192,6 @@ namespace NetIde.Services.LocalRegistry
             var package = packageManager.Packages[registration.Package];
 
             return package.CreateInstanceAndUnwrap(registration.Type);
-        }
-
-        public HResult RegisterEditorFactory(Guid guid, INiEditorFactory editorFactory)
-        {
-            try
-            {
-                if (editorFactory == null)
-                    throw new ArgumentNullException("editorFactory");
-
-                _editorFactories.Add(guid, editorFactory);
-
-                return HResult.OK;
-            }
-            catch (Exception ex)
-            {
-                return ErrorUtil.GetHResult(ex);
-            }
         }
 
         private class RegistrationCollection : KeyedCollection<Guid, IRegistration>

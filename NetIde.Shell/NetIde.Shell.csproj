@@ -54,15 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainSetup.cs" />
+    <Compile Include="NiTextChangedEventHandler.cs" />
     <Compile Include="NiHierarchy.cs" />
     <Compile Include="NiHierarchyExtensions.cs" />
     <Compile Include="NiList.cs" />
+    <Compile Include="NiLocalRegistryExtensions.cs" />
     <Compile Include="NiOptionPage.cs" />
     <Compile Include="NiPackageExtensions.cs" />
     <Compile Include="NiProjectFactory.cs" />
     <Compile Include="NiProject.cs" />
     <Compile Include="NiProjectItem.cs" />
     <Compile Include="NiResourcesAttribute.cs" />
+    <Compile Include="NiRunningDocumentTableExtensions.cs" />
     <Compile Include="NiStringResourcesAttribute.cs" />
     <Compile Include="NiWindow.cs" />
     <Compile Include="NiWindowHost.cs">

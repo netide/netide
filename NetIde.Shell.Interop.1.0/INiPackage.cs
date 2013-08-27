@@ -5,9 +5,8 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiPackage : IServiceProvider, IDisposable
+    public interface INiPackage : IServiceProvider, INiObjectWithSite, IDisposable
     {
-        HResult SetSite(IServiceProvider serviceProvider);
         HResult Initialize();
         HResult GetStringResource(string key, out string value);
         HResult GetNiResources(out IResource value);

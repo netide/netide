@@ -101,6 +101,9 @@
     <Compile Include="MainForm.Proxy.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm.StatusBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NetIdeException.cs" />
     <Compile Include="NeutralResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -142,6 +145,7 @@
     </Compile>
     <Compile Include="Services\CommandManager\ICommandBarContainer.cs" />
     <Compile Include="Services\CommandManager\MenuBuilder.cs" />
+    <Compile Include="Services\EditorFactoryRegistry\NiEditorFactoryRegistry.cs" />
     <Compile Include="Services\Env\NiEnv.cs" />
     <Compile Include="Services\JobManager\JobForm.cs">
       <SubType>Form</SubType>
@@ -158,7 +162,6 @@
     <Compile Include="Services\JobManager\NiJob.cs" />
     <Compile Include="Services\JobManager\JobEventHandler.cs" />
     <Compile Include="Services\JobManager\NiJobManager.cs" />
-    <Compile Include="Services\LocalRegistry\EditorFactoryRegistration.cs" />
     <Compile Include="Services\LocalRegistry\IRegistration.cs" />
     <Compile Include="Services\LocalRegistry\ITypeRegistration.cs" />
     <Compile Include="Services\LocalRegistry\ProjectFactoryRegistration.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Services\LocalRegistry\TypeRegistration.cs" />
     <Compile Include="Services\Logger\NiLogger.cs" />
     <Compile Include="Services\MenuManager\NiMenuManager.cs" />
+    <Compile Include="Services\OpenDocumentManager\NiOpenDocumentManager.cs" />
     <Compile Include="Services\PackageManager\ExceptionEventHandler.cs" />
     <Compile Include="Services\PackageManager\LoadOrderResolver.cs" />
     <Compile Include="Services\PackageManager\PackageUpdater.cs" />
@@ -180,6 +184,7 @@
       <DependentUpon>UpdateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\ProjectManager\NiProjectManager.cs" />
+    <Compile Include="Services\RunningDocumentTable\NiRunningDocumentTable.cs" />
     <Compile Include="Services\Shell\DockContent.cs">
       <SubType>Form</SubType>
     </Compile>

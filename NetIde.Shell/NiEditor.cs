@@ -11,6 +11,7 @@ namespace NetIde.Shell
     {
         private string _text;
         private INiTextLines _textBuffer;
+        private bool _disposed;
 
         public INiTextLines TextBuffer
         {
@@ -55,6 +56,72 @@ namespace NetIde.Shell
             }
         }
 
+        public new NiTextChangedEventHandler TextChanged;
+        private Listener _listener;
+
+        public virtual void OnTextChanged(NiTextChangedEventArgs e)
+        {
+            var ev = TextChanged;
+            if (ev != null)
+                ev(this, e);
+        }
+        
+        public NiEditor()
+        {
+            AcceptsArrows = true;
+            AcceptsTab = true;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (_listener != null)
+                {
+                    _listener.Dispose();
+                    _listener = null;
+                }
+
+                _disposed = true;
+            }
+
+            base.Dispose(disposing);
+        }
+
+        protected override INiCodeWindow CreateWindow()
+        {
+            var manager = (INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager));
+            var registry = (INiLocalRegistry)GetService(typeof(INiLocalRegistry));
+
+            INiEditorFactory editorFactory;
+            ErrorUtil.ThrowOnFailure(manager.GetStandardEditorFactory(new Guid(NiConstants.TextEditor), null, out editorFactory));
+
+            string unused;
+            INiWindowPane windowPane;
+            ErrorUtil.ThrowOnFailure(editorFactory.CreateEditor(null, null, out unused, out windowPane));
+
+            var window = (INiCodeWindow)windowPane;
+
+            ErrorUtil.ThrowOnFailure(window.Initialize());
+
+            object instance;
+            ErrorUtil.ThrowOnFailure(registry.CreateInstance(new Guid(NiConstants.TextLines), windowPane, out instance));
+
+            _textBuffer = (INiTextLines)instance;
+
+            ErrorUtil.ThrowOnFailure(window.SetBuffer(TextBuffer));
+
+            if (!String.IsNullOrEmpty(_text))
+            {
+                SetText(_text);
+                _text = null;
+            }
+
+            _listener = new Listener(this);
+
+            return window;
+        }
+
         private string GetText()
         {
             int line;
@@ -76,36 +143,20 @@ namespace NetIde.Shell
             ErrorUtil.ThrowOnFailure(TextBuffer.ReplaceLines(0, 0, line, index, value ?? String.Empty));
         }
 
-        public NiEditor()
+        private class Listener : NiEventSink, INiTextLinesEvents
         {
-            AcceptsArrows = true;
-            AcceptsTab = true;
-        }
+            private readonly NiEditor _owner;
 
-        protected override INiCodeWindow CreateWindow()
-        {
-            var registry = ((INiLocalRegistry)GetService(typeof(INiLocalRegistry)));
-
-            object instance;
-            ErrorUtil.ThrowOnFailure(registry.CreateInstance(new Guid(NiConstants.TextEditor), out instance));
-
-            var window = (INiCodeWindow)instance;
-
-            ErrorUtil.ThrowOnFailure(window.Initialize());
-
-            ErrorUtil.ThrowOnFailure(registry.CreateInstance(new Guid(NiConstants.TextLines), out instance));
-
-            _textBuffer = (INiTextLines)instance;
-
-            ErrorUtil.ThrowOnFailure(window.SetBuffer(TextBuffer));
-
-            if (!String.IsNullOrEmpty(_text))
+            public Listener(NiEditor owner)
+                : base(owner._textBuffer)
             {
-                SetText(_text);
-                _text = null;
+                _owner = owner;
             }
 
-            return window;
+            public void OnChanged(int startLine, int startIndex, int endLine, int endIndex)
+            {
+                _owner.OnTextChanged(new NiTextChangedEventArgs(startLine, startIndex, endLine, endIndex));
+            }
         }
     }
 }

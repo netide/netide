@@ -112,19 +112,14 @@ namespace NetIde.Shell
 
         public HResult SetSite(IServiceProvider serviceProvider)
         {
-            try
-            {
-                if (serviceProvider == null)
-                    throw new ArgumentNullException("serviceProvider");
+            _serviceProvider = serviceProvider;
+            return HResult.OK;
+        }
 
-                _serviceProvider = serviceProvider;
-
-                return HResult.OK;
-            }
-            catch (Exception ex)
-            {
-                return ErrorUtil.GetHResult(ex);
-            }
+        public HResult GetSite(out IServiceProvider serviceProvider)
+        {
+            serviceProvider = _serviceProvider;
+            return HResult.OK;
         }
 
         public abstract HResult Initialize();

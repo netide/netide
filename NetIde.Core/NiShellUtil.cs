@@ -35,5 +35,31 @@ namespace NetIde.Core
 
             return result == DialogResult.Yes;
         }
+
+        public static bool Checked(IServiceProvider owner, Action action)
+        {
+            if (owner == null)
+                throw new ArgumentNullException("owner");
+            if (action == null)
+                throw new ArgumentNullException("action");
+
+            try
+            {
+                action();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ((INiShell)owner.GetService(typeof(INiShell))).ShowMessageBox(
+                    ex.Message,
+                    null,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+        }
     }
 }

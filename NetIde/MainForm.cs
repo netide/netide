@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -52,6 +53,11 @@ namespace NetIde
                 base.Site = value;
 
                 _windowPaneSelection = (NiWindowPaneSelection)GetService(typeof(INiWindowPaneSelection));
+
+                ((IServiceContainer)GetService(typeof(IServiceContainer))).AddService(
+                    typeof(INiStatusBar),
+                    new NiStatusBar(this, value)
+                );
             }
         }
 

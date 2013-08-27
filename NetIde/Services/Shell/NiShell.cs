@@ -31,9 +31,10 @@ namespace NetIde.Services.Shell
                 if (windowPane == null)
                     throw new ArgumentNullException("windowPane");
 
-                var dockContent = new DockContent(windowPane, dockStyle, toolWindowOrientation);
-
-                dockContent.Site = new SiteProxy(this);
+                var dockContent = new DockContent(windowPane, dockStyle, toolWindowOrientation)
+                {
+                    Site = new SiteProxy(this)
+                };
 
                 dockContent.Disposed += dockContent_Disposed;
 
@@ -113,6 +114,22 @@ namespace NetIde.Services.Shell
         public IWin32Window GetActiveWindow()
         {
             return new NativeWindowWrapper(NativeMethods.GetActiveWindow());
+        }
+
+        public HResult SaveDocDataToFile(NiSaveMode mode, INiPersistFile persistFile, string fileName, out string newFileName, out bool saved)
+        {
+            throw new NotImplementedException();
+        }
+
+        public INiWindowFrame GetFrameOfPane(INiWindowPane pane)
+        {
+            // TODO: Shouldn't this be a public API point?
+
+            DockContent dockContent;
+            if (_dockContents.TryGetValue(pane, out dockContent))
+                return dockContent.GetProxy();
+
+            return null;
         }
 
         private class NativeWindowWrapper : IWin32Window

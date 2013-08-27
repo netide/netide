@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiCodeWindow : INiWindowPane
+    public interface INiCodeWindow : INiWindowPane, INiTextSelection, INiCommandTarget, INiStatusBarUser
     {
         HResult SetBuffer(INiTextLines textBuffer);
         HResult GetBuffer(out INiTextLines textBuffer);

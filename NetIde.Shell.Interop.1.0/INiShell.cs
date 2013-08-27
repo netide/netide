@@ -12,5 +12,6 @@ namespace NetIde.Shell.Interop
         HResult ShowMessageBox(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
         HResult ShowMessageBox(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, out DialogResult result);
         HResult BrowseForFolder(string title, NiBrowseForFolderOptions options, out string selectedFolder);
+        HResult SaveDocDataToFile(NiSaveMode mode, INiPersistFile persistFile, string fileName, out string newFileName, out bool saved);
     }
 }

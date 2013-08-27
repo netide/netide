@@ -7,8 +7,8 @@ namespace NetIde.Shell.Interop
 {
     public interface INiHierarchyNotify
     {
-        void OnChildAdded(INiHierarchy item);
-        void OnChildRemoved(INiHierarchy item);
-        void OnPropertyChanged(INiHierarchy item, int property);
+        void OnChildAdded(INiHierarchy hier);
+        void OnChildRemoved(INiHierarchy hier);
+        void OnPropertyChanged(INiHierarchy hier, int property);
     }
 }

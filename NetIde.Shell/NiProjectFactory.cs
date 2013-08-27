@@ -14,7 +14,12 @@ namespace NetIde.Shell
         public HResult SetSite(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            return HResult.OK;
+        }
 
+        public HResult GetSite(out IServiceProvider serviceProvider)
+        {
+            serviceProvider = _serviceProvider;
             return HResult.OK;
         }
 

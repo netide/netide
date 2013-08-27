@@ -5,9 +5,8 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiEditorFactory : IServiceProvider
+    public interface INiEditorFactory : IServiceProvider, INiObjectWithSite
     {
-        HResult SetSite(IServiceProvider serviceProvider);
-        HResult CreateEditor(out INiWindowPane editor);
+        HResult CreateEditor(string document, INiHierarchy hier, out string editorCaption, out INiWindowPane editor);
     }
 }
