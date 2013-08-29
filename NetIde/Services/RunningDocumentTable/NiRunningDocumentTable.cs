@@ -13,12 +13,17 @@ namespace NetIde.Services.RunningDocumentTable
         private readonly Dictionary<int, Registration> _registrations = new Dictionary<int, Registration>();
         private int _lastCookie;
 
+        public bool HaveOpenDocuments
+        {
+            get { return _registrations.Count > 0; }
+        }
+
         public NiRunningDocumentTable(IServiceProvider serviceProvider)
             : base(serviceProvider)
         {
         }
 
-        public HResult GetDocumentIterator(out INiRunningDocumentIterator iterator)
+        public HResult GetDocumentIterator(out INiIterator<int> iterator)
         {
             iterator = null;
 
@@ -112,62 +117,11 @@ namespace NetIde.Services.RunningDocumentTable
             }
         }
 
-        private class Iterator : ServiceObject, INiRunningDocumentIterator
+        private class Iterator : NiIterator<int>
         {
-            private IEnumerator<int> _cookies;
-            private bool _disposed;
-
             public Iterator(IEnumerator<int> cookies)
+                : base(cookies)
             {
-                _cookies = cookies;
-            }
-
-            public HResult GetCurrent(out int cookie)
-            {
-                cookie = -1;
-
-                try
-                {
-                    cookie = _cookies.Current;
-
-                    return HResult.OK;
-                }
-                catch (Exception ex)
-                {
-                    return ErrorUtil.GetHResult(ex);
-                }
-            }
-
-            public HResult Next(out bool available)
-            {
-                available = false;
-
-                try
-                {
-                    available = _cookies.MoveNext();
-
-                    return HResult.OK;
-                }
-                catch (Exception ex)
-                {
-                    return ErrorUtil.GetHResult(ex);
-                }
-            }
-
-            protected override void Dispose(bool disposing)
-            {
-                if (!_disposed)
-                {
-                    if (_cookies != null)
-                    {
-                        _cookies.Dispose();
-                        _cookies = null;
-                    }
-
-                    _disposed = true;
-                }
-
-                base.Dispose(disposing);
             }
         }
     }

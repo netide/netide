@@ -5,8 +5,9 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiRunningDocumentIterator : INiIterator
+    public enum NiFrameType
     {
-        HResult GetCurrent(out int cookie);
+        Document,
+        Tool
     }
 }

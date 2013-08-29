@@ -5,10 +5,8 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    [Flags]
-    public enum NiProjectCreateMode
+    public interface INiShellEvents
     {
-        Open,
-        Overwrite
+        void OnRequerySuggested();
     }
 }

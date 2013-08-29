@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiEnv
+    public interface INiEnv : INiConnectionPoint
     {
         INiWindow MainWindow { get; }
         INiWindowPane ActiveDocument { get; }
@@ -14,6 +14,11 @@ namespace NetIde.Shell.Interop
         string RegistryRoot { get; }
         string NuGetSite { get; set; }
 
+        HResult Advise(INiEnvNotify sink, out int cookie);
+        HResult Quit();
+        HResult ExecuteCommand(Guid command, object argument);
         HResult RestartApplication();
+        HResult SaveAllDocuments(NiSaveAllMode mode, bool prompt);
+        HResult CloseAllDocuments(NiSaveAllMode mode);
     }
 }

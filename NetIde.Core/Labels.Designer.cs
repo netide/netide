@@ -278,6 +278,15 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close A&amp;ll Documents.
+        /// </summary>
+        internal static string MenuCloseAllDocuments {
+            get {
+                return ResourceManager.GetString("MenuCloseAllDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;File.
         /// </summary>
         internal static string MenuFile {
@@ -287,11 +296,74 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C&amp;lose.
+        /// </summary>
+        internal static string MenuFileClose {
+            get {
+                return ResourceManager.GetString("MenuFileClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Pro&amp;ject.
+        /// </summary>
+        internal static string MenuFileCloseProject {
+            get {
+                return ResourceManager.GetString("MenuFileCloseProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E&amp;xit.
         /// </summary>
         internal static string MenuFileExit {
             get {
                 return ResourceManager.GetString("MenuFileExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New P&amp;roject.
+        /// </summary>
+        internal static string MenuFileNewProject {
+            get {
+                return ResourceManager.GetString("MenuFileNewProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open &amp;Project.
+        /// </summary>
+        internal static string MenuFileOpenProject {
+            get {
+                return ResourceManager.GetString("MenuFileOpenProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Save.
+        /// </summary>
+        internal static string MenuFileSave {
+            get {
+                return ResourceManager.GetString("MenuFileSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sa&amp;ve All.
+        /// </summary>
+        internal static string MenuFileSaveAll {
+            get {
+                return ResourceManager.GetString("MenuFileSaveAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save &amp;As.
+        /// </summary>
+        internal static string MenuFileSaveAs {
+            get {
+                return ResourceManager.GetString("MenuFileSaveAs", resourceCulture);
             }
         }
         
@@ -319,6 +391,15 @@ namespace NetIde.Core {
         internal static string MenuToolsPackageManagement {
             get {
                 return ResourceManager.GetString("MenuToolsPackageManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Window.
+        /// </summary>
+        internal static string MenuWindow {
+            get {
+                return ResourceManager.GetString("MenuWindow", resourceCulture);
             }
         }
         

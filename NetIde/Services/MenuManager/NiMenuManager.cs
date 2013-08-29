@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,7 @@ using System.Windows.Forms;
 using NetIde.Services.CommandManager;
 using NetIde.Services.CommandManager.Controls;
 using NetIde.Services.Env;
+using NetIde.Services.Shell;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 
@@ -16,12 +16,8 @@ namespace NetIde.Services.MenuManager
 {
     internal class NiMenuManager : ServiceBase, INiMenuManager
     {
-        private static readonly int MaxInterval = (int)((Stopwatch.Frequency) / 1000 * 300);
-
         private readonly MainForm _mainForm;
         private readonly List<NiCommandBar> _commandBars = new List<NiCommandBar>();
-        private readonly Timer _timer;
-        private long _lastUpdate;
         private readonly NiCommandManager _commandManager;
 
         public NiMenuManager(IServiceProvider serviceProvider)
@@ -30,25 +26,7 @@ namespace NetIde.Services.MenuManager
             _mainForm = ((NiEnv)GetService(typeof(INiEnv))).MainForm;
             _commandManager = (NiCommandManager)GetService(typeof(INiCommandManager));
 
-            _timer = new Timer
-            {
-                Interval = MaxInterval
-            };
-
-            _timer.Tick += (s, e) =>
-            {
-                _timer.Stop();
-
-                QueryStatus();
-            };
-
-            System.Windows.Forms.Application.Idle += (s, e) =>
-            {
-                if (Stopwatch.GetTimestamp() - _lastUpdate > MaxInterval)
-                    QueryStatus();
-                else if (!_timer.Enabled)
-                    _timer.Start();
-            };
+            ((NiShell)GetService(typeof(INiShell))).RequerySuggested += (s, e) => QueryStatus();
         }
 
         public HResult RegisterCommandBar(INiCommandBar commandBar)
@@ -122,8 +100,6 @@ namespace NetIde.Services.MenuManager
 
         public void QueryStatus()
         {
-            _lastUpdate = Stopwatch.GetTimestamp();
-
             if (_mainForm.IsDisposing || _mainForm.IsDisposed)
                 return;
 

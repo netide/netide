@@ -79,6 +79,15 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot create project.
+        /// </summary>
+        internal static string CannotCreateProject {
+            get {
+                return ResourceManager.GetString("CannotCreateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot find command &apos;{0}&apos;..
         /// </summary>
         internal static string CannotFindCommand {
@@ -178,6 +187,15 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Project.
+        /// </summary>
+        internal static string CreateProject {
+            get {
+                return ResourceManager.GetString("CreateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No document is registered for the provided cookie.
         /// </summary>
         internal static string DocumentNotRegistered {
@@ -192,15 +210,6 @@ namespace NetIde {
         internal static string DownloadingPackage {
             get {
                 return ResourceManager.GetString("DownloadingPackage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An editor is already open for this document.
-        /// </summary>
-        internal static string EditorAlreadyOpen {
-            get {
-                return ResourceManager.GetString("EditorAlreadyOpen", resourceCulture);
             }
         }
         
@@ -309,6 +318,15 @@ namespace NetIde {
         internal static string NiResourcesMissing {
             get {
                 return ResourceManager.GetString("NiResourcesMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot close the project until all open documents have been closed.
+        /// </summary>
+        internal static string OpenDocumentsPresent {
+            get {
+                return ResourceManager.GetString("OpenDocumentsPresent", resourceCulture);
             }
         }
         

@@ -182,6 +182,15 @@ namespace NetIde.Shell
                 RaiseShow(NiWindowShow.Activate);
         }
 
+        public void RaiseClose(NiFrameCloseMode closeMode, ref bool cancel)
+        {
+            bool notifyCancel = cancel;
+
+            _connectionPoint.ForAll(p => p.OnClose(closeMode, ref notifyCancel));
+
+            cancel = notifyCancel;
+        }
+
         protected override void Dispose(bool disposing)
         {
             RaiseShow(NiWindowShow.Close);

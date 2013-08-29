@@ -25,7 +25,6 @@ namespace NetIde.Core.PackageManagement
         private static bool _restartPending;
 
         private INiEnv _env;
-        private INiShell _shell;
         private int _cookie;
         private PackageCategory _lastCategory;
 
@@ -37,7 +36,6 @@ namespace NetIde.Core.PackageManagement
                 base.Site = value;
 
                 _env = (INiEnv)GetService(typeof(INiEnv));
-                _shell = (INiShell)GetService(typeof(INiShell));
             }
         }
 

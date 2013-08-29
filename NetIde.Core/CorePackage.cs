@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Core.OptionPages.Environment;
-using NetIde.Core.PackageManagement;
 using NetIde.Core.Services.LanguageServiceRegistry;
 using NetIde.Core.Services.ProjectExplorer;
 using NetIde.Core.ToolWindows.DiffViewer;
@@ -27,9 +26,12 @@ namespace NetIde.Core
     [NiStringResources("Labels")]
     [ProvideOptionPage(typeof(FontsOptionPage), "Environment", "Fonts", "@Environment", "@Fonts")]
     [ProvideToolWindow(typeof(ProjectExplorerWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Right)]
-    internal class CorePackage : NiPackage, INiCommandTarget
+    internal partial class CorePackage : NiPackage, INiCommandTarget
     {
         private readonly NiCommandMapper _commandMapper = new NiCommandMapper();
+        private INiProjectManager _projectManager;
+        private INiWindowPaneSelection _windowPaneSelection;
+        private INiEnv _env;
 
         public override HResult Initialize()
         {
@@ -58,37 +60,17 @@ namespace NetIde.Core
                     true
                 );
 
-                SetupCommands();
+                _projectManager = (INiProjectManager)GetService(typeof(INiProjectManager));
+                _windowPaneSelection = (INiWindowPaneSelection)GetService(typeof(INiWindowPaneSelection));
+                _env = (INiEnv)GetService(typeof(INiEnv));
+
+                BuildCommands();
 
                 return HResult.OK;
             }
             catch (Exception ex)
             {
                 return ErrorUtil.GetHResult(ex);
-            }
-        }
-
-        private void SetupCommands()
-        {
-            _commandMapper.Add(
-                Shell.NiResources.File_Exit,
-                p => ErrorUtil.ThrowOnFailure(((INiEnv)GetService(typeof(INiEnv))).MainWindow.Close())
-            );
-            _commandMapper.Add(
-                Shell.NiResources.Tools_Options,
-                p => ErrorUtil.ThrowOnFailure(((INiToolsOptions)GetService(typeof(INiToolsOptions))).Open())
-            );
-            _commandMapper.Add(
-                Shell.NiResources.Tools_PackageManagement,
-                p => OpenPackageManagementForm()
-            );
-        }
-
-        private void OpenPackageManagementForm()
-        {
-            using (var form = new PackageManagementForm())
-            {
-                form.ShowDialog(this);
             }
         }
 

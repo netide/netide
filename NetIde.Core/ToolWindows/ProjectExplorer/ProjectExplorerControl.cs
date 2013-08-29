@@ -90,16 +90,35 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
         private void ReloadProject()
         {
-            if (_treeView.Nodes.Count > 0)
-            {
-                // Unloading not yet implemented.
-                throw new NotImplementedException();
-            }
+            _treeView.BeginUpdate();
 
-            if (_projectManager.ActiveProject != null)
+            try
             {
-                LoadNode(_treeView.Nodes, _projectManager.ActiveProject);
-                _treeView.Nodes[0].Expand();
+                if (_treeView.Nodes.Count > 0)
+                {
+                    DestroyNodes(_treeView.Nodes);
+                    _treeView.Nodes.Clear();
+                }
+
+                if (_projectManager.ActiveProject != null)
+                {
+                    LoadNode(_treeView.Nodes, _projectManager.ActiveProject);
+                    _treeView.Nodes[0].Expand();
+                }
+            }
+            finally
+            {
+                _treeView.EndUpdate();
+            }
+        }
+
+        private void DestroyNodes(TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                DestroyNodes(node.Nodes);
+
+                ((IDisposable)node.Tag).Dispose();
             }
         }
 

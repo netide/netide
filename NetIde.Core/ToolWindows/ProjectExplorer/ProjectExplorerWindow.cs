@@ -32,18 +32,12 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
                 Window = _control;
 
-                InitializeCommands();
-
                 return HResult.OK;
             }
             catch (Exception ex)
             {
                 return ErrorUtil.GetHResult(ex);
             }
-        }
-
-        private void InitializeCommands()
-        {
         }
     }
 }

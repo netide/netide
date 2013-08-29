@@ -194,6 +194,12 @@
     <Compile Include="Services\PackageManager\PackageRegistration.cs" />
     <Compile Include="Services\LocalRegistry\NiLocalRegistry.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\Shell\SaveHierarchiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\Shell\SaveHierarchiesForm.Designer.cs">
+      <DependentUpon>SaveHierarchiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\ToolsOptions\NiToolsOptions.cs" />
     <Compile Include="Services\LocalRegistry\OptionPageRegistration.cs" />
     <Compile Include="Services\ToolsOptions\PageContainer.cs">
@@ -249,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Services\PackageManager\UpdateForm.resx">
       <DependentUpon>UpdateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\Shell\SaveHierarchiesForm.resx">
+      <DependentUpon>SaveHierarchiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Services\ToolsOptions\ToolsOptionsForm.resx">
       <DependentUpon>ToolsOptionsForm.cs</DependentUpon>

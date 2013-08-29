@@ -28,6 +28,11 @@ namespace NetIde.Core.ToolWindows.TextEditor
             int startOffset = e.Offset;
             int endOffset = e.Offset + e.Length;
 
+            if (startOffset < 0 || startOffset >= Document.TextLength)
+                startOffset = 0;
+            if (endOffset < 0 || endOffset >= Document.TextLength)
+                endOffset = 0;
+
             var segment = Document.GetLineSegmentForOffset(startOffset);
 
             int startLine = segment.LineNumber;

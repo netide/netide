@@ -1,4 +1,6 @@
-﻿namespace NetIde
+﻿#pragma warning disable 0618
+
+namespace NetIde
 {
     partial class MainForm
     {

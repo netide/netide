@@ -99,6 +99,10 @@ namespace NetIde.Shell
             public void OnSize()
             {
             }
+
+            public void OnClose(NiFrameCloseMode closeMode, ref bool cancel)
+            {
+            }
         }
     }
 }

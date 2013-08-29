@@ -7,7 +7,7 @@ namespace NetIde.Shell.Interop
 {
     public interface INiRunningDocumentTable
     {
-        HResult GetDocumentIterator(out INiRunningDocumentIterator iterator);
+        HResult GetDocumentIterator(out INiIterator<int> iterator);
         HResult Register(string document, INiHierarchy hier, INiPersistDocData docData, out int cookie);
         HResult Unregister(int cookie);
         HResult GetDocumentInfo(int cookie, out string document, out INiHierarchy hier, out INiPersistDocData docData);

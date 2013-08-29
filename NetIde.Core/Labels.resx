@@ -259,4 +259,31 @@
   <data name="ProjectExplorer" xml:space="preserve">
     <value>Project Explorer</value>
   </data>
+  <data name="MenuCloseAllDocuments" xml:space="preserve">
+    <value>Close A&amp;ll Documents</value>
+  </data>
+  <data name="MenuFileClose" xml:space="preserve">
+    <value>C&amp;lose</value>
+  </data>
+  <data name="MenuFileCloseProject" xml:space="preserve">
+    <value>Close Pro&amp;ject</value>
+  </data>
+  <data name="MenuFileNewProject" xml:space="preserve">
+    <value>New P&amp;roject</value>
+  </data>
+  <data name="MenuFileOpenProject" xml:space="preserve">
+    <value>Open &amp;Project</value>
+  </data>
+  <data name="MenuFileSave" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="MenuFileSaveAll" xml:space="preserve">
+    <value>Sa&amp;ve All</value>
+  </data>
+  <data name="MenuFileSaveAs" xml:space="preserve">
+    <value>Save &amp;As</value>
+  </data>
+  <data name="MenuWindow" xml:space="preserve">
+    <value>&amp;Window</value>
+  </data>
 </root>

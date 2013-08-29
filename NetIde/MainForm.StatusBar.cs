@@ -48,9 +48,11 @@ namespace NetIde
                         status = new Status();
                         _statuses.Add(_currentUser, status);
 
-                        var windowFrame = ((NiShell)GetService(typeof(INiShell))).GetFrameOfPane(
-                            currentPane
-                        );
+                        INiWindowFrame windowFrame;
+                        ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).GetWindowFrameForWindowPane(
+                            currentPane,
+                            out windowFrame
+                        ));
 
                         Debug.Assert(windowFrame != null);
 
@@ -370,10 +372,18 @@ namespace NetIde
                 public void OnShow(NiWindowShow action)
                 {
                     if (action == NiWindowShow.Close)
+                    {
                         _statusBar._statuses.Remove(_statusBarUser);
+                        _statusBar._currentUser = null;
+                        _statusBar.ApplyStatus(_statusBar.GetCurrentStatus());
+                    }
                 }
 
                 public void OnSize()
+                {
+                }
+
+                public void OnClose(NiFrameCloseMode closeMode, ref bool cancel)
                 {
                 }
             }

@@ -87,7 +87,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 if (fileName == null)
                     throw new ArgumentNullException("fileName");
 
-                File.WriteAllText(fileName ?? _fileName, Document.TextContent);
+                File.WriteAllText(fileName, Document.TextContent);
 
                 if (remember)
                     _fileName = fileName;

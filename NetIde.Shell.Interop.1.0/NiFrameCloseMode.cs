@@ -5,10 +5,10 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    [Flags]
-    public enum NiProjectCreateMode
+    public enum NiFrameCloseMode
     {
-        Open,
-        Overwrite
+        NoSave,
+        SaveIfDirty,
+        PromptSave
     }
 }

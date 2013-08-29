@@ -8,6 +8,7 @@ namespace NetIde.Shell.Interop
     public interface INiWindowFrameNotify
     {
         void OnShow(NiWindowShow action);
+        void OnClose(NiFrameCloseMode closeMode, ref bool cancel);
         void OnSize();
     }
 }

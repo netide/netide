@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Services.CommandManager.Controls;
-using NetIde.Services.PackageManager;
 using NetIde.Services.WindowPaneSelection;
+using NetIde.Shell;
 using NetIde.Shell.Interop;
 using WeifenLuo.WinFormsUI.Docking;
 using DockContent = NetIde.Services.Shell.DockContent;
@@ -22,6 +22,7 @@ namespace NetIde
         private DockContent _lastActiveDockContent;
         private NiWindowPaneSelection _windowPaneSelection;
 
+        public bool AllowQuit { get; set; }
         public bool IsDisposing { get; private set; }
 
         public INiWindowPane ActiveDocument
@@ -162,7 +163,12 @@ namespace NetIde
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = !((NiPackageManager)GetService(typeof(INiPackageManager))).QueryClose();
+            if (!AllowQuit)
+            {
+                e.Cancel = true;
+
+                ErrorUtil.ThrowOnFailure(((INiEnv)GetService(typeof(INiEnv))).Quit());
+            }
         }
 
         private void _dockPanel_ActiveDocumentChanged(object sender, EventArgs e)
@@ -183,6 +189,35 @@ namespace NetIde
 
             if (_lastActiveDockContent != null)
                 _lastActiveDockContent.RaiseShow(NiWindowShow.Activate);
+        }
+
+        internal HResult GetDocumentWindowIterator(out INiIterator<INiWindowFrame> iterator)
+        {
+            iterator = null;
+
+            try
+            {
+                iterator = new NiDocumentWindowIterator(((IEnumerable<IDockContent>)_dockPanel.Documents.ToArray()).GetEnumerator());
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        internal class NiDocumentWindowIterator : NiIterator<IDockContent, INiWindowFrame>
+        {
+            public NiDocumentWindowIterator(IEnumerator<IDockContent> documents)
+                : base(documents)
+            {
+            }
+
+            protected override INiWindowFrame GetCurrentFromInput(IDockContent current)
+            {
+                return ((DockContent)current).GetProxy();
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ namespace NetIde.Shell.Interop
         HResult Advise(INiWindowFrameNotify sink, out int cookie);
         HResult Show();
         HResult Hide();
-        HResult Close();
+        HResult Close(NiFrameCloseMode closeMode);
+        HResult GetProperty(int property, out object value);
+        HResult SetProperty(int property, object value);
     }
 }

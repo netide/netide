@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NetIde.Services.EditorFactoryRegistry;
+using NetIde.Services.Shell;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util;
@@ -18,6 +19,11 @@ namespace NetIde.Services.OpenDocumentManager
 
         private readonly RegistrationCollection _registrations = new RegistrationCollection();
         private readonly Dictionary<string, OpenDocument> _openDocuments = new Dictionary<string, OpenDocument>(StringComparer.OrdinalIgnoreCase);
+
+        public bool HaveOpenDocuments
+        {
+            get { return _openDocuments.Count > 0; }
+        }
 
         public NiOpenDocumentManager(IServiceProvider serviceProvider)
             : base(serviceProvider)
@@ -147,8 +153,12 @@ namespace NetIde.Services.OpenDocumentManager
                 if (serviceProvider == null)
                     throw new ArgumentNullException("serviceProvider");
 
-                if (_openDocuments.ContainsKey(document))
-                    throw new NetIdeException(Labels.EditorAlreadyOpen);
+                OpenDocument openDocument;
+                if (_openDocuments.TryGetValue(document, out openDocument))
+                {
+                    ErrorUtil.ThrowOnFailure(openDocument.WindowFrame.Show());
+                    return HResult.OK;
+                }
 
                 var manager = (INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager));
                 INiEditorFactory editorFactory;
@@ -223,12 +233,20 @@ namespace NetIde.Services.OpenDocumentManager
                         return hr;
                 }
 
+                windowFrame.SetPropertyEx(NiFrameProperty.DocCookie, rdtCooke);
+                windowFrame.SetPropertyEx(NiFrameProperty.DocData, docData);
+                windowFrame.SetPropertyEx(NiFrameProperty.Document, document);
+                windowFrame.SetPropertyEx(NiFrameProperty.EditorType, editorType);
+                windowFrame.SetPropertyEx(NiFrameProperty.Hierarchy, hier);
+                windowFrame.SetPropertyEx(NiFrameProperty.Type, NiFrameType.Document);
+
                 _openDocuments.Add(document, new OpenDocument(
                     this,
                     document,
                     hier,
                     windowFrame,
-                    rdtCooke
+                    rdtCooke,
+                    docData
                 ));
 
                 return windowFrame.Show();
@@ -250,21 +268,55 @@ namespace NetIde.Services.OpenDocumentManager
         {
             private readonly NiOpenDocumentManager _manager;
             private int _rdtCookie;
+            private readonly INiPersistDocData _docData;
             private bool _disposed;
+            private readonly string _initialCaption;
+            private bool _wasDirty;
 
             public string Document { get; private set; }
             public INiHierarchy Item { get; private set; }
             public INiWindowFrame WindowFrame { get; private set; }
 
-            public OpenDocument(NiOpenDocumentManager manager, string document, INiHierarchy item, INiWindowFrame windowFrame, int rdtCookie)
+            public OpenDocument(NiOpenDocumentManager manager, string document, INiHierarchy item, INiWindowFrame windowFrame, int rdtCookie, INiPersistDocData docData)
             {
                 _manager = manager;
                 _rdtCookie = rdtCookie;
+                _docData = docData;
                 Document = document;
                 Item = item;
                 WindowFrame = windowFrame;
 
                 new Listener(this);
+
+                if (docData != null)
+                {
+                    _initialCaption = windowFrame.Caption;
+
+                    UpdateDirtyFlag();
+
+                    ((NiShell)manager.GetService(typeof(INiShell))).RequerySuggested += OpenDocument_RequerySuggested;
+                }
+            }
+
+            private void UpdateDirtyFlag()
+            {
+                bool isDirty;
+                ErrorUtil.ThrowOnFailure(_docData.IsDocDataDirty(out isDirty));
+
+                if (_wasDirty != isDirty)
+                {
+                    _wasDirty = isDirty;
+
+                    if (isDirty)
+                        WindowFrame.Caption = _initialCaption + "*";
+                    else
+                        WindowFrame.Caption = _initialCaption;
+                }
+            }
+
+            void OpenDocument_RequerySuggested(object sender, EventArgs e)
+            {
+                UpdateDirtyFlag();
             }
 
             public void Dispose()
@@ -272,6 +324,9 @@ namespace NetIde.Services.OpenDocumentManager
                 if (!_disposed)
                 {
                     _manager.RemoveDocument(this);
+
+                    if (_docData != null)
+                        ((NiShell)_manager.GetService(typeof(INiShell))).RequerySuggested -= OpenDocument_RequerySuggested;
 
                     if (_rdtCookie != -1)
                     {
@@ -308,6 +363,27 @@ namespace NetIde.Services.OpenDocumentManager
 
                 public void OnSize()
                 {
+                }
+
+                public void OnClose(NiFrameCloseMode closeMode, ref bool cancel)
+                {
+                    if (_owner._docData == null)
+                        return;
+
+                    NiSaveMode saveMode;
+
+                    switch (closeMode)
+                    {
+                        case NiFrameCloseMode.PromptSave: saveMode = NiSaveMode.Save; break;
+                        case NiFrameCloseMode.SaveIfDirty: saveMode = NiSaveMode.SilentSave; break;
+                        default: return;
+                    }
+
+                    string document;
+                    bool saved;
+                    ErrorUtil.ThrowOnFailure(_owner._docData.SaveDocData(saveMode, out document, out saved));
+
+                    cancel = !saved;
                 }
             }
         }

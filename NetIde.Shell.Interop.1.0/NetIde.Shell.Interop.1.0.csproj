@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="INiEditorFactoryRegistry.cs" />
+    <Compile Include="INiEnvNotify.cs" />
     <Compile Include="INiHierarchy.cs" />
     <Compile Include="INiHierarchyNotify.cs" />
     <Compile Include="INiIterator.cs" />
@@ -64,8 +65,8 @@
     <Compile Include="INiProjectManager.cs" />
     <Compile Include="INiProjectManagerNotify.cs" />
     <Compile Include="INiProjectExplorer.cs" />
-    <Compile Include="INiRunningDocumentIterator.cs" />
     <Compile Include="INiRunningDocumentTable.cs" />
+    <Compile Include="INiShellEvents.cs" />
     <Compile Include="INiStatusBar.cs" />
     <Compile Include="INiStatusBarProgress.cs" />
     <Compile Include="INiStatusBarUser.cs" />
@@ -122,11 +123,16 @@
     <Compile Include="INiWindow.cs" />
     <Compile Include="INiWindowFrame.cs" />
     <Compile Include="INiWindowFrameNotify.cs" />
+    <Compile Include="NiSaveAllMode.cs" />
+    <Compile Include="NiFrameCloseMode.cs" />
+    <Compile Include="NiFrameProperty.cs" />
+    <Compile Include="NiFrameType.cs" />
     <Compile Include="NiHierarchyProperty.cs" />
     <Compile Include="NiHierarchyType.cs" />
     <Compile Include="NiInsertMode.cs" />
     <Compile Include="NiMessage.cs" />
     <Compile Include="NiProjectCreateMode.cs" />
+    <Compile Include="NiQuerySaveResult.cs" />
     <Compile Include="NiSaveMode.cs" />
     <Compile Include="NiTextMarkerHatchStyle.cs" />
     <Compile Include="NiTextMarkerType.cs" />

@@ -6,21 +6,25 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using NetIde.Services.PackageManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util;
 using NetIde.Xml;
 using NetIde.Xml.Context;
+using log4net;
 
 namespace NetIde.Services.Env
 {
     internal class NiEnv : ServiceBase, INiEnv
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NiEnv));
+
         private readonly string _initialWorkingDirectory;
         private bool _disposed;
+        private readonly NiConnectionPoint<INiEnvNotify> _connectionPoint = new NiConnectionPoint<INiEnvNotify>();
 
         public MainForm MainForm { get; private set; }
         public ResourceManager ResourceManager { get; private set; }
@@ -48,6 +52,21 @@ namespace NetIde.Services.Env
             _initialWorkingDirectory = Environment.CurrentDirectory;
 
             LoadContext();
+        }
+
+        public HResult Advise(object sink, out int cookie)
+        {
+            return _connectionPoint.Advise(sink, out cookie);
+        }
+
+        public HResult Advise(INiEnvNotify sink, out int cookie)
+        {
+            return Advise((object)sink, out cookie);
+        }
+
+        public HResult Unadvise(int cookie)
+        {
+            return _connectionPoint.Unadvise(cookie);
         }
 
         private void LoadContext()
@@ -119,10 +138,48 @@ namespace NetIde.Services.Env
             RegistryRoot = registryRoot;
         }
 
+        public HResult Quit()
+        {
+            try
+            {
+                bool canClose = ((NiPackageManager)GetService(typeof(INiPackageManager))).QueryClose();
+
+                if (!canClose)
+                    return HResult.False;
+
+                var hr = CloseAllDocuments(NiSaveAllMode.All);
+
+                if (ErrorUtil.Failure(hr) || hr == HResult.False)
+                    return hr;
+
+                hr = ((INiProjectManager)GetService(typeof(INiProjectManager))).CloseProject();
+
+                if (ErrorUtil.Failure(hr) || hr == HResult.False)
+                    return hr;
+
+                _connectionPoint.ForAll(p => p.OnBeginShutdown());
+
+                MainForm.AllowQuit = true;
+
+                ErrorUtil.ThrowOnFailure(MainWindow.Close());
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
         public HResult RestartApplication()
         {
             try
             {
+                var hr = Quit();
+
+                if (ErrorUtil.Failure(hr) || hr == HResult.False)
+                    return hr;
+
                 var args = Environment.GetCommandLineArgs();
 
                 Process.Start(new ProcessStartInfo
@@ -141,6 +198,147 @@ namespace NetIde.Services.Env
             {
                 return ErrorUtil.GetHResult(ex);
             }
+        }
+
+        public HResult ExecuteCommand(Guid command, object argument)
+        {
+            try
+            {
+                object result;
+                ErrorUtil.ThrowOnFailure(((INiCommandManager)GetService(typeof(INiCommandManager))).Exec(
+                    command, argument, out result
+                ));
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult CloseAllDocuments(NiSaveAllMode mode)
+        {
+            try
+            {
+                var hr = SaveAllDocuments(mode, true);
+
+                if (ErrorUtil.Failure(hr) || hr == HResult.False)
+                    return hr;
+
+                foreach (var windowFrame in ((INiShell)GetService(typeof(INiShell))).GetDocumentWindows())
+                {
+                    // We specifically request the frame not to save, because
+                    // the SaveAllDocuments should already have taken care of this
+                    // and we may have dirty windows because the user said the
+                    // documents shouldn't be saved.
+
+                    ErrorUtil.ThrowOnFailure(windowFrame.Close(NiFrameCloseMode.NoSave));
+                }
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult SaveAllDocuments(NiSaveAllMode mode, bool prompt)
+        {
+            try
+            {
+                var dirtyDocuments = GetDirtyDocuments(mode);
+
+                if (dirtyDocuments.Count == 0)
+                    return HResult.OK;
+
+                NiQuerySaveResult querySaveResult;
+                ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).QuerySaveViaDialog(
+                    dirtyDocuments.Select(p => p.Item1).ToArray(),
+                    out querySaveResult
+                ));
+
+                switch (querySaveResult)
+                {
+                    case NiQuerySaveResult.Save:
+                        foreach (var docData in dirtyDocuments.Select(p => p.Item2))
+                        {
+                            string document;
+                            bool saved;
+                            ErrorUtil.ThrowOnFailure(docData.SaveDocData(
+                                NiSaveMode.SilentSave,
+                                out document,
+                                out saved
+                            ));
+
+                            if (!saved)
+                                Log.Warn("Document {0} was not saved during SaveAll; ignoring");
+                        }
+                        return HResult.OK;
+
+                    case NiQuerySaveResult.DoNotSave:
+                        return HResult.OK;
+
+                    default:
+                        return HResult.False;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        private List<Tuple<INiHierarchy, INiPersistDocData>> GetDirtyDocuments(NiSaveAllMode mode)
+        {
+            var dirtyDocuments = new List<Tuple<INiHierarchy, INiPersistDocData>>();
+
+            if (mode == NiSaveAllMode.VisibleOnly)
+            {
+                foreach (var windowFrame in ((INiShell)GetService(typeof(INiShell))).GetDocumentWindows())
+                {
+                    var docData = (INiPersistDocData)windowFrame.GetPropertyEx(NiFrameProperty.DocData);
+
+                    if (docData != null)
+                    {
+                        bool isDirty;
+                        ErrorUtil.ThrowOnFailure(docData.IsDocDataDirty(out isDirty));
+
+                        if (isDirty)
+                        {
+                            var hier = (INiHierarchy)windowFrame.GetPropertyEx(NiFrameProperty.Hierarchy);
+
+                            Debug.Assert(hier != null);
+
+                            if (hier != null)
+                                dirtyDocuments.Add(Tuple.Create(hier, docData));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var runningDocumentTable = (INiRunningDocumentTable)GetService(typeof(INiRunningDocumentTable));
+
+                foreach (int cookie in runningDocumentTable.GetDocuments())
+                {
+                    string document;
+                    INiHierarchy hier;
+                    INiPersistDocData docData;
+                    ErrorUtil.ThrowOnFailure(runningDocumentTable.GetDocumentInfo(
+                        cookie, out document, out hier, out docData
+                    ));
+
+                    bool isDirty;
+                    ErrorUtil.ThrowOnFailure(docData.IsDocDataDirty(out isDirty));
+
+                    if (isDirty)
+                        dirtyDocuments.Add(Tuple.Create(hier, docData));
+                }
+            }
+
+            return dirtyDocuments;
         }
 
         protected override void Dispose(bool disposing)

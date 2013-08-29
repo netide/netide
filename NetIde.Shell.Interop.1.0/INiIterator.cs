@@ -5,8 +5,9 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiIterator : IDisposable
+    public interface INiIterator<T> : IDisposable
     {
+        HResult GetCurrent(out T current);
         HResult Next(out bool available);
     }
 }

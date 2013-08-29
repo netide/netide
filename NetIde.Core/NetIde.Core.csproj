@@ -70,6 +70,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="CorePackage.Commands.cs" />
     <Compile Include="DialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -300,6 +301,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\folders.ico" />
+    <None Include="Resources\DiskBlue.png" />
+    <None Include="Resources\Disks.png" />
+    <None Include="Resources\Documents.png" />
+    <None Include="Resources\DocumentsNew.png" />
     <Content Include="Resources\NiMenu.xml" />
     <None Include="packages.config" />
     <None Include="Resources\PageRight.png" />

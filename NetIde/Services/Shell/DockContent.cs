@@ -13,6 +13,7 @@ namespace NetIde.Services.Shell
         private Proxy _proxy;
         private NativeWindowHost _host;
         private bool _disposed;
+        private bool _suppressClosing;
 
         public INiWindowPane WindowPane { get; private set; }
         public NiDockStyle DockStyle { get; private set; }
@@ -26,6 +27,7 @@ namespace NetIde.Services.Shell
             WindowPane = windowPane;
             DockStyle = dockStyle;
             Orientation = orientation;
+            ShowIcon = false;
 
             switch (dockStyle)
             {
@@ -96,7 +98,28 @@ namespace NetIde.Services.Shell
 
         public void RaiseShow(NiWindowShow show)
         {
-            _host.RaiseShow(show);
+            if (!_disposed)
+                _host.RaiseShow(show);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (!_suppressClosing)
+            {
+                bool cancel = false;
+                RaiseClose(NiFrameCloseMode.PromptSave, ref cancel);
+
+                if (cancel)
+                    e.Cancel = true;
+            }
+
+            base.OnFormClosing(e);
+        }
+
+        public void RaiseClose(NiFrameCloseMode closeMode, ref bool cancel)
+        {
+            if (!_disposed)
+                _host.RaiseClose(closeMode, ref cancel);
         }
 
         protected override void Dispose(bool disposing)
@@ -121,11 +144,17 @@ namespace NetIde.Services.Shell
             private IResource _icon;
             private readonly NiEnv _env;
             private bool _shown;
+            private readonly Dictionary<int, object> _properties = new Dictionary<int, object>();
 
             public Proxy(DockContent owner)
             {
                 _owner = owner;
                 _env = (NiEnv)_owner.GetService(typeof(INiEnv));
+
+                if ((owner.DockAreas & WeifenLuo.WinFormsUI.Docking.DockAreas.Document) != 0)
+                    _properties[(int)NiFrameProperty.Type] = NiFrameType.Document;
+                else
+                    _properties[(int)NiFrameProperty.Type] = NiFrameType.Tool;
             }
 
             public bool IsVisible
@@ -152,6 +181,7 @@ namespace NetIde.Services.Shell
                             value == null
                             ? null
                             : _env.ResourceManager.GetIcon(value);
+                        _owner.ShowIcon = _owner.Icon != null;
                     }
                 }
             }
@@ -194,11 +224,26 @@ namespace NetIde.Services.Shell
                 }
             }
 
-            public HResult Close()
+            public HResult Close(NiFrameCloseMode closeMode)
             {
                 try
                 {
-                    _owner.Close();
+                    _owner._suppressClosing = true;
+
+                    try
+                    {
+                        bool cancel = false;
+                        _owner.RaiseClose(closeMode, ref cancel);
+
+                        if (cancel)
+                            return HResult.False;
+
+                        _owner.Close();
+                    }
+                    finally
+                    {
+                        _owner._suppressClosing = false;
+                    }
 
                     return HResult.OK;
                 }
@@ -221,6 +266,40 @@ namespace NetIde.Services.Shell
             public HResult Unadvise(int cookie)
             {
                 return _owner._host.Unadvise(cookie);
+            }
+
+            public HResult GetProperty(int property, out object value)
+            {
+                value = null;
+
+                try
+                {
+                    if (!_properties.TryGetValue(property, out value))
+                        return HResult.False;
+
+                    return HResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
+            }
+
+            public HResult SetProperty(int property, object value)
+            {
+                try
+                {
+                    if (value == null)
+                        _properties.Remove(property);
+                    else
+                        _properties[property] = value;
+
+                    return HResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
             }
         }
     }

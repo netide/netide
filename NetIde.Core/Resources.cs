@@ -11,6 +11,10 @@ namespace NetIde.Core
     {
         public static IResource Exit = GetResource("Exit.png");
         public static IResource Folders = GetResource("folders.ico");
+        public static IResource DiskBlue = GetResource("DiskBlue.png");
+        public static IResource Disks = GetResource("Disks.png");
+        public static IResource Documents = GetResource("Documents.png");
+        public static IResource DocumentsNew = GetResource("DocumentsNew.png");
 
         private static IResource GetResource(string resourceKey)
         {

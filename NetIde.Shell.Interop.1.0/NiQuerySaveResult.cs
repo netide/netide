@@ -5,10 +5,10 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    [Flags]
-    public enum NiProjectCreateMode
+    public enum NiQuerySaveResult
     {
-        Open,
-        Overwrite
+        Save,
+        DoNotSave,
+        Cancel
     }
 }
