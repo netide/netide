@@ -16,9 +16,10 @@ using NetIde.Shell.Settings;
 namespace NetIde.Core.ToolWindows.TextEditor
 {
     [Guid("9e5f682c-1308-4d12-9136-05b820a78989")]
-    internal partial class TextEditorWindow : EditorWindow, INiCodeWindow
+    internal partial class TextEditorWindow : EditorWindow, INiCodeWindow, INiConnectionPoint
     {
         private readonly NiCommandMapper _commandMapper = new NiCommandMapper();
+        private readonly NiConnectionPoint _connectionPoint = new NiConnectionPoint();
         private NiTextLines _textLines;
 
         protected TextEditorControl Control
@@ -31,9 +32,48 @@ namespace NetIde.Core.ToolWindows.TextEditor
             get { return Control.ActiveTextAreaControl.SelectionManager; }
         }
 
-        public TextEditorWindow()
+        public TextEditorWindow(INiTextLines textLines)
         {
+            _textLines = (NiTextLines)textLines;
+
             BuildCommands();
+        }
+
+        public HResult Advise(object sink, out int cookie)
+        {
+            return _connectionPoint.Advise(sink, out cookie);
+        }
+
+        public HResult Unadvise(int cookie)
+        {
+            return _connectionPoint.Unadvise(cookie);
+        }
+
+        public override HResult Initialize()
+        {
+            try
+            {
+                var hr = base.Initialize();
+
+                if (ErrorUtil.Failure(hr))
+                    return hr;
+
+                // If we were provided an INiTextLines, perform its initialization
+                // now. We clear the field to force correct initialization.
+
+                if (_textLines != null)
+                {
+                    var textLines = _textLines;
+                    _textLines = null;
+                    return SetBuffer(textLines);
+                }
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
         }
 
         protected override Control CreateControl()
@@ -46,10 +86,23 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 ConvertTabsToSpaces = true
             };
 
-            control.ActiveTextAreaControl.Caret.CaretModeChanged += (s, e) => UpdateCaretMode();
-            control.ActiveTextAreaControl.Caret.PositionChanged += (s, e) => UpdateCaretPosition();
+            HookEvents(control.ActiveTextAreaControl);
 
             return control;
+        }
+
+        private void HookEvents(TextAreaControl control)
+        {
+            control.Caret.CaretModeChanged += (s, e) => UpdateCaretMode();
+            control.Caret.PositionChanged += (s, e) => UpdateCaretPosition();
+            control.TextArea.KeyDown += (s, e) => _connectionPoint.ForAll<INiKeyEventNotify>(p => p.OnKeyDown(e.KeyData));
+            control.TextArea.KeyUp += (s, e) => _connectionPoint.ForAll<INiKeyEventNotify>(p => p.OnKeyUp(e.KeyData));
+            control.TextArea.KeyPress += (s, e) => _connectionPoint.ForAll<INiKeyEventNotify>(p => p.OnKeyPress(e.KeyChar));
+            control.TextArea.MouseDown += (s, e) => _connectionPoint.ForAll<INiMouseEventNotify>(p => p.OnMouseDown(e.Button, e.X, e.Y));
+            control.TextArea.MouseUp += (s, e) => _connectionPoint.ForAll<INiMouseEventNotify>(p => p.OnMouseUp(e.Button, e.X, e.Y));
+            control.TextArea.MouseClick += (s, e) => _connectionPoint.ForAll<INiMouseEventNotify>(p => p.OnMouseClick(e.Button, e.X, e.Y));
+            control.TextArea.MouseDoubleClick += (s, e) => _connectionPoint.ForAll<INiMouseEventNotify>(p => p.OnMouseDoubleClick(e.Button, e.X, e.Y));
+            control.TextArea.MouseWheel += (s, e) => _connectionPoint.ForAll<INiMouseEventNotify>(p => p.OnMouseWheel(e.Delta));
         }
 
         private void UpdateCaretMode()
@@ -76,7 +129,12 @@ namespace NetIde.Core.ToolWindows.TextEditor
         public HResult GetBuffer(out INiTextLines textBuffer)
         {
             textBuffer = _textLines;
+            return HResult.OK;
+        }
 
+        HResult INiTextBufferProvider.GetTextBuffer(out INiTextBuffer textBuffer)
+        {
+            textBuffer = _textLines;
             return HResult.OK;
         }
 

@@ -152,6 +152,25 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
             }
         }
 
+        public HResult GetSelectedHierarchy(out INiHierarchy hier)
+        {
+            hier = null;
+
+            try
+            {
+                var node = _treeView.SelectedNode;
+
+                if (node != null)
+                    hier = ((TreeNodeManager)node.Tag).Item;
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
         private class Listener : NiEventSink, INiProjectManagerNotify
         {
             private readonly ProjectExplorerControl _owner;

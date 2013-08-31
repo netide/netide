@@ -59,7 +59,7 @@ namespace NetIde.Services.LocalRegistry
                         }
                         catch (Exception ex)
                         {
-                            Log.Error("Could not load editor", ex);
+                            Log.Error("Could not load project factory", ex);
                         }
                     }
                 }

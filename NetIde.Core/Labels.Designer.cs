@@ -71,6 +71,15 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Open Documents.
+        /// </summary>
+        internal static string AllOpenDocuments {
+            get {
+                return ResourceManager.GetString("AllOpenDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         internal static string AreYouSure {
@@ -94,6 +103,15 @@ namespace NetIde.Core {
         internal static string CreatedBy {
             get {
                 return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Document.
+        /// </summary>
+        internal static string CurrentDocument {
+            get {
+                return ResourceManager.GetString("CurrentDocument", resourceCulture);
             }
         }
         
@@ -130,6 +148,15 @@ namespace NetIde.Core {
         internal static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entire Project.
+        /// </summary>
+        internal static string EntireProject {
+            get {
+                return ResourceManager.GetString("EntireProject", resourceCulture);
             }
         }
         
@@ -175,6 +202,15 @@ namespace NetIde.Core {
         internal static string FileSizeMegaBytes {
             get {
                 return ResourceManager.GetString("FileSizeMegaBytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find Results.
+        /// </summary>
+        internal static string FindResults {
+            get {
+                return ResourceManager.GetString("FindResults", resourceCulture);
             }
         }
         
@@ -283,6 +319,51 @@ namespace NetIde.Core {
         internal static string MenuCloseAllDocuments {
             get {
                 return ResourceManager.GetString("MenuCloseAllDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Edit.
+        /// </summary>
+        internal static string MenuEdit {
+            get {
+                return ResourceManager.GetString("MenuEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Find.
+        /// </summary>
+        internal static string MenuEditFind {
+            get {
+                return ResourceManager.GetString("MenuEditFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Find in Files.
+        /// </summary>
+        internal static string MenuEditFindInFiles {
+            get {
+                return ResourceManager.GetString("MenuEditFindInFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Replace.
+        /// </summary>
+        internal static string MenuEditReplace {
+            get {
+                return ResourceManager.GetString("MenuEditReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Replace in Files.
+        /// </summary>
+        internal static string MenuEditReplaceInFiles {
+            get {
+                return ResourceManager.GetString("MenuEditReplaceInFiles", resourceCulture);
             }
         }
         
@@ -427,6 +508,15 @@ namespace NetIde.Core {
         internal static string NameDescending {
             get {
                 return ResourceManager.GetString("NameDescending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No more occurences found in the specified documents..
+        /// </summary>
+        internal static string NoMoreConcurrences {
+            get {
+                return ResourceManager.GetString("NoMoreConcurrences", resourceCulture);
             }
         }
         

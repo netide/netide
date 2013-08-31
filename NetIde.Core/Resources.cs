@@ -15,6 +15,8 @@ namespace NetIde.Core
         public static IResource Disks = GetResource("Disks.png");
         public static IResource Documents = GetResource("Documents.png");
         public static IResource DocumentsNew = GetResource("DocumentsNew.png");
+        public static IResource Find = GetResource("Find.png");
+        public static IResource Replace = GetResource("Replace.png");
 
         private static IResource GetResource(string resourceKey)
         {

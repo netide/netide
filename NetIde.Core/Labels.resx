@@ -286,4 +286,34 @@
   <data name="MenuWindow" xml:space="preserve">
     <value>&amp;Window</value>
   </data>
+  <data name="FindResults" xml:space="preserve">
+    <value>Find Results</value>
+  </data>
+  <data name="MenuEdit" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="MenuEditFindInFiles" xml:space="preserve">
+    <value>&amp;Find in Files</value>
+  </data>
+  <data name="MenuEditReplaceInFiles" xml:space="preserve">
+    <value>&amp;Replace in Files</value>
+  </data>
+  <data name="AllOpenDocuments" xml:space="preserve">
+    <value>All Open Documents</value>
+  </data>
+  <data name="CurrentDocument" xml:space="preserve">
+    <value>Current Document</value>
+  </data>
+  <data name="EntireProject" xml:space="preserve">
+    <value>Entire Project</value>
+  </data>
+  <data name="MenuEditFind" xml:space="preserve">
+    <value>&amp;Find</value>
+  </data>
+  <data name="MenuEditReplace" xml:space="preserve">
+    <value>&amp;Replace</value>
+  </data>
+  <data name="NoMoreConcurrences" xml:space="preserve">
+    <value>No more occurences found in the specified documents.</value>
+  </data>
 </root>

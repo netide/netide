@@ -53,7 +53,8 @@ namespace NetIde.Shell
             {
                 try
                 {
-                    callback((T)listener);
+                    if (listener is T)
+                        callback((T)listener);
                 }
                 catch (Exception ex)
                 {

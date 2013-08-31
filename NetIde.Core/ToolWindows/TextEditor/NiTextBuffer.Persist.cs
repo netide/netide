@@ -67,6 +67,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
                     throw new ArgumentNullException("fileName");
 
                 _fileName = fileName;
+                _dirty = false;
 
                 InitializeContent(File.ReadAllText(fileName));
 
@@ -90,7 +91,10 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 File.WriteAllText(fileName, Document.TextContent);
 
                 if (remember)
+                {
+                    _dirty = false;
                     _fileName = fileName;
+                }
 
                 return HResult.OK;
             }

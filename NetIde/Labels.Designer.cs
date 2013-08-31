@@ -115,6 +115,15 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot find editor factory for the specified extension.
+        /// </summary>
+        internal static string CannotFindEditorFactoryForExtension {
+            get {
+                return ResourceManager.GetString("CannotFindEditorFactoryForExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot find project factory.
         /// </summary>
         internal static string CannotFindProjectFactory {

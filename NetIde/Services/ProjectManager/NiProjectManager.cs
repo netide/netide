@@ -108,6 +108,8 @@ namespace NetIde.Services.ProjectManager
                 if (ErrorUtil.Failure(result))
                     return result;
 
+                project.SetPropertyEx(NiHierarchyProperty.OwnerType, factory.GetType().GUID);
+
                 ActiveProject = project;
 
                 return HResult.OK;
@@ -293,6 +295,39 @@ namespace NetIde.Services.ProjectManager
                 ErrorUtil.ThrowOnFailure(activeProject.Close());
 
                 return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult OpenProjectFromCommandLine()
+        {
+            try
+            {
+                var commandLine = (INiCommandLine)GetService(typeof(INiCommandLine));
+
+                string[] arguments;
+                ErrorUtil.ThrowOnFailure(commandLine.GetOtherArguments(out arguments));
+
+                foreach (string argument in arguments)
+                {
+                    if (!File.Exists(argument))
+                        continue;
+
+                    string extension = Path.GetExtension(argument);
+
+                    if (!String.IsNullOrEmpty(extension) && extension[0] == '.')
+                    {
+                        var factory = FindProjectFactory(extension.Substring(1));
+
+                        if (factory != null)
+                            return OpenProject(argument);
+                    }
+                }
+
+                return HResult.False;
             }
             catch (Exception ex)
             {

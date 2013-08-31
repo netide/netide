@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Services.CommandManager.Controls;
+using NetIde.Services.ProjectManager;
 using NetIde.Services.WindowPaneSelection;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -189,6 +190,11 @@ namespace NetIde
 
             if (_lastActiveDockContent != null)
                 _lastActiveDockContent.RaiseShow(NiWindowShow.Activate);
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            ErrorUtil.ThrowOnFailure(((NiProjectManager)GetService(typeof(INiProjectManager))).OpenProjectFromCommandLine());
         }
 
         internal HResult GetDocumentWindowIterator(out INiIterator<INiWindowFrame> iterator)

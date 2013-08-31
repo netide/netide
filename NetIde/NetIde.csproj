@@ -145,6 +145,8 @@
     </Compile>
     <Compile Include="Services\CommandManager\ICommandBarContainer.cs" />
     <Compile Include="Services\CommandManager\MenuBuilder.cs" />
+    <Compile Include="Services\EditorFactoryRegistry\ExtensionRegistration.cs" />
+    <Compile Include="Services\EditorFactoryRegistry\ExtensionRegistry.cs" />
     <Compile Include="Services\EditorFactoryRegistry\NiEditorFactoryRegistry.cs" />
     <Compile Include="Services\Env\NiEnv.cs" />
     <Compile Include="Services\JobManager\JobForm.cs">
@@ -277,6 +279,10 @@
     <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
       <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
       <Name>NetIde.Shell.Interop.1.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Shell.Settings\NetIde.Shell.Settings.csproj">
+      <Project>{04CEA52B-45A4-47E2-990B-25E183B1BA78}</Project>
+      <Name>NetIde.Shell.Settings</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetIde.Shell\NetIde.Shell.csproj">
       <Project>{3fad510a-bad9-4167-8e23-9bdc794cbb31}</Project>

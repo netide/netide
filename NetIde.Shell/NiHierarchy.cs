@@ -163,6 +163,11 @@ namespace NetIde.Shell
                                     throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
                                 break;
 
+                            case NiHierarchyProperty.OwnerType:
+                                if (value != null && !(value is Guid))
+                                    throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
+                                break;
+
                             case NiHierarchyProperty.Name:
                                 if (value != null && !(value is string))
                                     throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);

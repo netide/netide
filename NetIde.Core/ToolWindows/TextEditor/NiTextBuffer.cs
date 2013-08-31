@@ -41,12 +41,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
             _languageService = new Guid(NiConstants.LanguageServiceDefault);
 
             Document = new DocumentFactory().CreateDocument();
-            Document.TextContentChanged += _document_TextContentChanged;
-        }
-
-        void _document_TextContentChanged(object sender, EventArgs e)
-        {
-            _dirty = true;
+            Document.DocumentChanged += (s, e) => _dirty = true;
         }
 
         public HResult InitializeContent(string text)
@@ -165,7 +160,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 var segment = Document.GetLineSegmentForOffset(position);
 
                 line = segment.LineNumber;
-                column = segment.Offset - position;
+                column = position - segment.Offset;
 
                 return HResult.OK;
             }

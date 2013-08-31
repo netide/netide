@@ -51,5 +51,22 @@ namespace NetIde.Core.Services.ProjectExplorer
                 return ErrorUtil.GetHResult(ex);
             }
         }
+
+        public HResult GetSelectedHierarchy(out INiHierarchy hier)
+        {
+            hier = null;
+
+            try
+            {
+                if (_window != null)
+                    return _window.GetSelectedHierarchy(out hier);
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
     }
 }

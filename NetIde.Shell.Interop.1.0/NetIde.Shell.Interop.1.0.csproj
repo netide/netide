@@ -49,11 +49,16 @@
   <ItemGroup>
     <Compile Include="INiEditorFactoryRegistry.cs" />
     <Compile Include="INiEnvNotify.cs" />
+    <Compile Include="INiFinder.cs" />
+    <Compile Include="INiFindHelper.cs" />
+    <Compile Include="INiFindTarget.cs" />
     <Compile Include="INiHierarchy.cs" />
     <Compile Include="INiHierarchyNotify.cs" />
     <Compile Include="INiIterator.cs" />
+    <Compile Include="INiKeyEventNotify.cs" />
     <Compile Include="INiList.cs" />
     <Compile Include="INiLanguageServiceRegistry.cs" />
+    <Compile Include="INiMouseEventNotify.cs" />
     <Compile Include="INiObjectWithSite.cs" />
     <Compile Include="INiOpenDocumentManager.cs" />
     <Compile Include="INiOptionPage.cs" />
@@ -123,6 +128,10 @@
     <Compile Include="INiWindow.cs" />
     <Compile Include="INiWindowFrame.cs" />
     <Compile Include="INiWindowFrameNotify.cs" />
+    <Compile Include="NiFindCapabilities.cs" />
+    <Compile Include="NiFindOptions.cs" />
+    <Compile Include="NiFindResult.cs" />
+    <Compile Include="NiFindTargetNotify.cs" />
     <Compile Include="NiSaveAllMode.cs" />
     <Compile Include="NiFrameCloseMode.cs" />
     <Compile Include="NiFrameProperty.cs" />
@@ -136,6 +145,7 @@
     <Compile Include="NiSaveMode.cs" />
     <Compile Include="NiTextMarkerHatchStyle.cs" />
     <Compile Include="NiTextMarkerType.cs" />
+    <Compile Include="NiTextSpan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NiTextBufferState.cs" />
     <Compile Include="NiToolWindowOrientation.cs" />

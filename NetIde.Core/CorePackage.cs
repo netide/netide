@@ -7,9 +7,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Core.OptionPages.Environment;
+using NetIde.Core.Services.Finder;
 using NetIde.Core.Services.LanguageServiceRegistry;
 using NetIde.Core.Services.ProjectExplorer;
 using NetIde.Core.ToolWindows.DiffViewer;
+using NetIde.Core.ToolWindows.FindResults;
 using NetIde.Core.ToolWindows.ProjectExplorer;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -26,12 +28,15 @@ namespace NetIde.Core
     [NiStringResources("Labels")]
     [ProvideOptionPage(typeof(FontsOptionPage), "Environment", "Fonts", "@Environment", "@Fonts")]
     [ProvideToolWindow(typeof(ProjectExplorerWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Right)]
+    [ProvideToolWindow(typeof(FindResultsWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Bottom)]
+    [ProvideAllEditorExtensionsAttribute]
     internal partial class CorePackage : NiPackage, INiCommandTarget
     {
         private readonly NiCommandMapper _commandMapper = new NiCommandMapper();
         private INiProjectManager _projectManager;
         private INiWindowPaneSelection _windowPaneSelection;
         private INiEnv _env;
+        private INiFinder _finder;
 
         public override HResult Initialize()
         {
@@ -60,9 +65,16 @@ namespace NetIde.Core
                     true
                 );
 
+                serviceContainer.AddService(
+                    typeof(INiFinder),
+                    new NiFinder(this)
+                );
+
+
                 _projectManager = (INiProjectManager)GetService(typeof(INiProjectManager));
                 _windowPaneSelection = (INiWindowPaneSelection)GetService(typeof(INiWindowPaneSelection));
                 _env = (INiEnv)GetService(typeof(INiEnv));
+                _finder = (INiFinder)GetService(typeof(INiFinder));
 
                 BuildCommands();
 

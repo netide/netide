@@ -63,6 +63,7 @@ namespace NetIde.Shell
         public const string DiffViewer = "29200565-53e3-4bbd-8f2e-bd9ef7062837";
         public const string TextBuffer = "31d8aa3d-d8ed-4e7a-867c-6f388994d503";
         public const string TextLines = "271e6847-c239-46ce-b535-7021ddf4c3e6";
+        public const string FindHelper = "baa7ff0c-a6e5-4407-9a39-b624d4e4661b";
 
         public const string LanguageServiceXml = "e4a6478a-c4b6-445a-bd65-5a89211e50d7";
         public const string LanguageServiceHtml = "181c6a04-80de-44d8-818b-cea443d71005";

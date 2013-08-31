@@ -28,6 +28,11 @@ namespace NetIde.Shell
         public static readonly Guid Edit_Undo = new Guid("8d2c78c6-3161-42a8-b55e-6a2db4b8cda0");
         public static readonly Guid Edit_Redo = new Guid("20cb9441-492a-444e-be52-c123c43faf95");
 
+        public static readonly Guid Edit_Find = new Guid("0134d098-f018-4c1c-9632-83fde0d6573f");
+        public static readonly Guid Edit_Replace = new Guid("1a196f81-c0a7-4b3f-81fb-7f9940c6885a");
+        public static readonly Guid Edit_FindInFiles = new Guid("be9bf7a5-d045-47af-b301-971b3bdf8240");
+        public static readonly Guid Edit_ReplaceInFiles = new Guid("278df93a-079b-4c58-aa80-5258d5d57947");
+
         public static readonly Guid Window_CloseAllDocuments = new Guid("5a8d22fa-ee34-4ea8-b62e-cef68915bfc3");
     }
 }

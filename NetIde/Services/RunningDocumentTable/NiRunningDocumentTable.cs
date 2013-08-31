@@ -47,8 +47,6 @@ namespace NetIde.Services.RunningDocumentTable
             {
                 if (document == null)
                     throw new ArgumentNullException("document");
-                if (hier == null)
-                    throw new ArgumentNullException("hier");
                 if (docData == null)
                     throw new ArgumentNullException("docData");
 

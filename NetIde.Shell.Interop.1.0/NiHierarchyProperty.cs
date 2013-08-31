@@ -16,6 +16,7 @@ namespace NetIde.Shell.Interop
         SortPriority = -7,
         ItemType = -8,
         ContainingProject = -9,
-        Root = -10
+        Root = -10,
+        OwnerType = -11
     }
 }

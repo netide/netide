@@ -152,7 +152,7 @@ namespace NetIde
             // _statusStripText
             // 
             this._statusStripText.Name = "_statusStripText";
-            this._statusStripText.Size = new System.Drawing.Size(544, 17);
+            this._statusStripText.Size = new System.Drawing.Size(575, 17);
             this._statusStripText.Spring = true;
             this._statusStripText.Text = "<< TEXT >>";
             this._statusStripText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -198,6 +198,7 @@ namespace NetIde
             this.Name = "MainForm";
             this.Text = "Net IDE";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this._toolStripContainer.ContentPanel.ResumeLayout(false);
             this._toolStripContainer.ResumeLayout(false);
             this._toolStripContainer.PerformLayout();

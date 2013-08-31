@@ -63,6 +63,24 @@ namespace NetIde.Core
                 Shell.NiResources.Window_CloseAllDocuments,
                 p => ErrorUtil.ThrowOnFailure(_env.CloseAllDocuments(NiSaveAllMode.VisibleOnly))
             );
+            _commandMapper.Add(
+                Shell.NiResources.Edit_Find,
+                p => ErrorUtil.ThrowOnFailure(_finder.OpenDialog(NiFindOptions.Find | NiFindOptions.Document, NiFindOptions.ActionMask | NiFindOptions.TargetMask)),
+                p => p.Status = _windowPaneSelection.ActiveDocument != null ? NiCommandStatus.Enabled : NiCommandStatus.Supported
+            );
+            _commandMapper.Add(
+                Shell.NiResources.Edit_Replace,
+                p => ErrorUtil.ThrowOnFailure(_finder.OpenDialog(NiFindOptions.Replace | NiFindOptions.Document, NiFindOptions.ActionMask | NiFindOptions.TargetMask)),
+                p => p.Status = _windowPaneSelection.ActiveDocument != null ? NiCommandStatus.Enabled : NiCommandStatus.Supported
+            );
+            _commandMapper.Add(
+                Shell.NiResources.Edit_FindInFiles,
+                p => ErrorUtil.ThrowOnFailure(_finder.OpenDialog(NiFindOptions.Find | NiFindOptions.Project, NiFindOptions.ActionMask | NiFindOptions.TargetMask))
+            );
+            _commandMapper.Add(
+                Shell.NiResources.Edit_ReplaceInFiles,
+                p => ErrorUtil.ThrowOnFailure(_finder.OpenDialog(NiFindOptions.Replace | NiFindOptions.Project, NiFindOptions.ActionMask | NiFindOptions.TargetMask))
+            );
         }
 
         private NiCommandStatus CanSaveFile()

@@ -376,6 +376,19 @@ namespace NetIde.Util.Forms
             return base.GetService(serviceType);
         }
 
+        public void Show(IServiceProvider serviceProvider)
+        {
+            Show(serviceProvider, null);
+        }
+
+        public void Show(IServiceProvider serviceProvider, IWin32Window owner)
+        {
+            if (serviceProvider != null)
+                Site = new SiteProxy(serviceProvider);
+
+            Show(owner ?? GetActiveWindow());
+        }
+
         public DialogResult ShowDialog(IServiceProvider serviceProvider)
         {
             return ShowDialog(serviceProvider, null);

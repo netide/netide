@@ -9,5 +9,6 @@ namespace NetIde.Shell.Interop
     {
         HResult Show();
         HResult Hide();
+        HResult GetSelectedHierarchy(out INiHierarchy hier);
     }
 }

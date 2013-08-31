@@ -13,6 +13,7 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
     internal class ProjectExplorerWindow : NiWindowPane
     {
         private ProjectExplorerControl _control;
+
         public override HResult Initialize()
         {
             try
@@ -38,6 +39,11 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
             {
                 return ErrorUtil.GetHResult(ex);
             }
+        }
+
+        public HResult GetSelectedHierarchy(out INiHierarchy hier)
+        {
+            return _control.GetSelectedHierarchy(out hier);
         }
     }
 }
