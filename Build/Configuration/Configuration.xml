@@ -17,6 +17,7 @@
     <project name="NetIde.Update" />
     <project name="NetIde.Util" />
     <project name="NetIde.Xml" />
+    <project name="Samples\NetIde.Samples.EmptyPackage" />
   </projects>
   <templates>
     <template key="AssemblyInfo.cs"><![CDATA[

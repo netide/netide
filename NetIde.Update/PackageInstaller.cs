@@ -35,6 +35,9 @@ namespace NetIde.Update
 
             var fileSystemRoot = GetFileSystemRoot();
 
+            if (fileSystemRoot == null)
+                throw new PackageInstallationException(Labels.CannotDetermineInstallationPath, 10);
+
             PackageMetadata metadata;
 
             using (var zipFile = new ZipFile(_packagePath))

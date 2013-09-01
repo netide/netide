@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIdeEmptyPackageSample.Package.Core</id>
+    <version>$version$</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>NetIde Empty Package Sample</title>
+    <description>NetIde Empty Package Sample.</description>
+    <dependencies>
+      <dependency id="NetIde.Package.Core" version="0.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Samples\NetIde.Samples.EmptyPackage\bin\Debug\**" target="Tools" exclude="..\Samples\NetIde.Samples.EmptyPackage\bin\Debug\**.pdb;..\Samples\NetIde.Samples.EmptyPackage\bin\Debug\**.xml;..\Samples\NetIde.Samples.EmptyPackage\bin\Debug\Packages\**" />
+  </files>
+</package>

@@ -322,11 +322,11 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resource file does not contain a NiResources resource.
+        ///   Looks up a localized string similar to Resource file does not contain a NiMenu resource.
         /// </summary>
-        internal static string NiResourcesMissing {
+        internal static string NiMenuMissing {
             get {
-                return ResourceManager.GetString("NiResourcesMissing", resourceCulture);
+                return ResourceManager.GetString("NiMenuMissing", resourceCulture);
             }
         }
         

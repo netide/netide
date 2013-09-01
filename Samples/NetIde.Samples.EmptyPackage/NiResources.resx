@@ -117,34 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CannotDetermineInstallationPath" xml:space="preserve">
-    <value>Cannot determine installation path</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MainIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\MainIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ContextDoesNotExist" xml:space="preserve">
-    <value>No context exists with the specified name</value>
-  </data>
-  <data name="ContextNameInvalid" xml:space="preserve">
-    <value>Context name is invalid</value>
-  </data>
-  <data name="CorruptRuntimePackage" xml:space="preserve">
-    <value>NetIde.Runtime package is corrupt</value>
-  </data>
-  <data name="CouldNotFindNuSpecManifest" xml:space="preserve">
-    <value>Could not find nuspec manifest</value>
-  </data>
-  <data name="InvalidManifest" xml:space="preserve">
-    <value>Could not load package manifest</value>
-  </data>
-  <data name="InvalidPackage" xml:space="preserve">
-    <value>Package is invalid or corrupt</value>
-  </data>
-  <data name="InvalidPackageId" xml:space="preserve">
-    <value>The specified package cannot be installed into this context</value>
-  </data>
-  <data name="InvalidPackagePath" xml:space="preserve">
-    <value>Invalid path to package</value>
-  </data>
-  <data name="RollbackFailed" xml:space="preserve">
-    <value>Failed to roll back package installation: {0}</value>
+  <data name="NiMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NiMenu.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

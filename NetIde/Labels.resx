@@ -204,8 +204,8 @@
   <data name="NetIde" xml:space="preserve">
     <value>Net IDE</value>
   </data>
-  <data name="NiResourcesMissing" xml:space="preserve">
-    <value>Resource file does not contain a NiResources resource</value>
+  <data name="NiMenuMissing" xml:space="preserve">
+    <value>Resource file does not contain a NiMenu resource</value>
   </data>
   <data name="OpenDocumentsPresent" xml:space="preserve">
     <value>Cannot close the project until all open documents have been closed</value>

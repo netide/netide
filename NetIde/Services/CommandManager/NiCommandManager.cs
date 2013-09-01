@@ -56,7 +56,7 @@ namespace NetIde.Services.CommandManager
             }
 
             if (niMenu == null)
-                throw new NetIdeException(Labels.NiResourcesMissing);
+                throw new NetIdeException(Labels.NiMenuMissing);
 
             new MenuBuilder(package, niMenu, resources).Build();
         }
