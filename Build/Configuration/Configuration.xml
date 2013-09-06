@@ -8,6 +8,7 @@
   </parameters>
   <projects>
     <project name="NetIde" />
+    <project name="NetIde.BuildTasks" />
     <project name="NetIde.Core" />
     <project name="NetIde.Install" />
     <project name="NetIde.Shell" />

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <UsingTask AssemblyFile="NetIde.BuildTasks.dll" TaskName="NetIde.BuildTasks.NetIdeTask" />
+
+  <PropertyGroup>
+    <BuildDependsOn>NetIdePreBuild;$(BuildDependsOn);NetIdePostBuild</BuildDependsOn>
+  </PropertyGroup>
+
+  <Target Name="NetIdePreBuild">
+    <NetIdeTask Mode="PreBuild"
+                Configuration="$(ProjectDir)\BuildConfig.xml"
+                SolutionDir="$(SolutionDir)"
+                ProjectDir="$(ProjectDir)"
+                TargetDir="$(TargetDir)"
+                TargetPath="$(TargetPath)" />
+  </Target>
+
+  <Target Name="NetIdePostBuild">
+    <NetIdeTask Mode="PostBuild"
+                Configuration="$(ProjectDir)\BuildConfig.xml"
+                SolutionDir="$(SolutionDir)"
+                ProjectDir="$(ProjectDir)"
+                TargetDir="$(TargetDir)"
+                TargetPath="$(TargetPath)" />
+  </Target>
+
+</Project>

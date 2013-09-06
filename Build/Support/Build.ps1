@@ -311,7 +311,7 @@ Function Build-NuGet-Packages
     {
         $PackageName = [System.IO.Path]::GetFileNameWithoutExtension($Item.Name)
         
-        Build-NuGet-Package -NuSpec $Item.FullName -Package $PackageName -TargetPath $Global:Distrib
+        Build-NuGet-Package -NuSpec $Item.FullName -Package $PackageName -TargetPath ($Global:Distrib + "\Packages")
     }
 }
 
@@ -343,12 +343,27 @@ Function Publish-NuGet-Packages
         Return
     }
 
-    foreach ($Item in (Get-ChildItem -Path ($Global:Distrib + "\*.nupkg")))
+    foreach ($Item in (Get-ChildItem -Path ($Global:Distrib + "\Packages\*.nupkg")))
     {
         & ($Global:Root + "\.nuget\NuGet.exe") `
             push ($Item.FullName) `
             -Source ($NuGetSite.TrimEnd("/") + "/package")
     }
+}
+
+################################################################################
+## USAGE
+################################################################################
+
+Function Build-Tasks
+{
+    Build-Solution -Solution ($Global:Root + "\BuildTasks.sln") -Configuration "Debug"
+    
+    # Copy the required files from the MSBuild task.
+    
+    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\Debug\*.dll") -Destination ($Global:Distrib + "\MSBuild")
+    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\Debug\*.exe") -Destination ($Global:Distrib + "\MSBuild")
+    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\Debug\NetIde.targets") -Destination ($Global:Distrib + "\MSBuild")
 }
 
 ################################################################################
@@ -380,10 +395,14 @@ $Global:Mode = $Args[0]
 
 AssemblyInfo-Write-All
 
+Prepare-Directory -Path $Global:Distrib
+Prepare-Directory -Path ($Global:Distrib + "\Packages")
+Prepare-Directory -Path ($Global:Distrib + "\MSBuild")
+
+Build-Tasks
+
 if ($Global:Mode -eq "distrib" -or $Global:Mode -eq "publish")
 {
-    Prepare-Directory -Path $Global:Distrib
-
     Build-Solution -Solution ($Global:Root + "\NetIde.sln") -Configuration "Debug"
 
     Build-NuGet-Packages

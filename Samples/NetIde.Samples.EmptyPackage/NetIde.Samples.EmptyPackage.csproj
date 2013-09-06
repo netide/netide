@@ -94,6 +94,7 @@
       <Link>Splash.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="BuildConfig.xml" />
     <Content Include="NiContext.xml" />
     <Content Include="Readme.html" />
     <Content Include="Resources\NiMenu.Template.xml" />
@@ -111,14 +112,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)\NetIde.TransformResources\bin\$(ConfigurationName)\nixfresource.exe /file $(ProjectDir)\Resources\NiMenu.Template.xml /target $(ProjectDir)\Resources\NiMenu.xml</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)\.nuget\nuget.exe pack $(SolutionDir)\Build\Configuration\NuGet\NetIdeEmptyPackageSample.Package.Core.nuspec -Version 0.0.0.0 -BasePath $(SolutionDir)\Build -NoPackageAnalysis
-$(SolutionDir)\NetIde.Install\bin\$(ConfigurationName)\niinstall.exe /c NetIdeEmptyPackageSample $(SolutionDir)\NetIde.Core\bin\$(ConfigurationName)\NetIde.Package.Core.0.0.0.0.nupkg
-$(SolutionDir)\NetIde.Install\bin\$(ConfigurationName)\niinstall.exe /c NetIdeEmptyPackageSample $(TargetDir)\NetIdeEmptyPackageSample.Package.Core.0.0.0.0.nupkg</PostBuildEvent>
-  </PropertyGroup>
+  <Import Project="$(ProjectDir)\..\..\Build\Distrib\MSBuild\NetIde.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

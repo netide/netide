@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<buildConfiguration xmlns="https://github.com/pvginkel/NetIde/schemas/BuildConfiguration">
+  <transformResources>
+    <transformResource source="$(ProjectDir)\Resources\NiMenu.Template.xml"
+                       target="$(ProjectDir)\Resources\NiMenu.xml" />
+  </transformResources>
+  <buildNuGetPackages>
+    <buildNuGetPackage manifest="$(ProjectDir)\..\..\Build\Configuration\NuGet\NetIdeEmptyPackageSample.Package.Core.nuspec" />
+  </buildNuGetPackages>
+  <installPackages>
+    <installPackage context="NetIdeEmptyPackageSample"
+                    package="$(ProjectDir)\..\..\NetIde.Core\bin\Debug\NetIde.Package.Core.*.nupkg" />
+    <installPackage context="NetIdeEmptyPackageSample"
+                    package="$(TargetDir)\NetIdeEmptyPackageSample.Package.Core.*.nupkg" />
+  </installPackages>
+</buildConfiguration>

@@ -11,6 +11,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetIde.Core\bin\Debug\**" target="Tools" exclude="..\NetIde.Core\bin\Debug\**.pdb;..\NetIde.Core\bin\Debug\**.xml" />
+    <file src="**" target="Tools" exclude="**.pdb;**.xml;**.nupkg" />
   </files>
 </package>

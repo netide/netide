@@ -11,5 +11,6 @@ namespace NetIde.Xml
         public const string Context = "https://github.com/pvginkel/NetIde/schemas/Context";
         public const string Resources = "https://github.com/pvginkel/NetIde/schemas/Resources";
         public const string NuSpec = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd";
+        public const string BuildConfiguration = "https://github.com/pvginkel/NetIde/schemas/BuildConfiguration";
     }
 }

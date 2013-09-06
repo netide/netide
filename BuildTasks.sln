@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.BuildTasks", "NetIde.BuildTasks\NetIde.BuildTasks.csproj", "{677C083D-E457-48C5-BB29-FDFED8F5BFC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Xml", "NetIde.Xml\NetIde.Xml.csproj", "{DA664118-05BA-40FE-A51E-36E324C7BE43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Shell.Interop.1.0", "NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj", "{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Update", "NetIde.Update\NetIde.Update.csproj", "{564738D0-E4E6-4E51-A5E8-17C07F03AF25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.TransformResources", "NetIde.TransformResources\NetIde.TransformResources.csproj", "{14CD5E05-D230-4786-859C-5D5BF723302B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{26B24132-273F-4385-A0F3-4C7974101858}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{677C083D-E457-48C5-BB29-FDFED8F5BFC3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{677C083D-E457-48C5-BB29-FDFED8F5BFC3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{677C083D-E457-48C5-BB29-FDFED8F5BFC3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{677C083D-E457-48C5-BB29-FDFED8F5BFC3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{14CD5E05-D230-4786-859C-5D5BF723302B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{14CD5E05-D230-4786-859C-5D5BF723302B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{14CD5E05-D230-4786-859C-5D5BF723302B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{14CD5E05-D230-4786-859C-5D5BF723302B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

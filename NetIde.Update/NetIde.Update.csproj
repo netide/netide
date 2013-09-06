@@ -99,10 +99,6 @@
       <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
       <Name>NetIde.Shell.Interop.1.0</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NetIde.Shell\NetIde.Shell.csproj">
-      <Project>{3fad510a-bad9-4167-8e23-9bdc794cbb31}</Project>
-      <Name>NetIde.Shell</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NetIde.Xml\NetIde.Xml.csproj">
       <Project>{da664118-05ba-40fe-a51e-36e324c7be43}</Project>
       <Name>NetIde.Xml</Name>
@@ -136,7 +132,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

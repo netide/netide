@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace NetIde.TransformResources
 {
-    internal class ResourceTransformer
+    public class ResourceTransformer
     {
         private static readonly Encoding Encoding = new UTF8Encoding(true);
         private static readonly XNamespace Ns = "https://github.com/pvginkel/NetIde/schemas/Resources";
