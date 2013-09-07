@@ -90,14 +90,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Support\Artwork\Splash.png">
-      <Link>Splash.png</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="BuildConfig.xml" />
     <Content Include="NiContext.xml" />
-    <Content Include="Readme.html" />
     <Content Include="Resources\NiMenu.Template.xml" />
+    <Content Include="Splash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\NiMenu.xml" />
     <EmbeddedResource Include="Resources\MainIcon.ico" />
   </ItemGroup>
@@ -105,6 +103,7 @@
     <EmbeddedResource Include="Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NiResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -112,7 +111,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(ProjectDir)\..\..\Build\Distrib\MSBuild\NetIde.targets" />
+  <Import Condition="Exists('$(ProjectDir)\..\..\Build\Distrib\MSBuild\NetIde.targets')" Project="$(ProjectDir)\..\..\Build\Distrib\MSBuild\NetIde.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>powershell -file "$(ProjectDir)\BuildTemplate.ps1" "$(ProjectDir)\" "$(ProjectDir)\..\..\NetIde.VisualStudio\ProjectTemplates\NetIdePackage.zip"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

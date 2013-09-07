@@ -1,0 +1,43 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Net IDE Package</Name>
+    <Description>Create a package for the Net IDE system</Description>
+    <ProjectType>CSharp</ProjectType>
+    <TemplateID>NetIde.NetIdePackage</TemplateID>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>NetIdePackage</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="NetIde.Samples.EmptyPackage.csproj" ReplaceParameters="true">
+      <Folder Name="Properties">
+        <ProjectItem ReplaceParameters="true">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Resources">
+        <ProjectItem ReplaceParameters="false">MainIcon.ico</ProjectItem>
+        <ProjectItem ReplaceParameters="false">NiMenu.Template.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="false">NiMenu.xml</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true">BuildConfig.xml</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Key.snk</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">EmptyPackageSample.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Labels.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Labels.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">NiContext.xml</ProjectItem>
+      <ProjectItem ReplaceParameters="true">NiPackage.manifest</ProjectItem>
+      <ProjectItem ReplaceParameters="false">NiResources.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="false">NiResources.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Resources.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Splash.png</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>NetIde.VisualStudio.Wizard</Assembly>
+    <FullClassName>NetIde.VisualStudio.Wizard.NetIdeWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>
