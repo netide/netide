@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Shell.Interop.1.0", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Update", "NetIde.Update\NetIde.Update.csproj", "{564738D0-E4E6-4E51-A5E8-17C07F03AF25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.TransformResources", "NetIde.TransformResources\NetIde.TransformResources.csproj", "{14CD5E05-D230-4786-859C-5D5BF723302B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{26B24132-273F-4385-A0F3-4C7974101858}"
 EndProject
 Global
@@ -35,10 +33,6 @@ Global
 		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{14CD5E05-D230-4786-859C-5D5BF723302B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{14CD5E05-D230-4786-859C-5D5BF723302B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{14CD5E05-D230-4786-859C-5D5BF723302B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{14CD5E05-D230-4786-859C-5D5BF723302B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

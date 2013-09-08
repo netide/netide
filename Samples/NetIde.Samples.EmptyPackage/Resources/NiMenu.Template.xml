@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns="https://github.com/pvginkel/NetIde/schemas/Resources">
-  <imports>
-    <import from="..\..\..\NetIde.Shell\bin\Debug\NetIde.Shell.dll" type="NetIde.Shell.NiResources" prefix="Ni_" />
-  </imports>
-  <ui></ui>
-</resources>

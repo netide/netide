@@ -70,15 +70,6 @@ namespace NetIde.BuildTasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mode must be &apos;PreBuild&apos; or &apos;PostBuild&apos;.
-        /// </summary>
-        internal static string InvalidMode {
-            get {
-                return ResourceManager.GetString("InvalidMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Multiple path matched the pattern &apos;{0}&apos;.
         /// </summary>
         internal static string MultiplePathsMatched {

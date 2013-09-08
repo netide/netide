@@ -3,9 +3,9 @@
   <metadata>
     <id>NetIdeEmptyPackageSample.Package.Core</id>
     <version>$version$</version>
-    <authors>Pieter van Ginkel</authors>
-    <title>NetIde Empty Package Sample</title>
-    <description>NetIde Empty Package Sample.</description>
+    <authors>Package Company</authors>
+    <title>Package Title</title>
+    <description>Package Description</description>
     <dependencies>
       <dependency id="NetIde.Package.Core" version="0.0.0.0" />
     </dependencies>

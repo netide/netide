@@ -76,20 +76,20 @@ function InsertReplacements($File, $Content)
 
             $Vars = @{
                 "`{C017BE56-6C8E-48DF-BE45-644C488F8D97`}" = "`$guid1`$"
-                "NetIde.Samples.EmptyPackage" = "`$safeprojectname`$"
+                "NetIde.Samples.EmptyPackage" = "`$safeprojectname:xml`$"
                 "<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>" = "<TargetFrameworkVersion>v`$targetframeworkversion`$</TargetFrameworkVersion>"
             }
         }
         "Properties\AssemblyInfo.cs" {
             $Vars = @{
-                "Package Title" = "`$packagetitle`$"
-                "Package Company" = "`$packagecompany`$"
+                "Package Title" = "`$packagetitle:str`$"
+                "Package Company" = "`$packagecompany:str`$"
             }
         }
         "BuildConfig.xml" {
             $Vars = @{
-                "context=`"NetIdeEmptyPackageSample`"" = "context=`"`$packagecontext`$`""
-                "NetIdeEmptyPackageSample.Package.Core" = "`$packagecontext`$.Package.`$packagename`$"
+                "context=`"NetIdeEmptyPackageSample`"" = "context=`"`$packagecontext:xml`$`""
+                "NetIdeEmptyPackageSample.Package.Core" = "`$packagecontext:xml`$.Package.`$packagename:xml`$"
             }
         }
         "EmptyPackageSample.cs" {
@@ -101,22 +101,30 @@ function InsertReplacements($File, $Content)
         }
         "Labels.resx" {
             $Vars = @{
-                "Package Description" = "`$packagedescription`$"
+                "Package Description" = "`$packagedescription:xml`$"
             }
         }
         "NiContext.xml" {
             $Vars = @{
-                "NetIdeEmptyPackageSample" = "`$packagecontext`$"
+                "NetIdeEmptyPackageSample" = "`$packagecontext:xml`$"
             }
         }
         "NiPackage.manifest" {
             $Vars = @{
-                "NetIde.Samples.EmptyPackage.EmptyPackageSample, NetIde.Samples.EmptyPackage" = "`$rootnamespace`$.`$packageclass`$, `$safeprojectname`$"
+                "NetIde.Samples.EmptyPackage.EmptyPackageSample, NetIde.Samples.EmptyPackage" = "`$rootnamespace:xml`$.`$packageclass:xml`$, `$safeprojectname:xml`$"
             }
         }
         "Resources.cs" {
             $Vars = @{
                 "NetIde.Samples.EmptyPackage" = "`$rootnamespace`$"
+            }
+        }
+        "NetIdeEmptyPackageSample.Package.Core.nuspec" {
+            $Vars = @{
+                "NetIdeEmptyPackageSample.Package.Core" = "`$packagecontext:xml`$.Package.`$packagename:xml`$"
+                "Package Title" = "`$packagetitle:xml`$"
+                "Package Description" = "`$packagedescription:xml`$"
+                "Package Company" = "`$packagecompany:xml`$"
             }
         }
     }

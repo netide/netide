@@ -15,9 +15,6 @@ namespace NetIde.BuildTasks
     public partial class NetIdeTask : Task
     {
         [Required]
-        public string Mode { get; set; }
-
-        [Required]
         public string Configuration { get; set; }
 
         [Required]
@@ -34,38 +31,15 @@ namespace NetIde.BuildTasks
 
         public override bool Execute()
         {
-            if (File.Exists(Configuration))
+            if (!File.Exists(Configuration))
                 return true;
 
             var configuration = LoadConfiguration();
 
-            switch (Mode)
-            {
-                case "PreBuild":
-                    ExecutePreBuild(configuration);
-                    break;
-
-                case "PostBuild":
-                    ExecutePostBuild(configuration);
-                    break;
-
-                default:
-                    Log.LogError(Labels.InvalidMode);
-                    return false;
-            }
-
-            return true;
-        }
-
-        private void ExecutePreBuild(BuildConfiguration configuration)
-        {
-            ExecuteTransformResources(configuration);
-        }
-
-        private void ExecutePostBuild(BuildConfiguration configuration)
-        {
             ExecuteBuildNuGetPackages(configuration);
             ExecuteInstallPackages(configuration);
+
+            return true;
         }
 
         private BuildConfiguration LoadConfiguration()

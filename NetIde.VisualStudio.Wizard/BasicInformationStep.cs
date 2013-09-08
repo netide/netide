@@ -23,7 +23,7 @@ namespace NetIde.VisualStudio.Wizard
         {
             _icon.Image = Image.FromStream(new MemoryStream(Configuration.MainIcon));
             _companyName.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageCompany, "Company");
-            _packageName.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageName, Configuration.ReplacementsDictionary["$projectname$"]);
+            _packageName.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageName, "Core");
             _packageTitle.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageTitle, Configuration.ReplacementsDictionary["$projectname$"]);
             _detailedInformation.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageDescription, "Description for my package");
         }

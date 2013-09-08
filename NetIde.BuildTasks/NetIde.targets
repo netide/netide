@@ -4,21 +4,11 @@
   <UsingTask AssemblyFile="NetIde.BuildTasks.dll" TaskName="NetIde.BuildTasks.NetIdeTask" />
 
   <PropertyGroup>
-    <BuildDependsOn>NetIdePreBuild;$(BuildDependsOn);NetIdePostBuild</BuildDependsOn>
+    <BuildDependsOn>$(BuildDependsOn);NetIdePostBuild</BuildDependsOn>
   </PropertyGroup>
 
-  <Target Name="NetIdePreBuild">
-    <NetIdeTask Mode="PreBuild"
-                Configuration="$(ProjectDir)\BuildConfig.xml"
-                SolutionDir="$(SolutionDir)"
-                ProjectDir="$(ProjectDir)"
-                TargetDir="$(TargetDir)"
-                TargetPath="$(TargetPath)" />
-  </Target>
-
   <Target Name="NetIdePostBuild">
-    <NetIdeTask Mode="PostBuild"
-                Configuration="$(ProjectDir)\BuildConfig.xml"
+    <NetIdeTask Configuration="$(ProjectDir)\BuildConfig.xml"
                 SolutionDir="$(SolutionDir)"
                 ProjectDir="$(ProjectDir)"
                 TargetDir="$(TargetDir)"

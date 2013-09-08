@@ -9,10 +9,6 @@ namespace NetIde.Xml.BuildConfiguration
     [XmlRoot("buildConfiguration", Namespace = Ns.BuildConfiguration)]
     public class BuildConfiguration
     {
-        [XmlArray("transformResources")]
-        [XmlArrayItem("transformResource")]
-        public List<TransformResource> TransformResources { get; set; }
-
         [XmlArray("buildNuGetPackages")]
         [XmlArrayItem("buildNuGetPackage")]
         public List<BuildNuGetPackage> BuildNuGetPackages { get; set; }
@@ -23,7 +19,6 @@ namespace NetIde.Xml.BuildConfiguration
 
         public BuildConfiguration()
         {
-            TransformResources = new List<TransformResource>();
             BuildNuGetPackages = new List<BuildNuGetPackage>();
             InstallPackages = new List<InstallPackage>();
         }

@@ -11,11 +11,7 @@ namespace NetIde.VisualStudio
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [Guid(GuidList.VisualStudioPackage)]
-    public sealed class VisualStudioPackage : Package
+    public sealed class NetIdePackage : Package
     {
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
     }
 }

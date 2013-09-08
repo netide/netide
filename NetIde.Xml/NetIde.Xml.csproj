@@ -48,7 +48,6 @@
     <Compile Include="BuildConfiguration\BuildConfiguration.cs" />
     <Compile Include="BuildConfiguration\BuildNuGetPackage.cs" />
     <Compile Include="BuildConfiguration\InstallPackage.cs" />
-    <Compile Include="BuildConfiguration\TransformResource.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Ns.cs" />
     <Compile Include="PackageMetadata\Dependency.cs" />

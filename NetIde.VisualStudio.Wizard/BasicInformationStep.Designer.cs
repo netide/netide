@@ -37,6 +37,7 @@
             this._packageName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this._packageTitle = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this._icon = new System.Windows.Forms.PictureBox();
             this._changeIcon = new System.Windows.Forms.Button();
@@ -88,17 +89,19 @@
             this.tableLayoutPanel3.Controls.Add(this._companyName, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this._packageName, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this._packageTitle, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this._packageTitle, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.label5, 1, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(160, 0);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0, 0, 0, 20);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowCount = 4;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(324, 78);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(324, 136);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // label1
@@ -145,7 +148,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 52);
+            this.label3.Location = new System.Drawing.Point(3, 110);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 26);
             this.label3.TabIndex = 4;
@@ -155,11 +158,23 @@
             // _packageTitle
             // 
             this._packageTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._packageTitle.Location = new System.Drawing.Point(92, 55);
+            this._packageTitle.Location = new System.Drawing.Point(92, 113);
             this._packageTitle.Name = "_packageTitle";
             this._packageTitle.Size = new System.Drawing.Size(229, 20);
             this._packageTitle.TabIndex = 5;
             this._packageTitle.TextChanged += new System.EventHandler(this._packageTitle_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(92, 55);
+            this.label5.Margin = new System.Windows.Forms.Padding(3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(229, 52);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "The Core package is the primary package of a Net IDE application that is loaded w" +
+    "hen the application starts up and which drives the primary functionality of the " +
+    "application.";
             // 
             // tableLayoutPanel2
             // 
@@ -212,13 +227,13 @@
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this._detailedInformation, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 140);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 156);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(484, 110);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(484, 94);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // label4
@@ -233,12 +248,13 @@
             // 
             // _detailedInformation
             // 
+            this._detailedInformation.AcceptsReturn = true;
             this._detailedInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this._detailedInformation.Location = new System.Drawing.Point(112, 3);
             this._detailedInformation.Multiline = true;
             this._detailedInformation.Name = "_detailedInformation";
             this.tableLayoutPanel4.SetRowSpan(this._detailedInformation, 2);
-            this._detailedInformation.Size = new System.Drawing.Size(369, 104);
+            this._detailedInformation.Size = new System.Drawing.Size(369, 88);
             this._detailedInformation.TabIndex = 1;
             this._detailedInformation.TextChanged += new System.EventHandler(this._detailedInformation_TextChanged);
             // 
@@ -294,5 +310,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox _detailedInformation;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
     }
 }

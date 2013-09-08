@@ -30,6 +30,79 @@ namespace NetIde.VisualStudio.Wizard
 
             _configuration.ReplacementsDictionary["$rootnamespace$"] = _configuration.ReplacementsDictionary["$safeprojectname$"];
             _configuration.ReplacementsDictionary[ReplacementVariables.PackageClass] = _configuration.ReplacementsDictionary["$packagename$"] + "Package";
+
+            // Seed the replacements dictionary with encoded values.
+
+            SeedEncodedValues();
+        }
+
+        private void SeedEncodedValues()
+        {
+            var encoded = new Dictionary<string, string>();
+
+            foreach (var variable in _configuration.ReplacementsDictionary)
+            {
+                if (
+                    variable.Key.Length > 2 &&
+                    variable.Key[0] == '$' &&
+                    variable.Key[variable.Key.Length - 1] == '$' &&
+                    variable.Key.IndexOf(':') == -1
+                ) {
+                    string name = variable.Key.Substring(1, variable.Key.Length - 2);
+
+                    encoded.Add(String.Format("${0}:xml$", name), EncodeXml(variable.Value));
+                    encoded.Add(String.Format("${0}:str$", name), EncodeString(variable.Value));
+                }
+            }
+
+            foreach (var variable in encoded)
+            {
+                _configuration.ReplacementsDictionary[variable.Key] = variable.Value;
+            }
+        }
+
+        private string EncodeXml(string value)
+        {
+            var sb = new StringBuilder();
+
+            foreach (char c in value)
+            {
+                switch (c)
+                {
+                    case '<': sb.Append("&lt;"); break;
+                    case '>': sb.Append("&gt;"); break;
+                    case '&': sb.Append("&amp;"); break;
+                    case '"': sb.Append("&quot;"); break;
+                    default: sb.Append(c); break;
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private string EncodeString(string value)
+        {
+            var sb = new StringBuilder();
+
+            foreach (char c in value)
+            {
+                switch (c)
+                {
+                    case '\a': sb.Append("\\a"); break;
+                    case '\b': sb.Append("\\b"); break;
+                    case '\f': sb.Append("\\f"); break;
+                    case '\n': sb.Append("\\n"); break;
+                    case '\r': sb.Append("\\r"); break;
+                    case '\t': sb.Append("\\t"); break;
+                    case '\v': sb.Append("\\v"); break;
+                    case '\\': sb.Append("\\\\"); break;
+                    case '\0': sb.Append("\\0"); break;
+                    case '"': sb.Append("\\\""); break;
+                    default: sb.Append(c); break;
+                }
+            }
+
+            return sb.ToString();
         }
 
         public override void RunFinished()
@@ -61,7 +134,19 @@ namespace NetIde.VisualStudio.Wizard
 
         public override void ProjectFinishedGenerating(Project project)
         {
-            RenameFile(project, "EmptyPackageSample.cs", _configuration.ReplacementsDictionary[ReplacementVariables.PackageClass] + ".cs");
+            RenameFile(
+                project,
+                "EmptyPackageSample.cs",
+                _configuration.ReplacementsDictionary[ReplacementVariables.PackageClass] + ".cs"
+            );
+            RenameFile(
+                project,
+                "NetIdeEmptyPackageSample.Package.Core.nuspec",
+                _configuration.ReplacementsDictionary[ReplacementVariables.PackageContext] +
+                ".Package." +
+                _configuration.ReplacementsDictionary[ReplacementVariables.PackageName] +
+                ".nuspec"
+            );
         }
 
         private void RenameFile(Project project, string source, string target)

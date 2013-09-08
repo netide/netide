@@ -62,7 +62,6 @@
     </Compile>
     <Compile Include="NetIdeTask.BuildNuGetPackages.cs" />
     <Compile Include="NetIdeTask.InstallPackages.cs" />
-    <Compile Include="NetIdeTask.TransformResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NetIdeTask.cs" />
     <Compile Include="VersionRetriever.cs" />
@@ -84,10 +83,6 @@
     <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
       <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
       <Name>NetIde.Shell.Interop.1.0</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NetIde.TransformResources\NetIde.TransformResources.csproj">
-      <Project>{14cd5e05-d230-4786-859c-5d5bf723302b}</Project>
-      <Name>NetIde.TransformResources</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetIde.Update\NetIde.Update.csproj">
       <Project>{564738d0-e4e6-4e51-a5e8-17c07f03af25}</Project>

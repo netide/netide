@@ -120,9 +120,6 @@
   <data name="CannotResolvePath" xml:space="preserve">
     <value>Cannot resolve path '{0}'</value>
   </data>
-  <data name="InvalidMode" xml:space="preserve">
-    <value>Mode must be 'PreBuild' or 'PostBuild'</value>
-  </data>
   <data name="MultiplePathsMatched" xml:space="preserve">
     <value>Multiple path matched the pattern '{0}'</value>
   </data>
