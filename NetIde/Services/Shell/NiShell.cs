@@ -14,11 +14,15 @@ namespace NetIde.Services.Shell
 {
     internal class NiShell : ServiceBase, INiShell
     {
+        private const string AutomationAccessButtonName = "89db2dd3-10f4-43f7-a09c-8b1d1038f137";
+
         private readonly NiConnectionPoint<INiShellEvents> _connectionPoint = new NiConnectionPoint<INiShellEvents>();
         private readonly Dictionary<INiWindowPane, DockContent> _dockContents = new Dictionary<INiWindowPane, DockContent>();
         private readonly NiEnv _env;
+        private Button _automationAccessButton;
 
         public event EventHandler RequerySuggested;
+        private bool _disposed;
 
         protected virtual void OnRequerySuggested(EventArgs e)
         {
@@ -33,6 +37,31 @@ namespace NetIde.Services.Shell
             _env = (NiEnv)GetService(typeof(INiEnv));
 
             Application.AddMessageFilter(new MessageFilter(this));
+
+            _automationAccessButton = CreateAutomationAccessButton();
+        }
+
+        private Button CreateAutomationAccessButton()
+        {
+            // When we unit test from automation, no mouse or keyboard events
+            // are triggered. The problem with this is that the status of commands
+            // are never re-queried. We make this button available to the unit
+            // test system so that the unit test can force an immediate requery.
+
+            var result = new Button
+            {
+                Name = AutomationAccessButtonName,
+                Text = AutomationAccessButtonName,
+                Visible = false
+            };
+
+            ((NiEnv)GetService(typeof(INiEnv))).MainForm.Controls.Add(result);
+
+            var handle = result.Handle;
+
+            result.Click += (s, e) => OnRequerySuggested(EventArgs.Empty);
+
+            return result;
         }
 
         public HResult Advise(object sink, out int cookie)
@@ -262,6 +291,22 @@ namespace NetIde.Services.Shell
         {
             OnRequerySuggested(EventArgs.Empty);
             _connectionPoint.ForAll(p => p.OnRequerySuggested());
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (_automationAccessButton != null)
+                {
+                    _automationAccessButton.Dispose();
+                    _automationAccessButton = null;
+                }
+
+                _disposed = true;
+            }
+
+            base.Dispose(disposing);
         }
 
         private class MessageFilter : IMessageFilter

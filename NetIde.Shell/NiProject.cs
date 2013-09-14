@@ -15,9 +15,31 @@ namespace NetIde.Shell
 
         public virtual HResult OpenItem(INiHierarchy hier, out INiWindowFrame windowFrame)
         {
-            throw new NotImplementedException();
-        }
+            windowFrame = null;
 
+            try
+            {
+                if ((NiHierarchyType?)hier.GetPropertyEx(NiHierarchyProperty.ItemType) == NiHierarchyType.File)
+                {
+                    string fileName;
+                    ErrorUtil.ThrowOnFailure(((INiProjectItem)hier).GetFileName(out fileName));
+
+                    return ((INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager))).OpenStandardEditor(
+                        null,
+                        fileName,
+                        hier,
+                        this,
+                        out windowFrame
+                    );
+                }
+
+                return HResult.False;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
         public virtual HResult RemoveItem(INiHierarchy hier)
         {
             throw new NotImplementedException();

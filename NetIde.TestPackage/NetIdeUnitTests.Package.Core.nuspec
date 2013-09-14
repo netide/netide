@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIdeUnitTests.Package.Core</id>
+    <version>$version$</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>Net IDE Test Package</title>
+    <description>Net IDE Test Package</description>
+    <dependencies>
+      <dependency id="NetIde.Package.Core" version="0.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="**" target="Tools" exclude="**.pdb;**.xml;**.nupkg;Packages\**" />
+  </files>
+</package>

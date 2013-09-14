@@ -71,7 +71,7 @@ namespace NetIde.Services.Env
 
         private void LoadContext()
         {
-            LoadContext(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            LoadContext(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
             if (Context == null)
                 LoadContext(Environment.CurrentDirectory);

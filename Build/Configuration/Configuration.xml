@@ -14,11 +14,15 @@
     <project name="NetIde.Shell" />
     <project name="NetIde.Shell.Interop.1.0" version="1.0.0.0" />
     <project name="NetIde.Shell.Settings" />
+    <project name="NetIde.Test" />
+    <project name="NetIde.TestPackage" />
+    <project name="NetIde.TestPackage.Api" />
     <project name="NetIde.Update" />
     <project name="NetIde.Util" />
     <project name="NetIde.VisualStudio" clsCompliant="false" />
     <project name="NetIde.VisualStudio.Wizard" clsCompliant="false" />
     <project name="NetIde.Xml" />
+    <project name="UIAutomationWrapper" />
   </projects>
   <templates>
     <template key="AssemblyInfo.cs"><![CDATA[

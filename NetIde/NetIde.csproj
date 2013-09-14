@@ -61,6 +61,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
@@ -75,12 +76,16 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DockPanelSuite.3.0.0-alpha7\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetIdeApplication.cs" />
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +272,9 @@
     <EmbeddedResource Include="SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Support\DockContent.resx">
+      <DependentUpon>DockContent.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="..\Support\Key.snk">
       <Link>Key.snk</Link>
     </None>
@@ -295,6 +303,10 @@
     <ProjectReference Include="..\NetIde.Xml\NetIde.Xml.csproj">
       <Project>{da664118-05ba-40fe-a51e-36e324c7be43}</Project>
       <Name>NetIde.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIAutomationWrapper\UIAutomationWrapper.csproj">
+      <Project>{13D983B6-F8B3-432A-9DCC-376F27925D4A}</Project>
+      <Name>UIAutomationWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

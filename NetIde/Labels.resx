@@ -135,9 +135,6 @@
   <data name="CannotFindCommandGroup" xml:space="preserve">
     <value>Cannot find command group '{0}'.</value>
   </data>
-  <data name="CannotFindEditorFactoryForExtension" xml:space="preserve">
-    <value>Cannot find editor factory for the specified extension</value>
-  </data>
   <data name="CannotFindProjectFactory" xml:space="preserve">
     <value>Cannot find project factory</value>
   </data>

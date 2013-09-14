@@ -9,6 +9,23 @@ namespace NetIde.Support
 {
     public class DockPanel : WeifenLuo.WinFormsUI.Docking.DockPanel
     {
+        public new IDockContent ActiveDocument
+        {
+            get
+            {
+                // There is a bug in the real ActiveDocument implementation.
+                // When a document is opened, but the DockPanel didn't have focus,
+                // the ActiveDocument won't be updated until the DockPanel gets
+                // focus. This way of accessing the active document does work
+                // as expected.
+
+                if (ActiveDocumentPane != null)
+                    return ActiveDocumentPane.ActiveContent;
+
+                return null;
+            }
+        }
+
         public DockPanel()
         {
             DockBackColor = SystemColors.AppWorkspace;

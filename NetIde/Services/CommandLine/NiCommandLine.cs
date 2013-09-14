@@ -20,9 +20,6 @@ namespace NetIde.Services.CommandLine
         public NiCommandLine(IServiceProvider serviceProvider, string[] args)
             : base(serviceProvider)
         {
-            if (args == null)
-                throw new ArgumentNullException("args");
-
             _switches["RuntimeUpdate"] = false;
 
             RegistryUtil.ForEachPackage(this, "CommandLine", (packageId, key) =>
@@ -47,38 +44,41 @@ namespace NetIde.Services.CommandLine
 
             string failedArgument = null;
 
-            for (int i = 0; i < args.Length; i++)
+            if (args != null)
             {
-                string arg = args[i];
-
-                if (arg.StartsWith("/"))
+                for (int i = 0; i < args.Length; i++)
                 {
-                    bool expectArgument;
-                    if (!_switches.TryGetValue(arg.Substring(1), out expectArgument))
-                    {
-                        failedArgument = arg;
-                        break;
-                    }
+                    string arg = args[i];
 
-                    string value = null;
-
-                    if (expectArgument)
+                    if (arg.StartsWith("/"))
                     {
-                        if (i >= args.Length - 1)
+                        bool expectArgument;
+                        if (!_switches.TryGetValue(arg.Substring(1), out expectArgument))
                         {
                             failedArgument = arg;
                             break;
                         }
 
-                        value = args[++i];
-                    }
+                        string value = null;
 
-                    if (!_arguments.ContainsKey(arg))
-                        _arguments.Add(arg, value);
-                }
-                else
-                {
-                    _remainingArguments.Add(arg);
+                        if (expectArgument)
+                        {
+                            if (i >= args.Length - 1)
+                            {
+                                failedArgument = arg;
+                                break;
+                            }
+
+                            value = args[++i];
+                        }
+
+                        if (!_arguments.ContainsKey(arg))
+                            _arguments.Add(arg, value);
+                    }
+                    else
+                    {
+                        _remainingArguments.Add(arg);
+                    }
                 }
             }
 

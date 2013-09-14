@@ -105,7 +105,13 @@ namespace NetIde.Services.OpenDocumentManager
                     }
 
                     if (!editorGuid.HasValue)
-                        throw new ArgumentOutOfRangeException("document", Labels.CannotFindEditorFactoryForExtension);
+                    {
+                        // If we cannot find an editor for the extension, we fall
+                        // back to the default editor which opens the document as
+                        // plain text.
+
+                        editorGuid = new Guid(NiConstants.TextEditor);
+                    }
                 }
 
                 if (!editorFactoryRegistry.TryGetEditorFactory(editorGuid.Value, out editorFactory))

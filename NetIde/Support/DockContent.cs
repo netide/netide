@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Automation;
+using System.Windows.Automation.Provider;
 using System.Windows.Forms;
 using NetIde.Util.Forms;
 using NetIde.Win32;
+using UIAutomationWrapper;
+using ControlType = System.Windows.Automation.ControlType;
 
 namespace NetIde.Support
 {
@@ -17,6 +22,8 @@ namespace NetIde.Support
         {
             _fixer = new FormHelper(this);
             _fixer.EnableBoundsTracking = false;
+
+            ElementProvider.Install(new DockContentElementProvider(this));
         }
 
         public event BrowseButtonEventHandler BrowseButtonClick;
@@ -136,6 +143,77 @@ namespace NetIde.Support
             }
 
             base.WndProc(ref m);
+        }
+
+        [ComVisible(true)]
+        private class DockContentElementProvider : ElementProvider, IWindowProvider
+        {
+            public new DockContent Control
+            {
+                get { return (DockContent)base.Control; }
+            }
+
+            public DockContentElementProvider(DockContent dockContent)
+                : base(dockContent)
+            {
+            }
+
+            public override ProviderOptions ProviderOptions
+            {
+                get { return ProviderOptions.ServerSideProvider | ProviderOptions.UseComThreading; }
+            }
+
+            public override ControlType ControlType
+            {
+                get { return ControlType.Window; }
+            }
+
+            void IWindowProvider.Close()
+            {
+                Control.Close();
+            }
+
+            WindowInteractionState IWindowProvider.InteractionState
+            {
+                get { return WindowInteractionState.Running; }
+            }
+
+            bool IWindowProvider.IsModal
+            {
+                get { return false; }
+            }
+
+            bool IWindowProvider.IsTopmost
+            {
+                get { return ((DockPanel)Control.DockPanel).ActiveDocument == Control; }
+            }
+
+            bool IWindowProvider.Maximizable
+            {
+                get { return false; }
+            }
+
+            bool IWindowProvider.Minimizable
+            {
+                get { return false; }
+            }
+
+            void IWindowProvider.SetVisualState(WindowVisualState state)
+            {
+                // Not supported.
+            }
+
+            WindowVisualState IWindowProvider.VisualState
+            {
+                get { return WindowVisualState.Normal; }
+            }
+
+            bool IWindowProvider.WaitForInputIdle(int milliseconds)
+            {
+                // Not supported.
+
+                return true;
+            }
         }
     }
 }

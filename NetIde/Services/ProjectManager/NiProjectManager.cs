@@ -12,11 +12,14 @@ using NetIde.Services.RunningDocumentTable;
 using NetIde.Services.Shell;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
+using log4net;
 
 namespace NetIde.Services.ProjectManager
 {
     internal class NiProjectManager : ServiceBase, INiProjectManager
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NiProjectManager));
+
         private readonly NiConnectionPoint<INiProjectManagerNotify> _connectionPoint = new NiConnectionPoint<INiProjectManagerNotify>();
         private INiProject _activeProject;
         private readonly Dictionary<Guid, INiProjectFactory> _factories = new Dictionary<Guid, INiProjectFactory>();
@@ -282,10 +285,7 @@ namespace NetIde.Services.ProjectManager
                 if (ErrorUtil.Failure(hr) || hr == HResult.False)
                     return hr;
 
-                if (
-                    ((NiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager))).HaveOpenDocuments ||
-                    ((NiRunningDocumentTable)GetService(typeof(INiRunningDocumentTable))).HaveOpenDocuments
-                )
+                if (((NiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager))).HaveOpenDocuments)
                     throw new InvalidOperationException(Labels.OpenDocumentsPresent);
 
                 var activeProject = ActiveProject;
@@ -293,6 +293,9 @@ namespace NetIde.Services.ProjectManager
                 ActiveProject = null;
 
                 ErrorUtil.ThrowOnFailure(activeProject.Close());
+
+                if (((NiRunningDocumentTable)GetService(typeof(INiRunningDocumentTable))).HaveOpenDocuments)
+                    Log.Warn("There are still documents in the running document table after closing the project");
 
                 return HResult.OK;
             }

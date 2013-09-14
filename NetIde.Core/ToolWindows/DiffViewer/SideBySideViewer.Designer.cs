@@ -30,10 +30,10 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.themedPanel1 = new NetIde.Util.Forms.ThemedPanel();
-            this._leftEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this._leftEditor = new NetIde.Core.TextEditorControl();
             this._leftDetails = new NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl();
             this.themedPanel2 = new NetIde.Util.Forms.ThemedPanel();
-            this._rightEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this._rightEditor = new NetIde.Core.TextEditorControl();
             this._rightDetails = new NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -155,9 +155,9 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Util.Forms.ThemedPanel themedPanel1;
-        private ICSharpCode.TextEditor.TextEditorControl _leftEditor;
+        private NetIde.Core.TextEditorControl _leftEditor;
         private Util.Forms.ThemedPanel themedPanel2;
-        private ICSharpCode.TextEditor.TextEditorControl _rightEditor;
+        private NetIde.Core.TextEditorControl _rightEditor;
         private StreamDetailsControl _leftDetails;
         private StreamDetailsControl _rightDetails;
     }
