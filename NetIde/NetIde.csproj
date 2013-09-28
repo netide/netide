@@ -60,6 +60,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\Support\Main Icon\mainicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -312,6 +315,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Support\Main Icon\mainicon.ico">
+      <Link>mainicon.ico</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

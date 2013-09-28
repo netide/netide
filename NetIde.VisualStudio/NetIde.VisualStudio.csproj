@@ -174,6 +174,16 @@
     <None Include="..\Support\Key.snk">
       <Link>Key.snk</Link>
     </None>
+    <Content Include="..\Support\Main Icon\mainicon.ico">
+      <Link>Resources\mainicon.ico</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Support\preview-image.png">
+      <Link>Resources\preview-image.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Assemblies\NetIde.Util.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -188,7 +198,6 @@
     <Content Include="Assemblies\NetIde.VisualStudio.Wizard.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
