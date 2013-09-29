@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns="https://github.com/pvginkel/NetIde/schemas/Resources">
+  <imports>
+    <import from="NetIde.Shell" type="NetIde.Shell.NiResources" prefix="Ni_" />
+    <import from="NetIdeDemo.Api" type="NetIdeDemo.Api.NidResources" prefix="Nid_" />
+    <import from="NetIdeDemo.Plugin.Api" type="NetIdeDemo.Plugin.Api.NidpResources" prefix="Nidp_" />
+  </imports>
+  <ui>
+    <menuRef id="Nid_Toolbar_About">
+      <group priority="100">
+        <button image="@About" text="@AboutNetIdeDemoPlugin" style="ImageAndText" priority="100" id="Nidp_About_About" />
+      </group>
+    </menuRef>
+  </ui>
+</resources>

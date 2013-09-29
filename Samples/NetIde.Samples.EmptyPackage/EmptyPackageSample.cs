@@ -14,7 +14,8 @@ namespace NetIde.Samples.EmptyPackage
     [Description("@PackageDescription")]
     [NiResources("NiResources")]
     [NiStringResources("Labels")]
-    [ProvideStartupSplashImage("Splash.png")]
+    [ProvideStartupSplashImage("Resources\\Splash.png")]
+    [ProvideApplicationIcon("Resources\\MainIcon.ico")]
     public sealed class EmptyPackageSample : NiPackage
     {
         public INiEnv Env { get; private set; }

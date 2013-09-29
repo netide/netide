@@ -68,5 +68,10 @@ namespace NetIde.Xml.PackageMetadata
         {
             Dependencies = new List<Dependency>();
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0}, Version={1}, State={2}", Id, Version, State.ToString().Replace(", ", "|"));
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace NetIde.VisualStudio.Wizard
             ReplacementsDictionary = replacementsDictionary;
             GenerateKeyFile = true;
 
-            string resourceName = GetType().Namespace + ".Resources.MainIcon.ico";
+            string resourceName = GetType().Namespace + ".Resources.mainicon.ico";
 
             using (var source = GetType().Assembly.GetManifestResourceStream(resourceName))
             using (var target = new MemoryStream())

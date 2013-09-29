@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllPackagesUpToDate" xml:space="preserve">
+    <value>All components are already at their latest version.</value>
+  </data>
+  <data name="AreYouSureQuit" xml:space="preserve">
+    <value>Are you sure you want to quit {0}?</value>
+  </data>
+  <data name="CannotAbortSetup" xml:space="preserve">
+    <value>The setup cannot be aborted at this moment</value>
+  </data>
+  <data name="CannotDownloadPackageMetadata" xml:space="preserve">
+    <value>Cannot download metadata for package '{0}'</value>
+  </data>
+  <data name="ContextNotInstalled" xml:space="preserve">
+    <value>{0} is not yet installed on this system. Please run the setup for {0} and then re-run this setup.</value>
+  </data>
+  <data name="CreatingContext" xml:space="preserve">
+    <value>Creating context '{0}'</value>
+  </data>
+  <data name="CreatingDesktopShortcut" xml:space="preserve">
+    <value>Creating desktop shortcut</value>
+  </data>
+  <data name="CreatingStartMenuShortcut" xml:space="preserve">
+    <value>Creating start menu shortcut</value>
+  </data>
+  <data name="DownloadingPackage" xml:space="preserve">
+    <value>Downloading package '{0}'</value>
+  </data>
+  <data name="FooterSetupLine" xml:space="preserve">
+    <value>Net IDE Package Setup v{0}</value>
+  </data>
+  <data name="InstallComplete" xml:space="preserve">
+    <value>Completing the {0} Setup Wizard</value>
+  </data>
+  <data name="InstallCompleteSubText" xml:space="preserve">
+    <value>{0} has been installed on your computer.</value>
+  </data>
+  <data name="Installing" xml:space="preserve">
+    <value>Installing</value>
+  </data>
+  <data name="InstallingPackage" xml:space="preserve">
+    <value>Installing package '{0}'</value>
+  </data>
+  <data name="InstallingSubText" xml:space="preserve">
+    <value>Please wait while {0} is being installed.</value>
+  </data>
+  <data name="InstallWelcome" xml:space="preserve">
+    <value>Welcome to the {0} Setup Wizard</value>
+  </data>
+  <data name="InstallWelcomeSubText" xml:space="preserve">
+    <value>This wizard will guide you through the installation of {0}.</value>
+  </data>
+  <data name="InvalidConfiguration" xml:space="preserve">
+    <value>Configuration is invalid</value>
+  </data>
+  <data name="NetIdePackageSetup" xml:space="preserve">
+    <value>Net IDE Package Setup</value>
+  </data>
+  <data name="ResolvingDependencies" xml:space="preserve">
+    <value>Resolving dependencies</value>
+  </data>
+  <data name="UnexpectedSituation" xml:space="preserve">
+    <value>An unexpected situation has occurred:
+
+{0}</value>
+  </data>
+  <data name="UpdateComplete" xml:space="preserve">
+    <value>Completing the {0} Update Wizard</value>
+  </data>
+  <data name="UpdateCompleteSubText" xml:space="preserve">
+    <value>{0} has been updated to its latest version.</value>
+  </data>
+  <data name="UpdateWelcome" xml:space="preserve">
+    <value>Welcome to the {0} Update Wizard</value>
+  </data>
+  <data name="UpdateWelcomeSubText" xml:space="preserve">
+    <value>This wizard will guide you through the update process of {0}.</value>
+  </data>
+  <data name="Updating" xml:space="preserve">
+    <value>Updating</value>
+  </data>
+  <data name="UpdatingSubText" xml:space="preserve">
+    <value>Please wait while {0} is being updated.</value>
+  </data>
+  <data name="InstallComponentsConfirm" xml:space="preserve">
+    <value>Please review the components before installing {0}.</value>
+  </data>
+  <data name="InstallComponentsConfirmSubText" xml:space="preserve">
+    <value>The following components will be installed. Review the selected components and click Next to begin the installation.</value>
+  </data>
+  <data name="UpdateComponentsConfirm" xml:space="preserve">
+    <value>Please review the components before updating {0}.</value>
+  </data>
+  <data name="UpdateComponentsConfirmSubText" xml:space="preserve">
+    <value>The following components will be updated. Review the selected components and click Next to begin the update process.</value>
+  </data>
+</root>

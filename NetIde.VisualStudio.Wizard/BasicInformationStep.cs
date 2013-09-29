@@ -21,11 +21,21 @@ namespace NetIde.VisualStudio.Wizard
 
         private void BasicInformationStep_Load(object sender, EventArgs e)
         {
-            _icon.Image = Image.FromStream(new MemoryStream(Configuration.MainIcon));
+            SetIconImage();
+
             _companyName.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageCompany, "Company");
             _packageName.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageName, "Core");
             _packageTitle.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageTitle, Configuration.ReplacementsDictionary["$projectname$"]);
             _detailedInformation.Text = Configuration.ReplacementsDictionary.GetValueOrDefault(ReplacementVariables.PackageDescription, "Description for my package");
+        }
+
+        private void SetIconImage()
+        {
+            using (var stream = new MemoryStream(Configuration.MainIcon))
+            using (var icon = new Icon(stream, new Size(32, 32)))
+            {
+                _icon.Image = icon.ToBitmap();
+            }
         }
 
         private void _companyName_TextChanged(object sender, EventArgs e)
@@ -60,11 +70,8 @@ namespace NetIde.VisualStudio.Wizard
                 {
                     try
                     {
-                        var image = File.ReadAllBytes(form.FileName);
-
-                        _icon.Image = Image.FromStream(new MemoryStream(image));
-
-                        Configuration.MainIcon = image;
+                        Configuration.MainIcon = File.ReadAllBytes(form.FileName);
+                        SetIconImage();
                     }
                     catch
                     {

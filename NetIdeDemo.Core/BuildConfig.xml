@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<buildConfiguration xmlns="https://github.com/pvginkel/NetIde/schemas/BuildConfiguration">
+  <buildNuGetPackages>
+    <buildNuGetPackage manifest="$(ProjectDir)\NetIdeDemo.Package.Core.nuspec" />
+  </buildNuGetPackages>
+  <installPackages>
+    <installPackage context="NetIdeDemo"
+                    package="$(ProjectDir)\..\NetIde.Core\bin\Debug\NetIde.Package.Core.*.nupkg" />
+    <installPackage context="NetIdeDemo"
+                    package="$(TargetDir)\NetIdeDemo.Package.Core.*.nupkg" />
+  </installPackages>
+</buildConfiguration>

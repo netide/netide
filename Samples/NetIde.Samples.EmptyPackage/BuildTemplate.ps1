@@ -19,6 +19,7 @@ $SharpZipLib = $SolutionDir + "Libraries\SharpZipLib\ICSharpCode.SharpZipLib.dll
 $IncludedFiles = @{ }
 
 $IncludedFiles.Add("NetIdePackage.vstemplate", $False)
+$IncludedFiles.Add("__TemplateIcon.ico", $False)
 
 $TemplateNs = "http://schemas.microsoft.com/developer/vstemplate/2005"
 

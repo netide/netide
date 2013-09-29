@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Conversion.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Enum.cs" />
@@ -87,6 +88,9 @@
     </Compile>
     <Compile Include="Forms\FormHelper.cs" />
     <Compile Include="Forms\NumericBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\PathLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\TextBoxBrowser.cs">

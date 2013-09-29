@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIdeDemo.Package.Plugin</id>
+    <version>$version$</version>
+    <authors>Net IDE</authors>
+    <title>Net IDE Demo Plugin</title>
+    <description>Net IDE demonstration plugin package</description>
+    <dependencies>
+      <dependency id="NetIde.Package.Core" version="0.0.0.0" />
+      <dependency id="NetIdeDemo.Package.Core" version="0.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="**" target="Tools" exclude="**.pdb;**.xml;**.nupkg;Packages\**" />
+  </files>
+</package>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <buildConfiguration xmlns="https://github.com/pvginkel/NetIde/schemas/BuildConfiguration">
   <buildNuGetPackages>
-    <buildNuGetPackage manifest="$(ProjectDir)\..\Build\Configuration\NuGet\NetIde.Package.Core.nuspec" />
+    <buildNuGetPackage manifest="$(ProjectDir)\NetIde.Package.Core.nuspec" />
   </buildNuGetPackages>
 </buildConfiguration>

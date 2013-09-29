@@ -8,6 +8,6 @@
     <description>Net IDE runtime package.</description>
   </metadata>
   <files>
-    <file src="..\NetIde\bin\Debug\**" target="Tools" exclude="..\NetIde\bin\Debug\**.pdb;..\NetIde\bin\Debug\**.xml" />
+    <file src="**" target="Tools" exclude="**.pdb;**.xml" />
   </files>
 </package>

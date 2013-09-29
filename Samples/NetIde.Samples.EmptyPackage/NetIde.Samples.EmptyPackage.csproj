@@ -94,6 +94,9 @@
     <Content Include="BuildConfig.xml" />
     <Content Include="NiContext.xml" />
     <Content Include="Readme.html" />
+    <EmbeddedResource Include="Resources\MainIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Resources\NiMenu.Generated.xml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,10 +107,9 @@
       <LastGenOutput>NiMenu.Generated.xml</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Splash.png">
+    <Content Include="Resources\Splash.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\MainIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Labels.resx">

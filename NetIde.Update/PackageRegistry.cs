@@ -13,7 +13,7 @@ namespace NetIde.Update
     {
         private const string RegistryRootKey = "Software\\Net IDE";
 
-        internal static RegistryKey OpenRegistryRoot(bool writable, string context)
+        public static RegistryKey OpenRegistryRoot(bool writable, string context)
         {
             string contextKey = RegistryRootKey + "\\" + context;
 
@@ -82,10 +82,11 @@ namespace NetIde.Update
 
         internal static PackageState GetPackageState(RegistryKey contextKey, string context, string packageId)
         {
-            if (context == null)
-                throw new ArgumentNullException("context");
             if (packageId == null)
                 throw new ArgumentNullException("packageId");
+
+            if (contextKey == null)
+                return GetPackageState(context, packageId, null);
 
             using (var key = contextKey.OpenSubKey("InstalledProducts\\" + packageId))
             {
@@ -98,10 +99,12 @@ namespace NetIde.Update
             PackageState state = 0;
 
             if (
-                String.Equals(packageId, "NetIde.Runtime", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(packageId, "NetIde.Package.Core", StringComparison.OrdinalIgnoreCase) ||
-                String.Equals(packageId, context + ".Package.Core", StringComparison.OrdinalIgnoreCase)
+                String.Equals(packageId, PackageManager.RuntimePackageId, StringComparison.OrdinalIgnoreCase) ||
+                String.Equals(packageId, PackageManager.CorePackageId, StringComparison.OrdinalIgnoreCase)
             )
+                state |= PackageState.CorePackage | PackageState.SystemPackage;
+
+            if (PackageManager.IsCorePackage(packageId, context))
                 state |= PackageState.CorePackage;
 
             if (packageKey != null)

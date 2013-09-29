@@ -11,8 +11,9 @@ namespace NetIde.Xml.PackageMetadata
         Disabled = 1,
         Installed = 2,
         CorePackage = 4,
-        UninstallPending = 8,
-        UpdatePending = 16,
-        InstallPending = 32
+        SystemPackage = 8,
+        UninstallPending = 16,
+        UpdatePending = 32,
+        InstallPending = 64
     }
 }

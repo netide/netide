@@ -20,6 +20,7 @@
       </Folder>
       <Folder Name="Resources">
         <ProjectItem ReplaceParameters="false">MainIcon.ico</ProjectItem>
+        <ProjectItem ReplaceParameters="false">Splash.png</ProjectItem>
         <ProjectItem ReplaceParameters="false">NiMenu.xml</ProjectItem>
         <ProjectItem ReplaceParameters="false">NiMenu.Generated.xml</ProjectItem>
       </Folder>
@@ -34,7 +35,6 @@
       <ProjectItem ReplaceParameters="false">NiResources.resx</ProjectItem>
       <ProjectItem ReplaceParameters="false">NiResources.Designer.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true">Resources.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="false">Splash.png</ProjectItem>
       <ProjectItem ReplaceParameters="true">NetIdeEmptyPackageSample.Package.Core.nuspec</ProjectItem>
     </Project>
   </TemplateContent>

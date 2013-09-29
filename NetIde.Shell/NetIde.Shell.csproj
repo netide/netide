@@ -75,6 +75,7 @@
     <Compile Include="NiWindowHost.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProvideApplicationIconAttribute.cs" />
     <Compile Include="ProvideEditorExtensionAttribute.cs" />
     <Compile Include="ProvideObjectAttribute.cs" />
     <Compile Include="NiSettingsExtensions.cs" />

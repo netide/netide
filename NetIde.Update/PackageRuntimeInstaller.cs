@@ -11,8 +11,14 @@ namespace NetIde.Update
     public class PackageRuntimeInstaller : PackageManager
     {
         private readonly string _packagePath;
+        private readonly bool _inPlace;
 
         public PackageRuntimeInstaller(string context, string packagePath)
+            : this(context, packagePath, false)
+        {
+        }
+
+        public PackageRuntimeInstaller(string context, string packagePath, bool inPlace)
             : base(context)
         {
             if (packagePath == null)
@@ -21,9 +27,37 @@ namespace NetIde.Update
                 throw new ArgumentNullException("context");
 
             _packagePath = packagePath;
+            _inPlace = inPlace;
         }
 
         public override void Execute()
+        {
+            if (_inPlace)
+                ExecuteInPlace();
+            else
+                ExecuteWithRestart();
+        }
+
+        private void ExecuteInPlace()
+        {
+            // The setup does an in place installation of the runtime package.
+
+            string target = Path.Combine(GetFileSystemRoot(), "bin");
+
+            // Delete the current target directory.
+
+            if (Directory.Exists(target))
+            {
+                Directory.Delete(target, true);
+                Directory.CreateDirectory(target);
+            }
+
+            // Perform the installation
+
+            ExtractPackage(_packagePath, target);
+        }
+
+        private void ExecuteWithRestart()
         {
             // Extract the contents of the tools directory into a temporary
             // location which we use later to update the main application.
@@ -38,7 +72,7 @@ namespace NetIde.Update
             string fileName = Path.Combine(
                 target,
                 Path.GetFileName(Assembly.GetEntryAssembly().Location)
-            );
+                );
 
             if (!File.Exists(fileName))
                 throw new PackageInstallationException(Labels.CorruptRuntimePackage, 7);

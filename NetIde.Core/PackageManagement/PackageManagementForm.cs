@@ -126,7 +126,7 @@ namespace NetIde.Core.PackageManagement
         {
             var installedPackages = PackageRegistry.GetInstalledPackages(_env.Context);
 
-            var packages = NuGetQuerier.Query(
+            var packages = NuGetQuerier.GetUpdates(
                 _env.Context,
                 _env.NuGetSite,
                 PackageStability.StableOnly,

@@ -11,6 +11,9 @@ namespace NetIde.Update
 {
     public abstract class PackageManager
     {
+        public const string CorePackageId = "NetIde.Package.Core";
+        public const string RuntimePackageId = "NetIde.Runtime";
+
         public static bool IsValidPackageId(string context, string packageId)
         {
             return
@@ -128,6 +131,55 @@ namespace NetIde.Update
         protected RegistryKey OpenContextRegistry(bool writable)
         {
             return PackageRegistry.OpenRegistryRoot(writable, Context);
+        }
+
+        public static string GetInstalledVersion(string context, string packageId)
+        {
+            using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
+            {
+                if (contextKey != null)
+                {
+                    using (var packageKey = contextKey.OpenSubKey("InstalledProducts\\" + packageId))
+                    {
+                        // This method is used to resolve dependencies. If we don't
+                        // have the package installed, we check whether it's a valid
+                        // package ID at all. If not, the dependency probably is an
+                        // invalid dependency (or the NetIde.Runtime dependency)
+                        // and we completely ignore it.
+
+                        if (packageKey != null)
+                            return (string)packageKey.GetValue("Version");
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public static string GetEntryAssemblyLocation(string installationPath)
+        {
+            if (installationPath == null)
+                throw new ArgumentNullException("installationPath");
+
+            return Path.Combine(installationPath, "bin", "NetIde.exe");
+        }
+
+        public static bool IsCorePackage(string packageId)
+        {
+            if (packageId == null)
+                throw new ArgumentNullException("packageId");
+
+            return packageId.EndsWith(".Package.Core", StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool IsCorePackage(string packageId, string context)
+        {
+            if (packageId == null)
+                throw new ArgumentNullException("packageId");
+            if (context == null)
+                throw new ArgumentNullException("context");
+
+            return String.Equals(packageId, context + ".Package.Core", StringComparison.OrdinalIgnoreCase);
         }
 
         private class AppDomainUnloader : IDisposable

@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1E239EC0-404B-41A2-8540-3DD626D0F40A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetIde.Setup</RootNamespace>
+    <AssemblyName>nisetup</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\Support\Main Icon\mainicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="FormFooter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installation\IProgress.cs" />
+    <Compile Include="Installation\PackageInstaller.cs" />
+    <Compile Include="Installation\PackageInstaller.Installation.cs" />
+    <Compile Include="Installation\PackageResolver.cs" />
+    <Compile Include="MessageSeverity.cs" />
+    <Compile Include="Pages\MessagePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\MessagePage.Designer.cs">
+      <DependentUpon>MessagePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NeutralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NeutralResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageAttribute.cs" />
+    <Compile Include="SetupMode.cs" />
+    <Compile Include="SetupPackage.cs" />
+    <Compile Include="Support\LinkDisplayMode.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Support\NativeMethods.cs" />
+    <Compile Include="Pages\FinishedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\FinishedPage.Designer.cs">
+      <DependentUpon>FinishedPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ConfirmPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\ConfirmPage.Designer.cs">
+      <DependentUpon>ConfirmPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InitializingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\InitializingPage.Designer.cs">
+      <DependentUpon>InitializingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InstallationPathPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\InstallationPathPage.Designer.cs">
+      <DependentUpon>InstallationPathPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InstallingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\InstallingPage.Designer.cs">
+      <DependentUpon>InstallingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LicensePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\LicensePage.Designer.cs">
+      <DependentUpon>LicensePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Page.cs" />
+    <Compile Include="Pages\PageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\StartMenuPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\StartMenuPage.Designer.cs">
+      <DependentUpon>StartMenuPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WelcomePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\WelcomePage.Designer.cs">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupConfiguration.cs" />
+    <Compile Include="Support\ShellLink.cs" />
+    <Compile Include="Support\ShellLinkResolveType.cs" />
+    <Compile Include="Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ConfirmPage.resx">
+      <DependentUpon>ConfirmPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\FinishedPage.resx">
+      <DependentUpon>FinishedPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\InitializingPage.resx">
+      <DependentUpon>InitializingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\InstallationPathPage.resx">
+      <DependentUpon>InstallationPathPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\InstallingPage.resx">
+      <DependentUpon>InstallingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\LicensePage.resx">
+      <DependentUpon>LicensePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\MessagePage.resx">
+      <DependentUpon>MessagePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\StartMenuPage.resx">
+      <DependentUpon>StartMenuPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\WelcomePage.resx">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NeutralResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Labels.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="..\Support\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Support\Main Icon\mainicon.ico">
+      <Link>mainicon.ico</Link>
+    </Content>
+    <None Include="Resources\warning.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetIde.Update\NetIde.Update.csproj">
+      <Project>{564738d0-e4e6-4e51-a5e8-17c07f03af25}</Project>
+      <Name>NetIde.Update</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Util\NetIde.Util.csproj">
+      <Project>{5cca6341-958e-4170-83ba-c8bb88d95ff4}</Project>
+      <Name>NetIde.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Xml\NetIde.Xml.csproj">
+      <Project>{DA664118-05BA-40FE-A51E-36E324C7BE43}</Project>
+      <Name>NetIde.Xml</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)\..\Libraries\7-Zip\7za.exe" a -x!*.vshost.* "$(ProjectDir)\..\NetIde.MakeSetup\Resources\nisetup.7z" *.exe *.dll</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

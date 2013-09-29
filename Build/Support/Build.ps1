@@ -305,17 +305,24 @@ Function ILMerge([string]$Primary, [string]$Source, [string]$Target)
 
 Function Build-NuGet-Packages
 {
-    $NuGetSpecs = $Global:Root + "\Build\Configuration\NuGet"
+    # Build the runtime NuGet package.
+
+    $BasePath = $Global:Root + "\NetIde\"
     
-    foreach ($Item in (Get-ChildItem -Path ($NuGetSpecs + "\*.nuspec")))
-    {
-        $PackageName = [System.IO.Path]::GetFileNameWithoutExtension($Item.Name)
-        
-        Build-NuGet-Package -NuSpec $Item.FullName -Package $PackageName -TargetPath ($Global:Distrib + "\Packages")
-    }
+    Build-NuGet-Package -NuSpec ($BasePath + "NetIde.Runtime.nuspec") -Package "NetIde.Runtime" -TargetPath ($Global:Distrib + "\Packages") -BasePath ($BasePath + "bin\Debug")
+    
+    # Copy the already built NuGet packages.
+
+    Write-Host "Copying NuGet packages"
+    
+    Copy-Item -Path ($Global:Root + "\NetIde.Core\bin\Debug\*.nupkg") -Destination ($Global:Distrib + "\Packages")
+    Copy-Item -Path ($Global:Root + "\NetIdeDemo.Core\bin\Debug\*.nupkg") -Destination ($Global:Distrib + "\Packages")
+    Copy-Item -Path ($Global:Root + "\NetIdeDemo.Plugin\bin\Debug\*.nupkg") -Destination ($Global:Distrib + "\Packages")
+
+    Console-Update-Status "[OK]" -ForegroundColor Green
 }
 
-Function Build-NuGet-Package([string]$NuSpec, [string]$Package, [string]$TargetPath)
+Function Build-NuGet-Package([string]$NuSpec, [string]$Package, [string]$TargetPath, [string]$BasePath)
 {
     Write-Host "Building NuGet $Package package"
     
@@ -323,10 +330,10 @@ Function Build-NuGet-Package([string]$NuSpec, [string]$Package, [string]$TargetP
     
     # Execute NuGet
     
-    & ($Global:Root + "\.nuget\NuGet.exe") `
+    & ($Global:Root + "\Libraries\NuGet\NuGet.exe") `
         pack $NuSpec `
         -OutputDirectory $TargetPath `
-        -BasePath ($Global:Root + "\Build") `
+        -BasePath $BasePath `
         -Version $Version `
         -NoPackageAnalysis | Out-Null
     
@@ -345,7 +352,7 @@ Function Publish-NuGet-Packages
 
     foreach ($Item in (Get-ChildItem -Path ($Global:Distrib + "\Packages\*.nupkg")))
     {
-        & ($Global:Root + "\.nuget\NuGet.exe") `
+        & ($Global:Root + "\Libraries\NuGet\NuGet.exe") `
             push ($Item.FullName) `
             -Source ($NuGetSite.TrimEnd("/") + "/package")
     }
@@ -404,9 +411,10 @@ Build-Tasks
 if ($Global:Mode -eq "distrib" -or $Global:Mode -eq "publish")
 {
     Build-Solution -Solution ($Global:Root + "\NetIde.sln") -Configuration "Debug"
-
+    Build-Solution -Solution ($Global:Root + "\Demo.sln") -Configuration "Debug"
+    
     Build-NuGet-Packages
-
+    
     if ($Global:Mode -eq "publish")
     {
         Publish-NuGet-Packages

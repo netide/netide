@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest xmlns="https://github.com/pvginkel/NetIde/schemas/PackageManifest">
+  <entryPoint>NetIdeDemo.Plugin.PluginPackage, NetIdeDemo.Plugin</entryPoint>
+</manifest>

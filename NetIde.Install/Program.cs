@@ -19,24 +19,22 @@ namespace NetIde.Install
 
             for (int i = 0; i < args.Length; i++)
             {
-                if (
-                    String.Equals(args[i], "/context", StringComparison.OrdinalIgnoreCase) ||
-                    String.Equals(args[i], "/c", StringComparison.OrdinalIgnoreCase)
-                ) {
-                    i++;
-
-                    if (i < args.Length)
-                        context = args[i];
-                }
-                else if (
-                    String.Equals(args[i], "/uninstall", StringComparison.OrdinalIgnoreCase) ||
-                    String.Equals(args[i], "/u", StringComparison.OrdinalIgnoreCase)
-                ) {
-                    uninstall = true;
-                }
-                else
+                switch (args[i].ToLowerInvariant())
                 {
-                    package = args[i];
+                    case "/context":
+                    case "/c":
+                        if (++i < args.Length)
+                            context = args[i];
+                        break;
+
+                    case "/uninstall":
+                    case "/u":
+                        uninstall = true;
+                        break;
+
+                    default:
+                        package = args[i];
+                        break;
                 }
             }
 

@@ -70,7 +70,6 @@ namespace NetIde.Core
                     new NiFinder(this)
                 );
 
-
                 _projectManager = (INiProjectManager)GetService(typeof(INiProjectManager));
                 _windowPaneSelection = (INiWindowPaneSelection)GetService(typeof(INiWindowPaneSelection));
                 _env = (INiEnv)GetService(typeof(INiEnv));

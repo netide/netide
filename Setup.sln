@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.MakeSetup", "NetIde.MakeSetup\NetIde.MakeSetup.csproj", "{FE3D2F53-9E0F-4249-8782-7B1571200DAE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1E239EC0-404B-41A2-8540-3DD626D0F40A} = {1E239EC0-404B-41A2-8540-3DD626D0F40A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Setup", "NetIde.Setup\NetIde.Setup.csproj", "{1E239EC0-404B-41A2-8540-3DD626D0F40A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Util", "NetIde.Util\NetIde.Util.csproj", "{5CCA6341-958E-4170-83BA-C8BB88D95FF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Update", "NetIde.Update\NetIde.Update.csproj", "{564738D0-E4E6-4E51-A5E8-17C07F03AF25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Xml", "NetIde.Xml\NetIde.Xml.csproj", "{DA664118-05BA-40FE-A51E-36E324C7BE43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Shell.Interop.1.0", "NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj", "{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE3D2F53-9E0F-4249-8782-7B1571200DAE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{FE3D2F53-9E0F-4249-8782-7B1571200DAE}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{FE3D2F53-9E0F-4249-8782-7B1571200DAE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FE3D2F53-9E0F-4249-8782-7B1571200DAE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1E239EC0-404B-41A2-8540-3DD626D0F40A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1E239EC0-404B-41A2-8540-3DD626D0F40A}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1E239EC0-404B-41A2-8540-3DD626D0F40A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1E239EC0-404B-41A2-8540-3DD626D0F40A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5CCA6341-958E-4170-83BA-C8BB88D95FF4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5CCA6341-958E-4170-83BA-C8BB88D95FF4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5CCA6341-958E-4170-83BA-C8BB88D95FF4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5CCA6341-958E-4170-83BA-C8BB88D95FF4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{564738D0-E4E6-4E51-A5E8-17C07F03AF25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DA664118-05BA-40FE-A51E-36E324C7BE43}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{658F4B9E-DB2A-4E5E-802A-CD9697F2DAF4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -4,7 +4,7 @@
     <Name>Net IDE Visual Studio support</Name>
     <Author>Pieter van Ginkel</Author>
     <Version>1.0.0.0</Version>
-    <License>http://www.gnu.org/licenses/lgpl-3.0-standalone.html</License>
+    <License>License.txt</License>
     <Description xml:space="preserve">Visual Studio extension for the Net IDE system.</Description>
     <Locale>1033</Locale>
     <Icon>Resources\mainicon.ico</Icon>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Microsoft.Win32;
 using NetIde.Update.NuGet;
@@ -14,68 +15,116 @@ namespace NetIde.Update
     {
         private const int PageCount = 25;
 
+        public static PackageQueryResult Query(string context, string nuGetSite, IList<string> packageIds, PackageStability stability)
+        {
+            return Query(context, nuGetSite, packageIds, stability, PackageQueryOrder.NameAscending, null);
+        }
+
         public static PackageQueryResult Query(string context, string nuGetSite, PackageStability stability, PackageQueryOrder queryOrder, int page)
+        {
+            return Query(context, nuGetSite, null, stability, queryOrder, page);
+        }
+
+        private static PackageQueryResult Query(string context, string nuGetSite, IList<string> packageIds, PackageStability stability, PackageQueryOrder queryOrder, int? page)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
             if (nuGetSite == null)
                 throw new ArgumentNullException("nuGetSite");
 
-            using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
+            var service = new FeedContext_x0060_1(new Uri(nuGetSite));
+
+            IQueryable<V2FeedPackage> query = service.Packages
+                .IncludeTotalCount()
+                .Where(p =>
+                    p.IsAbsoluteLatestVersion &&
+                    p.IsLatestVersion
+                );
+
+            if (packageIds != null)
             {
-                var service = new FeedContext_x0060_1(new Uri(nuGetSite));
+                if (packageIds.Count == 0)
+                    throw new ArgumentOutOfRangeException("packageIds");
 
-                string prefix = context + ".Package.";
+                // The feed doesn't support contains. Because of this, we're
+                // building the ||'s of all ID's here dynamically.
 
-                IQueryable<V2FeedPackage> query = service.Packages
-                    .IncludeTotalCount()
-                    .Where(p =>
-                        p.IsAbsoluteLatestVersion &&
-                        p.IsLatestVersion && (
-                            p.Id.StartsWith(prefix) ||
-                            p.Id.StartsWith("NetIde.Package.")
-                        )
+                var idProperty = typeof(V2FeedPackage).GetProperty("Id");
+                var parameterExpression = Expression.Parameter(typeof(V2FeedPackage), "p");
+
+                Expression predicate = null;
+
+                foreach (string id in packageIds)
+                {
+                    var thisPredicate = Expression.Equal(
+                        Expression.Property(parameterExpression, idProperty),
+                        Expression.Constant(id)
                     );
 
-                if (stability == PackageStability.StableOnly)
-                    query = query.Where(p => !p.IsPrerelease);
-
-                switch (queryOrder)
-                {
-                    case PackageQueryOrder.MostDownloads:
-                        query = query.OrderByDescending(p => p.DownloadCount);
-                        break;
-
-                    case PackageQueryOrder.PublishedDate:
-                        query = query.OrderByDescending(p => p.Published);
-                        break;
-
-                    case PackageQueryOrder.NameAscending:
-                        query = query.OrderBy(p => p.Title);
-                        break;
-
-                    case PackageQueryOrder.NameDescending:
-                        query = query.OrderByDescending(p => p.Title);
-                        break;
+                    predicate =
+                        predicate == null
+                        ? thisPredicate
+                        : Expression.OrElse(predicate, thisPredicate);
                 }
 
-                if (page > 0)
-                    query = query.Skip(page * PageCount);
+                query = query.Where(Expression.Lambda<Func<V2FeedPackage, bool>>(
+                    predicate, new[] { parameterExpression }
+                ));
+            }
+            else
+            {
+                string prefix = context + ".Package.";
+
+                query = query.Where(p =>
+                    p.Id.StartsWith(prefix) ||
+                    p.Id.StartsWith("NetIde.Package.")
+                );
+            }
+
+            if (stability == PackageStability.StableOnly)
+                query = query.Where(p => !p.IsPrerelease);
+
+            switch (queryOrder)
+            {
+                case PackageQueryOrder.MostDownloads:
+                    query = query.OrderByDescending(p => p.DownloadCount);
+                    break;
+
+                case PackageQueryOrder.PublishedDate:
+                    query = query.OrderByDescending(p => p.Published);
+                    break;
+
+                case PackageQueryOrder.NameAscending:
+                    query = query.OrderBy(p => p.Title);
+                    break;
+
+                case PackageQueryOrder.NameDescending:
+                    query = query.OrderByDescending(p => p.Title);
+                    break;
+            }
+
+            if (page.HasValue)
+            {
+                if (page.Value > 0)
+                    query = query.Skip(page.Value * PageCount);
 
                 query = query.Take(PageCount);
+            }
 
-                var response = (QueryOperationResponse<V2FeedPackage>)((DataServiceQuery<V2FeedPackage>)query).Execute();
+            var response = (QueryOperationResponse<V2FeedPackage>)((DataServiceQuery<V2FeedPackage>)query).Execute();
 
+            using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
+            {
                 return new PackageQueryResult(
                     response.TotalCount,
-                    page,
+                    page.GetValueOrDefault(0),
                     (int)((response.TotalCount / PageCount) + 1),
                     response.Select(p => Deserialize(p, context, contextKey, nuGetSite)).ToArray()
                 );
             }
         }
 
-        public static PackageQueryResult Query(string context, string nuGetSite, PackageStability stability, IEnumerable<IPackageId> ids)
+        public static PackageQueryResult GetUpdates(string context, string nuGetSite, PackageStability stability, IEnumerable<IPackageId> ids)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -103,6 +152,65 @@ namespace NetIde.Update
                     response.Select(p => Deserialize(p, context, contextKey, nuGetSite)).ToArray()
                 );
             }
+        }
+
+        public static PackageMetadata ResolvePackageVersion(string context, string nuGetSite, string packageId, string versionRestriction, PackageStability stability)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+            if (nuGetSite == null)
+                throw new ArgumentNullException("nuGetSite");
+            if (packageId == null)
+                throw new ArgumentNullException("packageId");
+            if (versionRestriction == null)
+                throw new ArgumentNullException("versionRestriction");
+
+            string installedVersion = PackageManager.GetInstalledVersion(context, packageId);
+
+            if (installedVersion == null)
+            {
+                // This method is used to resolve dependencies. If we don't
+                // have the package installed, we check whether it's a valid
+                // package ID at all. If not, the dependency probably is an
+                // invalid dependency (or the NetIde.Runtime dependency)
+                // and we completely ignore it.
+
+                if (!PackageManager.IsValidPackageId(context, packageId))
+                    return null;
+
+                // We default to 0.0.0.0 for uninstalled packages. This could
+                // give issues when the package available in NuGet has
+                // version 0.0.0.0. The only way to use this API is to provide
+                // a valid version number, so this currently is a limitation,
+                // i.e. that you can't have NuGet packages of version 0.0.0.0.
+
+                installedVersion = "0.0.0.0";
+            }
+
+            var service = new FeedContext_x0060_1(new Uri(nuGetSite));
+
+            var query = service.CreateQuery<V2FeedPackage>("GetUpdates")
+                .AddQueryOption("packageIds", "'" + packageId + "'")
+                .AddQueryOption("versions", "'" + installedVersion + "'")
+                .AddQueryOption("includePrerelease", (stability == PackageStability.IncludePrerelease) ? "true" : "false")
+                .AddQueryOption("includeAllVersions", "false")
+                .AddQueryOption("versionConstraints", "'" + versionRestriction + "'");
+
+            var response = (QueryOperationResponse<V2FeedPackage>)query.Execute();
+
+            PackageMetadata[] packages;
+
+            using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
+            {
+                packages = response.Select(p => Deserialize(p, context, contextKey, nuGetSite)).ToArray();
+            }
+
+            Debug.Assert(packages.Length <= 1);
+
+            if (packages.Length > 0)
+                return packages[0];
+
+            return null;
         }
 
         private static PackageMetadata Deserialize(V2FeedPackage package, string context, RegistryKey contextKey, string nuGetSite)
@@ -144,72 +252,6 @@ namespace NetIde.Update
             }
 
             return result;
-        }
-
-        public static PackageMetadata ResolvePackageVersion(string context, string nuGetSite, string packageId, string versionRestriction, PackageStability stability)
-        {
-            if (context == null)
-                throw new ArgumentNullException("context");
-            if (nuGetSite == null)
-                throw new ArgumentNullException("nuGetSite");
-            if (packageId == null)
-                throw new ArgumentNullException("packageId");
-            if (versionRestriction == null)
-                throw new ArgumentNullException("versionRestriction");
-
-            string installedVersion = null;
-
-            using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
-            using (var packageKey = contextKey.OpenSubKey("InstalledProducts\\" + packageId))
-            {
-                // This method is used to resolve dependencies. If we don't
-                // have the package installed, we check whether it's a valid
-                // package ID at all. If not, the dependency probably is an
-                // invalid dependency (or the NetIde.Runtime dependency)
-                // and we completely ignore it.
-
-                if (packageKey == null)
-                {
-                    if (!PackageManager.IsValidPackageId(context, packageId))
-                        return null;
-                }
-                else
-                {
-                    installedVersion = (string)packageKey.GetValue("Version");
-                }
-
-                // We default to 0.0.0.0 for uninstalled packages. This could
-                // give issues when the package available in NuGet has
-                // version 0.0.0.0. The only way to use this API is to provide
-                // a valid version number, so this currently is a limitation,
-                // i.e. that you can't have NuGet packages of version 0.0.0.0.
-
-                if (installedVersion == null)
-                    installedVersion = "0.0.0.0";
-            }
-
-            using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
-            {
-                var service = new FeedContext_x0060_1(new Uri(nuGetSite));
-
-                var query = service.CreateQuery<V2FeedPackage>("GetUpdates")
-                    .AddQueryOption("packageIds", "'" + packageId + "'")
-                    .AddQueryOption("versions", "'" + installedVersion + "'")
-                    .AddQueryOption("includePrerelease", (stability == PackageStability.IncludePrerelease) ? "true" : "false")
-                    .AddQueryOption("includeAllVersions", "false")
-                    .AddQueryOption("versionConstraints", "'" + versionRestriction + "'");
-
-                var response = (QueryOperationResponse<V2FeedPackage>)query.Execute();
-
-                var packages = response.Select(p => Deserialize(p, context, contextKey, nuGetSite)).ToArray();
-
-                Debug.Assert(packages.Length <= 1);
-
-                if (packages.Length > 0)
-                    return packages[0];
-
-                return null;
-            }
         }
     }
 }
