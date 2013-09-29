@@ -171,6 +171,9 @@
   <data name="EditorFactoryAlreadyRegistered" xml:space="preserve">
     <value>Editor factory has already been registered</value>
   </data>
+  <data name="ExperimentalInstancePostfix" xml:space="preserve">
+    <value> - Experimental Instance</value>
+  </data>
   <data name="InsertModeInsert" xml:space="preserve">
     <value>INS</value>
   </data>

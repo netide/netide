@@ -11,7 +11,7 @@ namespace NetIde.Setup
 {
     public class Configuration
     {
-        public string Context { get; private set; }
+        public ContextName Context { get; private set; }
 
         public string Title { get; private set; }
 
@@ -49,7 +49,7 @@ namespace NetIde.Setup
                 {
                     switch (parts[0])
                     {
-                        case "Context": Context = parts[1]; break;
+                        case "Context": Context = new ContextName(parts[1]); break;
                         case "Title": Title = parts[1]; break;
                         case "NuGetWebsite": NuGetWebsite = parts[1]; break;
                         case "Packages": Packages = new ReadOnlyCollection<string>(parts[1].Split(';')); break;

@@ -13,9 +13,12 @@ namespace NetIde.Update
     {
         private const string RegistryRootKey = "Software\\Net IDE";
 
-        public static RegistryKey OpenRegistryRoot(bool writable, string context)
+        public static RegistryKey OpenRegistryRoot(bool writable, ContextName context)
         {
-            string contextKey = RegistryRootKey + "\\" + context;
+            string contextKey = RegistryRootKey + "\\" + context.Name;
+
+            if (context.Experimental)
+                contextKey += "$Exp";
 
             if (writable)
                 return Registry.CurrentUser.CreateSubKey(contextKey);
@@ -23,7 +26,7 @@ namespace NetIde.Update
                 return Registry.CurrentUser.OpenSubKey(contextKey);
         }
 
-        public static PackageQueryResult GetInstalledPackages(string context)
+        public static PackageQueryResult GetInstalledPackages(ContextName context)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -51,7 +54,7 @@ namespace NetIde.Update
                             var state = GetPackageState(contextKey, context, packageId);
 
                             if (state.HasFlag(PackageState.Installed))
-                                packages.Add(LoadPackage(context, packagePath, packageKey, state));
+                                packages.Add(LoadPackage(packagePath, packageKey, state));
                         }
                     }
                 }
@@ -60,7 +63,7 @@ namespace NetIde.Update
             return new PackageQueryResult(packages.Count, 0, 1, packages);
         }
 
-        private static PackageMetadata LoadPackage(string context, string packagePath, RegistryKey packageKey, PackageState state)
+        private static PackageMetadata LoadPackage(string packagePath, RegistryKey packageKey, PackageState state)
         {
             string[] files = Directory.GetFiles(packagePath, "*.nuspec").ToArray();
 
@@ -80,7 +83,7 @@ namespace NetIde.Update
             return metadata;
         }
 
-        internal static PackageState GetPackageState(RegistryKey contextKey, string context, string packageId)
+        internal static PackageState GetPackageState(RegistryKey contextKey, ContextName context, string packageId)
         {
             if (packageId == null)
                 throw new ArgumentNullException("packageId");
@@ -94,7 +97,7 @@ namespace NetIde.Update
             }
         }
 
-        private static PackageState GetPackageState(string context, string packageId, RegistryKey packageKey)
+        private static PackageState GetPackageState(ContextName context, string packageId, RegistryKey packageKey)
         {
             PackageState state = 0;
 
@@ -134,7 +137,7 @@ namespace NetIde.Update
             return state;
         }
 
-        public static void EnablePackage(string context, string packageId, bool enabled)
+        public static void EnablePackage(ContextName context, string packageId, bool enabled)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -151,7 +154,7 @@ namespace NetIde.Update
             }
         }
 
-        public static void QueueUninstall(string context, string packageId)
+        public static void QueueUninstall(ContextName context, string packageId)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -165,7 +168,7 @@ namespace NetIde.Update
             }
         }
 
-        public static void QueueUpdate(string context, PackageMetadata metadata)
+        public static void QueueUpdate(ContextName context, PackageMetadata metadata)
         {
             if (context == null)
                 throw new ArgumentNullException("context");

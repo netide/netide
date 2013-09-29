@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using Microsoft.Win32;
+using NetIde.Services.Env;
 using NetIde.Shell.Interop;
 using NetIde.Update;
 
@@ -18,7 +19,7 @@ namespace NetIde.Services.PackageManager
         public const string RuntimePackageId = "NetIde.Runtime";
 
         private readonly List<PendingUpdate> _pendingUpdates;
-        private readonly INiEnv _env;
+        private readonly NiEnv _env;
 
         public event ProgressEventHandler ProgressChanged;
 
@@ -46,7 +47,7 @@ namespace NetIde.Services.PackageManager
                 throw new ArgumentNullException("pendingUpdates");
 
             _pendingUpdates = pendingUpdates.ToList();
-            _env = (INiEnv)serviceProvider.GetService(typeof(INiEnv));
+            _env = (NiEnv)serviceProvider.GetService(typeof(INiEnv));
         }
 
         public void Start()

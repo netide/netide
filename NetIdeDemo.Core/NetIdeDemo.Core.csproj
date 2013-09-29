@@ -22,6 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
     <StartProgram>$(OutputPath)\..\..\..\NetIde\bin\Debug\NetIde.exe</StartProgram>
+    <StartArguments>/experimental</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
     <StartProgram>$(OutputPath)\..\..\..\NetIde\bin\Release\NetIde.exe</StartProgram>
+    <StartArguments>/experimental</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

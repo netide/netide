@@ -17,7 +17,7 @@ namespace NetIde.Update
     {
         private string _packagePath;
 
-        public PackageInstaller(string context, string packagePath)
+        public PackageInstaller(ContextName context, string packagePath)
             : base(context)
         {
             if (packagePath == null)

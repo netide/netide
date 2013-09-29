@@ -14,7 +14,8 @@ namespace NetIde.Install
             Console.WriteLine("Net IDE Package Registration");
 
             string package = null;
-            string context = null;
+            string contextName = null;
+            bool experimental = false;
             bool uninstall = false;
 
             for (int i = 0; i < args.Length; i++)
@@ -24,12 +25,16 @@ namespace NetIde.Install
                     case "/context":
                     case "/c":
                         if (++i < args.Length)
-                            context = args[i];
+                            contextName = args[i];
                         break;
 
                     case "/uninstall":
                     case "/u":
                         uninstall = true;
+                        break;
+
+                    case "/experimental":
+                        experimental = true;
                         break;
 
                     default:
@@ -38,11 +43,13 @@ namespace NetIde.Install
                 }
             }
 
-            if (package == null || context == null)
+            if (package == null || contextName == null)
             {
-                Console.Error.WriteLine("Usage: niinstall.exe /context|c <context> [/uninstall|u] <package>");
+                Console.Error.WriteLine("Usage: niinstall.exe /context|c <context> [/uninstall|u] [/experimental] <package>");
                 return 1;
             }
+
+            var context = new ContextName(contextName, experimental);
 
             if (!uninstall && !File.Exists(package))
             {

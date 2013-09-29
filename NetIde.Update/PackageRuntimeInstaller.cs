@@ -13,12 +13,12 @@ namespace NetIde.Update
         private readonly string _packagePath;
         private readonly bool _inPlace;
 
-        public PackageRuntimeInstaller(string context, string packagePath)
+        public PackageRuntimeInstaller(ContextName context, string packagePath)
             : this(context, packagePath, false)
         {
         }
 
-        public PackageRuntimeInstaller(string context, string packagePath, bool inPlace)
+        public PackageRuntimeInstaller(ContextName context, string packagePath, bool inPlace)
             : base(context)
         {
             if (packagePath == null)
@@ -72,7 +72,7 @@ namespace NetIde.Update
             string fileName = Path.Combine(
                 target,
                 Path.GetFileName(Assembly.GetEntryAssembly().Location)
-                );
+            );
 
             if (!File.Exists(fileName))
                 throw new PackageInstallationException(Labels.CorruptRuntimePackage, 7);

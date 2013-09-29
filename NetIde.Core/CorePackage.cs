@@ -24,6 +24,7 @@ namespace NetIde.Core
     [ProvideEditorFactory(typeof(TextEditorFactory), "@TextEditorName")]
     [ProvideEditorFactory(typeof(DiffViewerFactory), "@DiffViewerName")]
     [ProvideCommandLineSwitch("Log", true)]
+    [ProvideCommandLineSwitch("Experimental", false)]
     [NiResources("NiResources")]
     [NiStringResources("Labels")]
     [ProvideOptionPage(typeof(FontsOptionPage), "Environment", "Fonts", "@Environment", "@Fonts")]

@@ -14,7 +14,7 @@ namespace NetIde.Update
     {
         private readonly string _packageId;
 
-        public PackageUninstaller(string context, string packageId)
+        public PackageUninstaller(ContextName context, string packageId)
             : base(context)
         {
             if (packageId == null)

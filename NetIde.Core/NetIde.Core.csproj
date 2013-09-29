@@ -239,6 +239,7 @@
     <None Include="..\Support\Key.snk">
       <Link>Key.snk</Link>
     </None>
+    <None Include="NetIde.Package.Core.nuspec" />
     <None Include="NiPackage.manifest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

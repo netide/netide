@@ -59,7 +59,18 @@ namespace NetIde
             using (var serviceContainer = new NiServiceContainer())
             using (_mainForm = new MainForm())
             {
-                serviceContainer.AddService(typeof(INiEnv), new NiEnv(serviceContainer, _mainForm));
+                bool experimental = false;
+
+                foreach (string arg in _args)
+                {
+                    if (String.Equals(arg, "/experimental", StringComparison.OrdinalIgnoreCase))
+                    {
+                        experimental = true;
+                        break;
+                    }
+                }
+
+                serviceContainer.AddService(typeof(INiEnv), new NiEnv(serviceContainer, _mainForm, experimental));
 
                 // Show the splash form.
 
@@ -150,15 +161,14 @@ namespace NetIde
                 return null;
 
             var env = (INiEnv)serviceProvider.GetService(typeof(INiEnv));
-            string context = env.Context;
 
             // Only the contexts' core package is allowed to provide a splash
             // image. Otherwise plugins would be allowed to override the
             // splash image.
 
-            string package = context + ".Package.Core";
+            string package = env.ContextName + ".Package.Core";
 
-            using (var baseKey = Registry.CurrentUser.OpenSubKey("Software\\Net IDE\\" + context + "\\InstalledProducts"))
+            using (var baseKey = Registry.CurrentUser.OpenSubKey(env.RegistryRoot + "\\InstalledProducts"))
             using (var key = baseKey.OpenSubKey(package))
             {
                 Debug.Assert(key != null);

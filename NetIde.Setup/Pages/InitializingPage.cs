@@ -55,7 +55,7 @@ namespace NetIde.Setup.Pages
                         string contextTitle =
                             primaryPackage != null
                             ? primaryPackage.Metadata.Title
-                            : Program.Configuration.Context;
+                            : Program.Configuration.Context.Name;
 
                         MainForm.ShowMessage(
                             MessageSeverity.Error,

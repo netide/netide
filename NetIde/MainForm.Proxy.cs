@@ -46,7 +46,6 @@ namespace NetIde
                 }
             }
 
-
             public string Caption
             {
                 get { return _owner.Text; }

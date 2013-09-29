@@ -25,6 +25,7 @@ namespace NetIde.Core.PackageManagement
         private static bool _restartPending;
 
         private INiEnv _env;
+        private ContextName _context;
         private int _cookie;
         private PackageCategory _lastCategory;
 
@@ -36,6 +37,7 @@ namespace NetIde.Core.PackageManagement
                 base.Site = value;
 
                 _env = (INiEnv)GetService(typeof(INiEnv));
+                _context = new ContextName(_env.ContextName, _env.Experimental);
             }
         }
 
@@ -85,7 +87,7 @@ namespace NetIde.Core.PackageManagement
 
         private void LoadInstalledPackages()
         {
-            DisplayPackages(++_cookie, PackageRegistry.GetInstalledPackages(_env.Context));
+            DisplayPackages(++_cookie, PackageRegistry.GetInstalledPackages(_context));
 
             SetLoading(false);
         }
@@ -101,7 +103,7 @@ namespace NetIde.Core.PackageManagement
 
         private void PerformLoadOnlinePackages(int cookie)
         {
-            var packages = NuGetQuerier.Query(_env.Context, _env.NuGetSite, _packageList.SelectedStability, _packageList.SelectedQueryOrder, _packageList.SelectedPage);
+            var packages = NuGetQuerier.Query(_context, _env.NuGetSite, _packageList.SelectedStability, _packageList.SelectedQueryOrder, _packageList.SelectedPage);
 
             try
             {
@@ -124,10 +126,10 @@ namespace NetIde.Core.PackageManagement
 
         private void PerformLoadPackagesForUpdate(int cookie)
         {
-            var installedPackages = PackageRegistry.GetInstalledPackages(_env.Context);
+            var installedPackages = PackageRegistry.GetInstalledPackages(_context);
 
             var packages = NuGetQuerier.GetUpdates(
-                _env.Context,
+                _context,
                 _env.NuGetSite,
                 PackageStability.StableOnly,
                 installedPackages.Packages
@@ -243,11 +245,11 @@ namespace NetIde.Core.PackageManagement
             {
                 case PackageControlButton.Enable:
                 case PackageControlButton.Disable:
-                    PackageRegistry.EnablePackage(_env.Context, e.Package.Id, e.Button == PackageControlButton.Enable);
+                    PackageRegistry.EnablePackage(_context, e.Package.Id, e.Button == PackageControlButton.Enable);
                     break;
 
                 case PackageControlButton.Uninstall:
-                    PackageRegistry.QueueUninstall(_env.Context, e.Package.Id);
+                    PackageRegistry.QueueUninstall(_context, e.Package.Id);
                     break;
 
                 case PackageControlButton.Update:
@@ -261,11 +263,11 @@ namespace NetIde.Core.PackageManagement
 
         private void QueueUpdate(PackageMetadata package)
         {
-            PackageRegistry.QueueUpdate(_env.Context, package);
+            PackageRegistry.QueueUpdate(_context, package);
 
             foreach (var dependency in package.Dependencies)
             {
-                var dependentPackage = NuGetQuerier.ResolvePackageVersion(_env.Context, _env.NuGetSite, dependency.Id, dependency.Version, PackageStability.StableOnly);
+                var dependentPackage = NuGetQuerier.ResolvePackageVersion(_context, _env.NuGetSite, dependency.Id, dependency.Version, PackageStability.StableOnly);
 
                 if (dependentPackage != null)
                     QueueUpdate(dependentPackage);

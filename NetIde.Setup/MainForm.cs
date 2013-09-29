@@ -156,11 +156,11 @@ namespace NetIde.Setup
                         0
                     ),
                     "Net IDE",
-                    Program.Configuration.Context
+                    Program.Configuration.Context.Name
                 );
             }
 
-            SetupConfiguration.StartMenu = Program.Configuration.StartMenu ?? Program.Configuration.Context;
+            SetupConfiguration.StartMenu = Program.Configuration.StartMenu ?? Program.Configuration.Context.Name;
 
             SetStep(0);
         }

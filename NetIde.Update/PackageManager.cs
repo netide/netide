@@ -14,23 +14,23 @@ namespace NetIde.Update
         public const string CorePackageId = "NetIde.Package.Core";
         public const string RuntimePackageId = "NetIde.Runtime";
 
-        public static bool IsValidPackageId(string context, string packageId)
+        public static bool IsValidPackageId(ContextName context, string packageId)
         {
             return
                 packageId.StartsWith("NetIde.Package.", StringComparison.OrdinalIgnoreCase) ||
-                packageId.StartsWith(context + ".Package.", StringComparison.OrdinalIgnoreCase);
+                packageId.StartsWith(context.Name + ".Package.", StringComparison.OrdinalIgnoreCase);
         }
 
-        public string Context { get; private set; }
+        public ContextName Context { get; private set; }
 
-        protected PackageManager(string context)
+        protected PackageManager(ContextName context)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
 
             Context = context;
 
-            if (Context.IndexOfAny(new[] { '/', '\\' }) != -1)
+            if (Context.Name.IndexOfAny(new[] { '/', '\\' }) != -1)
                 throw new PackageInstallationException(Labels.ContextNameInvalid, 1);
         }
 
@@ -133,7 +133,7 @@ namespace NetIde.Update
             return PackageRegistry.OpenRegistryRoot(writable, Context);
         }
 
-        public static string GetInstalledVersion(string context, string packageId)
+        public static string GetInstalledVersion(ContextName context, string packageId)
         {
             using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
             {
@@ -172,14 +172,14 @@ namespace NetIde.Update
             return packageId.EndsWith(".Package.Core", StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool IsCorePackage(string packageId, string context)
+        public static bool IsCorePackage(string packageId, ContextName context)
         {
             if (packageId == null)
                 throw new ArgumentNullException("packageId");
             if (context == null)
                 throw new ArgumentNullException("context");
 
-            return String.Equals(packageId, context + ".Package.Core", StringComparison.OrdinalIgnoreCase);
+            return String.Equals(packageId, context.Name + ".Package.Core", StringComparison.OrdinalIgnoreCase);
         }
 
         private class AppDomainUnloader : IDisposable

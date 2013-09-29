@@ -223,6 +223,15 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  - Experimental Instance.
+        /// </summary>
+        internal static string ExperimentalInstancePostfix {
+            get {
+                return ResourceManager.GetString("ExperimentalInstancePostfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INS.
         /// </summary>
         internal static string InsertModeInsert {

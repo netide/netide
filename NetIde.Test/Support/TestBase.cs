@@ -20,12 +20,12 @@ namespace NetIde.Test.Support
 
         protected virtual string[] GetArguments()
         {
-            return null;
+            return new[] { "/experimental" };
         }
 
         public virtual string TestContext
         {
-            get { return "NetIdeUnitTests"; }
+            get { return "NetIdeUnitTests$Exp"; }
         }
 
         protected AutomationWrapper MainWindow { get; private set; }
@@ -92,6 +92,7 @@ namespace NetIde.Test.Support
             Environment.CurrentDirectory = installationPath;
 
             Application = new IsolatedApplicationRunner();
+
             Application.Start(GetArguments());
 
             MainWindow = AutomationWrapper.FromHandle(Application.Handle);

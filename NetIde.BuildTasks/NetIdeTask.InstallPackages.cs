@@ -19,7 +19,7 @@ namespace NetIde.BuildTasks
                     try
                     {
                         var installer = new PackageInstaller(
-                            installPackage.Context,
+                            new ContextName(installPackage.Context, true),
                             TranslatePath(installPackage.Package)
                         );
 

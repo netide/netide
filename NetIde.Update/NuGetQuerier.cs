@@ -15,17 +15,17 @@ namespace NetIde.Update
     {
         private const int PageCount = 25;
 
-        public static PackageQueryResult Query(string context, string nuGetSite, IList<string> packageIds, PackageStability stability)
+        public static PackageQueryResult Query(ContextName context, string nuGetSite, IList<string> packageIds, PackageStability stability)
         {
             return Query(context, nuGetSite, packageIds, stability, PackageQueryOrder.NameAscending, null);
         }
 
-        public static PackageQueryResult Query(string context, string nuGetSite, PackageStability stability, PackageQueryOrder queryOrder, int page)
+        public static PackageQueryResult Query(ContextName context, string nuGetSite, PackageStability stability, PackageQueryOrder queryOrder, int page)
         {
             return Query(context, nuGetSite, null, stability, queryOrder, page);
         }
 
-        private static PackageQueryResult Query(string context, string nuGetSite, IList<string> packageIds, PackageStability stability, PackageQueryOrder queryOrder, int? page)
+        private static PackageQueryResult Query(ContextName context, string nuGetSite, IList<string> packageIds, PackageStability stability, PackageQueryOrder queryOrder, int? page)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -73,7 +73,7 @@ namespace NetIde.Update
             }
             else
             {
-                string prefix = context + ".Package.";
+                string prefix = context.Name + ".Package.";
 
                 query = query.Where(p =>
                     p.Id.StartsWith(prefix) ||
@@ -124,7 +124,7 @@ namespace NetIde.Update
             }
         }
 
-        public static PackageQueryResult GetUpdates(string context, string nuGetSite, PackageStability stability, IEnumerable<IPackageId> ids)
+        public static PackageQueryResult GetUpdates(ContextName context, string nuGetSite, PackageStability stability, IEnumerable<IPackageId> ids)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -154,7 +154,7 @@ namespace NetIde.Update
             }
         }
 
-        public static PackageMetadata ResolvePackageVersion(string context, string nuGetSite, string packageId, string versionRestriction, PackageStability stability)
+        public static PackageMetadata ResolvePackageVersion(ContextName context, string nuGetSite, string packageId, string versionRestriction, PackageStability stability)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -213,7 +213,7 @@ namespace NetIde.Update
             return null;
         }
 
-        private static PackageMetadata Deserialize(V2FeedPackage package, string context, RegistryKey contextKey, string nuGetSite)
+        private static PackageMetadata Deserialize(V2FeedPackage package, ContextName context, RegistryKey contextKey, string nuGetSite)
         {
             return new PackageMetadata
             {

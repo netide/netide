@@ -22,6 +22,7 @@ namespace NetIde
     {
         private DockContent _lastActiveDockContent;
         private NiWindowPaneSelection _windowPaneSelection;
+        private string _providedTitle;
 
         public bool AllowQuit { get; set; }
         public bool IsDisposing { get; private set; }
@@ -37,11 +38,27 @@ namespace NetIde
             }
         }
 
+        public override string Text
+        {
+            get
+            {
+                return _providedTitle;
+            }
+            set
+            {
+                _providedTitle = value ?? String.Empty;
+
+                base.Text = _providedTitle + Labels.ExperimentalInstancePostfix;
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
 
             _dockPanel.Theme = new VS2012LightTheme();
+
+            Text = null;
         }
 
         public override ISite Site

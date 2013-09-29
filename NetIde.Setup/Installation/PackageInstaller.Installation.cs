@@ -22,7 +22,7 @@ namespace NetIde.Setup.Installation
             if (Program.Configuration.InstallationPath != null)
                 return;
 
-            AddLog(Labels.CreatingContext, Program.Configuration.Context);
+            AddLog(Labels.CreatingContext, Program.Configuration.Context.Name);
 
             // Ensure we have the installation folder.
 
@@ -43,7 +43,7 @@ namespace NetIde.Setup.Installation
                     (XNamespace)Ns.Context + "context",
                     new XAttribute(
                         "name",
-                        Program.Configuration.Context
+                        Program.Configuration.Context.Name
                     ),
                     new XAttribute(
                         "nuGetSite",

@@ -8,12 +8,16 @@ namespace NetIde.Update
 {
     internal class NiRegistrationContext : MarshalByRefObject, INiRegistrationContext
     {
-        public string Context { get; private set; }
+        public string Context
+        {
+            get { return RegistryRoot.Name; }
+        }
+
         public string PackageId { get; private set; }
         public string FileSystemRoot { get; private set; }
-        public string RegistryRoot { get; private set; }
+        public ContextName RegistryRoot { get; private set; }
 
-        public NiRegistrationContext(string context, string packageId, string fileSystemRoot)
+        public NiRegistrationContext(ContextName context, string packageId, string fileSystemRoot)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -22,7 +26,6 @@ namespace NetIde.Update
             if (fileSystemRoot == null)
                 throw new ArgumentNullException("fileSystemRoot");
 
-            Context = context;
             PackageId = packageId;
             FileSystemRoot = fileSystemRoot;
             RegistryRoot = context;

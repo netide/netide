@@ -8,9 +8,11 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using NetIde.Services.CommandLine;
 using NetIde.Services.PackageManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
+using NetIde.Update;
 using NetIde.Util;
 using NetIde.Xml;
 using NetIde.Xml.Context;
@@ -29,7 +31,9 @@ namespace NetIde.Services.Env
         public MainForm MainForm { get; private set; }
         public ResourceManager ResourceManager { get; private set; }
         public INiWindow MainWindow { get; private set; }
-        public string Context { get; private set; }
+        public string ContextName { get; private set; }
+        public bool Experimental { get; private set; }
+        public ContextName Context { get; private set; }
         public string NuGetSite { get; set; }
         public string FileSystemRoot { get; private set; }
         public string RegistryRoot { get; private set; }
@@ -39,12 +43,13 @@ namespace NetIde.Services.Env
             get { return MainForm.ActiveDocument; }
         }
 
-        public NiEnv(IServiceProvider serviceProvider, MainForm mainForm)
+        public NiEnv(IServiceProvider serviceProvider, MainForm mainForm, bool experimental)
             : base(serviceProvider)
         {
             if (mainForm == null)
                 throw new ArgumentNullException("mainForm");
 
+            Experimental = experimental;
             ResourceManager = new ResourceManager();
             MainForm = mainForm;
             MainWindow = mainForm.GetProxy();
@@ -73,10 +78,10 @@ namespace NetIde.Services.Env
         {
             LoadContext(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
-            if (Context == null)
+            if (ContextName == null)
                 LoadContext(Environment.CurrentDirectory);
 
-            if (Context != null)
+            if (ContextName != null)
                 return;
 
             MessageBox.Show(
@@ -99,7 +104,7 @@ namespace NetIde.Services.Env
                 {
                     SEH.SinkExceptions(() => LoadContextFromFile(fileName));
 
-                    if (Context != null)
+                    if (ContextName != null)
                         break;
                 }
 
@@ -115,6 +120,9 @@ namespace NetIde.Services.Env
                 return;
 
             string registryRoot = "Software\\Net IDE\\" + context.Name;
+
+            if (Experimental)
+                registryRoot += "$Exp";
 
             // Attempt to create the registry root to see whether the context
             // name is a legal name.
@@ -132,7 +140,8 @@ namespace NetIde.Services.Env
             if (fileSystemRoot == null || !Directory.Exists(fileSystemRoot))
                 return;
 
-            Context = context.Name;
+            ContextName = context.Name;
+            Context = new ContextName(ContextName, Experimental);
             NuGetSite = context.NuGetSite;
             FileSystemRoot = fileSystemRoot;
             RegistryRoot = registryRoot;

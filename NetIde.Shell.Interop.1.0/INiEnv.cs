@@ -9,7 +9,8 @@ namespace NetIde.Shell.Interop
     {
         INiWindow MainWindow { get; }
         INiWindowPane ActiveDocument { get; }
-        string Context { get; }
+        string ContextName { get; }
+        bool Experimental { get; }
         string FileSystemRoot { get; }
         string RegistryRoot { get; }
         string NuGetSite { get; set; }

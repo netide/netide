@@ -20,9 +20,8 @@ namespace NetIde
                 throw new ArgumentNullException("serviceProvider");
 
             var env = (INiEnv)serviceProvider.GetService(typeof(INiEnv));
-            string context = env.Context;
 
-            using (var key = Registry.CurrentUser.OpenSubKey("Software\\Net IDE\\" + context + "\\Packages"))
+            using (var key = Registry.CurrentUser.OpenSubKey(env.RegistryRoot + "\\Packages"))
             {
                 foreach (string packageId in key.GetSubKeyNames())
                 {

@@ -131,7 +131,7 @@ namespace NetIde.Setup.Installation
             return result;
         }
 
-        private string GetInstalledVersion(string context, string packageId, string installedRuntimeVersion)
+        private string GetInstalledVersion(ContextName context, string packageId, string installedRuntimeVersion)
         {
             if (String.Equals(packageId, PackageManager.RuntimePackageId, StringComparison.OrdinalIgnoreCase))
                 return installedRuntimeVersion;
@@ -139,7 +139,7 @@ namespace NetIde.Setup.Installation
             return PackageManager.GetInstalledVersion(context, packageId);
         }
 
-        private string GetInstalledRuntimeVersion(string context)
+        private string GetInstalledRuntimeVersion(ContextName context)
         {
             using (var contextKey = PackageRegistry.OpenRegistryRoot(false, context))
             {
