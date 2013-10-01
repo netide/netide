@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIde.Shell</id>
+    <version>$version$</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>Net IDE shell package</title>
+    <description>Net IDE shell package.</description>
+    <dependencies>
+      <dependency id="log4net" version="[2.0.0]" />
+      <dependency id="NetIde.Shell.Interop.1.0" version="[$version$]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="NetIde.Shell.dll" target="Lib\Net40" />
+    <!-- <file src="NetIde.Shell.xml" target="Lib\Net40" /> -->
+  </files>
+</package>

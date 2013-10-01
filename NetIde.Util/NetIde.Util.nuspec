@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIde.Util</id>
+    <version>$version$</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>Net IDE utilities package</title>
+    <description>Net IDE utilities package.</description>
+  </metadata>
+  <files>
+    <file src="NetIde.Util.dll" target="Lib\Net40" />
+    <!-- <file src="NetIde.Util.xml" target="Lib\Net40" /> -->
+  </files>
+</package>

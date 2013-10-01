@@ -307,19 +307,61 @@ Function Build-NuGet-Packages
 {
     # Build the runtime NuGet package.
 
-    $BasePath = $Global:Root + "\NetIde\"
-    
-    Build-NuGet-Package -NuSpec ($BasePath + "NetIde.Runtime.nuspec") -Package "NetIde.Runtime" -TargetPath ($Global:Distrib + "\Packages") -BasePath ($BasePath + "bin\Debug")
-    
-    # Copy the already built NuGet packages.
+    foreach ($Item in (Get-ChildItem -Directory -Path $Global:Root))
+    {
+        $BasePath = $Item.FullName
+        $NuSpec = $Null
 
-    Write-Host "Copying NuGet packages"
-    
-    Copy-Item -Path ($Global:Root + "\NetIde.Core\bin\Debug\*.nupkg") -Destination ($Global:Distrib + "\Packages")
-    Copy-Item -Path ($Global:Root + "\NetIdeDemo.Core\bin\Debug\*.nupkg") -Destination ($Global:Distrib + "\Packages")
-    Copy-Item -Path ($Global:Root + "\NetIdeDemo.Plugin\bin\Debug\*.nupkg") -Destination ($Global:Distrib + "\Packages")
+        foreach ($ChildItem in (Get-ChildItem -Path $BasePath -Filter "*.nuspec"))
+        {
+            $NuSpec = $ChildItem.FullName
+        }
 
-    Console-Update-Status "[OK]" -ForegroundColor Green
+        if ($NuSpec -ne $Null)
+        {
+            $IdNode = Select-Xml -Path $NuSpec -XPath "/rns:package/rns:metadata/rns:id" -Namespace @{ rns = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" }
+            $PackageId = $IdNode.Node.InnerText
+
+            # Don't build the unit test package.
+            
+            if (
+                $PackageId -ne "NetIdeUnitTests.Package.Core"
+            )
+            {
+                Build-NuGet-Package `
+                    -NuSpec $NuSpec `
+                    -Package $PackageId `
+                    -TargetPath ($Global:Distrib + "\Packages") -BasePath ($BasePath + "\bin\" + $Global:Configuration)
+            }
+        }
+    }
+
+    # NuGet doesn't allow .nupkg files to be included in packages (go figure).
+    # Instead, we copy the .nupkg file to a .zip file and include that.
+
+    $CorePackage = $Null
+
+    foreach ($Item in (Get-ChildItem -Path ($Global:Distrib + "\Packages") -Filter "NetIde.Package.Core.*.nupkg"))
+    {
+        $CorePackage = $Item.FullName
+    }
+
+    $CoreZipPackage = `
+        [System.IO.Path]::GetDirectoryName($CorePackage) + "\" + `
+        [System.IO.Path]::GetFileNameWithoutExtension($CorePackage) + ".zip"
+
+    Copy-Item -Path $CorePackage -Destination $CoreZipPackage
+
+    # Build the support package.
+
+    Build-NuGet-Package `
+        -NuSpec ($Global:Root + "\Build\Configuration\NuGet\NetIde.Support.nuspec") `
+        -Package "NetIde.Support" `
+        -TargetPath ($Global:Distrib + "\Packages") -BasePath ($Global:Root + "\NetIde\bin\" + $Global:Configuration)
+
+    # Remove the zip file; it was just there to include it in the package.
+
+    Remove-Item -Path $CoreZipPackage
 }
 
 Function Build-NuGet-Package([string]$NuSpec, [string]$Package, [string]$TargetPath, [string]$BasePath)
@@ -359,18 +401,35 @@ Function Publish-NuGet-Packages
 }
 
 ################################################################################
-## USAGE
+## BUILD TASKS
 ################################################################################
 
 Function Build-Tasks
 {
-    Build-Solution -Solution ($Global:Root + "\BuildTasks.sln") -Configuration "Debug"
+    Prepare-Directory -Path ($Global:Distrib + "\MSBuild")
+
+    Build-Solution -Solution ($Global:Root + "\BuildTasks.sln") -Configuration $Global:Configuration
     
     # Copy the required files from the MSBuild task.
     
-    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\Debug\*.dll") -Destination ($Global:Distrib + "\MSBuild")
-    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\Debug\*.exe") -Destination ($Global:Distrib + "\MSBuild")
-    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\Debug\NetIde.targets") -Destination ($Global:Distrib + "\MSBuild")
+    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\" + $Global:Configuration + "\*.dll") -Destination ($Global:Distrib + "\MSBuild")
+    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\" + $Global:Configuration + "\*.exe") -Destination ($Global:Distrib + "\MSBuild")
+    Copy-Item -Path ($Global:Root + "\NetIde.BuildTasks\bin\" + $Global:Configuration + "\NetIde.targets") -Destination ($Global:Distrib + "\MSBuild")
+}
+
+################################################################################
+## SETUP
+################################################################################
+
+Function Setup
+{
+    Prepare-Directory -Path ($Global:Distrib + "\Setup")
+
+    Build-Solution -Solution ($Global:Root + "\Setup.sln") -Configuration $Global:Configuration
+    
+    # Copy the required files from the setup baker.
+    
+    Copy-Item -Path ($Global:Root + "\NetIde.MakeSetup\bin\" + $Global:Configuration + "\nimakesetup.exe") -Destination ($Global:Distrib + "\Setup")
 }
 
 ################################################################################
@@ -391,6 +450,7 @@ $Global:Root = (Get-Item (Get-Script-Directory)).Parent.Parent.FullName
 $Global:DefaultBuildTarget = "Build"
 $Global:MSBuild = Find-MSBuild
 $Global:Distrib = $Global:Root + "\Build\Distrib"
+$Global:Configuration = "Debug"
 
 if ($Args.Length -eq 0 -or -not ( @( "essentials", "distrib", "publish" ) -contains $Args[0] ))
 {
@@ -404,14 +464,13 @@ AssemblyInfo-Write-All
 
 Prepare-Directory -Path $Global:Distrib
 Prepare-Directory -Path ($Global:Distrib + "\Packages")
-Prepare-Directory -Path ($Global:Distrib + "\MSBuild")
 
 Build-Tasks
+Setup
 
 if ($Global:Mode -eq "distrib" -or $Global:Mode -eq "publish")
 {
-    Build-Solution -Solution ($Global:Root + "\NetIde.sln") -Configuration "Debug"
-    Build-Solution -Solution ($Global:Root + "\Demo.sln") -Configuration "Debug"
+    Build-Solution -Solution ($Global:Root + "\NetIde.sln") -Configuration $Global:Configuration
     
     Build-NuGet-Packages
     

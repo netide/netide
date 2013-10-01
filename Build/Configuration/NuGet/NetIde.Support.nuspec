@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIde.Support</id>
+    <version>$version$</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>Net IDE support package</title>
+    <description>Net IDE support package.</description> 
+  </metadata>
+  <files>
+    <file src="**" target="Tools\Runtime" exclude="**.pdb;**.xml" />
+    <file src="..\..\..\Build\Distrib\MSBuild\*" target="Tools\MSBuild" />
+    <file src="..\..\..\Build\Distrib\Setup\*" target="Tools\Setup" />
+    <file src="..\..\..\Build\Distrib\Packages\NetIde.Package.Core.*.zip" target="Tools\Packages" />
+    <file src="..\..\..\Build\Configuration\NuGet\NetIde.Support\Install.ps1" target="Tools" />
+    <file src="..\..\..\Build\Configuration\NuGet\NetIde.Support\NetIde Readme.html" target="Content" />
+  </files>
+</package>

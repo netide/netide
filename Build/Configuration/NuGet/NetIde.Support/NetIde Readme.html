@@ -1,0 +1,69 @@
+﻿<html>
+    <head>
+        <title>Your project has been successfully generated</title>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+        <style>
+            .code {
+                font-family: Consolas, 'Courier New', monospace;
+                font-size: 0.8em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Your project has been successfully generated</h1>
+        <p>
+            Your Net IDE Package project has been successfully generated.
+        </p>
+        <p>
+            Your project is now configured to be compiled and started as
+            a Net IDE Package. However, one piece of configuration is still
+            missing. If this is a <b>Core</b> package for a new Net IDE
+            application, the <b>context</b> for this package still needs to be
+            registered. In a production environment, this registration would be
+            done through the setup, but for a development environment, this must
+            be done by hand.
+        </p>
+        <p>
+            These steps only apply if this is a <b>Core</b> package. For plugins
+            to an existing application, you need to have the application installed,
+            which already ensures that the context has been registered.
+        </p>
+        <ul>
+            <li>
+                <p>
+                    Locate the full output path of your project. This is the
+                    <span class="code">bin\Debug</span> directory in your project.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Open the Registry Editor.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Locate the path <span class="code">HKEY_CURRENT_USER\Software\Net IDE</span>.
+                    If it does not exist yet, create it.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Under the <span class="code">HKEY_CURRENT_USER\Software\Net IDE</span>
+                    key, create a new key with the name of your context.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Under the context key, create a new <b>String Value</b>
+                    with the name <span class="code">InstallationPath</span>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Change the value of the <span class="code">InstallationPath</span>
+                    String Value to the full output path of your project.
+                </p>
+            </li>
+        </ul>
+    </body>
+</html>

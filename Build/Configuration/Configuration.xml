@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <parameters>
-    <parameter key="version" value="0.0.0.12" />
+    <parameter key="version" value="0.0.0.22" />
     <parameter key="copyright" value="Pieter van Ginkel © 2013." />
-    <parameter key="company" value="Pieter van Ginkel" />
+    <parameter key="company" value="Net IDE" />
     <parameter key="nuGetSite" value="http://localhost/NuGet/Website/api/v2" />
   </parameters>
   <projects>
@@ -24,10 +24,6 @@
     <project name="NetIde.VisualStudio" clsCompliant="false" />
     <project name="NetIde.VisualStudio.Wizard" clsCompliant="false" />
     <project name="NetIde.Xml" />
-    <project name="NetIdeDemo.Api" />
-    <project name="NetIdeDemo.Core" />
-    <project name="NetIdeDemo.Plugin" />
-    <project name="NetIdeDemo.Plugin.Api" />
     <project name="UIAutomationWrapper" />
   </projects>
   <templates>
