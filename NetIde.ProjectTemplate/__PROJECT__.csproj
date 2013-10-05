@@ -7,8 +7,8 @@
     <ProjectGuid>{C017BE56-6C8E-48DF-BE45-644C488F8D97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetIde.Samples.EmptyPackage</RootNamespace>
-    <AssemblyName>NetIde.Samples.EmptyPackage</AssemblyName>
+    <RootNamespace>__NAMESPACE__</RootNamespace>
+    <AssemblyName>__PROJECT__</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,24 +16,18 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(MSBuildProjectDirectory)\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <StartAction>Program</StartAction>
-    <StartProgram>$(OutputPath)\..\..\..\..\NetIde\bin\Debug\NetIde.exe</StartProgram>
-    <StartArguments>/experimental</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(MSBuildProjectDirectory)\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <StartAction>Program</StartAction>
-    <StartProgram>$(OutputPath)\..\..\..\..\NetIde\bin\Release\NetIde.exe</StartProgram>
-    <StartArguments>/experimental</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -42,6 +36,30 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.4.16035, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LinFu.DynamicProxy.OfficialRelease.1.0.5\lib\net\LinFu.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NetIde.Shell, Version=0.0.0.22, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NetIde.Shell.0.0.0.22\Lib\Net40\NetIde.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="NetIde.Shell.Interop.1.0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NetIde.Shell.Interop.1.0.0.0.0.22\Lib\Net40\NetIde.Shell.Interop.1.0.dll</HintPath>
+    </Reference>
+    <Reference Include="NetIde.Shell.Settings, Version=0.0.0.22, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NetIde.Shell.Settings.0.0.0.22\Lib\Net40\NetIde.Shell.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="NetIde.Util, Version=0.0.0.22, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NetIde.Util.0.0.0.22\Lib\Net40\NetIde.Util.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -53,7 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmptyPackageSample.cs" />
+    <Compile Include="__PACKAGECLASS__.cs" />
     <Compile Include="Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,34 +86,19 @@
     <Compile Include="Resources.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
-      <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
-      <Name>NetIde.Shell.Interop.1.0</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetIde.Shell.Settings\NetIde.Shell.Settings.csproj">
-      <Project>{04cea52b-45a4-47e2-990b-25e183b1ba78}</Project>
-      <Name>NetIde.Shell.Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetIde.Shell\NetIde.Shell.csproj">
-      <Project>{3fad510a-bad9-4167-8e23-9bdc794cbb31}</Project>
-      <Name>NetIde.Shell</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetIde.Util\NetIde.Util.csproj">
-      <Project>{5cca6341-958e-4170-83ba-c8bb88d95ff4}</Project>
-      <Name>NetIde.Util</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Key.snk" />
-    <None Include="NetIdeEmptyPackageSample.Package.Core.nuspec" />
+    <None Include="__CONTEXT__.Package.__PACKAGE__.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NiPackage.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BuildConfig.xml" />
+    <Content Include="NetIde Readme.html" />
     <Content Include="NiContext.xml" />
-    <Content Include="Readme.html" />
     <EmbeddedResource Include="Resources\MainIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -125,10 +128,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Condition="Exists('$(ProjectDir)\..\..\Build\Distrib\MSBuild\NetIde.targets')" Project="$(ProjectDir)\..\..\Build\Distrib\MSBuild\NetIde.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell -file "$(ProjectDir)\BuildTemplate.ps1" "$(ProjectDir)\" "$(ProjectDir)\..\..\NetIde.VisualStudio\ProjectTemplates\NetIdePackage.zip"</PostBuildEvent>
+    <PostBuildEvent>powershell -file "$(ProjectDir)\BuildTemplate.ps1" "$(ProjectDir)\" "$(ProjectDir)\..\NetIde.VisualStudio\ProjectTemplates\NetIdePackage.zip"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\NetIde.Support.0.0.0.22\Tools\MSBuild\NetIde.targets" Condition="Exists('..\packages\NetIde.Support.0.0.0.22\Tools\MSBuild\NetIde.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

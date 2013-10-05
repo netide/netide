@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 
-namespace NetIde.Samples.EmptyPackage
+namespace __NAMESPACE__
 {
     [Guid("586bf7e4-a5aa-4cb9-95e0-00a7227809ff")]
     [Description("@PackageDescription")]
@@ -16,7 +16,7 @@ namespace NetIde.Samples.EmptyPackage
     [NiStringResources("Labels")]
     [ProvideStartupSplashImage("Resources\\Splash.png")]
     [ProvideApplicationIcon("Resources\\MainIcon.ico")]
-    public sealed class EmptyPackageSample : NiPackage
+    public sealed class __PACKAGECLASS__ : NiPackage
     {
         public INiEnv Env { get; private set; }
 

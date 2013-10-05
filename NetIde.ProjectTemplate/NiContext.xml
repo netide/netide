@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<context name="NetIdeEmptyPackageSample"
+<context name="__CONTEXT__"
          nuGetSite="http://localhost/NuGet/Website/api/v2/"
          xmlns="https://github.com/pvginkel/NetIde/schemas/Context" />

@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>NetIdeEmptyPackageSample.Package.Core</id>
+    <id>__CONTEXT__.Package.__PACKAGE__</id>
     <version>$version$</version>
-    <authors>Package Company</authors>
-    <title>Package Title</title>
-    <description>Package Description</description>
+    <authors>__COMPANY__</authors>
+    <title>__TITLE__</title>
+    <description>__DESCRIPTION__</description>
     <dependencies>
       <dependency id="NetIde.Package.Core" version="0.0.0.0" />
     </dependencies>

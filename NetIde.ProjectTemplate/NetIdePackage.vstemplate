@@ -12,9 +12,10 @@
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
     <Icon>__TemplateIcon.ico</Icon>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
   </TemplateData>
   <TemplateContent>
-    <Project File="NetIde.Samples.EmptyPackage.csproj" ReplaceParameters="true">
+    <Project File="__PROJECT__.csproj" ReplaceParameters="true">
       <Folder Name="Properties">
         <ProjectItem ReplaceParameters="true">AssemblyInfo.cs</ProjectItem>
       </Folder>
@@ -24,10 +25,9 @@
         <ProjectItem ReplaceParameters="false">NiMenu.xml</ProjectItem>
         <ProjectItem ReplaceParameters="false">NiMenu.Generated.xml</ProjectItem>
       </Folder>
-      <ProjectItem ReplaceParameters="false" OpenInWebBrowser="true">Readme.html</ProjectItem>
       <ProjectItem ReplaceParameters="true">BuildConfig.xml</ProjectItem>
       <ProjectItem ReplaceParameters="false">Key.snk</ProjectItem>
-      <ProjectItem ReplaceParameters="true">EmptyPackageSample.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">__PACKAGECLASS__.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true">Labels.resx</ProjectItem>
       <ProjectItem ReplaceParameters="false">Labels.Designer.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true">NiContext.xml</ProjectItem>
@@ -35,11 +35,25 @@
       <ProjectItem ReplaceParameters="false">NiResources.resx</ProjectItem>
       <ProjectItem ReplaceParameters="false">NiResources.Designer.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true">Resources.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true">NetIdeEmptyPackageSample.Package.Core.nuspec</ProjectItem>
+      <ProjectItem ReplaceParameters="true">__CONTEXT__.Package.__PACKAGE__.nuspec</ProjectItem>
     </Project>
   </TemplateContent>
   <WizardExtension>
     <Assembly>NetIde.VisualStudio.Wizard</Assembly>
     <FullClassName>NetIde.VisualStudio.Wizard.NetIdeWizard</FullClassName>
   </WizardExtension>
+  <WizardData>
+    <!--
+      The Net IDE project wizard does not make use of the default NuGet
+      wizard. The reason is that that wizard doesn't allow us to install
+      packages from the NuGet website, which we'd really like to do. Instead
+      these packages are used by the Net IDE wizard and it installs the
+      NuGet packages itselves.
+    -->
+    <packages>
+      <package id="NetIde.Shell.Settings" version="__VERSION__" />
+      <package id="NetIde.Support" version="__VERSION__" />
+      <package id="NetIde.Util" version="__VERSION__" />
+    </packages>
+  </WizardData>
 </VSTemplate>

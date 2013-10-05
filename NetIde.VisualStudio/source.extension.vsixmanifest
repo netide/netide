@@ -9,7 +9,6 @@
     <Locale>1033</Locale>
     <Icon>Resources\mainicon.ico</Icon>
     <PreviewImage>Resources\preview-image.png</PreviewImage>
-    <!--<PreviewImage>???.png</PreviewImage>-->
     <InstalledByMsi>false</InstalledByMsi>
     <MoreInfoUrl>http://netide.github.io/</MoreInfoUrl>
     <SupportedProducts>
@@ -30,7 +29,12 @@
     </SupportedProducts>
     <SupportedFrameworkRuntimeEdition MinVersion="4.0" />
   </Identifier>
-  <References />
+  <References>
+    <Reference Id="NuPackToolsVsix.Microsoft.67e54e40-0ae3-42c5-a949-fddf5739e7a5" MinVersion="1.7.30402.9028">
+      <Name>NuGet Package Manager</Name>
+      <MoreInfoUrl>http://docs.nuget.org/</MoreInfoUrl>
+    </Reference>
+  </References>
   <Content>
     <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
     <Assembly AssemblyName="NetIde.VisualStudio.Wizard">Assemblies\NetIde.VisualStudio.Wizard.dll</Assembly>

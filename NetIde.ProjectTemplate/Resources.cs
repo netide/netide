@@ -5,7 +5,7 @@ using System.Text;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 
-namespace NetIde.Samples.EmptyPackage
+namespace __NAMESPACE__
 {
     internal static class Resources
     {

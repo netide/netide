@@ -6,17 +6,37 @@ using System.Linq;
 using System.Resources.Tools;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 using EnvDTE;
 using Microsoft.CSharp;
 using Microsoft.VisualStudio.TemplateWizard;
+using NuGet.VisualStudio;
 
 namespace NetIde.VisualStudio.Wizard
 {
     public class NetIdeWizard : BaseWizard
     {
-        private WizardConfiguration _configuration;
+        private const string AggregatePackageSource = "(Aggregate source)";
 
-        public override void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, Microsoft.VisualStudio.TemplateWizard.WizardRunKind runKind, object[] customParams)
+        private static readonly XNamespace VsTemplateNs = "http://schemas.microsoft.com/developer/vstemplate/2005";
+
+        private readonly IVsPackageInstaller _installer;
+        private WizardConfiguration _configuration;
+        private List<PackageInformation> _packages;
+        private DTE _dte;
+
+        public NetIdeWizard()
+        {
+            _installer = Support.ServiceLocator.GetInstance<IVsPackageInstaller>();
+            if (_installer == null)
+                throw new InvalidOperationException("Could not resolve the IVsPackageInstaller service");
+            _dte = Support.ServiceLocator.GetInstance<DTE>();
+            if (_installer == null)
+                throw new InvalidOperationException("Could not resolve the DTE service");
+        }
+
+        public override void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams)
         {
             _configuration = new WizardConfiguration(replacementsDictionary);
 
@@ -34,6 +54,40 @@ namespace NetIde.VisualStudio.Wizard
             // Seed the replacements dictionary with encoded values.
 
             SeedEncodedValues();
+
+            var vsTemplatePath = (string)customParams[0];
+
+            using (var reader = XmlReader.Create(
+                vsTemplatePath,
+                new XmlReaderSettings
+                {
+                    XmlResolver = null,
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    IgnoreWhitespace = false
+                })
+            ) {
+                _packages = GetPackageConfiguration(XDocument.Load(reader));
+            }
+        }
+
+        private List<PackageInformation> GetPackageConfiguration(XDocument document)
+        {
+            // Ignore XML namespaces since VS does not check them either when loading vstemplate files.
+            var packagesElement = document.Root
+                .Element(VsTemplateNs + "WizardData")
+                .Element(VsTemplateNs + "packages");
+
+            var result = new List<PackageInformation>();
+
+            foreach (var package in packagesElement.Elements(VsTemplateNs + "package"))
+            {
+                result.Add(new PackageInformation(
+                    package.Attribute("id").Value,
+                    package.Attribute("version").Value
+                ));
+            }
+
+            return result;
         }
 
         private void SeedEncodedValues()
@@ -128,25 +182,44 @@ namespace NetIde.VisualStudio.Wizard
             // Generate the Designer.cs files for all resources.
 
             GenerateDesignerFiles(destinationDirectory);
-
-            // And last, rename the package class.
         }
 
         public override void ProjectFinishedGenerating(Project project)
         {
             RenameFile(
                 project,
-                "EmptyPackageSample.cs",
+                "__PACKAGECLASS__.cs",
                 _configuration.ReplacementsDictionary[ReplacementVariables.PackageClass] + ".cs"
             );
             RenameFile(
                 project,
-                "NetIdeEmptyPackageSample.Package.Core.nuspec",
+                "__CONTEXT__.Package.__PACKAGE__.nuspec",
                 _configuration.ReplacementsDictionary[ReplacementVariables.PackageContext] +
-                ".Package." +
-                _configuration.ReplacementsDictionary[ReplacementVariables.PackageName] +
-                ".nuspec"
+                    ".Package." +
+                    _configuration.ReplacementsDictionary[ReplacementVariables.PackageName] +
+                    ".nuspec"
             );
+
+            InstallNuGetPackages(project);
+        }
+
+        private void InstallNuGetPackages(Project project)
+        {
+            foreach (var package in _packages)
+            {
+                _dte.StatusBar.Text = String.Format(
+                    "Installing NuGet package '{0}'...",
+                    package.PackageId
+                );
+
+                _installer.InstallPackage(
+                    AggregatePackageSource,
+                    project,
+                    package.PackageId,
+                    package.Version,
+                    false
+                );
+            }
         }
 
         private void RenameFile(Project project, string source, string target)

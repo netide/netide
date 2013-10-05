@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <manifest xmlns="https://github.com/pvginkel/NetIde/schemas/PackageManifest">
-  <entryPoint>NetIde.Samples.EmptyPackage.EmptyPackageSample, NetIde.Samples.EmptyPackage</entryPoint>
+  <entryPoint>__NAMESPACE__.__PACKAGECLASS__, __PROJECT__</entryPoint>
 </manifest>
