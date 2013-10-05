@@ -21,7 +21,7 @@ namespace NetIde.Test.Support
                 File.WriteAllText(
                     Path.Combine(path, ProjectFileName),
 @"<?xml version=""1.0"" encoding=""utf-8""?>
-<testProject xmlns=""https://github.com/pvginkel/NetIde/schemas/TestProject"" />"
+<testProject xmlns=""http://netide.github.io/netide-schemas/TestProject.xsd"" />"
                 );
             }
 

@@ -1,0 +1,3 @@
+[submodule "Support/Schemas"]
+	path = Support/Schemas
+	url = git@github.com:netide/netide-schemas.git

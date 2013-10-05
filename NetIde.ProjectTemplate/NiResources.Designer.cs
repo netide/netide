@@ -77,7 +77,7 @@ namespace @__NAMESPACE__ {
         ///    Changes to this file may cause incorrect behavior and will be lost if
         ///    the code is regenerated.
         ///--&gt;
-        ///&lt;resources xmlns=&quot;https://github.com/pvginkel/NetIde/schemas/Resources&quot;&gt;
+        ///&lt;resources xmlns=&quot;http://netide.github.io/netide-schemas/Resources.xsd&quot;&gt;
         ///  &lt;ui&gt;&lt;/ui&gt;
         ///&lt;/resources&gt;.
         /// </summary>

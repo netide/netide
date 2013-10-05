@@ -10,7 +10,7 @@ namespace NetIde.VisualStudio.FileGenerators.MenuTemplateGenerator
 {
     internal static class ResourceTransformer
     {
-        private static readonly XNamespace Ns = "https://github.com/pvginkel/NetIde/schemas/Resources";
+        private static readonly XNamespace Ns = "http://netide.github.io/netide-schemas/Resources.xsd";
 
         public static string Transform(string xml, IAssemblyReferenceResolver resolver)
         {

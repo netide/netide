@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<manifest xmlns="https://github.com/pvginkel/NetIde/schemas/PackageManifest">
+<manifest xmlns="http://netide.github.io/netide-schemas/NiPackage.xsd">
   <entryPoint>NetIde.TestPackage.CorePackage, NetIde.TestPackage</entryPoint>
 </manifest>

@@ -127,7 +127,7 @@ namespace NetIde.Core {
         ///    Changes to this file may cause incorrect behavior and will be lost if
         ///    the code is regenerated.
         ///--&gt;
-        ///&lt;resources xmlns=&quot;https://github.com/pvginkel/NetIde/schemas/Resources&quot;&gt;
+        ///&lt;resources xmlns=&quot;http://netide.github.io/netide-schemas/Resources.xsd&quot;&gt;
         ///  &lt;ui&gt;
         ///    &lt;menu id=&quot;Menu_File&quot; text=&quot;@MenuFile&quot; priority=&quot;100&quot; kind=&quot;Menu&quot; guid=&quot;{047F8695-7B12-41D8-8FF3-82F3416A9E5D}&quot;&gt;
         ///      &lt;group priority=&quot;100&quot;&gt;

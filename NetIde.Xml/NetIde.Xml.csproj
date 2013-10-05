@@ -86,7 +86,8 @@
     <None Include="..\Support\Key.snk">
       <Link>Key.snk</Link>
     </None>
-    <None Include="Resources\Resources.xsd">
+    <None Include="..\Support\Schemas\Resources.xsd">
+      <Link>Resources\Resources.xsd</Link>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
