@@ -96,12 +96,21 @@ namespace NetIde.MakeSetup
 
                 // Create the base archive to which we add our setup.
 
-                File.WriteAllBytes(Path.Combine(tempPath, "setup.7z"), NeutralResources.setup);
+                using (var source = OpenResource("nisetup.7z"))
+                using (var target = File.Create(Path.Combine(tempPath, "setup.7z")))
+                {
+                    source.CopyTo(target);
+                }
 
                 // Create 7za.exe.
 
                 string archiver = Path.Combine(tempPath, "7za.exe");
-                File.WriteAllBytes(archiver, NeutralResources._7za);
+
+                using (var source = OpenResource("7za.exe"))
+                using (var target = File.Create(archiver))
+                {
+                    source.CopyTo(target);
+                }
 
                 // Create the 7z archive.
 
@@ -132,7 +141,7 @@ namespace NetIde.MakeSetup
 
                 using (var target = File.Create(targetFileName))
                 {
-                    using (var source = new MemoryStream(NeutralResources.NetIDE))
+                    using (var source = OpenResource("NetIDE.sfx"))
                     {
                         source.CopyTo(target);
                     }
@@ -149,6 +158,13 @@ namespace NetIde.MakeSetup
             }
 
             return 0;
+        }
+
+        private static Stream OpenResource(string resourceName)
+        {
+            resourceName = typeof(Program).Namespace + ".Resources." + resourceName;
+
+            return typeof(Program).Assembly.GetManifestResourceStream(resourceName);
         }
     }
 }

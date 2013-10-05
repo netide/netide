@@ -68,19 +68,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NeutralResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NeutralResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="..\Libraries\7-Zip\7za.exe">
+    <EmbeddedResource Include="..\Libraries\7-Zip\7za.exe">
       <Link>Resources\7za.exe</Link>
-    </Content>
+    </EmbeddedResource>
     <Content Include="..\Support\Main Icon\mainicon.ico">
       <Link>mainicon.ico</Link>
     </Content>
@@ -89,14 +84,8 @@
     <None Include="..\Support\Key.snk">
       <Link>Key.snk</Link>
     </None>
-    <None Include="Resources\NetIDE.sfx" />
-    <None Include="Resources\setup.7z" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="NeutralResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NetIDE.sfx" />
+    <EmbeddedResource Include="Resources\nisetup.7z" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
