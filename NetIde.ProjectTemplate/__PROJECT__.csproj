@@ -40,25 +40,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinFu.DynamicProxy.OfficialRelease.1.0.5\lib\net\LinFu.DynamicProxy.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NetIde.Shell, Version=0.0.0.22, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NetIde.Shell.0.0.0.22\Lib\Net40\NetIde.Shell.dll</HintPath>
+    <Reference Include="NetIde.Shell">
+      <HintPath>..\packages\NetIde.Shell.0.0.0.24\Lib\Net40\NetIde.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="NetIde.Shell.Interop.1.0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NetIde.Shell.Interop.1.0.0.0.0.22\Lib\Net40\NetIde.Shell.Interop.1.0.dll</HintPath>
+    <Reference Include="NetIde.Shell.Interop.1.0">
+      <HintPath>..\packages\NetIde.Shell.Interop.1.0.0.0.0.24\Lib\Net40\NetIde.Shell.Interop.1.0.dll</HintPath>
     </Reference>
-    <Reference Include="NetIde.Shell.Settings, Version=0.0.0.22, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NetIde.Shell.Settings.0.0.0.22\Lib\Net40\NetIde.Shell.Settings.dll</HintPath>
+    <Reference Include="NetIde.Shell.Settings">
+      <HintPath>..\packages\NetIde.Shell.Settings.0.0.0.24\Lib\Net40\NetIde.Shell.Settings.dll</HintPath>
     </Reference>
-    <Reference Include="NetIde.Util, Version=0.0.0.22, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NetIde.Util.0.0.0.22\Lib\Net40\NetIde.Util.dll</HintPath>
+    <Reference Include="NetIde.Util">
+      <HintPath>..\packages\NetIde.Util.0.0.0.24\Lib\Net40\NetIde.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -131,7 +127,7 @@
   <PropertyGroup>
     <PostBuildEvent>powershell -file "$(ProjectDir)\BuildTemplate.ps1" "$(ProjectDir)\" "$(ProjectDir)\..\NetIde.VisualStudio\ProjectTemplates\NetIdePackage.zip"</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\NetIde.Support.0.0.0.22\Tools\MSBuild\NetIde.targets" Condition="Exists('..\packages\NetIde.Support.0.0.0.22\Tools\MSBuild\NetIde.targets')" />
+  <Import Project="..\packages\NetIde.Support.0.0.0.24\Tools\MSBuild\NetIde.targets" Condition="Exists('..\packages\NetIde.Support.0.0.0.24\Tools\MSBuild\NetIde.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

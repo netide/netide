@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <parameters>
-    <parameter key="version" value="0.0.0.22" />
+    <parameter key="version" value="0.0.0.24" />
     <parameter key="copyright" value="Pieter van Ginkel © 2013." />
     <parameter key="company" value="Net IDE" />
     <parameter key="nuGetSite" value="http://localhost/NuGet/Website/api/v2" />

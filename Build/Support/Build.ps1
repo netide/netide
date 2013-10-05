@@ -303,6 +303,35 @@ Function ILMerge([string]$Primary, [string]$Source, [string]$Target)
 # NUGET PACKAGES
 ################################################################################
 
+Function Restore-NuGet-Packages
+{
+    $Paths = @( )
+
+    foreach ($Item in (Get-ChildItem -Directory -Path $Global:Root))
+    {
+        $FileName = $Item.FullName + "\packages.config"
+        
+        if (Test-Path -Path $FileName)
+        {
+            $Paths += $FileName
+        }
+    }
+    
+    for ($I = 0; $I -lt $Paths.Length; $I++)
+    {
+        Write-Host ("`rRestoring NuGet packages (" + ($I + 1) + "/" + $Paths.Length + ")") -NoNewline
+        
+        & ($Global:Root + "\Libraries\NuGet\NuGet.exe") `
+            restore $Paths[$i] `
+            -SolutionDirectory $Global:Root `
+            -Verbosity quiet
+    }
+    
+    Write-Host ""
+    
+    Console-Update-Status "[OK]" -ForegroundColor Green
+}
+
 Function Build-NuGet-Packages
 {
     # Build the runtime NuGet package.
@@ -325,7 +354,7 @@ Function Build-NuGet-Packages
             # Don't build the unit test package.
             
             if (
-                $PackageId -ne "NetIdeUnitTests.Package.Core"
+                $PackageId -ne "__CONTEXT__.Package.__PACKAGE__"
             )
             {
                 Build-NuGet-Package `
@@ -459,6 +488,8 @@ if ($Args.Length -eq 0 -or -not ( @( "essentials", "distrib", "publish" ) -conta
 }
 
 $Global:Mode = $Args[0]
+
+Restore-NuGet-Packages
 
 AssemblyInfo-Write-All
 
