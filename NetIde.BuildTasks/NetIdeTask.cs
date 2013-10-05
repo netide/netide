@@ -36,6 +36,7 @@ namespace NetIde.BuildTasks
 
             var configuration = LoadConfiguration();
 
+            ExecuteCreateContext(configuration);
             ExecuteBuildNuGetPackages(configuration);
             ExecuteInstallPackages(configuration);
 

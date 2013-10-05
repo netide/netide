@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BuildConfiguration\BuildConfiguration.cs" />
     <Compile Include="BuildConfiguration\BuildNuGetPackage.cs" />
+    <Compile Include="BuildConfiguration\CreateContext.cs" />
     <Compile Include="BuildConfiguration\InstallPackage.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Ns.cs" />

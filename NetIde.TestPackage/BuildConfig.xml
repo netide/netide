@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <buildConfiguration xmlns="https://github.com/pvginkel/NetIde/schemas/BuildConfiguration">
+  <createContext context="NetIdeUnitTests" />
   <buildNuGetPackages>
     <buildNuGetPackage manifest="$(ProjectDir)\NetIdeUnitTests.Package.Core.nuspec" />
   </buildNuGetPackages>

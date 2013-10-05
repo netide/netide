@@ -9,6 +9,9 @@ namespace NetIde.Xml.BuildConfiguration
     [XmlRoot("buildConfiguration", Namespace = Ns.BuildConfiguration)]
     public class BuildConfiguration
     {
+        [XmlElement("createContext")]
+        public CreateContext CreateContext { get; set; }
+
         [XmlArray("buildNuGetPackages")]
         [XmlArrayItem("buildNuGetPackage")]
         public List<BuildNuGetPackage> BuildNuGetPackages { get; set; }
