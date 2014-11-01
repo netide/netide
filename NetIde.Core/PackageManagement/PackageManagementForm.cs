@@ -101,10 +101,16 @@ namespace NetIde.Core.PackageManagement
 
         private void PerformLoadOnlinePackages(int cookie)
         {
-            var packages = NuGetQuerier.Query(_env.Context, _env.NuGetSite, _packageList.SelectedStability, _packageList.SelectedQueryOrder, _packageList.SelectedPage);
-
             try
             {
+                var packages = NuGetQuerier.Query(
+                    _env.Context,
+                    _env.NuGetSite,
+                    _packageList.SelectedStability,
+                    _packageList.SelectedQueryOrder,
+                    _packageList.SelectedPage
+                );
+
                 BeginInvoke(new Action(() => DisplayPackages(cookie, packages)));
             }
             catch (Exception ex)
