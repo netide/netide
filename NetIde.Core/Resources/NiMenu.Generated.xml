@@ -7,31 +7,31 @@
 <resources xmlns="https://github.com/pvginkel/NetIde/schemas/Resources">
   <ui>
     <menu id="Menu_File" text="@MenuFile" priority="100" kind="Menu" guid="{047F8695-7B12-41D8-8FF3-82F3416A9E5D}">
-      <group priority="100">
-        <button id="File_NewProject" priority="100" text="@MenuFileNewProject" key="Control+Shift+N" image="@DocumentsNew" guid="{C5926B60-6AE6-4BA7-9D54-884DF6FB7EBD}" />
-        <button id="File_OpenProject" priority="200" text="@MenuFileOpenProject" key="Control+Shift+O" image="@Documents" guid="{ACF87DCF-DF74-4F8E-BC95-B29BE62D9DE3}" />
-      </group>
-      <group priority="200">
-        <button id="File_Close" priority="100" text="@MenuFileClose" key="Control+F4" guid="{01DD3AF5-4CAB-4E40-B02C-BF7876AD721D}" />
-        <button id="File_CloseProject" priority="200" text="@MenuFileCloseProject" image="@Exit" guid="{D7C5E60D-AA08-4946-AD11-33B5249E1A79}" />
-      </group>
-      <group priority="300">
-        <button id="File_Save" priority="100" text="@MenuFileSave" key="Control+S" image="@DiskBlue" guid="{99C719FB-7DDB-4F92-883F-39C5E4952A73}" />
-        <button id="File_SaveAs" priority="200" text="@MenuFileSaveAs" guid="{AC58B2C5-B1A1-4FF3-A2C1-6961F25C6E5C}" />
-        <button id="File_SaveAll" priority="300" text="@MenuFileSaveAll" key="Control+Shift+S" image="@Disks" guid="{DF7C1543-1FF3-4946-A6BA-9E31401B5508}" />
-      </group>
+      <!--<group priority="100">
+                <button id="File_NewProject" priority="100" text="@MenuFileNewProject" key="Control+Shift+N" image="@DocumentsNew"/>
+                <button id="File_OpenProject" priority="200" text="@MenuFileOpenProject" key="Control+Shift+O" image="@Documents"/>
+            </group>
+            <group priority="200">
+                <button id="File_Close" priority="100" text="@MenuFileClose" key="Control+F4" />
+                <button id="File_CloseProject" priority="200" text="@MenuFileCloseProject" image="@Exit" />
+            </group>
+            <group priority="300">
+                <button id="File_Save" priority="100" text="@MenuFileSave" key="Control+S" image="@DiskBlue" />
+                <button id="File_SaveAs" priority="200" text="@MenuFileSaveAs" />
+                <button id="File_SaveAll" priority="300" text="@MenuFileSaveAll" key="Control+Shift+S" image="@Disks" />
+            </group>-->
       <group priority="1000">
         <button id="File_Exit" priority="1000" text="@MenuFileExit" key="Alt+F4" image="@Exit" guid="{5E1BBD55-8D4A-4CE7-A504-E1F5BF4EED7F}" />
       </group>
     </menu>
-    <menu id="Menu_Edit" text="@MenuEdit" priority="1000" kind="Menu">
-      <group priority="100">
-        <button id="Edit_Find" priority="100" text="@MenuEditFind" key="Control+F" image="@Find" guid="{0134D098-F018-4C1C-9632-83FDE0D6573F}" />
-        <button id="Edit_Replace" priority="100" text="@MenuEditReplace" key="Control+H" image="@Replace" guid="{1A196F81-C0A7-4B3F-81FB-7F9940C6885A}" />
-        <button id="Edit_FindInFiles" priority="100" text="@MenuEditFindInFiles" key="Control+Shift+F" image="@Find" guid="{BE9BF7A5-D045-47AF-B301-971B3BDF8240}" />
-        <button id="Edit_ReplaceInFiles" priority="100" text="@MenuEditReplaceInFiles" key="Control+Shift+H" image="@Replace" guid="{278DF93A-079B-4C58-AA80-5258D5D57947}" />
-      </group>
-    </menu>
+    <!--<menu id="Menu_Edit" text="@MenuEdit" priority="1000" kind="Menu">
+            <group priority="100">
+                <button id="Edit_Find" priority="100" text="@MenuEditFind" key="Control+F" image="@Find" />
+                <button id="Edit_Replace" priority="100" text="@MenuEditReplace" key="Control+H" image="@Replace" />
+                <button id="Edit_FindInFiles" priority="100" text="@MenuEditFindInFiles" key="Control+Shift+F" image="@Find" />
+                <button id="Edit_ReplaceInFiles" priority="100" text="@MenuEditReplaceInFiles" key="Control+Shift+H" image="@Replace" />
+            </group>
+        </menu>-->
     <menu id="Menu_Tools" text="@MenuTools" priority="2000" kind="Menu" guid="{246A0692-718D-4751-8549-ECBC3F110D04}">
       <group priority="100">
         <button id="Tools_PackageManagement" priority="100" text="@MenuToolsPackageManagement" guid="{84E916EE-F199-4559-B5AE-930846B49579}" />
