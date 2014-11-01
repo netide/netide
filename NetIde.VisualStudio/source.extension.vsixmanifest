@@ -1,38 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
-  <Identifier Id="357faa8c-589d-4714-977b-7ab586529e4b">
-    <Name>Net IDE Visual Studio support</Name>
-    <Author>Pieter van Ginkel</Author>
-    <Version>1.0.0.0</Version>
-    <Description xml:space="preserve">Visual Studio extension for the Net IDE system.
-</Description>
-    <Locale>1033</Locale>
-    <Icon>icon.ico</Icon>
-    <PreviewImage>rhino.png</PreviewImage>
-    <InstalledByMsi>false</InstalledByMsi>
-    <SupportedProducts>
-      <VisualStudio Version="10.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-        <Edition>VBExpress</Edition>
-        <Edition>VCSExpress</Edition>
-      </VisualStudio>
-      <VisualStudio Version="11.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-        <Edition>VBExpress</Edition>
-        <Edition>VCSExpress</Edition>
-      </VisualStudio>
-    </SupportedProducts>
-    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
-  </Identifier>
-  <References />
-  <Content>
-    <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
-    <Assembly AssemblyName="NetIde.VisualStudio.Wizard">Assemblies\NetIde.VisualStudio.Wizard.dll</Assembly>
-    <Assembly AssemblyName="NetIde.Util">Assemblies\NetIde.Util.dll</Assembly>
-    <ProjectTemplate>ProjectTemplates</ProjectTemplate>
-  </Content>
+    <Identifier Id="357faa8c-589d-4714-977b-7ab586529e4b">
+        <Name>Net IDE Visual Studio support</Name>
+        <Author>Pieter van Ginkel</Author>
+        <Version>1.0.0.0</Version>
+        <Description xml:space="preserve">Visual Studio extension for the Net IDE system.</Description>
+        <Locale>1033</Locale>
+        <Icon>icon.ico</Icon>
+        <PreviewImage>rhino.png</PreviewImage>
+        <InstalledByMsi>false</InstalledByMsi>
+        <SupportedProducts>
+            <VisualStudio Version="10.0">
+                <Edition>Ultimate</Edition>
+                <Edition>Premium</Edition>
+                <Edition>Pro</Edition>
+                <Edition>VBExpress</Edition>
+                <Edition>VCSExpress</Edition>
+            </VisualStudio>
+            <VisualStudio Version="11.0">
+                <Edition>Ultimate</Edition>
+                <Edition>Premium</Edition>
+                <Edition>Pro</Edition>
+                <Edition>VBExpress</Edition>
+                <Edition>VCSExpress</Edition>
+            </VisualStudio>
+            <VisualStudio Version="12.0">
+                <Edition>Ultimate</Edition>
+                <Edition>Premium</Edition>
+                <Edition>Pro</Edition>
+                <Edition>VBExpress</Edition>
+                <Edition>VCSExpress</Edition>
+            </VisualStudio>
+        </SupportedProducts>
+        <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
+    </Identifier>
+    <References />
+    <Content>
+        <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
+        <Assembly AssemblyName="NetIde.VisualStudio.Wizard">Assemblies\NetIde.VisualStudio.Wizard.dll</Assembly>
+        <Assembly AssemblyName="NetIde.Util">Assemblies\NetIde.Util.dll</Assembly>
+        <ProjectTemplate>ProjectTemplates</ProjectTemplate>
+    </Content>
 </Vsix>

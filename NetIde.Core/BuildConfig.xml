@@ -1,9 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <buildConfiguration xmlns="https://github.com/pvginkel/NetIde/schemas/BuildConfiguration">
-  <transformResources>
-    <transformResource source="$(ProjectDir)\Resources\NiMenu.Template.xml"
-                       target="$(ProjectDir)\Resources\NiMenu.xml" />
-  </transformResources>
   <buildNuGetPackages>
     <buildNuGetPackage manifest="$(ProjectDir)\..\Build\Configuration\NuGet\NetIde.Package.Core.nuspec" />
   </buildNuGetPackages>

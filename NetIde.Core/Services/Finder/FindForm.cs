@@ -281,7 +281,6 @@ namespace NetIde.Core.Services.Finder
 
                 case Action.SkipFile:
                     throw new NotImplementedException();
-                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException("action");
@@ -321,7 +320,6 @@ namespace NetIde.Core.Services.Finder
 
                 case Action.SkipFile:
                     throw new NotImplementedException();
-                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException("action");

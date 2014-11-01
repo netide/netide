@@ -39,21 +39,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.TextEditor, Version=3.2.1.6472, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NetIde.ICSharpCode.TextEditor.3.2.1.6473\lib\net20\ICSharpCode.TextEditor.dll</HintPath>
+      <HintPath>..\packages\NetIde.ICSharpCode.TextEditor.3.2.1.6473\lib\net20\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NetIde.Util">
       <HintPath>..\..\NetIde\NetIde.Util\obj\Debug\NetIde.Util.dll</HintPath>
     </Reference>
     <Reference Include="NGitDiff">
-      <HintPath>..\..\packages\NGitDiff.2.1.0.0\lib\net20\NGitDiff.dll</HintPath>
+      <HintPath>..\packages\NGitDiff.2.1.0.0\lib\net20\NGitDiff.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -327,15 +327,21 @@
     <None Include="Resources\DocumentsNew.png" />
     <None Include="Resources\Find.png" />
     <Content Include="BuildConfig.xml" />
-    <Content Include="Resources\NiMenu.xml" />
     <None Include="packages.config" />
     <None Include="Resources\PageRight.png" />
     <None Include="Resources\PageLeft.png" />
     <None Include="Resources\NuGetPackage.png" />
     <None Include="Resources\Exit.png" />
     <None Include="Resources\add.png" />
-    <Content Include="Resources\NiMenu.Template.xml">
+    <Content Include="Resources\NiMenu.Generated.xml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NiMenu.xml</DependentUpon>
+    </Content>
+    <Content Include="Resources\NiMenu.xml">
+      <Generator>NetIdeResourceTransformer</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>NiMenu.Generated.xml</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

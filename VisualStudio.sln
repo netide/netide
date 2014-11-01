@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.VisualStudio", "NetIde.VisualStudio\NetIde.VisualStudio.csproj", "{DC240494-961B-4986-8AB8-635EF3C597B3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C017BE56-6C8E-48DF-BE45-644C488F8D97} = {C017BE56-6C8E-48DF-BE45-644C488F8D97}
