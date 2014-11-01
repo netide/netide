@@ -233,7 +233,7 @@
       <Link>Key.snk</Link>
     </None>
     <None Include="NiPackage.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
