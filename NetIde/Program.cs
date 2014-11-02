@@ -22,6 +22,7 @@ using NetIde.Services.ToolsOptions;
 using NetIde.Services.WindowPaneSelection;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
+using NetIde.Support;
 using NetIde.Util.Forms;
 using log4net;
 
@@ -36,6 +37,8 @@ namespace NetIde
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            ToolStripManager.Renderer = new VS2012ToolStripRenderer();
 
             using (var serviceContainer = new NiServiceContainer())
             using (var mainForm = new MainForm())

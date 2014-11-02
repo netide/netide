@@ -102,6 +102,14 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\VisualStyleUtil.cs" />
+    <Compile Include="Forms\VS2012ColorTable.cs" />
+    <Compile Include="Forms\VS2012ToolStripExtender.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\VS2012ToolStripExtender.Designer.cs">
+      <DependentUpon>VS2012ToolStripExtender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VS2012ToolStripRenderer.cs" />
     <Compile Include="IKeyedCollection.cs" />
     <Compile Include="ImageFileType.cs" />
     <Compile Include="ImageListManager.cs" />
