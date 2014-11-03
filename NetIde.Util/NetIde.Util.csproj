@@ -62,6 +62,7 @@
       <DependentUpon>BrowserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CancelPreviewEventHandler.cs" />
+    <Compile Include="Forms\ToolStripUtil.cs" />
     <Compile Include="Forms\ControlUtil.cs" />
     <Compile Include="Forms\DateTimePicker.cs">
       <SubType>Component</SubType>
@@ -81,6 +82,7 @@
     <Compile Include="Forms\FormFooter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\FormFooterBorderStyle.cs" />
     <Compile Include="Forms\FormFooterStyle.cs" />
     <Compile Include="Forms\FormHeader.cs">
       <SubType>Component</SubType>
@@ -98,6 +100,12 @@
     <Compile Include="Forms\ThemedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\ToolStripCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\ToolStripSpringTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\UserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -110,6 +118,7 @@
       <DependentUpon>VS2012ToolStripExtender.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VS2012ToolStripRenderer.cs" />
+    <Compile Include="Forms\WaitCursorScope.cs" />
     <Compile Include="IKeyedCollection.cs" />
     <Compile Include="ImageFileType.cs" />
     <Compile Include="ImageListManager.cs" />
