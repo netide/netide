@@ -56,10 +56,10 @@ namespace NetIde
 
                 _windowPaneSelection = (NiWindowPaneSelection)GetService(typeof(INiWindowPaneSelection));
 
-                ((IServiceContainer)GetService(typeof(IServiceContainer))).AddService(
-                    typeof(INiStatusBar),
-                    new NiStatusBar(this, value)
-                );
+                var serviceContainer = (IServiceContainer)GetService(typeof(IServiceContainer));
+
+                serviceContainer.AddService(typeof(INiStatusBar), new NiStatusBar(this, value));
+                serviceContainer.AddService(typeof(INiMainWindowChrome), new NiMainWindowChrome(this, value));
             }
         }
 

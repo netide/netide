@@ -61,6 +61,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomChrome">
+      <HintPath>..\..\packages\CustomChrome.0.2.0.0\lib\net20\CustomChrome.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -101,6 +104,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.StatusBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.MainWindowChrome.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NetIdeException.cs" />
