@@ -22,6 +22,7 @@ namespace NetIde.Util.Forms
         private bool _renderSizeGrip;
         private VisualStyleRenderer _sizeGripRenderer;
         private FormFooterStyle _style;
+        private FormFooterBorderStyle _borderStyle = FormFooterBorderStyle.Auto;
 
         public FormFooter()
         {
@@ -113,6 +114,21 @@ namespace NetIde.Util.Forms
             }
         }
 
+        [Category("Appearance")]
+        [DefaultValue(FormFooterBorderStyle.Auto)]
+        public new FormFooterBorderStyle BorderStyle
+        {
+            get { return _borderStyle; }
+            set
+            {
+                if (_borderStyle != value)
+                {
+                    _borderStyle = value;
+                    Invalidate();
+                }
+            }
+        }
+
         protected override void OnLayout(LayoutEventArgs levent)
         {
             base.OnLayout(levent);
@@ -130,7 +146,24 @@ namespace NetIde.Util.Forms
 
                 base.OnPaint(e);
 
-                if (Style == FormFooterStyle.Wizard)
+                bool paintBorder;
+
+                switch (BorderStyle)
+                {
+                    case FormFooterBorderStyle.Visible:
+                        paintBorder = true;
+                        break;
+
+                    case FormFooterBorderStyle.Hidden:
+                        paintBorder = false;
+                        break;
+
+                    default:
+                        paintBorder = Style == FormFooterStyle.Wizard;
+                        break;
+                }
+
+                if (paintBorder)
                 {
                     using (var pen = new Pen(_bumpLightColor))
                     {
