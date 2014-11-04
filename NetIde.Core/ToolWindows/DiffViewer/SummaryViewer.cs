@@ -18,10 +18,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _leftDetails.SelectDetails(leftStream, leftFileType);
             _rightDetails.SelectDetails(rightStream, rightFileType);
 
-            if (leftStream == null)
-                _summary.Text = null;
-            else
-                _summary.Text = Labels.BinaryFileSummary;
+            _summary.Text = Labels.BinaryFileSummary;
         }
 
         public SummaryViewer()

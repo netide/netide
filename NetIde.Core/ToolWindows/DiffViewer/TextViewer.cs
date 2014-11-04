@@ -89,20 +89,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _rightData = rightData;
             _rightFileType = (TextFileType)rightFileType;
 
-            if (_leftData == null || _rightData == null)
-            {
-                // Reset.
-
-                _leftText = null;
-                _rightText = null;
-                _editList = null;
-                _unifiedViewer.Reset();
-                _sideBySideViewer.Reset();
-                return;
-            }
-
-            _leftText = new Text(_leftFileType.Encoding.GetString(_leftData));
-            _rightText = new Text(_rightFileType.Encoding.GetString(_rightData));
+            _leftText = new Text(_leftData == null ? String.Empty : _leftFileType.Encoding.GetString(_leftData));
+            _rightText = new Text(_rightData == null ? String.Empty : _rightFileType.Encoding.GetString(_rightData));
 
             _editList = DiffAlgorithm.GetAlgorithm(DiffAlgorithm.SupportedAlgorithm.HISTOGRAM).Diff(
                 DiffViewer.Text.Comparator.DEFAULT,

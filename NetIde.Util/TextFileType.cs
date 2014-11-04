@@ -37,7 +37,7 @@ namespace NetIde.Util
                 throw new ArgumentNullException("extension");
 
             if (stream.Length == 0)
-                return null;
+                return new TextFileType(Encoding.UTF8, false, 0, PlatformUtil.NativeLineTermination);
 
             stream.Position = 0;
 

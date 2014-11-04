@@ -93,31 +93,48 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         public new void Load(IStream left, IStream right)
         {
-            if (left == null)
-                throw new ArgumentNullException("left");
-            if (right == null)
-                throw new ArgumentNullException("right");
+            byte[] leftData = null;
+            FileType leftFileType = null;
 
-            var leftData = LoadStream(left);
-            var rightData = LoadStream(right);
-
-            FileType leftFileType;
-            FileType rightFileType;
-
-            using (var leftStream = new MemoryStream(leftData))
+            if (left != null)
             {
-                leftFileType = FileType.FromStream(leftStream, Path.GetExtension(left.Name));
+                leftData = LoadStream(left);
+
+                using (var leftStream = new MemoryStream(leftData))
+                {
+                    leftFileType = FileType.FromStream(leftStream, Path.GetExtension(left.Name));
+                }
             }
 
-            using (var rightStream = new MemoryStream(rightData))
+            byte[] rightData = null;
+            FileType rightFileType = null;
+
+            if (right != null)
             {
-                rightFileType = FileType.FromStream(rightStream, Path.GetExtension(right.Name));
+                rightData = LoadStream(right);
+
+                using (var rightStream = new MemoryStream(rightData))
+                {
+                    rightFileType = FileType.FromStream(rightStream, Path.GetExtension(right.Name));
+                }
             }
 
-            var type =
-                leftFileType.Type == rightFileType.Type
-                ? leftFileType.Type
-                : FileTypeType.Binary;
+            FileTypeType type;
+
+            if (leftFileType == null)
+            {
+                if (rightFileType == null)
+                    type = FileTypeType.Binary;
+                else
+                    type = rightFileType.Type;
+            }
+            else
+            {
+                if (rightFileType == null || leftFileType.Type == rightFileType.Type)
+                    type = leftFileType.Type;
+                else
+                    type = FileTypeType.Binary;
+            }
 
             switch (type)
             {
