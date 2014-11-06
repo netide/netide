@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -182,6 +183,8 @@ namespace NetIde.Shell.Settings
                 {
                     if (underlyingType == typeof(string))
                         _settings.SetValue(key, (string)value);
+                    else if (underlyingType == typeof(string[]))
+                        _settings.SetValue(key, SerializeStringArray((string[])value));
                     else if (underlyingType == typeof(int))
                         _settings.SetValue(key, (int)value);
                     else if (underlyingType == typeof(decimal))
@@ -215,6 +218,8 @@ namespace NetIde.Shell.Settings
 
                     if (underlyingType == typeof(string))
                         value = _settings.GetString(key);
+                    else if (underlyingType == typeof(string[]))
+                        value = DeserializeStringArray((string)_settings.GetString(key));
                     else if (underlyingType == typeof(int))
                         value = _settings.GetInt32(key);
                     else if (underlyingType == typeof(decimal))
@@ -239,6 +244,122 @@ namespace NetIde.Shell.Settings
                 }
 
                 return value;
+            }
+
+            private string SerializeStringArray(string[] value)
+            {
+                if (value == null)
+                    return null;
+
+                var sb = new StringBuilder();
+
+                for (int i = 0; i < value.Length; i++)
+                {
+                    if (value[i] != null)
+                    {
+                        foreach (char c in value[i])
+                        {
+                            switch (c)
+                            {
+                                case '\\':
+                                    sb.Append("\\\\");
+                                    break;
+
+                                case '\n':
+                                    sb.Append("\\n");
+                                    break;
+
+                                case '\r':
+                                    sb.Append("\\r");
+                                    break;
+
+                                default:
+                                    sb.Append(c);
+                                    break;
+                            }
+                        }
+                    }
+
+                    // We always append a newline so that we can see whether
+                    // the input didn't have any strings. When deserializing
+                    // we assert that the last line is empty.
+
+                    sb.Append(Environment.NewLine);
+                }
+
+                return sb.ToString();
+            }
+
+            private string[] DeserializeStringArray(string value)
+            {
+                if (value == null)
+                    return null;
+
+                string[] parts = value.Split('\n');
+                var result = new List<string>();
+                var sb = new StringBuilder();
+
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    sb.Clear();
+
+                    string line = parts[i];
+                    int end = line.Length;
+                    if (line.Length > 0 && line[line.Length - 1] == '\r')
+                        end--;
+
+                    for (int j = 0; j < end; j++)
+                    {
+                        char c = line[j];
+                        if (c == '\\')
+                        {
+                            Debug.Assert(j < end - 1);
+
+                            switch (line[j + 1])
+                            {
+                                case '\\':
+                                    j++;
+                                    sb.Append('\\');
+                                    break;
+
+                                case 'n':
+                                    j++;
+                                    sb.Append('\n');
+                                    break;
+
+                                case 'r':
+                                    j++;
+                                    sb.Append('\r');
+                                    break;
+
+                                default:
+                                    Debug.Fail("Unexpected escape character");
+                                    sb.Append('\\');
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            sb.Append(c);
+                        }
+                    }
+
+                    if (i == parts.Length - 1)
+                    {
+                        // The last line should be empty. Otherwise someone has
+                        // tampered with the input.
+
+                        Debug.Assert(line.Length == 0);
+                        if (line.Length > 0)
+                            result.Add(line);
+                    }
+                    else
+                    {
+                        result.Add(line);
+                    }
+                }
+
+                return result.ToArray();
             }
 
             private object GetEnum(Type underlyingType, string key)

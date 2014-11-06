@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._textBox = new System.Windows.Forms.TextBox();
+            this._textBox = new NetIde.Util.Forms.TextBox();
             this.SuspendLayout();
             // 
             // _textBox
@@ -51,7 +51,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox _textBox;
+        private NetIde.Util.Forms.TextBox _textBox;
 
     }
 }

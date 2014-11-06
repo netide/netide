@@ -26,6 +26,13 @@
         <Edition>VBExpress</Edition>
         <Edition>VCSExpress</Edition>
       </VisualStudio>
+      <VisualStudio Version="12.0">
+        <Edition>Ultimate</Edition>
+        <Edition>Premium</Edition>
+        <Edition>Pro</Edition>
+        <Edition>VBExpress</Edition>
+        <Edition>VCSExpress</Edition>
+      </VisualStudio>
     </SupportedProducts>
     <SupportedFrameworkRuntimeEdition MinVersion="4.0" />
   </Identifier>

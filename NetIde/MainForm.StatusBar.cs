@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Services;
-using NetIde.Services.Shell;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 

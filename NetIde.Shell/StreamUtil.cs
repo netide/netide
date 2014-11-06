@@ -216,6 +216,9 @@ namespace NetIde.Shell
                 {
                     buffer = new byte[length];
 
+                    if (length == 0)
+                        return HResult.OK;
+
                     int read = _stream.Read(buffer, 0, length);
 
                     if (read == 0)
@@ -224,7 +227,8 @@ namespace NetIde.Shell
 
                         return HResult.False;
                     }
-                    else if (read != length)
+
+                    if (read != length)
                     {
                         Debug.Assert(read < length);
 

@@ -58,6 +58,7 @@
     <Compile Include="INiKeyEventNotify.cs" />
     <Compile Include="INiList.cs" />
     <Compile Include="INiLanguageServiceRegistry.cs" />
+    <Compile Include="INiMainWindowChrome.cs" />
     <Compile Include="INiMouseEventNotify.cs" />
     <Compile Include="INiObjectWithSite.cs" />
     <Compile Include="INiOpenDocumentManager.cs" />

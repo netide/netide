@@ -22,27 +22,37 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _leftDetails.SelectDetails(leftStream, leftFileType);
             _rightDetails.SelectDetails(rightStream, rightFileType);
 
-            try
+            _leftImage.Image = null;
+
+            if (leftData != null)
             {
-                _leftImage.Image = Image.FromStream(new MemoryStream(leftData));
-                _leftImageContainer.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                _leftImageContainer.Visible = false;
-                Log.Warn("Could not load left image", ex);
+                try
+                {
+                    _leftImage.Image = Image.FromStream(new MemoryStream(leftData));
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Could not load left image", ex);
+                }
             }
 
-            try
+            _leftImageContainer.Visible = _leftImage.Image != null;
+
+            _rightImage.Image = null;
+
+            if (rightData != null)
             {
-                _rightImage.Image = Image.FromStream(new MemoryStream(rightData));
-                _rightImageContainer.Visible = true;
+                try
+                {
+                    _rightImage.Image = Image.FromStream(new MemoryStream(rightData));
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Could not load right image", ex);
+                }
             }
-            catch (Exception ex)
-            {
-                _rightImageContainer.Visible = false;
-                Log.Warn("Could not load right image", ex);
-            }
+
+            _rightImageContainer.Visible = _rightImage.Image != null;
         }
 
         public ImageViewer()

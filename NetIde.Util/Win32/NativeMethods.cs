@@ -15,6 +15,7 @@ namespace NetIde.Util.Win32
         public const int WM_NCPAINT = 0x0085;
         public const int WM_ERASEBKGND = 0x0014;
         public const int WM_NOTIFY = 0x004E;
+        public const int WM_PAINT = 0x000F;
 
         public const int APPCOMMAND_BROWSER_BACKWARD = 1;
         public const int APPCOMMAND_BROWSER_FORWARD = 2;
@@ -35,6 +36,8 @@ namespace NetIde.Util.Win32
         public const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
         public const int TVM_GETEXTENDEDSTYLE = 0x1100 + 45;
         public const int TVS_EX_DOUBLEBUFFER = 0x0004;
+
+        public const int EM_SETCUEBANNER = 0x1501;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
@@ -68,6 +71,9 @@ namespace NetIde.Util.Win32
 
         [DllImport(ExternDll.User32)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParram);
+
+        [DllImport(ExternDll.User32, CharSet = CharSet.Unicode)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParram);
 
         [DllImport(ExternDll.User32)]
         public static extern IntPtr GetActiveWindow();

@@ -80,7 +80,7 @@ namespace NetIde.Services.OpenDocumentManager
                 {
                     string extension = Path.GetExtension(document);
 
-                    if (extension != null)
+                    if (!String.IsNullOrEmpty(extension))
                     {
                         var activeProject = ((INiProjectManager)GetService(typeof(INiProjectManager))).ActiveProject;
                         ExtensionRegistration registration = null;

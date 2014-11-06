@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Xml", "NetIde.Xml\NetIde.Xml.csproj", "{DA664118-05BA-40FE-A51E-36E324C7BE43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Util", "NetIde.Util\NetIde.Util.csproj", "{5CCA6341-958E-4170-83BA-C8BB88D95FF4}"

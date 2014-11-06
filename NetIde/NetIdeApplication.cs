@@ -56,6 +56,8 @@ namespace NetIde
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            ToolStripManager.Renderer = new VS2012ToolStripRenderer();
+
             using (var serviceContainer = new NiServiceContainer())
             using (_mainForm = new MainForm())
             {

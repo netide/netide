@@ -19,5 +19,17 @@ namespace NetIde.Util
 
             return (p == 4) || (p == 6) || (p == 128);
         }
+
+        public static readonly LineTermination NativeLineTermination = GetNativeLineTermination();
+
+        private static LineTermination GetNativeLineTermination()
+        {
+            switch (Environment.NewLine)
+            {
+                case "\r": return LineTermination.Mac;
+                case "\n": return LineTermination.Unix;
+                default: return LineTermination.Pc;
+            }
+        }
     }
 }
