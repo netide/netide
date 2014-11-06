@@ -12,20 +12,6 @@
     <InstalledByMsi>false</InstalledByMsi>
     <MoreInfoUrl>http://netide.github.io/</MoreInfoUrl>
     <SupportedProducts>
-      <VisualStudio Version="10.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-        <Edition>VBExpress</Edition>
-        <Edition>VCSExpress</Edition>
-      </VisualStudio>
-      <VisualStudio Version="11.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-        <Edition>VBExpress</Edition>
-        <Edition>VCSExpress</Edition>
-      </VisualStudio>
       <VisualStudio Version="12.0">
         <Edition>Ultimate</Edition>
         <Edition>Premium</Edition>
@@ -36,12 +22,6 @@
     </SupportedProducts>
     <SupportedFrameworkRuntimeEdition MinVersion="4.0" />
   </Identifier>
-  <References>
-    <Reference Id="NuPackToolsVsix.Microsoft.67e54e40-0ae3-42c5-a949-fddf5739e7a5" MinVersion="1.7.30402.9028">
-      <Name>NuGet Package Manager</Name>
-      <MoreInfoUrl>http://docs.nuget.org/</MoreInfoUrl>
-    </Reference>
-  </References>
   <Content>
     <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
     <Assembly AssemblyName="NetIde.VisualStudio.Wizard">Assemblies\NetIde.VisualStudio.Wizard.dll</Assembly>
