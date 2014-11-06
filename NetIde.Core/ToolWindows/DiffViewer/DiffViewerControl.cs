@@ -71,7 +71,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         public void Reset()
         {
-            SelectViewer(_summaryViewer);
+            SelectViewer(_textViewer);
 
             ((IViewer)_currentViewer).LoadStreams(null, null, null, null, null, null);
         }
