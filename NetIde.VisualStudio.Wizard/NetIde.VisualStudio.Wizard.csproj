@@ -54,7 +54,7 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0" />
     <Reference Include="NuGet.VisualStudio">
-      <HintPath>..\packages\NuGet.VisualStudio.2.7.0\lib\net40\NuGet.VisualStudio.dll</HintPath>
+      <HintPath>..\packages\NuGet.VisualStudio.2.8.3\lib\net40\NuGet.VisualStudio.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

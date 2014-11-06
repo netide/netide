@@ -7,7 +7,7 @@
     <title>Net IDE shell package</title>
     <description>Net IDE shell package.</description>
     <dependencies>
-      <dependency id="log4net" version="[2.0.2]" />
+      <dependency id="log4net" version="[2.0.3]" />
       <dependency id="NetIde.Shell.Interop.1.0" version="[$version$]" />
     </dependencies>
   </metadata>
