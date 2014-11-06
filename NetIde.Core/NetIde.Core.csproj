@@ -338,7 +338,9 @@
     <None Include="Resources\Documents.png" />
     <None Include="Resources\DocumentsNew.png" />
     <None Include="Resources\Find.png" />
-    <Content Include="BuildConfig.xml" />
+    <Content Include="BuildConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="packages.config" />
     <None Include="Resources\PageRight.png" />
     <None Include="Resources\PageLeft.png" />
