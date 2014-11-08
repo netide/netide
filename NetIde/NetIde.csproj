@@ -230,6 +230,14 @@
     <Compile Include="Services\ToolsOptions\ToolsOptionsForm.Designer.cs">
       <DependentUpon>ToolsOptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\WaitDialog\NiWaitDialog.cs" />
+    <Compile Include="Services\WaitDialog\NiWaitDialogFactory.cs" />
+    <Compile Include="Services\WaitDialog\WaitDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\WaitDialog\WaitDialogForm.Designer.cs">
+      <DependentUpon>WaitDialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\WindowPaneSelection\NiWindowPaneSelection.cs" />
     <Compile Include="SplashForm.cs">
       <SubType>Form</SubType>
@@ -277,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Services\ToolsOptions\ToolsOptionsForm.resx">
       <DependentUpon>ToolsOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\WaitDialog\WaitDialogForm.resx">
+      <DependentUpon>WaitDialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>

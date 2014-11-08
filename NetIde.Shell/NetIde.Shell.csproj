@@ -70,6 +70,7 @@
     <Compile Include="NiResourcesAttribute.cs" />
     <Compile Include="NiRunningDocumentTableExtensions.cs" />
     <Compile Include="NiStringResourcesAttribute.cs" />
+    <Compile Include="NiWaitDialog.cs" />
     <Compile Include="NiWindow.cs" />
     <Compile Include="NiWindowFrameExtensions.cs" />
     <Compile Include="NiWindowHost.cs">

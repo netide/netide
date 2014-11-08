@@ -81,6 +81,8 @@
     <Compile Include="INiTextMarker.cs" />
     <Compile Include="INiTextSelection.cs" />
     <Compile Include="INiToolsOptions.cs" />
+    <Compile Include="INiWaitDialog.cs" />
+    <Compile Include="INiWaitDialogFactory.cs" />
     <Compile Include="INiWindowPaneSelection.cs" />
     <Compile Include="INiWindowPaneSelectionNotify.cs" />
     <Compile Include="NiDiffViewerState.cs" />

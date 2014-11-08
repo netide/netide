@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Shell.Interop;
 using NetIde.Util.Win32;
 
 namespace NetIde.Util.Forms
@@ -386,7 +387,7 @@ namespace NetIde.Util.Forms
             if (serviceProvider != null)
                 Site = new SiteProxy(serviceProvider);
 
-            Show(owner ?? GetActiveWindow());
+            Show(owner ?? GetDefaultShowWindow(serviceProvider));
         }
 
         public DialogResult ShowDialog(IServiceProvider serviceProvider)
@@ -399,12 +400,16 @@ namespace NetIde.Util.Forms
             if (serviceProvider != null)
                 Site = new SiteProxy(serviceProvider);
 
-            return ShowDialog(owner ?? GetActiveWindow());
+            return ShowDialog(owner ?? GetDefaultShowWindow(serviceProvider));
         }
 
-        private IWin32Window GetActiveWindow()
+        private IWin32Window GetDefaultShowWindow(IServiceProvider serviceProvider)
         {
-            return new NativeWindowWrapper(NativeMethods.GetActiveWindow());
+            var owner = FromHandle(NativeMethods.GetActiveWindow());
+            if (owner != null || serviceProvider == null)
+                return owner;
+
+            return ((INiEnv)serviceProvider.GetService(typeof(INiEnv))).MainWindow;
         }
 
         protected override void Dispose(bool disposing)
@@ -419,16 +424,5 @@ namespace NetIde.Util.Forms
 
             base.Dispose(disposing);
         }
-
-        private class NativeWindowWrapper : IWin32Window
-        {
-            public IntPtr Handle { get; private set; }
-
-            public NativeWindowWrapper(IntPtr handle)
-            {
-                Handle = handle;
-            }
-        }
     }
-
 }

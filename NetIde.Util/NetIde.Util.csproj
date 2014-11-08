@@ -126,7 +126,6 @@
       <DependentUpon>VS2012ToolStripExtender.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VS2012ToolStripRenderer.cs" />
-    <Compile Include="Forms\WaitCursorScope.cs" />
     <Compile Include="IKeyedCollection.cs" />
     <Compile Include="ImageFileType.cs" />
     <Compile Include="ImageListManager.cs" />
@@ -158,6 +157,12 @@
     <EmbeddedResource Include="Forms\TextBoxBrowser.resx">
       <DependentUpon>TextBoxBrowser.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
+      <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
+      <Name>NetIde.Shell.Interop.1.0</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -147,6 +147,11 @@ namespace NetIde.Services.Env
             RegistryRoot = registryRoot;
         }
 
+        public void CompleteStartup()
+        {
+            _connectionPoint.ForAll(p => p.OnStartupComplete());
+        }
+
         public HResult Quit()
         {
             try

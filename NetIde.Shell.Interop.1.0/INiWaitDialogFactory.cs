@@ -5,9 +5,8 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiEnvNotify
+    public interface INiWaitDialogFactory
     {
-        void OnStartupComplete();
-        void OnBeginShutdown();
+        HResult CreateInstance(out INiWaitDialog result);
     }
 }

@@ -20,6 +20,7 @@ using NetIde.Services.ProjectManager;
 using NetIde.Services.RunningDocumentTable;
 using NetIde.Services.Shell;
 using NetIde.Services.ToolsOptions;
+using NetIde.Services.WaitDialog;
 using NetIde.Services.WindowPaneSelection;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -72,7 +73,9 @@ namespace NetIde
                     }
                 }
 
-                serviceContainer.AddService(typeof(INiEnv), new NiEnv(serviceContainer, _mainForm, experimental));
+                var env = new NiEnv(serviceContainer, _mainForm, experimental);
+
+                serviceContainer.AddService(typeof(INiEnv), env);
 
                 // Show the splash form.
 
@@ -108,6 +111,7 @@ namespace NetIde
                 serviceContainer.AddService(typeof(INiProjectManager), new NiProjectManager(serviceContainer));
                 serviceContainer.AddService(typeof(INiOpenDocumentManager), new NiOpenDocumentManager(serviceContainer));
                 serviceContainer.AddService(typeof(INiRunningDocumentTable), new NiRunningDocumentTable(serviceContainer));
+                serviceContainer.AddService(typeof(INiWaitDialogFactory), new NiWaitDialogFactory(serviceContainer));
 
                 var packageManager = new NiPackageManager(serviceContainer);
                 serviceContainer.AddService(typeof(INiPackageManager), packageManager);
@@ -123,6 +127,19 @@ namespace NetIde
                 Handle = _mainForm.Handle;
 
                 OnHandleAvailable(EventArgs.Empty);
+
+                // Queue startup completion.
+
+                _mainForm.Shown += (s, e) =>
+                {
+                    // Flush pending (paint) messages so the main window gets fully
+                    // rendered.
+                    Application.DoEvents();
+
+                    // Complete startup; executes the INiEnvNotify.OnStartupComplete
+                    // callback.
+                    env.CompleteStartup();
+                };
 
                 Application.Run(_mainForm);
             }
