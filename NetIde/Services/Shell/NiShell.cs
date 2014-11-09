@@ -313,10 +313,12 @@ namespace NetIde.Services.Shell
         {
             private readonly NiShell _shell;
             private bool _pending;
+            private readonly SynchronizationContext _synchronizationContext;
 
             public MessageFilter(NiShell shell)
             {
                 _shell = shell;
+                _synchronizationContext = SynchronizationContext.Current;
 
                 QueueRequery();
             }
@@ -352,7 +354,7 @@ namespace NetIde.Services.Shell
                 if (!_pending)
                 {
                     _pending = true;
-                    SynchronizationContext.Current.Post(Requery, null);
+                    _synchronizationContext.Post(Requery, null);
                 }
             }
 
