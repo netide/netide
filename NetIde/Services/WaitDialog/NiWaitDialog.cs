@@ -56,20 +56,25 @@ namespace NetIde.Services.WaitDialog
                     Cursor.Current = Cursors.WaitCursor;
                     Application.DoEvents();
 
-                    if (WaitForHandles(waitHandles, ref delay, delay))
-                        return HResult.OK;
-
-                    _form = new WaitDialogForm(_synchronizationContext, caption, message, progressText, canCancel, realProgress, progress, waitHandles);
-
                     try
                     {
-                        _cancelled = _form.ShowDialog(_serviceProvider) != DialogResult.OK;
+                        if (WaitForHandles(waitHandles, ref delay, delay))
+                            return HResult.OK;
+
+                        _form = new WaitDialogForm(_synchronizationContext, caption, message, progressText, canCancel, realProgress, progress, waitHandles);
+
+                        try
+                        {
+                            _cancelled = _form.ShowDialog(_serviceProvider) != DialogResult.OK;
+                        }
+                        finally
+                        {
+                            _form.Dispose();
+                            _form = null;
+                        }
                     }
                     finally
                     {
-                        _form.Dispose();
-                        _form = null;
-
                         Application.UseWaitCursor = false;
                         Cursor.Current = Cursors.Default;
 
