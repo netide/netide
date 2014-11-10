@@ -24,20 +24,6 @@ namespace NetIde.Shell
             }
         }
 
-        [DefaultValue(true)]
-        public override bool AcceptsArrows
-        {
-            get { return base.AcceptsArrows; }
-            set { base.AcceptsArrows = value; }
-        }
-
-        [DefaultValue(true)]
-        public override bool AcceptsTab
-        {
-            get { return base.AcceptsTab; }
-            set { base.AcceptsTab = value; }
-        }
-
         public override string Text
         {
             get
@@ -64,12 +50,6 @@ namespace NetIde.Shell
             var ev = TextChanged;
             if (ev != null)
                 ev(this, e);
-        }
-        
-        public NiEditor()
-        {
-            AcceptsArrows = true;
-            AcceptsTab = true;
         }
 
         protected override void Dispose(bool disposing)

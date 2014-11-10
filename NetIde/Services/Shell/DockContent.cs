@@ -56,8 +56,6 @@ namespace NetIde.Services.Shell
 
             _host = new NativeWindowHost
             {
-                AcceptsTab = true,
-                AcceptsArrows = true,
                 Dock = System.Windows.Forms.DockStyle.Fill
             };
 
@@ -68,7 +66,7 @@ namespace NetIde.Services.Shell
 
         void _host_PreMessage(object sender, NiPreMessageEventArgs e)
         {
-            var preMessageFilter = WindowPane as INiPreMessageFilter;
+            var preMessageFilter = WindowPane as INiMessageFilter;
 
             if (preMessageFilter == null)
                 return;

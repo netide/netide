@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainSetup.cs" />
+    <Compile Include="MessageFilterUtil.cs" />
+    <Compile Include="NiCommandBarWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="NiIterator.cs" />
     <Compile Include="NiIteratorExtensions.cs" />
     <Compile Include="NiShellExtensions.cs" />

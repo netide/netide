@@ -61,6 +61,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Button.cs" />
     <Compile Include="Resources\ButtonRef.cs" />
+    <Compile Include="Resources\Label.cs" />
+    <Compile Include="Resources\GroupAlign.cs" />
+    <Compile Include="Resources\LabelRef.cs" />
+    <Compile Include="Resources\TextBoxRef.cs" />
+    <Compile Include="Resources\TextBoxStyle.cs" />
+    <Compile Include="Resources\TextBox.cs" />
     <Compile Include="Resources\DisplayStyle.cs" />
     <Compile Include="Resources\ComboBox.cs" />
     <Compile Include="Resources\ComboBoxRef.cs" />

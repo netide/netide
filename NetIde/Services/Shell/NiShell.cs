@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using NetIde.Services.Env;
+using NetIde.Services.PackageManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
@@ -20,9 +21,11 @@ namespace NetIde.Services.Shell
         private readonly Dictionary<INiWindowPane, DockContent> _dockContents = new Dictionary<INiWindowPane, DockContent>();
         private readonly NiEnv _env;
         private Button _automationAccessButton;
+        private bool _disposed;
+        private NiPackageManager _packageManager;
+        private int _preMessageFilterRecursion;
 
         public event EventHandler RequerySuggested;
-        private bool _disposed;
 
         protected virtual void OnRequerySuggested(EventArgs e)
         {
@@ -282,6 +285,54 @@ namespace NetIde.Services.Shell
             }
         }
 
+        public HResult BroadcastPreMessageFilter(ref NiMessage message, out bool processed)
+        {
+            processed = false;
+
+            try
+            {
+                if (_preMessageFilterRecursion > 0)
+                    return HResult.OK;
+
+                _preMessageFilterRecursion++;
+
+                try
+                {
+                    // We delay resolve the package manager because it is created
+                    // after NiShell is.
+
+                    if (_packageManager == null)
+                        _packageManager = (NiPackageManager)GetService(typeof(INiPackageManager));
+
+                    processed = MessageFilterUtil.InvokeMessageFilter(ref message);
+
+                    if (!processed)
+                    {
+                        foreach (var package in _packageManager.Packages)
+                        {
+                            var preMessageFilter = package.Package as INiPreMessageFilter;
+                            if (preMessageFilter != null)
+                            {
+                                ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message, out processed));
+                                if (processed)
+                                    break;
+                            }
+                        }
+                    }
+
+                    return HResult.OK;
+                }
+                finally
+                {
+                    _preMessageFilterRecursion--;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
         public HResult GetDocumentWindowIterator(out INiIterator<INiWindowFrame> iterator)
         {
             return _env.MainForm.GetDocumentWindowIterator(out iterator);
@@ -325,6 +376,36 @@ namespace NetIde.Services.Shell
 
             public bool PreFilterMessage(ref Message m)
             {
+                PreFilterRequery(ref m);
+                return PreFilterBroadcast(ref m);
+            }
+
+            private bool PreFilterBroadcast(ref Message m)
+            {
+                if (_shell._preMessageFilterRecursion > 0)
+                    return false;
+
+                _shell._preMessageFilterRecursion++;
+
+                try
+                {
+                    NiMessage message = m;
+
+                    bool processed;
+                    ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message, out processed));
+
+                    m = message;
+
+                    return processed;
+                }
+                finally
+                {
+                    _shell._preMessageFilterRecursion--;
+                }
+            }
+
+            private void PreFilterRequery(ref Message m)
+            {
                 switch (m.Msg)
                 {
                     case WM_KEYUP:
@@ -345,8 +426,6 @@ namespace NetIde.Services.Shell
                         QueueRequery();
                         break;
                 }
-
-                return false;
             }
 
             private void QueueRequery()

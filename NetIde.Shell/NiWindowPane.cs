@@ -24,7 +24,6 @@ namespace NetIde.Shell
                 ev(this, e);
         }
 
-
         public INiWindowFrame Frame { get; set; }
 
         public HResult SetSite(IServiceProvider serviceProvider)
@@ -104,5 +103,6 @@ namespace NetIde.Shell
             {
             }
         }
+
     }
 }

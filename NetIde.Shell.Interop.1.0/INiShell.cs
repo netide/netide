@@ -17,5 +17,6 @@ namespace NetIde.Shell.Interop
         HResult GetDocumentWindowIterator(out INiIterator<INiWindowFrame> iterator);
         HResult QuerySaveViaDialog(INiHierarchy[] hiers, out NiQuerySaveResult result);
         HResult GetWindowFrameForWindowPane(INiWindowPane windowPane, out INiWindowFrame windowFrame);
+        HResult BroadcastPreMessageFilter(ref NiMessage message, out bool processed);
     }
 }

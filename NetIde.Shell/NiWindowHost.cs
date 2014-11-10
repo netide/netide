@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
 
@@ -73,8 +74,7 @@ namespace NetIde.Shell
             if (_designMode)
                 return;
 
-            var preMessageFilter = _window as INiPreMessageFilter;
-
+            var preMessageFilter = _window as INiMessageFilter;
             if (preMessageFilter == null)
                 return;
 
@@ -87,6 +87,32 @@ namespace NetIde.Shell
 
             if (e.Handled)
                 e.Message = message;
+        }
+
+        protected override bool IsInputKey(Keys keyData)
+        {
+            bool result;
+
+            var preMessageFilter = _window as INiMessageFilter;
+            if (preMessageFilter != null)
+                ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputKey(keyData, out result));
+            else
+                result = base.IsInputKey(keyData);
+
+            return result;
+        }
+
+        protected override bool IsInputChar(char charCode)
+        {
+            bool result;
+
+            var preMessageFilter = _window as INiMessageFilter;
+            if (preMessageFilter != null)
+                ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputChar(charCode, out result));
+            else
+                result = base.IsInputChar(charCode);
+
+            return result;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace NetIde.Services.ToolsOptions
             if (_designMode)
                 return;
 
-            var preMessageFilter = Page as INiPreMessageFilter;
+            var preMessageFilter = Page as INiMessageFilter;
 
             if (preMessageFilter == null)
                 return;

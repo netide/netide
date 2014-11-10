@@ -55,7 +55,7 @@ namespace NetIde.Services.MenuManager
             }
         }
 
-        private BarControl CreateHost(NiCommandBar commandBar)
+        public BarControl CreateHost(NiCommandBar commandBar)
         {
             switch (commandBar.Kind)
             {

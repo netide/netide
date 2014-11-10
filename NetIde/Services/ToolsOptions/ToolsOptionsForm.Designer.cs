@@ -121,7 +121,6 @@
             // 
             // _pageHost
             // 
-            this._pageHost.AcceptsArrows = true;
             this._pageHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this._pageHost.Location = new System.Drawing.Point(0, 0);
             this._pageHost.Name = "_pageHost";

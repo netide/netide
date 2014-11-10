@@ -15,7 +15,7 @@ namespace NetIde.Services.CommandManager
         private int _nextCookie = 1;
         private readonly Dictionary<int, INiCommandTarget> _commandTargets = new Dictionary<int, INiCommandTarget>();
         private readonly Dictionary<Guid, object> _objects = new Dictionary<Guid, object>();
-        private INiEnv _env;
+        private readonly INiEnv _env;
 
         public NiCommandManager(IServiceProvider serviceProvider)
             : base(serviceProvider)
@@ -97,6 +97,23 @@ namespace NetIde.Services.CommandManager
             }
         }
 
+        public HResult CreateCommandBarWindow(Guid id, out INiCommandBarWindow commandBar)
+        {
+            commandBar = null;
+
+            try
+            {
+                commandBar = new CommandBarWindow(id);
+                commandBar.SetSite(this);
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
         public HResult CreateCommandBarGroup(Guid id, int priority, out INiCommandBarGroup group)
         {
             group = null;
@@ -142,6 +159,42 @@ namespace NetIde.Services.CommandManager
                 comboBox = new NiCommandBarComboBox(id, fillCommand, priority);
 
                 _objects[id] = comboBox;
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult CreateCommandBarTextBox(Guid id, int priority, out INiCommandBarTextBox textBox)
+        {
+            textBox = null;
+
+            try
+            {
+                textBox = new NiCommandBarTextBox(id, priority);
+
+                _objects[id] = textBox;
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult CreateCommandBarLabel(Guid id, int priority, out INiCommandBarLabel label)
+        {
+            label = null;
+
+            try
+            {
+                label = new NiCommandBarLabel(id, priority);
+
+                _objects[id] = label;
 
                 return HResult.OK;
             }

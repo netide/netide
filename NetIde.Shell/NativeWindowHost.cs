@@ -17,16 +17,6 @@ namespace NetIde.Shell
         private bool _isShown;
         private bool _activatePending;
 
-        [DefaultValue(false)]
-        [Category("Behavior")]
-        [Description("Indicates if arrow keys are accepted as input.")]
-        public virtual bool AcceptsArrows { get; set; }
-
-        [DefaultValue(false)]
-        [Category("Behavior")]
-        [Description("Indicates if tab keys are accepted as input.")]
-        public virtual bool AcceptsTab { get; set; }
-
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IntPtr ChildHwnd
@@ -113,27 +103,6 @@ namespace NetIde.Shell
             base.OnSizeChanged(e);
 
             _connectionPoint.ForAll(p => p.OnSize());
-        }
-
-        protected override bool IsInputKey(Keys keyData)
-        {
-            switch (keyData & Keys.KeyCode)
-            {
-                case Keys.Left:
-                case Keys.Up:
-                case Keys.Right:
-                case Keys.Down:
-                    if (AcceptsArrows)
-                        return true;
-                    break;
-
-                case Keys.Tab:
-                    if (AcceptsTab)
-                        return true;
-                    break;
-            }
-
-            return base.IsInputKey(keyData);
         }
 
         public override bool PreProcessMessage(ref Message msg)

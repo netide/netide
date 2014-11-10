@@ -4,17 +4,20 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using NetIde.Shell.Interop;
+using NetIde.Util.Forms;
 
 namespace NetIde.Shell
 {
-    public abstract class NiPackage : ServiceObject, INiPackage
+    public abstract class NiPackage : ServiceObject, INiPackage, INiPreMessageFilter
     {
         private System.Resources.ResourceManager _stringResourceManager;
         private NiServiceContainer _serviceContainer;
         private IServiceProvider _serviceProvider;
         private readonly Dictionary<Type, NiWindowPane> _toolWindows = new Dictionary<Type, NiWindowPane>();
         private int _commandTargetCookie;
+        private int _preMessageFilterRecursion;
         private bool _disposed;
 
         public event CancelEventHandler PackageClosing;
@@ -110,7 +113,39 @@ namespace NetIde.Shell
 
                 RegisterEditorFactories();
 
+                ToolStripManager.Renderer = new VS2012ToolStripRenderer();
+
+                Application.AddMessageFilter(new MessageFilter(this));
+
                 return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult PreFilterMessage(ref NiMessage message, out bool processed)
+        {
+            processed = false;
+
+            try
+            {
+                if (_preMessageFilterRecursion > 0)
+                    return HResult.OK;
+
+                _preMessageFilterRecursion++;
+
+                try
+                {
+                    processed = MessageFilterUtil.InvokeMessageFilter(ref message);
+
+                    return HResult.OK;
+                }
+                finally
+                {
+                    _preMessageFilterRecursion--;
+                }
             }
             catch (Exception ex)
             {
@@ -415,5 +450,42 @@ namespace NetIde.Shell
             {
             }
         }
+
+        private class MessageFilter : IMessageFilter
+        {
+            private readonly NiPackage _package;
+            private readonly INiShell _shell;
+
+            public MessageFilter(NiPackage package)
+            {
+                _package = package;
+                _shell = (INiShell)package.GetService(typeof(INiShell));
+            }
+
+            public bool PreFilterMessage(ref Message m)
+            {
+                if (_package._preMessageFilterRecursion > 0)
+                    return false;
+
+                _package._preMessageFilterRecursion++;
+
+                try
+                {
+                    NiMessage message = m;
+
+                    bool processed;
+                    ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message, out processed));
+
+                    m = message;
+
+                    return processed;
+                }
+                finally
+                {
+                    _package._preMessageFilterRecursion--;
+                }
+            }
+        }
+
     }
 }
