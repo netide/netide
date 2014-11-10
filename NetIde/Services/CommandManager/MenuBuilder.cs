@@ -11,8 +11,10 @@ using NetIde.Shell.Interop;
 using NetIde.Xml.Resources;
 using Button = NetIde.Xml.Resources.Button;
 using ComboBox = NetIde.Xml.Resources.ComboBox;
+using Label = NetIde.Xml.Resources.Label;
 using Menu = NetIde.Xml.Resources.Menu;
 using Serialization = NetIde.Xml.Serialization;
+using TextBox = NetIde.Xml.Resources.TextBox;
 
 namespace NetIde.Services.CommandManager
 {
@@ -28,6 +30,10 @@ namespace NetIde.Services.CommandManager
             { typeof(ButtonRef), (s, o) => s.OnButtonRef((ButtonRef)o) },
             { typeof(ComboBox), (s, o) => s.OnComboBox((ComboBox)o) },
             { typeof(ComboBoxRef), (s, o) => s.OnComboBoxRef((ComboBoxRef)o) },
+            { typeof(TextBox), (s, o) => s.OnTextBox((TextBox)o) },
+            { typeof(TextBoxRef), (s, o) => s.OnTextBoxRef((TextBoxRef)o) },
+            { typeof(Label), (s, o) => s.OnLabel((Label)o) },
+            { typeof(LabelRef), (s, o) => s.OnLabelRef((LabelRef)o) },
         };
 
         private readonly NiCommandManager _commandManager;
@@ -60,10 +66,7 @@ namespace NetIde.Services.CommandManager
             {
                 var command = _builders[item.GetType()](this, item);
 
-                if (
-                    item is Menu &&
-                    ((Menu)item).Kind != MenuKind.Popup
-                )
+                if (item is Menu && ((Menu)item).Kind == MenuKind.Menu)
                     _menuManager.RegisterCommandBar((NiCommandBar)command);
             }
         }
@@ -75,47 +78,52 @@ namespace NetIde.Services.CommandManager
 
         private object OnMenu(Menu menu)
         {
-            if (menu.Kind == MenuKind.Popup)
+            return menu.Kind == MenuKind.Popup
+                ? CreateCommandBarPopup(menu)
+                : CreateCommandBar(menu);
+        }
+
+        private object CreateCommandBarPopup(Menu menu)
+        {
+            INiCommandBarPopup popup;
+            ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBarPopup(
+                menu.Guid != Guid.Empty ? menu.Guid : Guid.NewGuid(),
+                menu.Priority,
+                out popup
+            ));
+
+            popup.Text = _package.ResolveStringResource(menu.Text);
+            popup.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(menu.Style.ToString());
+            ((NiCommandBarPopup)popup).Bitmap = ResolveBitmapResource(menu.Image);
+
+            foreach (INiCommandBarGroup group in Build(menu.Items))
             {
-                INiCommandBarPopup popup;
-                ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBarPopup(
-                    menu.Guid != Guid.Empty ? menu.Guid : Guid.NewGuid(),
-                    menu.Priority,
-                    out popup
-                ));
-
-                popup.Text = _package.ResolveStringResource(menu.Text);
-                popup.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(menu.Style.ToString());
-                ((NiCommandBarPopup)popup).Bitmap = ResolveBitmapResource(menu.Image);
-
-                foreach (INiCommandBarGroup group in Build(menu.Items))
-                {
-                    ErrorUtil.ThrowOnFailure(popup.Controls.Add(group));
-                }
-
-                return popup;
+                ErrorUtil.ThrowOnFailure(popup.Controls.Add(@group));
             }
-            else
+
+            return popup;
+        }
+
+        private object CreateCommandBar(Menu menu)
+        {
+            INiCommandBar commandBar;
+            ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBar(
+                menu.Guid != Guid.Empty ? menu.Guid : Guid.NewGuid(),
+                Enum<NiCommandBarKind>.Parse(menu.Kind.ToString()),
+                menu.Priority,
+                out commandBar
+            ));
+
+            commandBar.Text = _package.ResolveStringResource(menu.Text);
+            commandBar.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(menu.Style.ToString());
+            ((NiCommandBar)commandBar).Bitmap = ResolveBitmapResource(menu.Image);
+
+            foreach (INiCommandBarGroup group in Build(menu.Items))
             {
-                INiCommandBar commandBar;
-                ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBar(
-                    menu.Guid != Guid.Empty ? menu.Guid : Guid.NewGuid(),
-                    Enum<NiCommandBarKind>.Parse(menu.Kind.ToString()),
-                    menu.Priority,
-                    out commandBar
-                ));
-
-                commandBar.Text = _package.ResolveStringResource(menu.Text);
-                commandBar.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(menu.Style.ToString());
-                ((NiCommandBar)commandBar).Bitmap = ResolveBitmapResource(menu.Image);
-
-                foreach (INiCommandBarGroup group in Build(menu.Items))
-                {
-                    ErrorUtil.ThrowOnFailure(commandBar.Controls.Add(group));
-                }
-
-                return commandBar;
+                ErrorUtil.ThrowOnFailure(commandBar.Controls.Add(@group));
             }
+
+            return commandBar;
         }
 
         private object OnMenuRef(MenuRef menuRef)
@@ -145,6 +153,8 @@ namespace NetIde.Services.CommandManager
                 group.Priority,
                 out commandGroup
             ));
+
+            commandGroup.Align = Enum<NiCommandBarGroupAlign>.Parse(group.Align.ToString());
 
             foreach (INiCommandBarControl control in Build(group.Items))
             {
@@ -215,9 +225,8 @@ namespace NetIde.Services.CommandManager
                 out command
             ));
 
-            command.Text = _package.ResolveStringResource(comboBox.Text);
             command.ToolTip = _package.ResolveStringResource(comboBox.ToolTip);
-            command.Style = Enum<NiCommandComboBoxStyle>.Parse(comboBox.Style.ToString());
+            command.Style = Enum<NiCommandBarComboBoxStyle>.Parse(comboBox.Style.ToString());
 
             return command;
         }
@@ -232,6 +241,64 @@ namespace NetIde.Services.CommandManager
 
             if (control == null)
                 throw new NetIdeException(String.Format(Labels.CannotFindCommand, comboBoxRef.Guid));
+
+            return control;
+        }
+
+        private object OnTextBox(TextBox textBox)
+        {
+            INiCommandBarTextBox command;
+            ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBarTextBox(
+                textBox.Guid != Guid.Empty ? textBox.Guid : Guid.NewGuid(),
+                textBox.Priority,
+                out command
+            ));
+
+            command.ToolTip = _package.ResolveStringResource(textBox.ToolTip);
+            command.Style = Enum<NiCommandBarTextBoxStyle>.Parse(textBox.Style.ToString());
+
+            return command;
+        }
+
+        private object OnTextBoxRef(TextBoxRef textBoxRef)
+        {
+            INiCommandBarControl control;
+            ErrorUtil.ThrowOnFailure(_commandManager.FindCommandBarControl(
+                textBoxRef.Guid,
+                out control
+            ));
+
+            if (control == null)
+                throw new NetIdeException(String.Format(Labels.CannotFindCommand, textBoxRef.Guid));
+
+            return control;
+        }
+
+        private object OnLabel(Label label)
+        {
+            INiCommandBarLabel command;
+            ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBarLabel(
+                label.Guid != Guid.Empty ? label.Guid : Guid.NewGuid(),
+                label.Priority,
+                out command
+            ));
+
+            command.Text = _package.ResolveStringResource(label.Text);
+            command.ToolTip = _package.ResolveStringResource(label.ToolTip);
+
+            return command;
+        }
+
+        private object OnLabelRef(LabelRef labelRef)
+        {
+            INiCommandBarControl control;
+            ErrorUtil.ThrowOnFailure(_commandManager.FindCommandBarControl(
+                labelRef.Guid,
+                out control
+            ));
+
+            if (control == null)
+                throw new NetIdeException(String.Format(Labels.CannotFindCommand, labelRef.Guid));
 
             return control;
         }

@@ -129,8 +129,13 @@
     <Compile Include="RegistryUtil.cs" />
     <Compile Include="SEH.cs" />
     <Compile Include="Services\CommandLine\NiCommandLine.cs" />
+    <Compile Include="Services\CommandManager\CommandBarWindow.cs" />
+    <Compile Include="Services\CommandManager\Controls\LabelControl.cs" />
+    <Compile Include="Services\CommandManager\Controls\TextBoxControl.cs" />
     <Compile Include="Services\CommandManager\NiCommandBarButton.cs" />
     <Compile Include="Services\CommandManager\NiCommandBar.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarLabel.cs" />
+    <Compile Include="Services\CommandManager\NiCommandBarTextBox.cs" />
     <Compile Include="Services\CommandManager\NiCommandBarComboBox.cs" />
     <Compile Include="Services\CommandManager\NiCommandBarPopup.cs" />
     <Compile Include="Services\CommandManager\Controls\ComboBoxControl.cs" />

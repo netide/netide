@@ -13,6 +13,9 @@ namespace NetIde.Xml.Resources
         [XmlElement("groupRef", Type = typeof(GroupRef))]
         public UiObjectRefCollection Items { get; set; }
 
+        [XmlAttribute("text")]
+        public string Text { get; set; }
+
         [XmlAttribute("image")]
         public string Image { get; set; }
 

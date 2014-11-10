@@ -6,9 +6,10 @@ using System.Xml.Serialization;
 
 namespace NetIde.Xml.Resources
 {
-    public class UiObject : UiObjectRef
+    [XmlType("textBox", Namespace = Ns.Resources)]
+    public class TextBox : UiControl
     {
-        [XmlAttribute("priority")]
-        public int Priority { get; set; }
+        [XmlAttribute("style")]
+        public TextBoxStyle Style { get; set; }
     }
 }

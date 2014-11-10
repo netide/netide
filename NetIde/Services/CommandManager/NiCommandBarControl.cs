@@ -9,25 +9,11 @@ namespace NetIde.Services.CommandManager
 {
     internal abstract class NiCommandBarControl : ServiceObject, INiCommandBarControl
     {
-        private string _text;
         private bool _isVisible;
         private bool _isEnabled;
         private string _toolTip;
 
         public Guid Id { get; private set; }
-
-        public string Text
-        {
-            get { return _text; }
-            set
-            {
-                if (_text != value)
-                {
-                    _text = value;
-                    OnAppearanceChanged(EventArgs.Empty);
-                }
-            }
-        }
 
         public string ToolTip
         {
@@ -85,11 +71,6 @@ namespace NetIde.Services.CommandManager
             Priority = priority;
             IsVisible = true;
             IsEnabled = true;
-        }
-
-        public override string ToString()
-        {
-            return Text;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace NetIde.Shell.Interop
     public interface INiCommandBarComboBox : INiCommandBarControl
     {
         Guid FillCommand { get; }
-        NiCommandComboBoxStyle Style { get; set; }
+        NiCommandBarComboBoxStyle Style { get; set; }
         string[] Values { get; set; }
         string SelectedValue { get; set; }
     }

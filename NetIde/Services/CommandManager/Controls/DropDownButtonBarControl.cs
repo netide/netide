@@ -19,9 +19,19 @@ namespace NetIde.Services.CommandManager.Controls
             throw new NetIdeException(Labels.ComboBoxNotSupported);
         }
 
+        public ControlControl CreateTextBox(IServiceProvider serviceProvider, NiCommandBarTextBox textBox)
+        {
+            throw new NetIdeException(Labels.TextBoxNotSupported);
+        }
+
         public ControlControl CreatePopup(IServiceProvider serviceProvider, NiCommandBarPopup popup)
         {
             return new PopupControl<MenuItemBarControl>(serviceProvider, popup, ToolStripItemDisplayStyle.ImageAndText);
+        }
+
+        public ControlControl CreateLabel(IServiceProvider serviceProvider, NiCommandBarLabel label)
+        {
+            throw new NetIdeException(Labels.LabelNotSupported);
         }
     }
 }

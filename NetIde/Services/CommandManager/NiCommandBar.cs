@@ -16,6 +16,20 @@ namespace NetIde.Services.CommandManager
         private IResource _image;
         private Image _bitmap;
         private NiCommandDisplayStyle _displayStyle;
+        private string _text;
+
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                if (_text != value)
+                {
+                    _text = value;
+                    OnAppearanceChanged(EventArgs.Empty);
+                }
+            }
+        }
 
         public INiList<INiCommandBarGroup> Controls { get; private set; }
 

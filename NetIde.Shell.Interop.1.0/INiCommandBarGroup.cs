@@ -9,6 +9,7 @@ namespace NetIde.Shell.Interop
     {
         Guid Id { get; }
         int Priority { get; }
+        NiCommandBarGroupAlign Align { get; set; }
         INiList<INiCommandBarControl> Controls { get; }
     }
 }

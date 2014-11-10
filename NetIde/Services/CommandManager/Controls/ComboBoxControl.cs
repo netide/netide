@@ -45,7 +45,7 @@ namespace NetIde.Services.CommandManager.Controls
             // Don't publish if we got a selected index from our fake list.
 
             if (
-                NiCommand.Style == NiCommandComboBoxStyle.DropDownList &&
+                NiCommand.Style == NiCommandBarComboBoxStyle.DropDownList &&
                 Array.IndexOf(NiCommand.Values, Item.Text) == -1
             )
                 return;
@@ -131,7 +131,7 @@ namespace NetIde.Services.CommandManager.Controls
 
                     int index = Array.IndexOf(NiCommand.Values, text);
 
-                    if (NiCommand.Style == NiCommandComboBoxStyle.DropDownList)
+                    if (NiCommand.Style == NiCommandBarComboBoxStyle.DropDownList)
                     {
                         // We specifically support the text of the combo box to not be in
                         // the list. However, when the style is set to DropDownList, the

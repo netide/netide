@@ -5,9 +5,9 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public enum NiCommandComboBoxStyle
+    public enum NiCommandBarTextBoxStyle
     {
-        DropDown,
-        DropDownList
+        Default,
+        Stretch
     }
 }

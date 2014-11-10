@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INiCommandBarLabel.cs" />
+    <Compile Include="INiCommandBarTextBox.cs" />
+    <Compile Include="INiCommandBarWindow.cs" />
     <Compile Include="INiEditorFactoryRegistry.cs" />
     <Compile Include="INiEnvNotify.cs" />
     <Compile Include="INiFinder.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="INiOptionPage.cs" />
     <Compile Include="INiPersistDocData.cs" />
     <Compile Include="INiPersistFile.cs" />
+    <Compile Include="INiPreMessageFilter.cs" />
     <Compile Include="INiProject.cs" />
     <Compile Include="INiProjectFactory.cs" />
     <Compile Include="INiProjectItem.cs" />
@@ -85,6 +89,8 @@
     <Compile Include="INiWaitDialogFactory.cs" />
     <Compile Include="INiWindowPaneSelection.cs" />
     <Compile Include="INiWindowPaneSelectionNotify.cs" />
+    <Compile Include="NiCommandBarGroupAlign.cs" />
+    <Compile Include="NiCommandBarTextBoxStyle.cs" />
     <Compile Include="NiDiffViewerState.cs" />
     <Compile Include="INiDiffViewerWindow.cs" />
     <Compile Include="INiDiffViewerWindowNotify.cs" />
@@ -92,7 +98,7 @@
     <Compile Include="NiBrowseForFolderOptions.cs" />
     <Compile Include="NiCommandBarKind.cs" />
     <Compile Include="NiCommandDisplayStyle.cs" />
-    <Compile Include="NiCommandComboBoxStyle.cs" />
+    <Compile Include="NiCommandBarComboBoxStyle.cs" />
     <Compile Include="NiCommandStatus.cs" />
     <Compile Include="NiDockStyle.cs" />
     <Compile Include="HResult.cs" />
@@ -114,7 +120,7 @@
     <Compile Include="INiJobHandler.cs" />
     <Compile Include="INiLogEvent.cs" />
     <Compile Include="INiLogger.cs" />
-    <Compile Include="INiPreMessageFilter.cs" />
+    <Compile Include="INiMessageFilter.cs" />
     <Compile Include="INiLocalRegistry.cs" />
     <Compile Include="INiJob.cs" />
     <Compile Include="INiJobManager.cs" />

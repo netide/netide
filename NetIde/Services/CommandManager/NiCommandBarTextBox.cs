@@ -6,14 +6,12 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Services.CommandManager
 {
-    internal class NiCommandBarComboBox : NiCommandBarControl, INiCommandBarComboBox
+    internal class NiCommandBarTextBox : NiCommandBarControl, INiCommandBarTextBox
     {
-        private NiCommandBarComboBoxStyle _style;
-        private string _selectedValue;
+        private NiCommandBarTextBoxStyle _style;
+        private string _value;
 
-        public Guid FillCommand { get; private set; }
-
-        public NiCommandBarComboBoxStyle Style
+        public NiCommandBarTextBoxStyle Style
         {
             get { return _style; }
             set
@@ -26,25 +24,22 @@ namespace NetIde.Services.CommandManager
             }
         }
 
-        public string[] Values { get; set; }
-
-        public string SelectedValue
+        public string Value
         {
-            get { return _selectedValue; }
+            get { return _value; }
             set
             {
-                if (_selectedValue != value)
+                if (_value != value)
                 {
-                    _selectedValue = value;
+                    _value = value;
                     OnAppearanceChanged(EventArgs.Empty);
                 }
             }
         }
 
-        public NiCommandBarComboBox(Guid id, Guid fillCommand, int priority)
+        public NiCommandBarTextBox(Guid id, int priority)
             : base(id, priority)
         {
-            FillCommand = fillCommand;
         }
     }
 }

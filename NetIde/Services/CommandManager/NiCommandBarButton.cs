@@ -16,7 +16,21 @@ namespace NetIde.Services.CommandManager
         private Image _bitmap;
         private Keys _shortcutKeys;
         private bool _isLatched;
+        private string _text;
 
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                if (_text != value)
+                {
+                    _text = value;
+                    OnAppearanceChanged(EventArgs.Empty);
+                }
+            }
+        }
+        
         public NiCommandDisplayStyle DisplayStyle
         {
             get { return _displayStyle; }

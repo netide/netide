@@ -9,6 +9,9 @@ namespace NetIde.Xml.Resources
     [XmlType("button", Namespace = Ns.Resources)]
     public class Button : UiControl
     {
+        [XmlAttribute("text")]
+        public string Text { get; set; }
+
         [XmlAttribute("image")]
         public string Image { get; set; }
 

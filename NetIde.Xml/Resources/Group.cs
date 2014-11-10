@@ -15,7 +15,14 @@ namespace NetIde.Xml.Resources
         [XmlElement("buttonRef", Type = typeof(ButtonRef))]
         [XmlElement("comboBox", Type = typeof(ComboBox))]
         [XmlElement("comboBoxRef", Type = typeof(ComboBoxRef))]
+        [XmlElement("textBox", Type = typeof(TextBox))]
+        [XmlElement("textBoxRef", Type = typeof(TextBoxRef))]
+        [XmlElement("label", Type = typeof(Label))]
+        [XmlElement("labelRef", Type = typeof(LabelRef))]
         public UiObjectRefCollection Items { get; set; }
+
+        [XmlAttribute("align")]
+        public GroupAlign Align { get; set; }
 
         public Group()
         {

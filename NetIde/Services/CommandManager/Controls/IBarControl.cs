@@ -8,8 +8,8 @@ namespace NetIde.Services.CommandManager.Controls
 {
     internal interface IBarControl : IDisposable
     {
-        object Tag { get; set; }
         string Text { get; set; }
+        object Tag { get; set; }
         bool Visible { get; set; }
         bool Enabled { get; set; }
         Image Image { get; set; }
@@ -19,6 +19,8 @@ namespace NetIde.Services.CommandManager.Controls
 
         ControlControl CreateButton(IServiceProvider serviceProvider, NiCommandBarButton button);
         ControlControl CreateComboBox(IServiceProvider serviceProvider, NiCommandBarComboBox comboBox);
+        ControlControl CreateTextBox(IServiceProvider serviceProvider, NiCommandBarTextBox textBox);
         ControlControl CreatePopup(IServiceProvider serviceProvider, NiCommandBarPopup popup);
+        ControlControl CreateLabel(IServiceProvider serviceProvider, NiCommandBarLabel label);
     }
 }

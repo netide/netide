@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Shell.Interop;
 
 namespace NetIde.Services.CommandManager.Controls
 {
@@ -29,10 +30,12 @@ namespace NetIde.Services.CommandManager.Controls
             Bar = bar;
             Group = group;
             Group.CommandsChanged += Group_CommandsChanged;
+            Group.AppearanceChanged += Group_AppearanceChanged;
 
             Separator = new ToolStripSeparator
             {
-                Tag = this
+                Tag = this,
+                Alignment = GetAlignment()
             };
 
             var items = Bar.Items;
@@ -62,6 +65,28 @@ namespace NetIde.Services.CommandManager.Controls
             }
 
             Bar.UpdateSeparatorVisibility();
+        }
+
+        void Group_AppearanceChanged(object sender, EventArgs e)
+        {
+            var items = Bar.Items;
+            int offset = items.IndexOf(Separator) + 1;
+            var count = Group.Controls.Count;
+            var alignment = GetAlignment();
+
+            Separator.Alignment = alignment;
+
+            for (int i = 0; i < count; i++)
+            {
+                Bar.Items[offset + i].Alignment = alignment;
+            }
+        }
+
+        private ToolStripItemAlignment GetAlignment()
+        {
+            return Group.Align == NiCommandBarGroupAlign.Left
+                ? ToolStripItemAlignment.Left
+                : ToolStripItemAlignment.Right;
         }
 
         void Group_CommandsChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -113,8 +138,12 @@ namespace NetIde.Services.CommandManager.Controls
                 control = Bar.CreateButton(_serviceProvider, (NiCommandBarButton)command);
             else if (command is NiCommandBarComboBox)
                 control = Bar.CreateComboBox(_serviceProvider, (NiCommandBarComboBox)command);
+            else if (command is NiCommandBarTextBox)
+                control = Bar.CreateTextBox(_serviceProvider, (NiCommandBarTextBox)command);
             else if (command is NiCommandBarPopup)
                 control = Bar.CreatePopup(_serviceProvider, (NiCommandBarPopup)command);
+            else if (command is NiCommandBarLabel)
+                control = Bar.CreateLabel(_serviceProvider, (NiCommandBarLabel)command);
             else
                 throw new NotSupportedException();
 
@@ -135,6 +164,8 @@ namespace NetIde.Services.CommandManager.Controls
                     break;
                 }
             }
+
+            control.Item.Alignment = GetAlignment();
 
             items.Insert(insertIndex, control.Item);
 
@@ -179,6 +210,7 @@ namespace NetIde.Services.CommandManager.Controls
                     Bar.Items.Remove(Separator);
 
                     Group.CommandsChanged -= Group_CommandsChanged;
+                    Group.AppearanceChanged -= Group_AppearanceChanged;
 
                     Separator = null;
                 }

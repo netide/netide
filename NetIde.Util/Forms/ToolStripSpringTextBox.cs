@@ -11,8 +11,18 @@ namespace NetIde.Util.Forms
 {
     public class ToolStripSpringTextBox : ToolStripTextBox
     {
+        public bool Spring { get; set; }
+
+        public ToolStripSpringTextBox()
+        {
+            Spring = true;
+        }
+
         public override Size GetPreferredSize(Size constrainingSize)
         {
+            if (!Spring)
+                return base.GetPreferredSize(constrainingSize);
+
             // Use the default size if the text box is on the overflow menu 
             // or is on a vertical ToolStrip. 
             if (IsOnOverflow || Owner.Orientation == Orientation.Vertical)

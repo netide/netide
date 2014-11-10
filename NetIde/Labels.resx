@@ -148,7 +148,7 @@
     <value>Cannot process switch '{0}'.</value>
   </data>
   <data name="ComboBoxNotSupported" xml:space="preserve">
-    <value>Combo boxes are only supported on toolbars</value>
+    <value>Combo boxes are only supported in menus</value>
   </data>
   <data name="CommandBarAlreadyRegistered" xml:space="preserve">
     <value>The command bar has already been registered</value>
@@ -192,6 +192,9 @@
   <data name="InvalidPackageManifest" xml:space="preserve">
     <value>Package manifest '{0}' is invalid</value>
   </data>
+  <data name="LabelNotSupported" xml:space="preserve">
+    <value>Labels are not supported in menus</value>
+  </data>
   <data name="LessDetails" xml:space="preserve">
     <value>&lt;&lt; Details</value>
   </data>
@@ -233,6 +236,9 @@
   </data>
   <data name="StatusBarLine" xml:space="preserve">
     <value>Ln {0}</value>
+  </data>
+  <data name="TextBoxNotSupported" xml:space="preserve">
+    <value>Text boxes are not supported in menus</value>
   </data>
   <data name="UninstallingPackage" xml:space="preserve">
     <value>Removing package {0}</value>

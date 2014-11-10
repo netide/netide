@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace NetIde.Services.CommandManager.Controls
 {
-    internal class ToolStripBarControl : System.Windows.Forms.ToolStrip, IBarControl
+    internal class ToolStripBarControl : ToolStrip, IBarControl
     {
         Image IBarControl.Image { get; set; }
 
@@ -26,9 +26,19 @@ namespace NetIde.Services.CommandManager.Controls
             return new ComboBoxControl(serviceProvider, comboBox);
         }
 
+        public ControlControl CreateTextBox(IServiceProvider serviceProvider, NiCommandBarTextBox textBox)
+        {
+            return new TextBoxControl(serviceProvider, textBox);
+        }
+
         public ControlControl CreatePopup(IServiceProvider serviceProvider, NiCommandBarPopup popup)
         {
             return new PopupControl<DropDownButtonBarControl>(serviceProvider, popup, ToolStripItemDisplayStyle.Image);
+        }
+
+        public ControlControl CreateLabel(IServiceProvider serviceProvider, NiCommandBarLabel label)
+        {
+            return new LabelControl(label);
         }
     }
 }
