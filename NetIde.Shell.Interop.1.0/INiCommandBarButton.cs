@@ -8,6 +8,7 @@ namespace NetIde.Shell.Interop
 {
     public interface INiCommandBarButton : INiCommandBarControl
     {
+        string Code { get; }
         string Text { get; set; }
         NiCommandDisplayStyle DisplayStyle { get; set; }
         IResource Image { get; set; }

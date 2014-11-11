@@ -178,15 +178,6 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not parse keys &apos;{0}&apos;..
-        /// </summary>
-        internal static string CouldNotParseKeys {
-            get {
-                return ResourceManager.GetString("CouldNotParseKeys", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create Project.
         /// </summary>
         internal static string CreateProject {
@@ -228,6 +219,15 @@ namespace NetIde {
         internal static string ExperimentalInstancePostfix {
             get {
                 return ResourceManager.GetString("ExperimentalInstancePostfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button &apos;{0}&apos; has an illegal shortcut key &apos;{1}&apos;.
+        /// </summary>
+        internal static string IllegalButtonShortcutKeys {
+            get {
+                return ResourceManager.GetString("IllegalButtonShortcutKeys", resourceCulture);
             }
         }
         

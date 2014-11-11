@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using NetIde.Services.CommandManager;
 using NetIde.Util;
 using Microsoft.Win32;
 using NetIde.Shell;
@@ -268,6 +269,8 @@ namespace NetIde.Services.PackageManager
                 if (registration != corePackage)
                     LoadRegistration(registration);
             }
+
+            ((NiCommandManager)GetService(typeof(INiCommandManager))).InitializeKeyboardMappings();
         }
 
         private void LoadRegistration(PackageRegistration registration)

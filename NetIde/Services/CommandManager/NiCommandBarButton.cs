@@ -18,6 +18,8 @@ namespace NetIde.Services.CommandManager
         private bool _isLatched;
         private string _text;
 
+        public string Code { get; private set; }
+
         public string Text
         {
             get { return _text; }
@@ -96,9 +98,10 @@ namespace NetIde.Services.CommandManager
             }
         }
 
-        public NiCommandBarButton(Guid id, int priority)
+        public NiCommandBarButton(Guid id, int priority, string code)
             : base(id, priority)
         {
+            Code = code;
         }
     }
 }

@@ -185,17 +185,22 @@ namespace NetIde.Services.CommandManager
 
         private object OnButton(Button button)
         {
+            var keys = ShortcutKeysUtil.Parse(button.Key);
+            if (keys != 0 && !ShortcutKeysUtil.IsValid(keys))
+                throw new NetIdeException(String.Format(Labels.IllegalButtonShortcutKeys, button.Id, keys));
+
             INiCommandBarButton command;
             ErrorUtil.ThrowOnFailure(_commandManager.CreateCommandBarButton(
                 button.Guid != Guid.Empty ? button.Guid : Guid.NewGuid(),
                 button.Priority,
+                button.Id,
                 out command
             ));
 
             command.Text = _package.ResolveStringResource(button.Text);
             command.ToolTip = _package.ResolveStringResource(button.ToolTip);
             command.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(button.Style.ToString());
-            command.ShortcutKeys = ParseShortcutKeys(button.Key);
+            command.ShortcutKeys = keys;
             ((NiCommandBarButton)command).Bitmap = ResolveBitmapResource(button.Image);
 
             return command;
@@ -319,26 +324,6 @@ namespace NetIde.Services.CommandManager
             }
 
             throw new NetIdeException(String.Format(Labels.InvalidBitmapResource, key));
-        }
-
-        private Keys ParseShortcutKeys(string keys)
-        {
-            if (String.IsNullOrEmpty(keys))
-                return Keys.None;
-
-            Keys result = 0;
-
-            foreach (string part in keys.Split('+'))
-            {
-                Keys partKey;
-
-                if (!Enum<Keys>.TryParse(part, out partKey, true))
-                    throw new NetIdeException(String.Format(Labels.CouldNotParseKeys, keys));
-
-                result |= partKey;
-            }
-
-            return result;
         }
     }
 }

@@ -19,5 +19,7 @@ namespace NetIde.Shell.Interop
         HResult FindCommandBarGroup(Guid id, out INiCommandBarGroup group);
         HResult FindCommandBarControl(Guid id, out INiCommandBarControl command);
         HResult FindCommandBarPopup(Guid id, out INiCommandBarPopup popup);
+        HResult LoadKeyboardMappings(out INiKeyboardMappings mappings);
+        HResult SaveKeyboardMappings(INiKeyboardMappings mappings);
     }
 }

@@ -28,6 +28,7 @@ namespace NetIde.Core
     [NiResources("NiResources")]
     [NiStringResources("Labels")]
     [ProvideOptionPage(typeof(FontsOptionPage), "Environment", "Fonts", "@Environment", "@Fonts")]
+    [ProvideOptionPage(typeof(KeyboardOptionPage), "Environment", "Keyboard", "@Environment", "@Keyboard")]
     [ProvideToolWindow(typeof(ProjectExplorerWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Right)]
     [ProvideToolWindow(typeof(FindResultsWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Bottom)]
     [ProvideAllEditorExtensionsAttribute]

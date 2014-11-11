@@ -10,7 +10,7 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Services.CommandManager
 {
-    internal class NiCommandManager : ServiceBase, INiCommandManager
+    internal partial class NiCommandManager : ServiceBase, INiCommandManager
     {
         private int _nextCookie = 1;
         private readonly Dictionary<int, INiCommandTarget> _commandTargets = new Dictionary<int, INiCommandTarget>();
@@ -134,11 +134,16 @@ namespace NetIde.Services.CommandManager
 
         public HResult CreateCommandBarButton(Guid id, int priority, out INiCommandBarButton button)
         {
+            return CreateCommandBarButton(id, priority, null, out button);
+        }
+
+        public HResult CreateCommandBarButton(Guid id, int priority, string code, out INiCommandBarButton button)
+        {
             button = null;
 
             try
             {
-                button = new NiCommandBarButton(id, priority);
+                button = new NiCommandBarButton(id, priority, code);
 
                 _objects[id] = button;
 

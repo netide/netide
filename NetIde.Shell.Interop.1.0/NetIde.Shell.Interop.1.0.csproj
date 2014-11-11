@@ -58,6 +58,7 @@
     <Compile Include="INiHierarchy.cs" />
     <Compile Include="INiHierarchyNotify.cs" />
     <Compile Include="INiIterator.cs" />
+    <Compile Include="INiKeyboardMappings.cs" />
     <Compile Include="INiKeyEventNotify.cs" />
     <Compile Include="INiList.cs" />
     <Compile Include="INiLanguageServiceRegistry.cs" />

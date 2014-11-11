@@ -95,13 +95,23 @@
       <DependentUpon>NiResources.resx</DependentUpon>
     </Compile>
     <Compile Include="NiShellUtil.cs" />
+    <Compile Include="OptionPages\Environment\KeyboardOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionPages\Environment\KeyboardOptionControl.Designer.cs">
+      <DependentUpon>KeyboardOptionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="OptionPages\Environment\FontOptionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="OptionPages\Environment\FontOptionControl.Designer.cs">
       <DependentUpon>FontOptionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="OptionPages\Environment\KeyboardOptionPage.cs" />
     <Compile Include="OptionPages\Environment\FontOptionPage.cs" />
+    <Compile Include="OptionPages\Environment\KeysTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="OptionPages\OptionPage.cs" />
     <Compile Include="OptionPages\OptionPageControl.cs">
       <SubType>UserControl</SubType>
@@ -283,6 +293,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>NiResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionPages\Environment\KeyboardOptionControl.resx">
+      <DependentUpon>KeyboardOptionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionPages\Environment\FontOptionControl.resx">
       <DependentUpon>FontOptionControl.cs</DependentUpon>

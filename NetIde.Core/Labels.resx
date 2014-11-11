@@ -316,4 +316,7 @@
   <data name="NoMoreConcurrences" xml:space="preserve">
     <value>No more occurences found in the specified documents.</value>
   </data>
+  <data name="Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
 </root>

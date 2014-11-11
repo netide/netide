@@ -132,6 +132,7 @@
     <Compile Include="Services\CommandManager\CommandBarWindow.cs" />
     <Compile Include="Services\CommandManager\Controls\LabelControl.cs" />
     <Compile Include="Services\CommandManager\Controls\TextBoxControl.cs" />
+    <Compile Include="Services\CommandManager\KeyboardMappings.cs" />
     <Compile Include="Services\CommandManager\NiCommandBarButton.cs" />
     <Compile Include="Services\CommandManager\NiCommandBar.cs" />
     <Compile Include="Services\CommandManager\NiCommandBarLabel.cs" />
@@ -149,6 +150,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\CommandManager\Controls\GroupControl.cs" />
+    <Compile Include="Services\CommandManager\NiCommandManager.KeyboardMappings.cs" />
     <Compile Include="Services\CommandManager\NiCommandManager.cs" />
     <Compile Include="Services\CommandManager\Controls\BarControl.cs" />
     <Compile Include="Services\CommandManager\Controls\ButtonControl.cs" />
@@ -268,6 +270,7 @@
     <EmbeddedResource Include="Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
