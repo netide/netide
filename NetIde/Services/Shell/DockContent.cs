@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Reflection.Emit;
+using System.Text;
 using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
@@ -11,7 +13,7 @@ namespace NetIde.Services.Shell
     internal class DockContent : Support.DockContent
     {
         private Proxy _proxy;
-        private NativeWindowHost _host;
+        private WindowHost _host;
         private bool _disposed;
         private bool _suppressClosing;
 
@@ -54,39 +56,12 @@ namespace NetIde.Services.Shell
                     break;
             }
 
-            _host = new NativeWindowHost
+            _host = new WindowHost(this)
             {
                 Dock = System.Windows.Forms.DockStyle.Fill
             };
 
-            _host.PreMessage += _host_PreMessage;
-
             Controls.Add(_host);
-        }
-
-        void _host_PreMessage(object sender, NiPreMessageEventArgs e)
-        {
-            var preMessageFilter = WindowPane as INiMessageFilter;
-
-            if (preMessageFilter == null)
-                return;
-
-            var message = e.Message;
-
-            bool handled;
-            ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message, out handled));
-
-            e.Handled = handled;
-
-            if (e.Handled)
-                e.Message = message;
-        }
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-
-            _host.ChildHwnd = WindowPane.Handle;
         }
 
         public INiWindowFrame GetProxy()
@@ -134,6 +109,140 @@ namespace NetIde.Services.Shell
             }
 
             base.Dispose(disposing);
+        }
+
+        private class WindowHost : NiWindowHost
+        {
+            private static readonly MethodInfo ProcessCmdKeyMethod = typeof(Control).GetMethod(
+                "ProcessCmdKey",
+                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                null,
+                new[] { typeof(Message).MakeByRefType(), typeof(Keys) },
+                null
+            );
+
+            private static readonly MethodInfo ProcessDialogCharMethod = typeof(Control).GetMethod(
+                "ProcessDialogChar",
+                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                null,
+                new[] { typeof(char) },
+                null
+            );
+
+            private static readonly MethodInfo IsInputCharMethod = typeof(Control).GetMethod(
+                "IsInputChar",
+                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                null,
+                new[] { typeof(char) },
+                null
+            );
+
+            private delegate bool ProcessCmdKeyDelegate(Control control, ref Message msg, Keys key);
+            private delegate bool ProcessDialogCharDelegate(Control control, char charData);
+            private delegate bool IsInputCharDelegate(Control control, char charData);
+
+            private static readonly ProcessCmdKeyDelegate _processCmdKeyDelegate;
+            private static readonly ProcessDialogCharDelegate _processDialogCharDelegate;
+            private static readonly IsInputCharDelegate _isInputCharDelegate;
+
+            static WindowHost()
+            {
+                var processCmdKeyMethod = new DynamicMethod(
+                    "ProcessCmdKey",
+                    typeof(bool),
+                    new[] { typeof(Control), typeof(Message).MakeByRefType(), typeof(Keys) },
+                    typeof(DockContent).Module,
+                    true
+                );
+
+                var il = processCmdKeyMethod.GetILGenerator();
+
+                il.Emit(OpCodes.Ldarg_0);
+                il.Emit(OpCodes.Ldarg_1);
+                il.Emit(OpCodes.Ldarg_2);
+                il.Emit(OpCodes.Callvirt, ProcessCmdKeyMethod);
+                il.Emit(OpCodes.Ret);
+
+                _processCmdKeyDelegate = (ProcessCmdKeyDelegate)processCmdKeyMethod.CreateDelegate(typeof(ProcessCmdKeyDelegate));
+
+                var isInputCharMethod = new DynamicMethod(
+                    "IsInputChar",
+                    typeof(bool),
+                    new[] { typeof(Control), typeof(char) },
+                    typeof(NiWindow).Module,
+                    true
+                );
+
+                il = isInputCharMethod.GetILGenerator();
+
+                il.Emit(OpCodes.Ldarg_0);
+                il.Emit(OpCodes.Ldarg_1);
+                il.Emit(OpCodes.Callvirt, IsInputCharMethod);
+                il.Emit(OpCodes.Ret);
+
+                _isInputCharDelegate = (IsInputCharDelegate)isInputCharMethod.CreateDelegate(typeof(IsInputCharDelegate));
+
+                var processDialogCharMethod = new DynamicMethod(
+                    "ProcessDialogChar",
+                    typeof(bool),
+                    new[] { typeof(Control), typeof(char) },
+                    typeof(NiWindow).Module,
+                    true
+                );
+
+                il = processDialogCharMethod.GetILGenerator();
+
+                il.Emit(OpCodes.Ldarg_0);
+                il.Emit(OpCodes.Ldarg_1);
+                il.Emit(OpCodes.Callvirt, ProcessDialogCharMethod);
+                il.Emit(OpCodes.Ret);
+
+                _processDialogCharDelegate = (ProcessDialogCharDelegate)processDialogCharMethod.CreateDelegate(typeof(ProcessDialogCharDelegate));
+            }
+
+            private readonly DockContent _dockContent;
+
+            public WindowHost(DockContent dockContent)
+            {
+                _dockContent = dockContent;
+            }
+
+            protected override INiWindowPane CreateWindow()
+            {
+                return _dockContent.WindowPane;
+            }
+
+            public override bool PreProcessMessage(ref Message msg)
+            {
+                // We give the form a chance to handle the message first. This is
+                // to allow main menu mnemonics to work correctly.
+
+                var form = _dockContent.FindForm();
+                if (form != null)
+                {
+                    if (msg.Msg == WM_KEYDOWN || msg.Msg == WM_SYSKEYDOWN)
+                    {
+                        var keyData = (Keys)(unchecked((int)(long)msg.WParam) | (int)ModifierKeys);
+                        if (_processCmdKeyDelegate(form, ref msg, keyData))
+                            return true;
+                    }
+                    else if (msg.Msg == WM_CHAR || msg.Msg == WM_SYSCHAR)
+                    {
+                        if (msg.Msg != WM_CHAR || !_isInputCharDelegate(form, (char)msg.WParam))
+                        {
+                            if (_processDialogCharDelegate(form, (char)msg.WParam))
+                                return true;
+                        }
+                    }
+                }
+
+                return base.PreProcessMessage(ref msg);
+            }
+
+            private const int WM_KEYDOWN = 0x100;
+            private const int WM_SYSKEYDOWN = 0x104;
+            private const int WM_CHAR = 0x102;
+            private const int WM_SYSCHAR = 0x106;
         }
 
         private class Proxy : ServiceObject, INiWindowFrame

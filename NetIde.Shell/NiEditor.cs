@@ -68,7 +68,7 @@ namespace NetIde.Shell
             base.Dispose(disposing);
         }
 
-        protected override INiCodeWindow CreateWindow()
+        protected override INiWindowPane CreateWindow()
         {
             var manager = (INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager));
             var registry = (INiLocalRegistry)GetService(typeof(INiLocalRegistry));

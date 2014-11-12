@@ -98,7 +98,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NiResources.cs" />
-    <Compile Include="NiPreMessageEventHandler.cs" />
     <Compile Include="NiConnectionPoint.cs" />
     <Compile Include="ProvideCommandLineSwitchAttribute.cs" />
     <Compile Include="ProvideEditorFactoryAttribute.cs" />
@@ -107,9 +106,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
-    </Compile>
-    <Compile Include="NativeWindowHost.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="NiPackage.cs" />
     <Compile Include="NiConstants.cs" />

@@ -18,7 +18,7 @@ namespace NetIde.Shell
         [Browsable(false)]
         public Guid CommandBarId { get; set; }
 
-        protected override INiCommandBarWindow CreateWindow()
+        protected override INiWindowPane CreateWindow()
         {
             var commandManager = (INiCommandManager)GetService(typeof(INiCommandManager));
 

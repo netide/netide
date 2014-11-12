@@ -9,7 +9,7 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Services.ToolsOptions
 {
-    internal class PageHost : NiWindowHost<INiWindowPane>
+    internal class PageHost : NiWindowHost
     {
         [Browsable(false)]
         [DefaultValue(null)]
@@ -42,7 +42,7 @@ namespace NetIde.Services.ToolsOptions
                     if (_page != value)
                     {
                         _page = value;
-                        _host.ChildHwnd = Handle;
+                        _host.SetChildHwnd(Handle);
                     }
                 }
             }

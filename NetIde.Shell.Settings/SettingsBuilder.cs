@@ -110,11 +110,11 @@ namespace NetIde.Shell.Settings
 
                             case "remove_Changed":
                                 _changed -= (EventHandler)info.Arguments[0];
-                                break;
+                                return null;
 
                             case "Reload":
                                 _cache.Clear();
-                                break;
+                                return null;
                         }
                     }
                     else if (info.TargetMethod.DeclaringType == typeof(T))
