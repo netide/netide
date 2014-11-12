@@ -83,6 +83,10 @@
       <Project>{3fad510a-bad9-4167-8e23-9bdc794cbb31}</Project>
       <Name>NetIde.Shell</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NetIde.Util\NetIde.Util.csproj">
+      <Project>{5cca6341-958e-4170-83ba-c8bb88d95ff4}</Project>
+      <Name>NetIde.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

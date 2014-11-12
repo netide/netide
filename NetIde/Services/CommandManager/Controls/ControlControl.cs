@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Shell.Interop;
+using NetIde.Util;
 
 namespace NetIde.Services.CommandManager.Controls
 {

@@ -124,8 +124,7 @@ namespace NetIde.Services.MenuManager
         private void QueryCommandStatus(INiCommandBarControl command)
         {
             NiCommandStatus status;
-            var hr = _commandManager.QueryStatus(command.Id, out status);
-            ErrorUtil.ThrowOnFailure(hr);
+            ErrorUtil.ThrowOnFailure(_commandManager.QueryStatus(command.Id, out status));
 
             if ((status & NiCommandStatus.Supported) != 0)
             {
@@ -143,7 +142,7 @@ namespace NetIde.Services.MenuManager
             if (comboBox != null && comboBox.IsVisible)
             {
                 object result;
-                hr = _commandManager.Exec(command.Id, null, out result);
+                var hr = _commandManager.Exec(command.Id, null, out result);
                 ErrorUtil.ThrowOnFailure(hr);
 
                 if (hr == HResult.OK)

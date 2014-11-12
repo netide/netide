@@ -5,15 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
+using System.Windows.Forms;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 
 namespace NetIde.Services.CommandManager
 {
-    internal partial class NiCommandManager : ServiceBase, INiCommandManager
+    internal partial class NiCommandManager : ServiceBase, INiCommandManager, INiRegisterPriorityCommandTarget
     {
-        private int _nextCookie = 1;
+        private int _nextCommandTargetCookie = 1;
         private readonly Dictionary<int, INiCommandTarget> _commandTargets = new Dictionary<int, INiCommandTarget>();
+        private int _nextPriorityCommandTargetCookie = 1;
+        private readonly Dictionary<int, INiCommandTarget> _priorityCommandTargets = new Dictionary<int, INiCommandTarget>();
+        private readonly List<INiCommandTarget> _priorityCommandTargetsOrdered = new List<INiCommandTarget>(); 
         private readonly Dictionary<Guid, object> _objects = new Dictionary<Guid, object>();
         private readonly INiEnv _env;
 
@@ -21,6 +25,8 @@ namespace NetIde.Services.CommandManager
             : base(serviceProvider)
         {
             _env = (INiEnv)serviceProvider.GetService(typeof(INiEnv));
+
+            Application.AddMessageFilter(new ShortcutMessageFilter(this));
         }
 
         public void LoadFromResources(INiPackage package, IResource resource)
@@ -218,7 +224,7 @@ namespace NetIde.Services.CommandManager
                 if (commandTarget == null)
                     throw new ArgumentNullException("commandTarget");
 
-                cookie = _nextCookie++;
+                cookie = _nextCommandTargetCookie++;
 
                 _commandTargets.Add(cookie, commandTarget);
 
@@ -234,17 +240,36 @@ namespace NetIde.Services.CommandManager
         {
             try
             {
-                if (!_commandTargets.ContainsKey(cookie))
-                    return HResult.False;
-
-                _commandTargets.Remove(cookie);
-
-                return HResult.OK;
+                return _commandTargets.Remove(cookie)
+                    ? HResult.OK
+                    : HResult.False;
             }
             catch (Exception ex)
             {
                 return ErrorUtil.GetHResult(ex);
             }
+        }
+
+        private IEnumerable<INiCommandTarget> GetCommandTargets()
+        {
+            // We allow the priority command targets to execute in the reverse
+            // order they have been registered. This means that the last one
+            // registered has the first try at handling the command.
+
+            for (int i = _priorityCommandTargetsOrdered.Count - 1; i >= 0; i--)
+            {
+                yield return _priorityCommandTargetsOrdered[i];
+            }
+
+            foreach (var commandTarget in _commandTargets.Values)
+            {
+                yield return commandTarget;
+            }
+
+            var activeDocument = _env.ActiveDocument as INiCommandTarget;
+
+            if (activeDocument != null)
+                yield return activeDocument;
         }
 
         public HResult QueryStatus(Guid command, out NiCommandStatus status)
@@ -253,25 +278,10 @@ namespace NetIde.Services.CommandManager
 
             try
             {
-                foreach (var commandTarget in _commandTargets.Values)
+                foreach (var commandTarget in GetCommandTargets())
                 {
                     NiCommandStatus targetStatus;
                     var hr = commandTarget.QueryStatus(command, out targetStatus);
-                    ErrorUtil.ThrowOnFailure(hr);
-
-                    if (hr == HResult.OK)
-                    {
-                        status = targetStatus;
-                        return HResult.OK;
-                    }
-                }
-
-                var activeDocument = _env.ActiveDocument as INiCommandTarget;
-
-                if (activeDocument != null)
-                {
-                    NiCommandStatus targetStatus;
-                    var hr = activeDocument.QueryStatus(command, out targetStatus);
                     ErrorUtil.ThrowOnFailure(hr);
 
                     if (hr == HResult.OK)
@@ -295,25 +305,10 @@ namespace NetIde.Services.CommandManager
 
             try
             {
-                foreach (var commandTarget in _commandTargets.Values)
+                foreach (var commandTarget in GetCommandTargets())
                 {
                     object thisResult;
                     var hr = commandTarget.Exec(command, argument, out thisResult);
-                    ErrorUtil.ThrowOnFailure(hr);
-
-                    if (hr == HResult.OK)
-                    {
-                        result = thisResult;
-                        return HResult.OK;
-                    }
-                }
-
-                var activeDocument = _env.ActiveDocument as INiCommandTarget;
-
-                if (activeDocument != null)
-                {
-                    object thisResult;
-                    var hr = activeDocument.Exec(command, argument, out thisResult);
                     ErrorUtil.ThrowOnFailure(hr);
 
                     if (hr == HResult.OK)
@@ -404,6 +399,70 @@ namespace NetIde.Services.CommandManager
             catch (Exception ex)
             {
                 return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult RegisterPriorityCommandTarget(INiCommandTarget commandTarget, out int cookie)
+        {
+            cookie = 0;
+
+            try
+            {
+                if (commandTarget == null)
+                    throw new ArgumentNullException("commandTarget");
+
+                cookie = _nextPriorityCommandTargetCookie++;
+                _priorityCommandTargets.Add(cookie, commandTarget);
+                _priorityCommandTargetsOrdered.Add(commandTarget);
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult UnregisterPriorityCommandTarget(int cookie)
+        {
+            try
+            {
+                INiCommandTarget commandTarget;
+                if (!_priorityCommandTargets.TryGetValue(cookie, out commandTarget))
+                    return HResult.False;
+
+                _priorityCommandTargetsOrdered.Remove(commandTarget);
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        private class ShortcutMessageFilter : IMessageFilter
+        {
+            private const int WM_KEYDOWN = 0x100;
+            private const int WM_SYSKEYDOWN = 0x104;
+
+            private readonly NiCommandManager _commandManager;
+
+            public ShortcutMessageFilter(NiCommandManager commandManager)
+            {
+                _commandManager = commandManager;
+            }
+
+            public bool PreFilterMessage(ref Message m)
+            {
+                switch (m.Msg)
+                {
+                    case WM_KEYDOWN:
+                    case WM_SYSKEYDOWN:
+                        return _commandManager._keyboardMappingManager.ProcessMessage(ref m);
+
+                    default:
+                        return false;
+                }
             }
         }
     }

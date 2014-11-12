@@ -102,7 +102,9 @@ namespace NetIde
 
                 serviceContainer.AddService(typeof(INiLocalRegistry), new NiLocalRegistry(serviceContainer));
                 serviceContainer.AddService(typeof(INiEditorFactoryRegistry), new NiEditorFactoryRegistry(serviceContainer));
-                serviceContainer.AddService(typeof(INiCommandManager), new NiCommandManager(serviceContainer));
+                var commandManager = new NiCommandManager(serviceContainer);
+                serviceContainer.AddService(typeof(INiCommandManager), commandManager);
+                serviceContainer.AddService(typeof(INiRegisterPriorityCommandTarget), commandManager);
                 serviceContainer.AddService(typeof(INiWindowPaneSelection), new NiWindowPaneSelection(serviceContainer));
                 serviceContainer.AddService(typeof(INiShell), new NiShell(serviceContainer));
                 serviceContainer.AddService(typeof(INiMenuManager), new NiMenuManager(serviceContainer));

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using log4net;
@@ -61,7 +63,8 @@ namespace NetIde.Services.CommandManager
 
             private readonly NiCommandManager _commandManager;
             private readonly string _registryKey;
-            private readonly Dictionary<INiCommandBarButton, Keys> _initialKeys = new Dictionary<INiCommandBarButton, Keys>();  
+            private readonly Dictionary<Guid, Keys> _initialKeys = new Dictionary<Guid, Keys>();
+            private readonly Dictionary<Keys, Guid[]> _keyMap = new Dictionary<Keys, Guid[]>(); 
 
             public KeyboardMappingManager(NiCommandManager commandManager)
             {
@@ -79,7 +82,7 @@ namespace NetIde.Services.CommandManager
                 {
                     var button = obj as INiCommandBarButton;
                     if (button != null)
-                        _initialKeys.Add(button, button.ShortcutKeys);
+                        _initialKeys.Add(button.Id, button.ShortcutKeys);
                 }
             }
 
@@ -136,24 +139,55 @@ namespace NetIde.Services.CommandManager
 
             private void LoadMappings()
             {
+                // We're also rebuilding the keymap in this run.
+
+                _keyMap.Clear();
+
                 var mappings = LoadFromRegistry();
 
-                foreach (var item in mappings)
+                foreach (var obj in _commandManager._objects.Values)
                 {
-                    var obj = _commandManager._objects[item.Key];
-
                     var button = obj as INiCommandBarButton;
-
-                    Debug.Assert(button != null);
-
                     if (button == null)
                         continue;
 
-                    var keys = item.Value;
-                    if (keys.Length == 0)
+                    // Find the effective keys.
+
+                    var id = button.Id;
+
+                    Keys[] keys;
+                    if (!mappings.TryGetValue(id, out keys))
+                    {
+                        Keys key;
+                        if (_initialKeys.TryGetValue(id, out key))
+                            keys = new[] { key };
+                    }
+
+                    // Apply the correct shortcut to the button.
+
+                    if (keys == null || keys.Length == 0)
                         button.ShortcutKeys = 0;
-                    else
+                    else 
                         button.ShortcutKeys = keys[0];
+
+                    if (keys == null)
+                        continue;
+
+                    foreach (var key in keys)
+                    {
+                        Guid[] buttons;
+                        if (_keyMap.TryGetValue(key, out buttons))
+                        {
+                            var newButtons = new Guid[buttons.Length + 1];
+                            Array.Copy(buttons, newButtons, buttons.Length);
+                            newButtons[buttons.Length] = id;
+                            _keyMap[key] = newButtons;
+                        }
+                        else
+                        {
+                            _keyMap.Add(key, new[] { id });
+                        }
+                    }
                 }
             }
 
@@ -223,14 +257,44 @@ namespace NetIde.Services.CommandManager
                     return Registry.CurrentUser.OpenSubKey(_registryKey);
             }
 
+            public bool ProcessMessage(ref Message m)
+            {
+                var key = (Keys)(int)m.WParam | Control.ModifierKeys;
+
+                Guid[] buttons;
+                if (!_keyMap.TryGetValue(key, out buttons))
+                    return false;
+
+                foreach (var id in buttons)
+                {
+                    NiCommandStatus status;
+                    ErrorUtil.ThrowOnFailure(_commandManager.QueryStatus(id, out status));
+
+                    bool enabled = (status & NiCommandStatus.Enabled) != 0;
+                    bool visible = (status & NiCommandStatus.Invisible) == 0;
+
+                    if (enabled && visible)
+                    {
+                        object result;
+                        var hr = _commandManager.Exec(id, null, out result);
+                        ErrorUtil.ThrowOnFailure(hr);
+
+                        if (hr == HResult.OK)
+                            return true;
+                    }
+                }
+
+                return false;
+            }
+
             private class NiKeyboardMappings : ServiceObject, INiKeyboardMappings
             {
                 private static readonly Keys[] EmptyKeys = new Keys[0];
                 private static readonly INiCommandBarButton[] EmptyButtons = new INiCommandBarButton[0];
 
                 private readonly KeyboardMappingManager _keyboardMappingManager;
-                private readonly Dictionary<INiCommandBarButton, List<Keys>> _mappingsByButton = new Dictionary<INiCommandBarButton, List<Keys>>();
-                private readonly Dictionary<Keys, List<INiCommandBarButton>> _mappingsByKeys = new Dictionary<Keys, List<INiCommandBarButton>>();
+                private readonly Dictionary<Guid, List<Keys>> _mappingsByButton = new Dictionary<Guid, List<Keys>>();
+                private readonly Dictionary<Keys, List<Guid>> _mappingsByKeys = new Dictionary<Keys, List<Guid>>();
 
                 public Dictionary<Guid, Keys[]> Mappings { get; private set; }
 
@@ -249,7 +313,7 @@ namespace NetIde.Services.CommandManager
                         var keys = new List<Keys>();
 
                         Keys[] loadedKeys;
-                        if (Mappings.TryGetValue(item.Key.Id, out loadedKeys))
+                        if (Mappings.TryGetValue(item.Key, out loadedKeys))
                             keys.AddRange(loadedKeys);
                         else if (item.Value != 0)
                             keys.Add(item.Value);
@@ -258,10 +322,10 @@ namespace NetIde.Services.CommandManager
 
                         foreach (var key in keys)
                         {
-                            List<INiCommandBarButton> buttons;
+                            List<Guid> buttons;
                             if (!_mappingsByKeys.TryGetValue(key, out buttons))
                             {
-                                buttons = new List<INiCommandBarButton>();
+                                buttons = new List<Guid>();
                                 _mappingsByKeys.Add(key, buttons);
                             }
 
@@ -276,7 +340,7 @@ namespace NetIde.Services.CommandManager
 
                     try
                     {
-                        buttons = _mappingsByButton.Keys.ToArray();
+                        buttons = _keyboardMappingManager._commandManager._objects.Values.OfType<INiCommandBarButton>().ToArray();
 
                         return HResult.OK;
                     }
@@ -296,7 +360,7 @@ namespace NetIde.Services.CommandManager
                             throw new ArgumentNullException("button");
 
                         List<Keys> mappedKeys;
-                        if (_mappingsByButton.TryGetValue(button, out mappedKeys))
+                        if (_mappingsByButton.TryGetValue(button.Id, out mappedKeys))
                             keys = mappedKeys.ToArray();
                         else
                             keys = EmptyKeys;
@@ -315,11 +379,17 @@ namespace NetIde.Services.CommandManager
 
                     try
                     {
-                        List<INiCommandBarButton> mappedButtons;
+                        List<Guid> mappedButtons;
                         if (_mappingsByKeys.TryGetValue(keys, out mappedButtons))
-                            buttons = mappedButtons.ToArray();
+                        {
+                            buttons = mappedButtons.Select(
+                                p => (INiCommandBarButton)_keyboardMappingManager._commandManager._objects[p]
+                            ).ToArray();
+                        }
                         else
+                        {
                             buttons = EmptyButtons;
+                        }
 
                         return HResult.OK;
                     }
@@ -344,11 +414,13 @@ namespace NetIde.Services.CommandManager
                                 throw new ArgumentException(String.Format("{0} is not a valid shortcut", key));
                         }
 
+                        var id = button.Id;
+
                         List<Keys> currentKeys;
-                        if (!_mappingsByButton.TryGetValue(button, out currentKeys))
+                        if (!_mappingsByButton.TryGetValue(id, out currentKeys))
                         {
                             currentKeys = new List<Keys>();
-                            _mappingsByButton.Add(button, currentKeys);
+                            _mappingsByButton.Add(id, currentKeys);
                         }
 
                         // Remove the button from keys that are not set anymore.
@@ -357,10 +429,10 @@ namespace NetIde.Services.CommandManager
                         {
                             if (!keys.Contains(key))
                             {
-                                List<INiCommandBarButton> buttons;
+                                List<Guid> buttons;
                                 if (_mappingsByKeys.TryGetValue(key, out buttons))
                                 {
-                                    bool removed = buttons.Remove(button);
+                                    bool removed = buttons.Remove(id);
                                     Debug.Assert(removed);
                                 }
                                 else
@@ -376,14 +448,14 @@ namespace NetIde.Services.CommandManager
                         {
                             if (!currentKeys.Contains(key))
                             {
-                                List<INiCommandBarButton> buttons;
+                                List<Guid> buttons;
                                 if (!_mappingsByKeys.TryGetValue(key, out buttons))
                                 {
-                                    buttons = new List<INiCommandBarButton>();
+                                    buttons = new List<Guid>();
                                     _mappingsByKeys.Add(key, buttons);
                                 }
 
-                                buttons.Add(button);
+                                buttons.Add(id);
                             }
                         }
 
@@ -394,10 +466,10 @@ namespace NetIde.Services.CommandManager
 
                         // Update the new mappings with the new keys.
 
-                        if (AreSameKeys(_keyboardMappingManager._initialKeys[button], keys))
-                            Mappings.Remove(button.Id);
+                        if (AreSameKeys(_keyboardMappingManager._initialKeys[id], keys))
+                            Mappings.Remove(id);
                         else
-                            Mappings[button.Id] = keys.ToArray();
+                            Mappings[id] = keys.ToArray();
 
                         return HResult.OK;
                     }

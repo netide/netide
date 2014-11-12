@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Shell;
 
 namespace NetIde
 {
-    internal class BaseForm : NetIde.Util.Forms.Form
+    internal class BaseForm : NiForm
     {
         [Localizable(true)]
         [DefaultValue(FormStartPosition.CenterParent)]

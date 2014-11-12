@@ -76,6 +76,7 @@
     <Compile Include="INiProjectManager.cs" />
     <Compile Include="INiProjectManagerNotify.cs" />
     <Compile Include="INiProjectExplorer.cs" />
+    <Compile Include="INiRegisterPriorityCommandTarget.cs" />
     <Compile Include="INiRunningDocumentTable.cs" />
     <Compile Include="INiShellEvents.cs" />
     <Compile Include="INiStatusBar.cs" />

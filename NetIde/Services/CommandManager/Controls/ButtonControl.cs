@@ -41,8 +41,20 @@ namespace NetIde.Services.CommandManager.Controls
 
                 Item.Checked = NiCommand.IsLatched;
 
-                if (String.IsNullOrEmpty(Item.ToolTipText))
-                    Item.ToolTipText = Item.Text;
+                string toolTip = Item.ToolTipText;
+
+                if (String.IsNullOrEmpty(toolTip))
+                    toolTip = Item.Text;
+
+                var shortcutKeys = NiCommand.ShortcutKeys;
+                if (shortcutKeys != 0)
+                {
+                    if (toolTip.Length > 0)
+                        toolTip += " ";
+                    toolTip += "(" + ShortcutKeysUtil.ToDisplayString(shortcutKeys) + ")";
+                }
+
+                Item.ToolTipText = toolTip;
             }
         }
     }

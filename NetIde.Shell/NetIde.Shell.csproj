@@ -58,6 +58,9 @@
     <Compile Include="NiCommandBarWindow.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="NiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NiIterator.cs" />
     <Compile Include="NiIteratorExtensions.cs" />
     <Compile Include="NiShellExtensions.cs" />
