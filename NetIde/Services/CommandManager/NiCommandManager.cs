@@ -281,10 +281,7 @@ namespace NetIde.Services.CommandManager
                 foreach (var commandTarget in GetCommandTargets())
                 {
                     NiCommandStatus targetStatus;
-                    var hr = commandTarget.QueryStatus(command, out targetStatus);
-                    ErrorUtil.ThrowOnFailure(hr);
-
-                    if (hr == HResult.OK)
+                    if (ErrorUtil.ThrowOnFailure(commandTarget.QueryStatus(command, out targetStatus)))
                     {
                         status = targetStatus;
                         return HResult.OK;
@@ -308,10 +305,7 @@ namespace NetIde.Services.CommandManager
                 foreach (var commandTarget in GetCommandTargets())
                 {
                     object thisResult;
-                    var hr = commandTarget.Exec(command, argument, out thisResult);
-                    ErrorUtil.ThrowOnFailure(hr);
-
-                    if (hr == HResult.OK)
+                    if (ErrorUtil.ThrowOnFailure(commandTarget.Exec(command, argument, out thisResult)))
                     {
                         result = thisResult;
                         return HResult.OK;

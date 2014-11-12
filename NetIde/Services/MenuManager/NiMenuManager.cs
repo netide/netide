@@ -142,10 +142,7 @@ namespace NetIde.Services.MenuManager
             if (comboBox != null && comboBox.IsVisible)
             {
                 object result;
-                var hr = _commandManager.Exec(command.Id, null, out result);
-                ErrorUtil.ThrowOnFailure(hr);
-
-                if (hr == HResult.OK)
+                if (ErrorUtil.ThrowOnFailure(_commandManager.Exec(command.Id, null, out result)))
                     comboBox.SelectedValue = (string)result;
                 else
                     comboBox.SelectedValue = null;

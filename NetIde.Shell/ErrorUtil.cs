@@ -25,9 +25,10 @@ namespace NetIde.Shell
         }
 
         [DebuggerStepThrough]
-        public static void ThrowOnFailure(HResult hr)
+        public static bool ThrowOnFailure(HResult hr)
         {
             Marshal.ThrowExceptionForHR((int)hr);
+            return hr != HResult.False;
         }
 
         [DebuggerStepThrough]

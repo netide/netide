@@ -276,10 +276,7 @@ namespace NetIde.Services.CommandManager
                     if (enabled && visible)
                     {
                         object result;
-                        var hr = _commandManager.Exec(id, null, out result);
-                        ErrorUtil.ThrowOnFailure(hr);
-
-                        if (hr == HResult.OK)
+                        if (ErrorUtil.ThrowOnFailure(_commandManager.Exec(id, null, out result)))
                             return true;
                     }
                 }
