@@ -106,6 +106,7 @@
             this._treeView.HideSelection = false;
             this._treeView.Location = new System.Drawing.Point(3, 3);
             this._treeView.Name = "_treeView";
+            this._treeView.ShowLines = false;
             this._treeView.Size = new System.Drawing.Size(242, 341);
             this._treeView.TabIndex = 0;
             this._treeView.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this._treeView_BeforeSelect);
@@ -137,6 +138,7 @@
             this.ClientSize = new System.Drawing.Size(741, 402);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.formFooter1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "ToolsOptionsForm";
             this.Text = "Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToolsOptionsForm_FormClosing);

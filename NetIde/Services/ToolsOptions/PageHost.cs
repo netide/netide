@@ -13,6 +13,7 @@ namespace NetIde.Services.ToolsOptions
     {
         [Browsable(false)]
         [DefaultValue(null)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public INiOptionPage Page
         {
             get { return ((Proxy)Window).Page; }
