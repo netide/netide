@@ -7,6 +7,6 @@ namespace NetIde.Shell.Interop
 {
     public interface INiPreMessageFilter
     {
-        HResult PreFilterMessage(ref NiMessage message, out bool processed);
+        HResult PreFilterMessage(ref NiMessage message);
     }
 }

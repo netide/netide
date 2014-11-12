@@ -125,22 +125,20 @@ namespace NetIde.Shell
             }
         }
 
-        public HResult PreFilterMessage(ref NiMessage message, out bool processed)
+        public HResult PreFilterMessage(ref NiMessage message)
         {
-            processed = false;
-
             try
             {
                 if (_preMessageFilterRecursion > 0)
-                    return HResult.OK;
+                    return HResult.False;
 
                 _preMessageFilterRecursion++;
 
                 try
                 {
-                    processed = MessageFilterUtil.InvokeMessageFilter(ref message);
-
-                    return HResult.OK;
+                    return MessageFilterUtil.InvokeMessageFilter(ref message)
+                        ? HResult.OK
+                        : HResult.False;
                 }
                 finally
                 {
@@ -473,8 +471,7 @@ namespace NetIde.Shell
                 {
                     NiMessage message = m;
 
-                    bool processed;
-                    ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message, out processed));
+                    bool processed = ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message));
 
                     m = message;
 

@@ -8,7 +8,7 @@ namespace NetIde.Shell.Interop
 {
     public interface INiMessageFilter : INiPreMessageFilter
     {
-        HResult IsInputKey(Keys keyData, out bool result);
-        HResult IsInputChar(char charCode, out bool result);
+        HResult IsInputKey(Keys keyData);
+        HResult IsInputChar(char charCode);
     }
 }

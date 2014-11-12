@@ -285,14 +285,12 @@ namespace NetIde.Services.Shell
             }
         }
 
-        public HResult BroadcastPreMessageFilter(ref NiMessage message, out bool processed)
+        public HResult BroadcastPreMessageFilter(ref NiMessage message)
         {
-            processed = false;
-
             try
             {
                 if (_preMessageFilterRecursion > 0)
-                    return HResult.OK;
+                    return HResult.False;
 
                 _preMessageFilterRecursion++;
 
@@ -304,23 +302,20 @@ namespace NetIde.Services.Shell
                     if (_packageManager == null)
                         _packageManager = (NiPackageManager)GetService(typeof(INiPackageManager));
 
-                    processed = MessageFilterUtil.InvokeMessageFilter(ref message);
+                    if (MessageFilterUtil.InvokeMessageFilter(ref message))
+                        return HResult.OK;
 
-                    if (!processed)
+                    foreach (var package in _packageManager.Packages)
                     {
-                        foreach (var package in _packageManager.Packages)
-                        {
-                            var preMessageFilter = package.Package as INiPreMessageFilter;
-                            if (preMessageFilter != null)
-                            {
-                                ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message, out processed));
-                                if (processed)
-                                    break;
-                            }
-                        }
+                        var preMessageFilter = package.Package as INiPreMessageFilter;
+                        if (
+                            preMessageFilter != null &&
+                            ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message))
+                        )
+                            return HResult.OK;
                     }
 
-                    return HResult.OK;
+                    return HResult.False;
                 }
                 finally
                 {
@@ -391,8 +386,7 @@ namespace NetIde.Services.Shell
                 {
                     NiMessage message = m;
 
-                    bool processed;
-                    ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message, out processed));
+                    bool processed = ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message));
 
                     m = message;
 

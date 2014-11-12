@@ -105,27 +105,25 @@ namespace NetIde.Shell
                 _hwnd = Window.Handle;
         }
 
-        public HResult PreFilterMessage(ref NiMessage message, out bool processed)
+        public HResult PreFilterMessage(ref NiMessage message)
         {
-            processed = false;
-
             try
             {
                 if (Window == null)
-                    return HResult.OK;
+                    return HResult.False;
 
                 var control = FindTarget(message.HWnd);
 
                 if (control == null)
-                    return HResult.OK;
+                    return HResult.False;
 
                 var msg = (Message)message;
 
-                processed = control.PreProcessMessage(ref msg);
+                bool processed = control.PreProcessMessage(ref msg);
 
                 message = msg;
 
-                return HResult.OK;
+                return processed ? HResult.OK : HResult.False;
             }
             catch (Exception ex)
             {
@@ -133,17 +131,15 @@ namespace NetIde.Shell
             }
         }
 
-        public HResult IsInputKey(Keys key, out bool result)
+        public HResult IsInputKey(Keys key)
         {
-            result = false;
-
             try
             {
                 var focused = FindTarget(GetFocus());
                 if (focused != null)
-                    result = _isInputKeyDelegate(focused, key);
+                    return _isInputKeyDelegate(focused, key) ? HResult.OK : HResult.False;
 
-                return HResult.OK;
+                return HResult.False;
             }
             catch (Exception ex)
             {
@@ -151,17 +147,15 @@ namespace NetIde.Shell
             }
         }
 
-        public HResult IsInputChar(char charCode, out bool result)
+        public HResult IsInputChar(char charCode)
         {
-            result = false;
-
             try
             {
                 var focused = FindTarget(GetFocus());
                 if (focused != null)
-                    result = _isInputCharDelegate.Invoke(focused, charCode);
+                    return _isInputCharDelegate.Invoke(focused, charCode) ? HResult.OK : HResult.False;
 
-                return HResult.OK;
+                return HResult.False;
             }
             catch (Exception ex)
             {

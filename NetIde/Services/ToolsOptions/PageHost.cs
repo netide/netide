@@ -83,16 +83,14 @@ namespace NetIde.Services.ToolsOptions
                 return HResult.OK;
             }
 
-            public HResult IsInputKey(Keys keyData, out bool result)
+            public HResult IsInputKey(Keys keyData)
             {
-                result = false;
-
                 try
                 {
                     if (_page == null)
-                        return HResult.OK;
+                        return HResult.False;
 
-                    return _page.IsInputKey(keyData, out result);
+                    return _page.IsInputKey(keyData);
                 }
                 catch (Exception ex)
                 {
@@ -100,16 +98,14 @@ namespace NetIde.Services.ToolsOptions
                 }
             }
 
-            public HResult IsInputChar(char charCode, out bool result)
+            public HResult IsInputChar(char charCode)
             {
-                result = false;
-
                 try
                 {
                     if (_page == null)
-                        return HResult.OK;
+                        return HResult.False;
 
-                    return _page.IsInputChar(charCode, out result);
+                    return _page.IsInputChar(charCode);
                 }
                 catch (Exception ex)
                 {
@@ -117,16 +113,14 @@ namespace NetIde.Services.ToolsOptions
                 }
             }
 
-            public HResult PreFilterMessage(ref NiMessage message, out bool processed)
+            public HResult PreFilterMessage(ref NiMessage message)
             {
-                processed = false;
-
                 try
                 {
                     if (_page == null)
-                        return HResult.OK;
+                        return HResult.False;
 
-                    return _page.PreFilterMessage(ref message, out processed);
+                    return _page.PreFilterMessage(ref message);
                 }
                 catch (Exception ex)
                 {

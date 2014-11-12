@@ -188,50 +188,38 @@ namespace NetIde.Shell
 
         public override bool PreProcessMessage(ref Message msg)
         {
-            bool processed;
-
             var preMessageFilter = _window as INiMessageFilter;
             if (preMessageFilter != null)
             {
                 NiMessage message = msg;
 
-                ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message, out processed));
+                bool processed = ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message));
 
                 if (processed)
                     msg = message;
-            }
-            else
-            {
-                processed = base.PreProcessMessage(ref msg);
+
+                return processed;
             }
 
-            return processed;
+            return base.PreProcessMessage(ref msg);
         }
 
         protected override bool IsInputKey(Keys keyData)
         {
-            bool result;
-
             var preMessageFilter = _window as INiMessageFilter;
             if (preMessageFilter != null)
-                ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputKey(keyData, out result));
-            else
-                result = base.IsInputKey(keyData);
+                return ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputKey(keyData));
 
-            return result;
+            return base.IsInputKey(keyData);
         }
 
         protected override bool IsInputChar(char charCode)
         {
-            bool result;
-
             var preMessageFilter = _window as INiMessageFilter;
             if (preMessageFilter != null)
-                ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputChar(charCode, out result));
-            else
-                result = base.IsInputChar(charCode);
+                return ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputChar(charCode));
 
-            return result;
+            return base.IsInputChar(charCode);
         }
 
         private const int SWP_NOACTIVATE = 0x0010;
