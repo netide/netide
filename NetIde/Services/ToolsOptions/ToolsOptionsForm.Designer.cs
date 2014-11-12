@@ -124,7 +124,6 @@
             this._pageHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this._pageHost.Location = new System.Drawing.Point(0, 0);
             this._pageHost.Name = "_pageHost";
-            this._pageHost.Page = null;
             this._pageHost.Size = new System.Drawing.Size(457, 335);
             this._pageHost.TabIndex = 0;
             this._pageHost.Text = "pageHost1";
