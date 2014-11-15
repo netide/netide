@@ -9,16 +9,16 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Shell
 {
-    public class NiCommandBarWindow : NiWindowHost<INiCommandBarWindow>
+    public class NiCommandBarWindow : NiWindowHost
     {
-        private INiCommandBarWindow _window;
+        private INiWindowPane _window;
 
         [Category("Behavior")]
         [Description("ID of the command bar to render.")]
         [Browsable(false)]
         public Guid CommandBarId { get; set; }
 
-        protected override INiWindowPane CreateWindow()
+        protected override INiIsolationClient CreateWindow()
         {
             var commandManager = (INiCommandManager)GetService(typeof(INiCommandManager));
 

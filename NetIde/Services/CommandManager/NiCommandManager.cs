@@ -103,7 +103,7 @@ namespace NetIde.Services.CommandManager
             }
         }
 
-        public HResult CreateCommandBarWindow(Guid id, out INiCommandBarWindow commandBar)
+        public HResult CreateCommandBarWindow(Guid id, out INiWindowPane commandBar)
         {
             commandBar = null;
 

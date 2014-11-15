@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiWindowPane : IServiceProvider, IDisposable, IWin32Window, INiObjectWithSite
+    public interface INiWindowPane : IServiceProvider, INiObjectWithSite, INiIsolationClient
     {
         HResult Initialize();
     }

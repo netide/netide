@@ -54,7 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainSetup.cs" />
+    <Compile Include="NiIsolationClient.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NiIsolationHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MessageFilterUtil.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="NiCommandBarWindow.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -69,7 +76,9 @@
     <Compile Include="NiHierarchyExtensions.cs" />
     <Compile Include="NiList.cs" />
     <Compile Include="NiLocalRegistryExtensions.cs" />
-    <Compile Include="NiOptionPage.cs" />
+    <Compile Include="NiOptionPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="NiPackageExtensions.cs" />
     <Compile Include="NiProjectFactory.cs" />
     <Compile Include="NiProject.cs" />
@@ -78,7 +87,6 @@
     <Compile Include="NiRunningDocumentTableExtensions.cs" />
     <Compile Include="NiStringResourcesAttribute.cs" />
     <Compile Include="NiWaitDialog.cs" />
-    <Compile Include="NiWindow.cs" />
     <Compile Include="NiWindowFrameExtensions.cs" />
     <Compile Include="NiWindowHost.cs">
       <SubType>Component</SubType>
@@ -121,10 +129,13 @@
     <Compile Include="ResourceUtil.cs" />
     <Compile Include="ServiceObject.cs" />
     <Compile Include="NiSettings.cs" />
-    <Compile Include="NiWindowPane.cs" />
+    <Compile Include="NiWindowPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="NiWindowShowEventHandler.cs" />
     <Compile Include="StreamInfo.cs" />
     <Compile Include="StreamUtil.cs" />
+    <Compile Include="ControlStubs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Support\Key.snk">

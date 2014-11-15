@@ -129,7 +129,9 @@
     <Compile Include="RegistryUtil.cs" />
     <Compile Include="SEH.cs" />
     <Compile Include="Services\CommandLine\NiCommandLine.cs" />
-    <Compile Include="Services\CommandManager\CommandBarWindow.cs" />
+    <Compile Include="Services\CommandManager\CommandBarWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Services\CommandManager\Controls\LabelControl.cs" />
     <Compile Include="Services\CommandManager\Controls\TextBoxControl.cs" />
     <Compile Include="Services\CommandManager\KeyboardMappings.cs" />

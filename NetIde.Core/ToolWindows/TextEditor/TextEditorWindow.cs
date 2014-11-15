@@ -24,7 +24,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
 
         protected TextEditorControl Control
         {
-            get { return (TextEditorControl)Window; }
+            get { return (TextEditorControl)Controls[0]; }
         }
 
         protected SelectionManager SelectionManager
@@ -76,7 +76,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
             }
         }
 
-        protected override Control CreateControl()
+        protected override Control CreateClient()
         {
             var fontSettings = SettingsBuilder.GetSettings<IFontSettings>(this);
 

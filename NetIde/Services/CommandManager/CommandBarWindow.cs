@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Services.CommandManager.Controls;
 using NetIde.Services.MenuManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
-using NetIde.Win32;
 
 namespace NetIde.Services.CommandManager
 {
-    internal class CommandBarWindow : NiWindowPane, INiCommandBarWindow
+    internal class CommandBarWindow : NiWindowPane
     {
         private readonly Guid _id;
         private BarControl _control;
@@ -22,6 +20,11 @@ namespace NetIde.Services.CommandManager
         public CommandBarWindow(Guid id)
         {
             _id = id;
+        }
+
+        public ToolStrip ToolStrip
+        {
+            get { return (ToolStrip)Controls[0]; }
         }
 
         public override HResult Initialize()
@@ -46,7 +49,7 @@ namespace NetIde.Services.CommandManager
                     var toolStrip = (ToolStrip)_control.Control;
                     toolStrip.GripStyle = ToolStripGripStyle.Hidden;
 
-                    Window = toolStrip;
+                    Controls.Add(toolStrip);
                 }
 
                 return HResult.OK;
@@ -57,20 +60,9 @@ namespace NetIde.Services.CommandManager
             }
         }
 
-        public HResult GetPreferredSize(Size proposedSize, out Size size)
+        public override Size GetPreferredSize(Size proposedSize)
         {
-            size = new Size();
-
-            try
-            {
-                size = ((ToolStrip)Window).GetPreferredSize(proposedSize);
-
-                return HResult.OK;
-            }
-            catch (Exception ex)
-            {
-                return ErrorUtil.GetHResult(ex);
-            }
+            return ToolStrip.GetPreferredSize(proposedSize);
         }
 
         protected override void Dispose(bool disposing)

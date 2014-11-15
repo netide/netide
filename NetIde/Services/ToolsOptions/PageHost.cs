@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -20,7 +22,7 @@ namespace NetIde.Services.ToolsOptions
             set { ((Proxy)Window).Page = value; }
         }
 
-        protected override INiWindowPane CreateWindow()
+        protected override INiIsolationClient CreateWindow()
         {
             var window = new Proxy(this);
 
@@ -29,7 +31,7 @@ namespace NetIde.Services.ToolsOptions
             return window;
         }
 
-        private class Proxy : INiWindowPane, INiMessageFilter
+        private class Proxy : INiWindowPane
         {
             private IServiceProvider _site;
             private readonly PageHost _host;
@@ -43,6 +45,7 @@ namespace NetIde.Services.ToolsOptions
                     if (_page != value)
                     {
                         _page = value;
+                        ErrorUtil.ThrowOnFailure(_page.SetHost(_host));
                         _host.SetChildHwnd(Handle);
                     }
                 }
@@ -84,14 +87,16 @@ namespace NetIde.Services.ToolsOptions
                 return HResult.OK;
             }
 
-            public HResult IsInputKey(Keys keyData)
+            public HResult SetHost(INiIsolationHost host)
             {
                 try
                 {
-                    if (_page == null)
-                        return HResult.False;
+                    Debug.Assert(_host == host);
 
-                    return _page.IsInputKey(keyData);
+                    if (_page != null)
+                        return _page.SetHost(host);
+
+                    return HResult.OK;
                 }
                 catch (Exception ex)
                 {
@@ -99,14 +104,14 @@ namespace NetIde.Services.ToolsOptions
                 }
             }
 
-            public HResult IsInputChar(char charCode)
+            public HResult PreviewKeyDown(Keys keyData)
             {
                 try
                 {
-                    if (_page == null)
-                        return HResult.False;
+                    if (_page != null)
+                        return _page.PreviewKeyDown(keyData);
 
-                    return _page.IsInputChar(charCode);
+                    return HResult.False;
                 }
                 catch (Exception ex)
                 {
@@ -114,14 +119,63 @@ namespace NetIde.Services.ToolsOptions
                 }
             }
 
-            public HResult PreFilterMessage(ref NiMessage message)
+            public HResult PreProcessMessage(ref NiMessage message, out PreProcessMessageResult preProcessMessageResult)
+            {
+                preProcessMessageResult = 0;
+
+                try
+                {
+                    if (_page != null)
+                        return _page.PreProcessMessage(ref message, out preProcessMessageResult);
+
+                    return HResult.False;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
+            }
+
+            public HResult ProcessMnemonic(char charCode)
             {
                 try
                 {
-                    if (_page == null)
-                        return HResult.False;
+                    if (_page != null)
+                        return _page.ProcessMnemonic(charCode);
 
-                    return _page.PreFilterMessage(ref message);
+                    return HResult.False;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
+            }
+
+            public HResult SelectNextControl(bool forward)
+            {
+                try
+                {
+                    if (_page != null)
+                        return _page.SelectNextControl(forward);
+
+                    return HResult.False;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
+            }
+
+            public HResult GetPreferredSize(Size proposedSize, out Size preferredSize)
+            {
+                preferredSize = new Size();
+
+                try
+                {
+                    if (_page != null)
+                        return _page.GetPreferredSize(proposedSize, out preferredSize);
+
+                    return HResult.OK;
                 }
                 catch (Exception ex)
                 {

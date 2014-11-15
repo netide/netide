@@ -12,7 +12,7 @@ namespace NetIde.Shell.Interop
         HResult CreateCommandBarButton(Guid id, int priority, out INiCommandBarButton button);
         HResult CreateCommandBarComboBox(Guid id, Guid fillCommand, int priority, out INiCommandBarComboBox comboBox);
         HResult CreateCommandBarPopup(Guid id, int priority, out INiCommandBarPopup popup);
-        HResult CreateCommandBarWindow(Guid id, out INiCommandBarWindow commandBar);
+        HResult CreateCommandBarWindow(Guid id, out INiWindowPane commandBar);
         HResult RegisterCommandTarget(INiCommandTarget commandTarget, out int cookie);
         HResult UnregisterCommandTarget(int cookie);
         HResult FindCommandBar(Guid id, out INiCommandBar commandBar);

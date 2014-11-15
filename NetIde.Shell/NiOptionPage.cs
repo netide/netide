@@ -8,7 +8,7 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Shell
 {
-    public abstract class NiOptionPage : NiWindow, INiOptionPage
+    public abstract class NiOptionPage : NiIsolationClient, INiOptionPage
     {
         private IServiceProvider _serviceProvider;
 

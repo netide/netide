@@ -9,7 +9,7 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Shell
 {
-    public abstract class NiWindowPane : NiWindow, INiWindowPane
+    public abstract class NiWindowPane : NiIsolationClient, INiWindowPane
     {
         private IServiceProvider _serviceProvider;
         private bool _disposed;
@@ -56,7 +56,7 @@ namespace NetIde.Shell
         }
 
         [DebuggerStepThrough]
-        public object GetService(Type serviceType)
+        public new object GetService(Type serviceType)
         {
             return _serviceProvider.GetService(serviceType);
         }
@@ -103,6 +103,5 @@ namespace NetIde.Shell
             {
             }
         }
-
     }
 }

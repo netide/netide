@@ -10,7 +10,7 @@ namespace NetIde.Core.Support
 {
     internal abstract class EditorWindow : NiWindowPane
     {
-        protected abstract Control CreateControl();
+        protected abstract Control CreateClient();
 
         public override HResult Initialize()
         {
@@ -21,7 +21,9 @@ namespace NetIde.Core.Support
                 if (ErrorUtil.Failure(hr))
                     return hr;
 
-                Window = CreateControl();
+                var control = CreateClient();
+                control.Dock = DockStyle.Fill;
+                Controls.Add(control);
 
                 return HResult.OK;
             }

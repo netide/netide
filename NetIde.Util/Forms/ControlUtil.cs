@@ -22,5 +22,15 @@ namespace NetIde.Util.Forms
 
             return false;
         }
+
+        public static Control GetRoot(Control self)
+        {
+            while (self.Parent != null)
+            {
+                self = self.Parent;
+            }
+
+            return self;
+        }
     }
 }

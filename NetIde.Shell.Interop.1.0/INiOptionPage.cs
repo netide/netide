@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiOptionPage : INiWindowPane, INiMessageFilter
+    public interface INiOptionPage : INiWindowPane
     {
         HResult Activate();
         HResult Deactivate(out bool canDeactivate);

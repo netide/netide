@@ -107,12 +107,18 @@
     <Compile Include="OptionPages\Environment\FontOptionControl.Designer.cs">
       <DependentUpon>FontOptionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptionPages\Environment\KeyboardOptionPage.cs" />
-    <Compile Include="OptionPages\Environment\FontOptionPage.cs" />
+    <Compile Include="OptionPages\Environment\KeyboardOptionPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionPages\Environment\FontOptionPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="OptionPages\Environment\KeysTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="OptionPages\OptionPage.cs" />
+    <Compile Include="OptionPages\OptionPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="OptionPages\OptionPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -176,7 +182,9 @@
     <Compile Include="Settings\IFinderSettings.cs" />
     <Compile Include="Settings\IFontSettings.cs" />
     <Compile Include="Support\SelectionItem.cs" />
-    <Compile Include="Support\EditorWindow.cs" />
+    <Compile Include="Support\EditorWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Support\ToolStripSimpleRenderer.cs" />
     <Compile Include="ToolWindows\DiffViewer\ITextViewer.cs" />
     <Compile Include="ToolWindows\DiffViewer\DiffViewerControl.cs">
@@ -186,7 +194,9 @@
       <DependentUpon>DiffViewerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\DiffViewer\DiffViewerFactory.cs" />
-    <Compile Include="ToolWindows\DiffViewer\DiffViewerWindow.cs" />
+    <Compile Include="ToolWindows\DiffViewer\DiffViewerWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ToolWindows\DiffViewer\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -224,14 +234,18 @@
       <DependentUpon>UnifiedViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\FindResults\FindResult.cs" />
-    <Compile Include="ToolWindows\FindResults\FindResultsWindow.cs" />
+    <Compile Include="ToolWindows\FindResults\FindResultsWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerControl.Designer.cs">
       <DependentUpon>ProjectExplorerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerWindow.cs" />
+    <Compile Include="ToolWindows\ProjectExplorer\ProjectExplorerWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ToolWindows\TextEditor\LanguageServiceMapper.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextBuffer.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextBuffer.Persist.cs" />
@@ -240,10 +254,16 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ToolWindows\TextEditor\TextEditorFactory.cs" />
-    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.Commands.cs" />
-    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.cs" />
+    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.Commands.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ToolWindows\TextEditor\NiTextLines.cs" />
-    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.FindTarget.cs" />
+    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.FindTarget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Support\Key.snk">
@@ -284,6 +304,7 @@
     <EmbeddedResource Include="Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NeutralResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

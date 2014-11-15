@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -49,7 +48,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         public DiffViewerControl Control
         {
-            get { return (DiffViewerControl)Window; }
+            get { return (DiffViewerControl)Controls[0]; }
         }
 
         public HResult Advise(object sink, out int cookie)
@@ -67,7 +66,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             return _connectionPoint.Unadvise(cookie);
         }
 
-        protected override Control CreateControl()
+        protected override Control CreateClient()
         {
             var control = new DiffViewerControl();
 
@@ -96,7 +95,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             }
         }
 
-        public HResult Load(IStream left, IStream right)
+        public new HResult Load(IStream left, IStream right)
         {
             try
             {

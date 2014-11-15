@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
@@ -28,10 +29,11 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
                 _control = new ProjectExplorerControl
                 {
-                    Site = new SiteProxy(this)
+                    Site = new SiteProxy(this),
+                    Dock = DockStyle.Fill
                 };
 
-                Window = _control;
+                Controls.Add(_control);
 
                 return HResult.OK;
             }

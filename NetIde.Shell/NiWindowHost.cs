@@ -2,91 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Shell.Interop;
-using NetIde.Util.Forms;
 
 namespace NetIde.Shell
 {
-    public abstract class NiWindowHost : Control
+    public abstract class NiWindowHost : NiIsolationHost
     {
         private readonly NiConnectionPoint<INiWindowFrameNotify> _connectionPoint = new NiConnectionPoint<INiWindowFrameNotify>();
-        private IntPtr _childHwnd;
         private bool _visibleHandled;
         private bool _isShown;
         private bool _activatePending;
-        private readonly bool _designMode;
-        private INiWindowPane _window;
-
-        public INiWindowPane Window
-        {
-            get
-            {
-                if (_window == null)
-                    CreateHandle();
-
-                return _window;
-            }
-        }
-
-        public event EventHandler WindowCreated;
-
-        protected virtual void OnWindowCreated(EventArgs e)
-        {
-            var ev = WindowCreated;
-            if (ev != null)
-                ev(this, e);
-        }
-
-        protected NiWindowHost()
-        {
-            _designMode = ControlUtil.GetIsInDesignMode(this);
-        }
-
-        protected abstract INiWindowPane CreateWindow();
-
-        protected void SetChildHwnd(IntPtr handle)
-        {
-            _childHwnd = handle;
-
-            if (_childHwnd != IntPtr.Zero)
-                ParentChild();
-        }
-
-        private void ParentChild()
-        {
-            SetParent(new HandleRef(this, _childHwnd), new HandleRef(this, Handle));
-            PerformLayout();
-        }
-
-        protected override void OnLayout(LayoutEventArgs e)
-        {
-            base.OnLayout(e);
-
-            if (_childHwnd == IntPtr.Zero)
-                return;
-
-            var size = ClientSize;
-
-            SetWindowPos(
-                new HandleRef(this, _childHwnd),
-                new HandleRef(),
-                0,
-                0,
-                size.Width,
-                size.Height,
-                SWP_NOACTIVATE | SWP_NOZORDER | SWP_NOMOVE
-            );
-        }
-
-        protected override void OnGotFocus(EventArgs e)
-        {
-            base.OnGotFocus(e);
-
-            SetFocus(new HandleRef(this, _childHwnd));
-        }
 
         public HResult Advise(object sink, out int cookie)
         {
@@ -160,81 +87,6 @@ namespace NetIde.Shell
 
             base.Dispose(disposing);
         }
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-
-            if (_designMode || _window != null)
-                return;
-
-            _window = CreateWindow();
-
-            SetChildHwnd(_window.Handle);
-
-            OnWindowCreated(EventArgs.Empty);
-        }
-
-        protected override void OnHandleDestroyed(EventArgs e)
-        {
-            base.OnHandleDestroyed(e);
-
-            if (_window != null)
-            {
-                _window.Dispose();
-                _window = null;
-            }
-        }
-
-        public override bool PreProcessMessage(ref Message msg)
-        {
-            var preMessageFilter = _window as INiMessageFilter;
-            if (preMessageFilter != null)
-            {
-                NiMessage message = msg;
-
-                bool processed = ErrorUtil.ThrowOnFailure(preMessageFilter.PreFilterMessage(ref message));
-
-                if (processed)
-                    msg = message;
-
-                return processed;
-            }
-
-            return base.PreProcessMessage(ref msg);
-        }
-
-        protected override bool IsInputKey(Keys keyData)
-        {
-            var preMessageFilter = _window as INiMessageFilter;
-            if (preMessageFilter != null)
-                return ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputKey(keyData));
-
-            return base.IsInputKey(keyData);
-        }
-
-        protected override bool IsInputChar(char charCode)
-        {
-            var preMessageFilter = _window as INiMessageFilter;
-            if (preMessageFilter != null)
-                return ErrorUtil.ThrowOnFailure(preMessageFilter.IsInputChar(charCode));
-
-            return base.IsInputChar(charCode);
-        }
-
-        private const int SWP_NOACTIVATE = 0x0010;
-        private const int SWP_NOZORDER = 0x0004;
-        private const int SWP_NOMOVE = 0x0002;
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr SetParent(HandleRef hWndChild, HandleRef hWndNewParent);
-
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
-        private static extern IntPtr SetFocus(HandleRef hWnd);
-
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetWindowPos(HandleRef hWnd, HandleRef hWndInsertAfter, int x, int y, int cx, int cy, int flags);
     }
 
     public abstract class NiWindowHost<T> : NiWindowHost

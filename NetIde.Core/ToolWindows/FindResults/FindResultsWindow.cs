@@ -31,7 +31,8 @@ namespace NetIde.Core.ToolWindows.FindResults
 
                 _editor = new NiEditor
                 {
-                    Site = new SiteProxy(this)
+                    Site = new SiteProxy(this),
+                    Dock = DockStyle.Fill
                 };
 
                 ErrorUtil.ThrowOnFailure(_editor.TextBuffer.SetStateFlags(
@@ -43,7 +44,7 @@ namespace NetIde.Core.ToolWindows.FindResults
 
                 _listener = new Listener(this);
 
-                Window = _editor;
+                Controls.Add(_editor);
 
                 return HResult.OK;
             }
