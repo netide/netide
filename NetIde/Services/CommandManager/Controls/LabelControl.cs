@@ -13,8 +13,8 @@ namespace NetIde.Services.CommandManager.Controls
             get { return (NiCommandBarLabel)base.NiCommand; }
         }
 
-        public LabelControl(NiCommandBarControl control)
-            : base(control, ToolStripItemDisplayStyle.None)
+        public LabelControl(IServiceProvider serviceProvider, NiCommandBarControl control)
+            : base(serviceProvider, control, ToolStripItemDisplayStyle.None)
         {
         }
 

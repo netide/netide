@@ -65,15 +65,12 @@ namespace NetIde.Shell
 
                 try
                 {
-                    if (ActiveForm != _form)
-                        return HResult.False;
-
                     var hr = _commandMapper.QueryStatus(command, out status);
 
-                    // Never return false so that other registered command handlers
-                    // don't see commands.
+                    // If we're a modal dialog, we want to prevent other command
+                    // handlers from seeing any commands.
 
-                    if (hr == HResult.False)
+                    if (hr == HResult.False && _form.Modal)
                         return HResult.OK;
 
                     return hr;
@@ -90,15 +87,12 @@ namespace NetIde.Shell
 
                 try
                 {
-                    if (ActiveForm != _form)
-                        return HResult.False;
-
                     var hr = _commandMapper.Exec(command, argument, out result);
 
-                    // Never return false so that other registered command handlers
-                    // don't see commands.
+                    // If we're a modal dialog, we want to prevent other command
+                    // handlers from seeing any commands.
 
-                    if (hr == HResult.False)
+                    if (hr == HResult.False && _form.Modal)
                         return HResult.OK;
 
                     return hr;

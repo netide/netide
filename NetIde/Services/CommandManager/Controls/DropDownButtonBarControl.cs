@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
@@ -7,7 +8,24 @@ namespace NetIde.Services.CommandManager.Controls
 {
     internal class DropDownButtonBarControl : ToolStripDropDownButton, IBarControl
     {
-        ToolStripItemCollection IBarControl.Items { get { return DropDownItems; } }
+        ToolStripItemCollection IBarControl.Items
+        {
+            get { return DropDownItems; }
+        }
+
+        public event EventHandler QueryStatus;
+
+        protected virtual void OnQueryStatus(EventArgs e)
+        {
+            var ev = QueryStatus;
+            if (ev != null)
+                ev(this, e);
+        }
+
+        public DropDownButtonBarControl()
+        {
+            DropDown.Opening += (s, e) => OnQueryStatus(EventArgs.Empty);
+        }
 
         public ControlControl CreateButton(IServiceProvider serviceProvider, NiCommandBarButton button)
         {

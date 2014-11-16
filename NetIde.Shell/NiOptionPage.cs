@@ -124,7 +124,7 @@ namespace NetIde.Shell
 
         public abstract HResult Initialize();
 
-        public object GetService(Type serviceType)
+        public new object GetService(Type serviceType)
         {
             return _serviceProvider.GetService(serviceType);
         }

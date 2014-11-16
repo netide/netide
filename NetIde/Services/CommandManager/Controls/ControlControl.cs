@@ -17,8 +17,10 @@ namespace NetIde.Services.CommandManager.Controls
 
         protected ToolStripItemDisplayStyle DefaultDisplayStyle { get; private set; }
 
-        protected ControlControl(NiCommandBarControl control, ToolStripItem item, ToolStripItemDisplayStyle defaultDisplayStyle)
+        protected ControlControl(IServiceProvider serviceProvider, NiCommandBarControl control, ToolStripItem item, ToolStripItemDisplayStyle defaultDisplayStyle)
         {
+            if (serviceProvider == null)
+                throw new ArgumentNullException("serviceProvider");
             if (control == null)
                 throw new ArgumentNullException("control");
             if (item == null)
@@ -82,8 +84,8 @@ namespace NetIde.Services.CommandManager.Controls
             get { return (T)base.Item; }
         }
 
-        protected ControlControl(NiCommandBarControl control, ToolStripItemDisplayStyle defaultDisplayStyle)
-            : base(control, new T(), defaultDisplayStyle)
+        protected ControlControl(IServiceProvider serviceProvider, NiCommandBarControl control, ToolStripItemDisplayStyle defaultDisplayStyle)
+            : base(serviceProvider, control, new T(), defaultDisplayStyle)
         {
         }
     }

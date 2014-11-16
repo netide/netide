@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Services.Shell;
+using NetIde.Shell;
+using NetIde.Shell.Interop;
 
 namespace NetIde.Services.CommandManager.Controls
 {
@@ -11,10 +15,20 @@ namespace NetIde.Services.CommandManager.Controls
     {
         public Image Image { get; set; }
 
-        event EventHandler IBarControl.DropDownOpening
+        public event EventHandler QueryStatus;
+
+        protected virtual void OnQueryStatus(EventArgs e)
         {
-            add { }
-            remove { }
+            var ev = QueryStatus;
+            if (ev != null)
+                ev(this, e);
+        }
+
+        protected override void OnOpening(CancelEventArgs e)
+        {
+            base.OnOpening(e);
+
+            OnQueryStatus(EventArgs.Empty);
         }
 
         public ControlControl CreateButton(IServiceProvider serviceProvider, NiCommandBarButton button)

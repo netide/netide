@@ -20,7 +20,7 @@ namespace NetIde.Util.Forms
                 NativeMethods.SetWindowTheme(new HandleRef(treeView, treeView.Handle), "explorer", null);
         }
 
-        public static void ApplyExplorerTheme(this ListView listView)
+        public static void ApplyExplorerTheme(this System.Windows.Forms.ListView listView)
         {
             if (listView == null)
                 throw new ArgumentNullException("listView");

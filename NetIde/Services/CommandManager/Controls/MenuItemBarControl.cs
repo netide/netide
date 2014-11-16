@@ -7,7 +7,24 @@ namespace NetIde.Services.CommandManager.Controls
 {
     internal class MenuItemBarControl : ToolStripMenuItem, IBarControl
     {
-        ToolStripItemCollection IBarControl.Items { get { return DropDownItems; } }
+        ToolStripItemCollection IBarControl.Items
+        {
+            get { return DropDownItems; }
+        }
+
+        public event EventHandler QueryStatus;
+
+        protected virtual void OnQueryStatus(EventArgs e)
+        {
+            var ev = QueryStatus;
+            if (ev != null)
+                ev(this, e);
+        }
+
+        public MenuItemBarControl()
+        {
+            DropDown.Opening += (s, e) => OnQueryStatus(EventArgs.Empty);
+        }
 
         public ControlControl CreateButton(IServiceProvider serviceProvider, NiCommandBarButton button)
         {

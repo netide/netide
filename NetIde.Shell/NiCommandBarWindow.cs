@@ -6,17 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Shell.Interop;
+using NetIde.Util.Forms;
 
 namespace NetIde.Shell
 {
     public class NiCommandBarWindow : NiWindowHost
     {
+        private readonly bool _designMode;
         private INiWindowPane _window;
 
         [Category("Behavior")]
         [Description("ID of the command bar to render.")]
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Guid CommandBarId { get; set; }
+
+        public NiCommandBarWindow()
+        {
+            _designMode = ControlUtil.GetIsInDesignMode(this);
+        }
 
         protected override INiIsolationClient CreateWindow()
         {
@@ -33,18 +41,46 @@ namespace NetIde.Shell
 
         protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
         {
-            if (_window != null && (specified & BoundsSpecified.Size) != 0)
+            if ((specified & BoundsSpecified.Size) != 0)
             {
-                Size size;
-                ErrorUtil.ThrowOnFailure(_window.GetPreferredSize(
-                    new Size(width, height), out size
-                ));
+                if (_window != null)
+                {
+                    Size size;
+                    ErrorUtil.ThrowOnFailure(_window.GetPreferredSize(
+                        new Size(width, height), out size
+                    ));
 
-                width = size.Width;
-                height = size.Height;
+                    width = size.Width;
+                    height = size.Height;
+                }
+                else if (_designMode)
+                {
+                    height = 23;
+                }
             }
 
             base.SetBoundsCore(x, y, width, height, specified);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            if (!_designMode)
+                return;
+
+            using (var font = new Font(SystemFonts.MessageBoxFont, FontStyle.Italic))
+            {
+                TextRenderer.DrawText(
+                    e.Graphics,
+                    Labels.HostedToolStrip,
+                    font,
+                    ClientRectangle,
+                    SystemColors.GrayText,
+                    BackColor,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine
+                );
+            }
         }
     }
 }

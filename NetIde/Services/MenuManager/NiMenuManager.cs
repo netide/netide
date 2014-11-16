@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using NetIde.Services.CommandManager;
 using NetIde.Services.CommandManager.Controls;
 using NetIde.Services.Env;
-using NetIde.Services.Shell;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 
@@ -25,8 +24,6 @@ namespace NetIde.Services.MenuManager
         {
             _mainForm = ((NiEnv)GetService(typeof(INiEnv))).MainForm;
             _commandManager = (NiCommandManager)GetService(typeof(INiCommandManager));
-
-            ((NiShell)GetService(typeof(INiShell))).RequerySuggested += (s, e) => QueryStatus();
         }
 
         public HResult RegisterCommandBar(INiCommandBar commandBar)
@@ -95,17 +92,6 @@ namespace NetIde.Services.MenuManager
             catch (Exception ex)
             {
                 return ErrorUtil.GetHResult(ex);
-            }
-        }
-
-        public void QueryStatus()
-        {
-            if (_mainForm.IsDisposing || _mainForm.IsDisposed)
-                return;
-
-            foreach (var bar in _commandBars)
-            {
-                QueryStatus(bar);
             }
         }
 

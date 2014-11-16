@@ -70,7 +70,7 @@ namespace NetIde.Services.CommandManager.Controls
         }
 
         protected ButtonControl(IServiceProvider serviceProvider, NiCommandBarButton control, ToolStripItemDisplayStyle defaultDisplayStyle)
-            : base(control, defaultDisplayStyle)
+            : base(serviceProvider, control, defaultDisplayStyle)
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Services.Env;
+using NetIde.Services.MenuManager;
+using NetIde.Shell;
 using NetIde.Shell.Interop;
 using log4net;
 
@@ -17,6 +19,7 @@ namespace NetIde.Services.CommandManager.Controls
         private bool _disposed;
         private GroupManager _groupManager;
         private readonly NiEnv _env;
+        private readonly NiMenuManager _menuManager;
 
         public NiCommandBar Bar { get; private set; }
         public IBarControl Control { get; private set; }
@@ -28,13 +31,19 @@ namespace NetIde.Services.CommandManager.Controls
             if (bar == null)
                 throw new ArgumentNullException("bar");
 
+            _menuManager = (NiMenuManager)serviceProvider.GetService(typeof(INiMenuManager));
+            _env = (NiEnv)serviceProvider.GetService(typeof(INiEnv));
+
             Bar = bar;
             Bar.AppearanceChanged += Bar_AppearanceChanged;
 
+            var objectWithSite = control as INiObjectWithSite;
+            if (objectWithSite != null)
+                ErrorUtil.ThrowOnFailure(objectWithSite.SetSite(serviceProvider));
+
             Control = control;
             Control.Tag = this;
-
-            _env = (NiEnv)serviceProvider.GetService(typeof(INiEnv));
+            Control.QueryStatus += (s, e) => _menuManager.QueryStatus(Bar);
 
             UpdateItem();
 

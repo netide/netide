@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using NetIde.Services.Env;
 using NetIde.Services.MenuManager;
+using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util;
 
@@ -24,7 +25,7 @@ namespace NetIde.Services.CommandManager.Controls
         }
 
         public PopupControl(IServiceProvider serviceProvider, NiCommandBarPopup control, ToolStripItemDisplayStyle defaultDisplayStyle)
-            : base(control, defaultDisplayStyle)
+            : base(serviceProvider, control, defaultDisplayStyle)
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
@@ -33,12 +34,11 @@ namespace NetIde.Services.CommandManager.Controls
             _groupManager = new GroupManager(NiCommand, serviceProvider, Item);
             _menuManager = (NiMenuManager)serviceProvider.GetService(typeof(INiMenuManager));
 
-            Item.DropDownOpening += Item_DropDownOpening;
-        }
+            var objectWithSite = Item as INiObjectWithSite;
+            if (objectWithSite != null)
+                ErrorUtil.ThrowOnFailure(objectWithSite.SetSite(serviceProvider));
 
-        void Item_DropDownOpening(object sender, EventArgs e)
-        {
-            _menuManager.QueryStatus(NiCommand);
+            Item.QueryStatus += (s, e) => _menuManager.QueryStatus(NiCommand);
         }
 
         protected override void UpdateItem()

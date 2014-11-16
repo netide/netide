@@ -24,7 +24,7 @@ namespace NetIde.Services.CommandManager.Controls
         }
 
         public ComboBoxControl(IServiceProvider serviceProvider, NiCommandBarControl control)
-            : base(control, ToolStripItemDisplayStyle.None)
+            : base(serviceProvider, control, ToolStripItemDisplayStyle.None)
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");

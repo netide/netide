@@ -10,6 +10,7 @@ using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
 using NetIde.Win32;
+using ListView = System.Windows.Forms.ListView;
 
 namespace NetIde.Services.Shell
 {
@@ -24,6 +25,8 @@ namespace NetIde.Services.Shell
         private bool _disposed;
         private NiPackageManager _packageManager;
         private int _preMessageFilterRecursion;
+        private bool _pending;
+        private readonly SynchronizationContext _synchronizationContext;
 
         public event EventHandler RequerySuggested;
 
@@ -40,6 +43,10 @@ namespace NetIde.Services.Shell
             _env = (NiEnv)GetService(typeof(INiEnv));
 
             Application.AddMessageFilter(new MessageFilter(this));
+
+            _synchronizationContext = SynchronizationContext.Current;
+
+            QueueRequery();
 
             _automationAccessButton = CreateAutomationAccessButton();
         }
@@ -333,8 +340,33 @@ namespace NetIde.Services.Shell
             return _env.MainForm.GetDocumentWindowIterator(out iterator);
         }
 
-        internal void RaiseRequery()
+        public HResult InvalidateRequerySuggested()
         {
+            try
+            {
+                QueueRequery();
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        private void QueueRequery()
+        {
+            if (!_pending)
+            {
+                _pending = true;
+                _synchronizationContext.Post(Requery, null);
+            }
+        }
+
+        private void Requery(object state)
+        {
+            _pending = false;
+
             OnRequerySuggested(EventArgs.Empty);
             _connectionPoint.ForAll(p => p.OnRequerySuggested());
         }
@@ -358,15 +390,11 @@ namespace NetIde.Services.Shell
         private class MessageFilter : IMessageFilter
         {
             private readonly NiShell _shell;
-            private bool _pending;
-            private readonly SynchronizationContext _synchronizationContext;
+            private readonly HashSet<ListView> _installedListViews = new HashSet<ListView>();
 
             public MessageFilter(NiShell shell)
             {
                 _shell = shell;
-                _synchronizationContext = SynchronizationContext.Current;
-
-                QueueRequery();
             }
 
             public bool PreFilterMessage(ref Message m)
@@ -417,24 +445,44 @@ namespace NetIde.Services.Shell
                     case WM_SETFOCUS:
                     case WM_SYSKEYUP:
                     case WM_XBUTTONUP:
-                        QueueRequery();
+                        _shell.QueueRequery();
+                        break;
+
+                    default:
+                        InstallListViewListener(ref m);
                         break;
                 }
             }
 
-            private void QueueRequery()
+            private void InstallListViewListener(ref Message m)
             {
-                if (!_pending)
-                {
-                    _pending = true;
-                    _synchronizationContext.Post(Requery, null);
-                }
+                // This is a hack. To implement updating command states, NiShell
+                // executes a requery when certain window messages arrive.
+                // One of the messages on which this is triggered is the
+                // WM_L/RBUTTONUP. The problem is that the ListView does not send
+                // these; it only sends the WM_L/RBUTTONDOWN, and we cannot use
+                // these because the state of the list view may be updated in
+                // a manner that is necessary for the commands to be updated
+                // correctly (e.g. a change of selection). To work around this,
+                // we add a MouseUp event to every list view that we see.
+
+                var listView = Control.FromHandle(m.HWnd) as ListView;
+                if (listView == null || !_installedListViews.Add(listView))
+                    return;
+
+                listView.MouseUp += listView_MouseUp;
+                listView.Disposed += listView_Disposed;
             }
 
-            private void Requery(object state)
+            void listView_MouseUp(object sender, MouseEventArgs e)
             {
-                _pending = false;
-                _shell.RaiseRequery();
+                if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
+                    _shell.QueueRequery();
+            }
+
+            void listView_Disposed(object sender, EventArgs e)
+            {
+                _installedListViews.Remove((ListView)sender);
             }
 
             private const int WM_KEYUP = 0x101;

@@ -15,7 +15,7 @@ namespace NetIde.Services.CommandManager.Controls
         Image Image { get; set; }
         ToolStripItemCollection Items { get; }
 
-        event EventHandler DropDownOpening;
+        event EventHandler QueryStatus;
 
         ControlControl CreateButton(IServiceProvider serviceProvider, NiCommandBarButton button);
         ControlControl CreateComboBox(IServiceProvider serviceProvider, NiCommandBarComboBox comboBox);

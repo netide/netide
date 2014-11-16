@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
+using ListView = System.Windows.Forms.ListView;
 
 namespace NetIde.Shell
 {
@@ -453,6 +454,7 @@ namespace NetIde.Shell
         {
             private readonly NiPackage _package;
             private readonly INiShell _shell;
+            private readonly HashSet<ListView> _installedListViews = new HashSet<ListView>();
 
             public MessageFilter(NiPackage package)
             {
@@ -469,10 +471,10 @@ namespace NetIde.Shell
 
                 try
                 {
+                    InstallListViewListener(ref m);
+
                     NiMessage message = m;
-
                     bool processed = ErrorUtil.ThrowOnFailure(_shell.BroadcastPreMessageFilter(ref message));
-
                     m = message;
 
                     return processed;
@@ -482,7 +484,37 @@ namespace NetIde.Shell
                     _package._preMessageFilterRecursion--;
                 }
             }
-        }
 
+            private void InstallListViewListener(ref Message m)
+            {
+                // This is a hack. To implement updating command states, NiShell
+                // executes a requery when certain window messages arrive.
+                // One of the messages on which this is triggered is the
+                // WM_L/RBUTTONUP. The problem is that the ListView does not send
+                // these; it only sends the WM_L/RBUTTONDOWN, and we cannot use
+                // these because the state of the list view may be updated in
+                // a manner that is necessary for the commands to be updated
+                // correctly (e.g. a change of selection). To work around this,
+                // we add a MouseUp event to every list view that we see.
+
+                var listView = Control.FromHandle(m.HWnd) as ListView;
+                if (listView == null || !_installedListViews.Add(listView))
+                    return;
+
+                listView.MouseUp += listView_MouseUp;
+                listView.Disposed += listView_Disposed;
+            }
+
+            void listView_MouseUp(object sender, MouseEventArgs e)
+            {
+                if (_shell != null && (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right))
+                    ErrorUtil.ThrowOnFailure(_shell.InvalidateRequerySuggested());
+            }
+
+            void listView_Disposed(object sender, EventArgs e)
+            {
+                _installedListViews.Remove((ListView)sender);
+            }
+        }
     }
 }

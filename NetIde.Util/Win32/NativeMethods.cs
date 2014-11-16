@@ -16,6 +16,7 @@ namespace NetIde.Util.Win32
         public const int WM_ERASEBKGND = 0x0014;
         public const int WM_NOTIFY = 0x004E;
         public const int WM_PAINT = 0x000F;
+        public const int WM_CONTEXTMENU = 0x007b;
 
         public const int APPCOMMAND_BROWSER_BACKWARD = 1;
         public const int APPCOMMAND_BROWSER_FORWARD = 2;

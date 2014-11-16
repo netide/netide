@@ -129,6 +129,9 @@
   <data name="CouldNotFindStringResourcesAttribute" xml:space="preserve">
     <value>Could not find the NiStringResources attribute</value>
   </data>
+  <data name="HostedToolStrip" xml:space="preserve">
+    <value>Hosted tool strip</value>
+  </data>
   <data name="InvalidPropertyType" xml:space="preserve">
     <value>Invalid property type</value>
   </data>

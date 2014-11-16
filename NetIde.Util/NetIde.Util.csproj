@@ -63,7 +63,11 @@
       <DependentUpon>BrowserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CancelPreviewEventHandler.cs" />
+    <Compile Include="Forms\ContextEventArgs.cs" />
     <Compile Include="Forms\CueBannerVisibility.cs" />
+    <Compile Include="Forms\ListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\TextBox.cs">
       <SubType>Component</SubType>
     </Compile>

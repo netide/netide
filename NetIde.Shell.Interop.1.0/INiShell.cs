@@ -18,5 +18,6 @@ namespace NetIde.Shell.Interop
         HResult QuerySaveViaDialog(INiHierarchy[] hiers, out NiQuerySaveResult result);
         HResult GetWindowFrameForWindowPane(INiWindowPane windowPane, out INiWindowFrame windowFrame);
         HResult BroadcastPreMessageFilter(ref NiMessage message);
+        HResult InvalidateRequerySuggested();
     }
 }
