@@ -8,6 +8,7 @@ using NetIde.Services.Env;
 using NetIde.Services.PackageManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
+using NetIde.Util;
 using NetIde.Util.Forms;
 using NetIde.Win32;
 using ListView = System.Windows.Forms.ListView;
@@ -43,6 +44,8 @@ namespace NetIde.Services.Shell
             _env = (NiEnv)GetService(typeof(INiEnv));
 
             Application.AddMessageFilter(new MessageFilter(this));
+
+            MouseWheelMessageFilter.Install();
 
             _synchronizationContext = SynchronizationContext.Current;
 

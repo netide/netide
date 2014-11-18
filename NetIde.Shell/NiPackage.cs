@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Shell.Interop;
+using NetIde.Util;
 using NetIde.Util.Forms;
 using ListView = System.Windows.Forms.ListView;
 
@@ -117,6 +118,8 @@ namespace NetIde.Shell
                 ToolStripManager.Renderer = new VS2012ToolStripRenderer();
 
                 Application.AddMessageFilter(new MessageFilter(this));
+
+                MouseWheelMessageFilter.Install();
 
                 return HResult.OK;
             }

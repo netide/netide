@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -17,6 +18,8 @@ namespace NetIde.Util.Win32
         public const int WM_NOTIFY = 0x004E;
         public const int WM_PAINT = 0x000F;
         public const int WM_CONTEXTMENU = 0x007b;
+        public const int WM_MOUSEWHEEL = 0x020a;
+        public const int WM_MOUSEHWHEEL = 0x020e;
 
         public const int APPCOMMAND_BROWSER_BACKWARD = 1;
         public const int APPCOMMAND_BROWSER_FORWARD = 2;
@@ -39,6 +42,22 @@ namespace NetIde.Util.Win32
         public const int TVS_EX_DOUBLEBUFFER = 0x0004;
 
         public const int EM_SETCUEBANNER = 0x1501;
+
+        public const int GWL_STYLE = (-16);
+        public const int GWL_EXSTYLE = (-20);
+
+        public const int WS_VSCROLL = 0x00200000;
+        public const int WS_HSCROLL = 0x00100000;
+
+        public const int SB_HORZ = 0x0;
+        public const int SB_VERT = 0x1;
+
+        public const int SIF_TRACKPOS = 0x10;
+        public const int SIF_RANGE = 0x1;
+        public const int SIF_POS = 0x4;
+        public const int SIF_PAGE = 0x2;
+        public const int SIF_ALL = SIF_RANGE | SIF_PAGE | SIF_POS | SIF_TRACKPOS;
+        public const int SIF_DISABLENOSCROLL = 0x8;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
@@ -78,6 +97,19 @@ namespace NetIde.Util.Win32
 
         [DllImport(ExternDll.User32)]
         public static extern IntPtr GetActiveWindow();
+
+        [DllImport(ExternDll.User32)]
+        public static extern IntPtr WindowFromPoint(Point pt);
+
+        [DllImport(ExternDll.User32)]
+        public static extern int GetWindowLong(IntPtr hWnd, int index);
+
+        [DllImport(ExternDll.User32)]
+        public static extern IntPtr GetParent(IntPtr hwnd);
+
+        [DllImport(ExternDll.User32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetScrollInfo(IntPtr hwnd, int fnBar, SCROLLINFO lpsi);
 
         public static class Util
         {
@@ -119,6 +151,18 @@ namespace NetIde.Util.Win32
             {
                 return (short)(n & 0xFFFF);
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public class SCROLLINFO
+        {
+            public int cbSize = Marshal.SizeOf(typeof(SCROLLINFO));
+            public int fMask;
+            public int nMin;
+            public int nMax;
+            public int nPage;
+            public int nPos;
+            public int nTrackPos;
         }
     }
 }
