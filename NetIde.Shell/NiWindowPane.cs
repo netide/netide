@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
+using log4net;
 using NetIde.Shell.Interop;
 
 namespace NetIde.Shell
@@ -79,6 +80,8 @@ namespace NetIde.Shell
 
         private class Listener : NiEventSink, INiWindowFrameNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(Listener));
+
             private readonly NiWindowPane _window;
 
             public Listener(NiWindowPane owner)
@@ -89,10 +92,17 @@ namespace NetIde.Shell
 
             public void OnShow(NiWindowShow action)
             {
-                _window.OnFrameShow(new NiWindowShowEventArgs(action));
+                try
+                {
+                    _window.OnFrameShow(new NiWindowShowEventArgs(action));
 
-                if (action == NiWindowShow.Close)
-                    Dispose();
+                    if (action == NiWindowShow.Close)
+                        Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to publish frame show event", ex);
+                }
             }
 
             public void OnSize()

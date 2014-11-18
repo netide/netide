@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using log4net;
 using NetIde.Core.ToolWindows.Notifications;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -280,6 +281,8 @@ namespace NetIde.Core.Services.NotificationManager
 
         private class ButtonListener : NiEventSink, INiTitleBarButtonManagerNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(ButtonListener));
+
             private readonly NiNotificationManager _manager;
 
             public ButtonListener(NiNotificationManager manager)
@@ -290,13 +293,22 @@ namespace NetIde.Core.Services.NotificationManager
 
             public void OnClicked(int cookie)
             {
-                if (_manager._buttonCookie == cookie)
-                    _manager.ToggleToolWindow();
+                try
+                {
+                    if (_manager._buttonCookie == cookie)
+                        _manager.ToggleToolWindow();
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to toggle notifications tool window", ex);
+                }
             }
         }
 
         private class WindowListener : NiEventSink, INiWindowFrameNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(WindowListener));
+
             private readonly NiNotificationManager _manager;
 
             public WindowListener(NiNotificationManager manager)
@@ -311,9 +323,16 @@ namespace NetIde.Core.Services.NotificationManager
 
             public void OnClose(NiFrameCloseMode closeMode, ref bool cancel)
             {
-                _manager._window = null;
+                try
+                {
+                    _manager._window = null;
 
-                Dispose();
+                    Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to handle close of notifications tool window", ex);
+                }
             }
 
             public void OnSize()

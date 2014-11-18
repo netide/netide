@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using log4net;
 using NetIde.Shell.Interop;
 using NetIde.Util;
 using NetIde.Util.Forms;
@@ -417,6 +418,8 @@ namespace NetIde.Shell
 
         private class ToolWindowListener : NiEventSink, INiWindowFrameNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(ToolWindowListener));
+
             public NiWindowPane Window { get; private set; }
 
             public event EventHandler Closed;
@@ -436,11 +439,18 @@ namespace NetIde.Shell
 
             public void OnShow(NiWindowShow action)
             {
-                if (action == NiWindowShow.Close)
+                try
                 {
-                    OnClosed(EventArgs.Empty);
+                    if (action == NiWindowShow.Close)
+                    {
+                        OnClosed(EventArgs.Empty);
 
-                    Dispose();
+                        Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to publish close of tool window", ex);
                 }
             }
 

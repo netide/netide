@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using log4net;
 using NetIde.Shell.Interop;
 
 namespace NetIde.Shell
@@ -125,6 +126,8 @@ namespace NetIde.Shell
 
         private class Listener : NiEventSink, INiTextLinesEvents
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(Listener));
+
             private readonly NiEditor _owner;
 
             public Listener(NiEditor owner)
@@ -135,7 +138,14 @@ namespace NetIde.Shell
 
             public void OnChanged(int startLine, int startIndex, int endLine, int endIndex)
             {
-                _owner.OnTextChanged(new NiTextChangedEventArgs(startLine, startIndex, endLine, endIndex));
+                try
+                {
+                    _owner.OnTextChanged(new NiTextChangedEventArgs(startLine, startIndex, endLine, endIndex));
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to publish text changed event", ex);
+                }
             }
         }
     }

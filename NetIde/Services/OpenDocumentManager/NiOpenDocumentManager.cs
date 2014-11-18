@@ -411,6 +411,8 @@ namespace NetIde.Services.OpenDocumentManager
 
             private class Listener : NiEventSink, INiWindowFrameNotify
             {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Listener));
+                    
                 private readonly OpenDocument _owner;
 
                 public Listener(OpenDocument owner)
@@ -434,23 +436,30 @@ namespace NetIde.Services.OpenDocumentManager
 
                 public void OnClose(NiFrameCloseMode closeMode, ref bool cancel)
                 {
-                    if (_owner._docData == null)
-                        return;
-
-                    NiSaveMode saveMode;
-
-                    switch (closeMode)
+                    try
                     {
-                        case NiFrameCloseMode.PromptSave: saveMode = NiSaveMode.Save; break;
-                        case NiFrameCloseMode.SaveIfDirty: saveMode = NiSaveMode.SilentSave; break;
-                        default: return;
+                        if (_owner._docData == null)
+                            return;
+
+                        NiSaveMode saveMode;
+
+                        switch (closeMode)
+                        {
+                            case NiFrameCloseMode.PromptSave: saveMode = NiSaveMode.Save; break;
+                            case NiFrameCloseMode.SaveIfDirty: saveMode = NiSaveMode.SilentSave; break;
+                            default: return;
+                        }
+
+                        string document;
+                        bool saved;
+                        ErrorUtil.ThrowOnFailure(_owner._docData.SaveDocData(saveMode, out document, out saved));
+
+                        cancel = !saved;
                     }
-
-                    string document;
-                    bool saved;
-                    ErrorUtil.ThrowOnFailure(_owner._docData.SaveDocData(saveMode, out document, out saved));
-
-                    cancel = !saved;
+                    catch (Exception ex)
+                    {
+                        Log.Warn("Failed to save document", ex);
+                    }
                 }
             }
         }

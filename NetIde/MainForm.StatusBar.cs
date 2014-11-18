@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using log4net;
 using NetIde.Services;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -342,6 +343,8 @@ namespace NetIde
 
             private class WindowPaneSelectionListener : NiEventSink, INiWindowPaneSelectionNotify
             {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(WindowPaneSelectionListener));
+
                 private readonly NiStatusBar _statusBar;
 
                 public WindowPaneSelectionListener(NiStatusBar statusBar, INiConnectionPoint connectionPoint)
@@ -352,12 +355,21 @@ namespace NetIde
 
                 public void OnActiveDocumentChanged()
                 {
-                    _statusBar.OnActiveDocumentChanged();
+                    try
+                    {
+                        _statusBar.OnActiveDocumentChanged();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warn("Failed to update status bar on active document changed", ex);
+                    }
                 }
             }
 
             private class WindowPaneListener : NiEventSink, INiWindowFrameNotify
             {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(WindowPaneListener));
+
                 private readonly NiStatusBar _statusBar;
                 private readonly INiStatusBarUser _statusBarUser;
 
@@ -370,11 +382,18 @@ namespace NetIde
 
                 public void OnShow(NiWindowShow action)
                 {
-                    if (action == NiWindowShow.Close)
+                    try
                     {
-                        _statusBar._statuses.Remove(_statusBarUser);
-                        _statusBar._currentUser = null;
-                        _statusBar.ApplyStatus(_statusBar.GetCurrentStatus());
+                        if (action == NiWindowShow.Close)
+                        {
+                            _statusBar._statuses.Remove(_statusBarUser);
+                            _statusBar._currentUser = null;
+                            _statusBar.ApplyStatus(_statusBar.GetCurrentStatus());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warn("Failed to update status bare from window close", ex);
                     }
                 }
 

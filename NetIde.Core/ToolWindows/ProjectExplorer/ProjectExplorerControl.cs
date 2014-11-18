@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using log4net;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util;
@@ -173,6 +174,8 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
         private class Listener : NiEventSink, INiProjectManagerNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(Listener));
+
             private readonly ProjectExplorerControl _owner;
 
             public Listener(ProjectExplorerControl owner)
@@ -183,7 +186,14 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
             public void OnActiveProjectChanged()
             {
-                _owner.ReloadProject();
+                try
+                {
+                    _owner.ReloadProject();
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to reload project", ex);
+                }
             }
         }
 
@@ -274,6 +284,8 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
             private class Listener : NiEventSink, INiHierarchyNotify
             {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Listener));
+
                 private readonly TreeNodeManager _manager;
 
                 public Listener(TreeNodeManager manager)
@@ -294,22 +306,29 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
                 public void OnPropertyChanged(INiHierarchy hier, int property)
                 {
-                    switch ((NiHierarchyProperty)property)
+                    try
                     {
-                        case NiHierarchyProperty.Name:
-                            _manager.TreeNode.Text = (string)hier.GetPropertyEx(NiHierarchyProperty.Name);
-                            _manager.Reorder();
-                            break;
+                        switch ((NiHierarchyProperty)property)
+                        {
+                            case NiHierarchyProperty.Name:
+                                _manager.TreeNode.Text = (string)hier.GetPropertyEx(NiHierarchyProperty.Name);
+                                _manager.Reorder();
+                                break;
 
-                        case NiHierarchyProperty.SortPriority:
-                            _manager.Reorder();
-                            break;
+                            case NiHierarchyProperty.SortPriority:
+                                _manager.Reorder();
+                                break;
 
-                        case NiHierarchyProperty.Image:
-                        case NiHierarchyProperty.OverlayImage:
-                        case NiHierarchyProperty.ItemType:
-                            _manager.UpdateImage();
-                            break;
+                            case NiHierarchyProperty.Image:
+                            case NiHierarchyProperty.OverlayImage:
+                            case NiHierarchyProperty.ItemType:
+                                _manager.UpdateImage();
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warn("Failed to process hierarchy property change", ex);
                     }
                 }
             }

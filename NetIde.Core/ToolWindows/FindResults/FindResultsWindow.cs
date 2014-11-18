@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using log4net;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
@@ -187,6 +188,8 @@ namespace NetIde.Core.ToolWindows.FindResults
 
         private class Listener : NiEventSink, INiMouseEventNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(Listener));
+
             private readonly FindResultsWindow _window;
 
             public Listener(FindResultsWindow window)
@@ -209,8 +212,15 @@ namespace NetIde.Core.ToolWindows.FindResults
 
             public void OnMouseDoubleClick(MouseButtons button, int x, int y)
             {
-                if (button == MouseButtons.Left)
-                    _window.ProcessDoubleClick();
+                try
+                {
+                    if (button == MouseButtons.Left)
+                        _window.ProcessDoubleClick();
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to process double click in find results window", ex);
+                }
             }
 
             public void OnMouseWheel(int delta)

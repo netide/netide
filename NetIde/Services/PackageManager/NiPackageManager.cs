@@ -491,6 +491,8 @@ namespace NetIde.Services.PackageManager
 
         private class NotificationListener : NiEventSink, INiNotificationManagerNotify
         {
+            private static readonly ILog Log = LogManager.GetLogger(typeof(NotificationListener));
+
             private readonly NiPackageManager _packageManager;
 
             public NotificationListener(NiPackageManager packageManager)
@@ -501,19 +503,33 @@ namespace NetIde.Services.PackageManager
 
             public void OnClicked(int cookie)
             {
-                if (_packageManager._notifications.ContainsKey(cookie))
-                    ErrorUtil.ThrowOnFailure(_packageManager.OpenPackageManager());
+                try
+                {
+                    if (_packageManager._notifications.ContainsKey(cookie))
+                        ErrorUtil.ThrowOnFailure(_packageManager.OpenPackageManager());
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to open package manager", ex);
+                }
             }
 
             public void OnDismissed(int cookie)
             {
-                Notification notification;
-                if (!_packageManager._notifications.TryGetValue(cookie, out notification))
-                    return;
-
-                using (var key = Registry.CurrentUser.CreateSubKey(_packageManager._env.RegistryRoot + "\\PackageManager\\" + notification.Id))
+                try
                 {
-                    key.SetValue("LastDismissedUpdate", notification.Version);
+                    Notification notification;
+                    if (!_packageManager._notifications.TryGetValue(cookie, out notification))
+                        return;
+
+                    using (var key = Registry.CurrentUser.CreateSubKey(_packageManager._env.RegistryRoot + "\\PackageManager\\" + notification.Id))
+                    {
+                        key.SetValue("LastDismissedUpdate", notification.Version);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn("Failed to dismiss package manager notification", ex);
                 }
             }
         }
