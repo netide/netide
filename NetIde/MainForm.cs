@@ -77,6 +77,7 @@ namespace NetIde
 
                 serviceContainer.AddService(typeof(INiStatusBar), new NiStatusBar(this, value));
                 serviceContainer.AddService(typeof(INiMainWindowChrome), new NiMainWindowChrome(this, value));
+                serviceContainer.AddService(typeof(INiTitleBarButtonManager), new NiTitleBarButtonManager(value));
             }
         }
 

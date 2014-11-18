@@ -5,8 +5,9 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiPackageManager
+    public interface INiNotificationManagerNotify
     {
-        HResult OpenPackageManager();
+        void OnClicked(int cookie);
+        void OnDismissed(int cookie);
     }
 }

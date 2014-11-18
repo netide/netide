@@ -17,7 +17,8 @@ namespace NetIde
             private readonly MainForm _mainForm;
             private bool _enabled;
             private Color _color = Color.Lime;
-            private VisualStudioFormChrome _formChrome;
+
+            public VisualStudioFormChrome FormChrome { get; private set; }
 
             public NiMainWindowChrome(MainForm mainForm, IServiceProvider serviceProvider)
                 : base(serviceProvider)
@@ -35,15 +36,21 @@ namespace NetIde
 
                         if (_enabled)
                         {
-                            _formChrome = new VisualStudioFormChrome();
-                            _formChrome.BorderColor = _color;
-                            _formChrome.PrimaryColor = _color;
-                            _formChrome.ContainerControl = _mainForm;
+                            FormChrome = new VisualStudioFormChrome();
+                            FormChrome.BorderColor = _color;
+                            FormChrome.PrimaryColor = _color;
+                            FormChrome.ContainerControl = _mainForm;
+
+                            // Buttons may have been added before the chrome was
+                            // available. Trigger the title bar button manager
+                            // to actually create the buttons.
+
+                            ((NiTitleBarButtonManager)GetService(typeof(INiTitleBarButtonManager))).RebuildButtons();
                         }
                         else
                         {
-                            _formChrome.Dispose();
-                            _formChrome = null;
+                            FormChrome.Dispose();
+                            FormChrome = null;
                         }
                     }
 
@@ -64,10 +71,10 @@ namespace NetIde
                     if (color != _color)
                     {
                         _color = color;
-                        if (_formChrome != null)
+                        if (FormChrome != null)
                         {
-                            _formChrome.PrimaryColor = _color;
-                            _formChrome.BorderColor = _color;
+                            FormChrome.PrimaryColor = _color;
+                            FormChrome.BorderColor = _color;
                         }
                     }
 

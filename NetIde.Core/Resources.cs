@@ -17,6 +17,8 @@ namespace NetIde.Core
         public static IResource DocumentsNew = GetResource("DocumentsNew.png");
         public static IResource Find = GetResource("Find.png");
         public static IResource Replace = GetResource("Replace.png");
+        public static IResource NotificationsActive = GetResource("NotificationsActive.png");
+        public static IResource NotificationsInactive = GetResource("NotificationsInactive.png");
 
         private static IResource GetResource(string resourceKey)
         {

@@ -319,4 +319,58 @@
   <data name="Keyboard" xml:space="preserve">
     <value>Keyboard</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>{0} days</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="DismissAll" xml:space="preserve">
+    <value>Dismiss All</value>
+  </data>
+  <data name="ExpiresIn" xml:space="preserve">
+    <value>Expires in {0}</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="LessThanOneMinute" xml:space="preserve">
+    <value>less than 1 minute</value>
+  </data>
+  <data name="LessThanOneMinuteAgo" xml:space="preserve">
+    <value>less than 1 minute ago</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneDayAgo" xml:space="preserve">
+    <value>1 day ago</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>1 hour ago</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>1 minute ago</value>
+  </data>
+  <data name="TotalNotifications" xml:space="preserve">
+    <value>Total Notifications: {0}</value>
+  </data>
 </root>

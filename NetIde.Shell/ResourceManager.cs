@@ -14,7 +14,7 @@ namespace NetIde.Shell
         private IconManager _icons = new IconManager();
         private bool _disposed;
 
-        public Image GetImage(IResource resource)
+        public Bitmap GetImage(IResource resource)
         {
             return _images.GetResource(resource);
         }
@@ -69,20 +69,6 @@ namespace NetIde.Shell
 
             protected abstract T ResolveResource(IResource resource);
 
-            protected Stream ReadResource(IResource resource)
-            {
-                var target = new MemoryStream();
-
-                using (var source = StreamUtil.ToStream(resource))
-                {
-                    source.CopyTo(target);
-                }
-
-                target.Position = 0;
-
-                return target;
-            }
-
             public void Dispose()
             {
                 if (!_disposed)
@@ -102,11 +88,11 @@ namespace NetIde.Shell
             }
         }
 
-        private class ImageManager : ConcreteResourceManager<Image>
+        private class ImageManager : ConcreteResourceManager<Bitmap>
         {
-            protected override Image ResolveResource(IResource resource)
+            protected override Bitmap ResolveResource(IResource resource)
             {
-                return Image.FromStream(ReadResource(resource));
+                return (Bitmap)Image.FromStream(resource.ToStream());
             }
         }
 
@@ -114,7 +100,7 @@ namespace NetIde.Shell
         {
             protected override Icon ResolveResource(IResource resource)
             {
-                return new Icon(ReadResource(resource));
+                return new Icon(resource.ToStream());
             }
         }
     }

@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="NiIterator.cs" />
     <Compile Include="NiIteratorExtensions.cs" />
+    <Compile Include="NiNotificationItem.cs" />
     <Compile Include="NiShellExtensions.cs" />
     <Compile Include="NiTextChangedEventHandler.cs" />
     <Compile Include="NiHierarchy.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="NiResourcesAttribute.cs" />
     <Compile Include="NiRunningDocumentTableExtensions.cs" />
     <Compile Include="NiStringResourcesAttribute.cs" />
+    <Compile Include="NiTitleBarButton.cs" />
     <Compile Include="NiWaitDialog.cs" />
     <Compile Include="NiWindowFrameExtensions.cs" />
     <Compile Include="NiWindowHost.cs">

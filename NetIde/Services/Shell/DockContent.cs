@@ -143,32 +143,78 @@ namespace NetIde.Services.Shell
                     _properties[(int)NiFrameProperty.Type] = NiFrameType.Tool;
             }
 
-            public bool IsVisible
+            private void VerifyNotDisposed()
             {
-                get { return _owner.Visible; }
+                if (_owner._disposed)
+                    throw new ObjectDisposedException(_owner.GetType().Name);
             }
 
-            public string Caption
+            public HResult GetIsVisible(out bool visible)
             {
-                get { return _owner.TabText; }
-                set { _owner.Text = _owner.TabText = value; }
+                visible = !_owner._disposed && _owner.Visible;
+                return HResult.OK;
             }
 
-            public IResource Icon
+            public HResult GetCaption(out string caption)
             {
-                get { return _icon; }
-                set
+                caption = null;
+
+                try
                 {
-                    if (_icon != value)
+                    caption = _owner.Text;
+
+                    return HResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
+            }
+
+            public HResult SetCaption(string caption)
+            {
+                try
+                {
+                    VerifyNotDisposed();
+
+                    _owner.Text = _owner.TabText = caption;
+
+                    return HResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
+                }
+            }
+
+            public HResult GetIcon(out IResource icon)
+            {
+                icon = _icon;
+                return HResult.OK;
+            }
+
+            public HResult SetIcon(IResource icon)
+            {
+                try
+                {
+                    VerifyNotDisposed();
+
+                    if (_icon != icon)
                     {
-                        _icon = value;
+                        _icon = icon;
 
                         _owner.Icon =
-                            value == null
+                            icon == null
                             ? null
-                            : _env.ResourceManager.GetIcon(value);
+                            : _env.ResourceManager.GetIcon(icon);
                         _owner.ShowIcon = _owner.Icon != null;
                     }
+
+                    return HResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    return ErrorUtil.GetHResult(ex);
                 }
             }
 
@@ -176,6 +222,8 @@ namespace NetIde.Services.Shell
             {
                 try
                 {
+                    VerifyNotDisposed();
+
                     if (_shown)
                     {
                         _owner.IsHidden = false;
@@ -200,6 +248,8 @@ namespace NetIde.Services.Shell
             {
                 try
                 {
+                    VerifyNotDisposed();
+
                     _owner.IsHidden = true;
 
                     return HResult.OK;
@@ -214,6 +264,8 @@ namespace NetIde.Services.Shell
             {
                 try
                 {
+                    VerifyNotDisposed();
+
                     _owner._suppressClosing = true;
 
                     try

@@ -145,12 +145,30 @@ namespace NetIde.Update
 
                 var response = (QueryOperationResponse<V2FeedPackage>)query.Execute();
 
+                var packageMetadatas = response.Select(p => Deserialize(p, context, contextKey, nuGetSite)).ToArray();
+
                 return new PackageQueryResult(
-                    response.TotalCount,
+                    GetTotalCount(response, packageMetadatas),
                     0,
                     1,
-                    response.Select(p => Deserialize(p, context, contextKey, nuGetSite)).ToArray()
+                    packageMetadatas
                 );
+            }
+        }
+
+        [DebuggerStepThrough]
+        private static long GetTotalCount(QueryOperationResponse<V2FeedPackage> response, PackageMetadata[] packageMetadatas)
+        {
+            // TotalCount may be missing. When this is the case, we default
+            // to the number of package meta's we got.
+
+            try
+            {
+                return response.TotalCount;
+            }
+            catch (InvalidOperationException)
+            {
+                return packageMetadatas.Length;
             }
         }
 

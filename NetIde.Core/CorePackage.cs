@@ -9,9 +9,11 @@ using System.Windows.Forms;
 using NetIde.Core.OptionPages.Environment;
 using NetIde.Core.Services.Finder;
 using NetIde.Core.Services.LanguageServiceRegistry;
+using NetIde.Core.Services.NotificationManager;
 using NetIde.Core.Services.ProjectExplorer;
 using NetIde.Core.ToolWindows.DiffViewer;
 using NetIde.Core.ToolWindows.FindResults;
+using NetIde.Core.ToolWindows.Notifications;
 using NetIde.Core.ToolWindows.ProjectExplorer;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -31,6 +33,7 @@ namespace NetIde.Core
     [ProvideOptionPage(typeof(KeyboardOptionPage), "Environment", "Keyboard", "@Environment", "@Keyboard")]
     [ProvideToolWindow(typeof(ProjectExplorerWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Right)]
     [ProvideToolWindow(typeof(FindResultsWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Bottom)]
+    [ProvideToolWindow(typeof(NotificationsWindow), Style = NiDockStyle.Tabbed, Orientation = NiToolWindowOrientation.Right)]
     [ProvideAllEditorExtensionsAttribute]
     internal partial class CorePackage : NiPackage, INiCommandTarget
     {
@@ -66,10 +69,14 @@ namespace NetIde.Core
                     new NiProjectExplorer(this),
                     true
                 );
-
                 serviceContainer.AddService(
                     typeof(INiFinder),
                     new NiFinder(this)
+                );
+                serviceContainer.AddService(
+                    typeof(INiNotificationManager),
+                    new NiNotificationManager(this),
+                    true
                 );
 
                 _projectManager = (INiProjectManager)GetService(typeof(INiProjectManager));

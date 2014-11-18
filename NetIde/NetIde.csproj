@@ -65,8 +65,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="CustomChrome">
-      <HintPath>..\packages\CustomChrome.0.2.0.0\lib\net20\CustomChrome.dll</HintPath>
+    <Reference Include="CustomChrome, Version=0.3.0.0, Culture=neutral, PublicKeyToken=7deb2b8928f548ee, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CustomChrome.0.3.0.0\lib\net20\CustomChrome.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,6 +92,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainForm.TitleBarButtonManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NetIdeApplication.cs" />
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
@@ -225,6 +229,7 @@
     <Compile Include="Services\Shell\SaveHierarchiesForm.Designer.cs">
       <DependentUpon>SaveHierarchiesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\TitleBarButtonManager\NiTitleBarButtonManager.cs" />
     <Compile Include="Services\ToolsOptions\NiToolsOptions.cs" />
     <Compile Include="Services\LocalRegistry\OptionPageRegistration.cs" />
     <Compile Include="Services\ToolsOptions\PageContainer.cs">

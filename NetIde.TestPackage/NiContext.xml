@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <context name="NetIdeUnitTests"
-         nuGetSite="http://localhost/NuGet/Website/api/v2/"
+         nuGetSite="http://localhost/NuGet/api/v2/"
          xmlns="http://netide.github.io/netide-schemas/NiContext.xsd" />

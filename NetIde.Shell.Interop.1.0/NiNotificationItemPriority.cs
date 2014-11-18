@@ -5,8 +5,10 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    public interface INiPackageManager
+    public enum NiNotificationItemPriority
     {
-        HResult OpenPackageManager();
+        Normal,
+        Informational,
+        Critical
     }
 }

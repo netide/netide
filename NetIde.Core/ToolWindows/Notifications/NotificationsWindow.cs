@@ -4,16 +4,17 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Core.Services.NotificationManager;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;
 
-namespace NetIde.Core.ToolWindows.ProjectExplorer
+namespace NetIde.Core.ToolWindows.Notifications
 {
-    [Guid("70a1a826-334e-4679-bd69-5bf9b32a26cb")]
-    internal class ProjectExplorerWindow : NiWindowPane
+    [Guid("59d3d206-9a79-4b6d-9b3f-2b91b3d3930d")]
+    internal class NotificationsWindow : NiWindowPane
     {
-        private ProjectExplorerControl _control;
+        private NotificationsControl _control;
 
         public override HResult Initialize()
         {
@@ -24,10 +25,9 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
                 if (ErrorUtil.Failure(hr))
                     return hr;
 
-                ErrorUtil.ThrowOnFailure(Frame.SetIcon(Resources.Folders));
-                ErrorUtil.ThrowOnFailure(Frame.SetCaption(Labels.ProjectExplorer));
+                ErrorUtil.ThrowOnFailure(Frame.SetCaption(Labels.Notifications));
 
-                _control = new ProjectExplorerControl
+                _control = new NotificationsControl
                 {
                     Site = new SiteProxy(this),
                     Dock = DockStyle.Fill
@@ -43,9 +43,9 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
             }
         }
 
-        public HResult GetSelectedHierarchy(out INiHierarchy hier)
+        public void RedrawItems(List<NotificationItem> items)
         {
-            return _control.GetSelectedHierarchy(out hier);
+            _control.RedrawItems(items);
         }
     }
 }

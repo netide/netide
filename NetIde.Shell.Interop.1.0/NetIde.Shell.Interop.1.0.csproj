@@ -65,6 +65,9 @@
     <Compile Include="INiLanguageServiceRegistry.cs" />
     <Compile Include="INiMainWindowChrome.cs" />
     <Compile Include="INiMouseEventNotify.cs" />
+    <Compile Include="INiNotificationItem.cs" />
+    <Compile Include="INiNotificationManager.cs" />
+    <Compile Include="INiNotificationManagerNotify.cs" />
     <Compile Include="INiObjectWithSite.cs" />
     <Compile Include="INiOpenDocumentManager.cs" />
     <Compile Include="INiOptionPage.cs" />
@@ -87,6 +90,9 @@
     <Compile Include="INiTextBufferProvider.cs" />
     <Compile Include="INiTextMarker.cs" />
     <Compile Include="INiTextSelection.cs" />
+    <Compile Include="INiTitleBarButton.cs" />
+    <Compile Include="INiTitleBarButtonManager.cs" />
+    <Compile Include="INiTitleBarButtonManagerNotify.cs" />
     <Compile Include="INiToolsOptions.cs" />
     <Compile Include="INiWaitDialog.cs" />
     <Compile Include="INiWaitDialogFactory.cs" />
@@ -143,6 +149,7 @@
     <Compile Include="NiFindOptions.cs" />
     <Compile Include="NiFindResult.cs" />
     <Compile Include="NiFindTargetNotify.cs" />
+    <Compile Include="NiNotificationItemPriority.cs" />
     <Compile Include="NiSaveAllMode.cs" />
     <Compile Include="NiFrameCloseMode.cs" />
     <Compile Include="NiFrameProperty.cs" />

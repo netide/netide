@@ -254,7 +254,9 @@ namespace NetIde.Services.OpenDocumentManager
                 if (ErrorUtil.Failure(hr))
                     return hr;
 
-                windowFrame.Caption = editorCaption ?? Path.GetFileName(document);
+                ErrorUtil.ThrowOnFailure(windowFrame.SetCaption(
+                    editorCaption ?? Path.GetFileName(document)
+                ));
 
                 hr = windowPane.Initialize();
 
@@ -352,7 +354,7 @@ namespace NetIde.Services.OpenDocumentManager
 
                 if (docData != null)
                 {
-                    _initialCaption = windowFrame.Caption;
+                    ErrorUtil.ThrowOnFailure(windowFrame.GetCaption(out _initialCaption));
 
                     UpdateDirtyFlag();
 
@@ -369,10 +371,13 @@ namespace NetIde.Services.OpenDocumentManager
                 {
                     _wasDirty = isDirty;
 
+                    string caption;
                     if (isDirty)
-                        WindowFrame.Caption = _initialCaption + "*";
+                        caption = _initialCaption + "*";
                     else
-                        WindowFrame.Caption = _initialCaption;
+                        caption = _initialCaption;
+
+                    ErrorUtil.ThrowOnFailure(WindowFrame.SetCaption(caption));
                 }
             }
 

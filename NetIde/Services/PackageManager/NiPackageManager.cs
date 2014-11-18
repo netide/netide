@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using NetIde.Services.CommandManager;
+using NetIde.Update;
 using NetIde.Util;
 using Microsoft.Win32;
 using NetIde.Shell;
@@ -26,8 +27,11 @@ namespace NetIde.Services.PackageManager
 
         private readonly PackageCollection _packages = new PackageCollection();
         private readonly Dictionary<INiPackage, PackageRegistration> _byPackage = new Dictionary<INiPackage, PackageRegistration>();
+        private readonly Dictionary<int, Notification> _notifications = new Dictionary<int, Notification>();
 
         private static readonly Guid CorePackage = new Guid("129646DC-01E6-4443-ABAC-453F731EA7F5");
+        private INiNotificationManager _notificationManager;
+        private INiEnv _env;
 
         public IKeyedCollection<Guid, PackageRegistration> Packages { get; private set; }
 
@@ -39,15 +43,16 @@ namespace NetIde.Services.PackageManager
 
         public void Initialize()
         {
-            var env = (INiEnv)GetService(typeof(INiEnv));
+            _env = (INiEnv)GetService(typeof(INiEnv));
 
-            ProcessRuntimeUpdate(env);
-            RemovePendingUpdate(env);
-            ProcessPendingUpdates(env);
-            LoadPackages(env);
+            ProcessRuntimeUpdate();
+            RemovePendingUpdate();
+            ProcessPendingUpdates();
+            LoadPackages();
+            FindUpdates();
         }
 
-        private void ProcessRuntimeUpdate(INiEnv env)
+        private void ProcessRuntimeUpdate()
         {
             // A runtime update is requested by adding /RuntimeUpdate to
             // the arguments. The command line service knows this and always
@@ -62,11 +67,11 @@ namespace NetIde.Services.PackageManager
             if (!present)
                 return;
 
-            var pendingUpdateLocation = GetPendingUpdateLocation(env);
+            var pendingUpdateLocation = GetPendingUpdateLocation();
 
             // And we want to copy into the bin folder.
 
-            string target = Path.Combine(env.FileSystemRoot, "bin");
+            string target = Path.Combine(_env.FileSystemRoot, "bin");
 
             // Move the current target directory out of the way.
 
@@ -79,7 +84,7 @@ namespace NetIde.Services.PackageManager
                 // pending update to NetIde.Package.Core, so we cancel
                 // this and just restart.
 
-                PackageUpdater.CancelCorePackageUpdate(env);
+                PackageUpdater.CancelCorePackageUpdate(_env);
             }
             else
             {
@@ -112,27 +117,27 @@ namespace NetIde.Services.PackageManager
             Process.Start(new ProcessStartInfo
             {
                 FileName = fileName,
-                WorkingDirectory = env.FileSystemRoot,
+                WorkingDirectory = _env.FileSystemRoot,
                 UseShellExecute = false
             });
 
             Environment.Exit(0);
         }
 
-        private void RemovePendingUpdate(INiEnv env)
+        private void RemovePendingUpdate()
         {
             // If we got here and we have a pending update, it means it has
             // been installed and we can safely delete it.
 
-            var pendingUpdateLocation = GetPendingUpdateLocation(env);
+            var pendingUpdateLocation = GetPendingUpdateLocation();
 
             if (Directory.Exists(pendingUpdateLocation))
                 SEH.SinkExceptions(() => Directory.Delete(pendingUpdateLocation, true));
         }
 
-        private static string GetPendingUpdateLocation(INiEnv env)
+        private string GetPendingUpdateLocation()
         {
-            return Path.Combine(env.FileSystemRoot, "PendingUpdate");
+            return Path.Combine(_env.FileSystemRoot, "PendingUpdate");
         }
 
         private void CopyDirectory(string source, string target)
@@ -163,7 +168,7 @@ namespace NetIde.Services.PackageManager
 
             // Generate a temporary name where we move the bin folder to.
 
-            for (int i = 0;; i++)
+            for (int i = 0; ; i++)
             {
                 tempTarget = target + "~" + i.ToString(CultureInfo.InvariantCulture);
 
@@ -192,11 +197,11 @@ namespace NetIde.Services.PackageManager
             return false;
         }
 
-        private void ProcessPendingUpdates(INiEnv env)
+        private void ProcessPendingUpdates()
         {
             var pendingUpdates = new List<PendingUpdate>();
 
-            using (var key = Registry.CurrentUser.OpenSubKey(env.RegistryRoot + "\\InstalledProducts"))
+            using (var key = Registry.CurrentUser.OpenSubKey(_env.RegistryRoot + "\\InstalledProducts"))
             {
                 foreach (string packageId in key.GetSubKeyNames())
                 {
@@ -224,9 +229,9 @@ namespace NetIde.Services.PackageManager
             }
         }
 
-        private void LoadPackages(INiEnv env)
+        private void LoadPackages()
         {
-            using (var key = Registry.CurrentUser.OpenSubKey(env.RegistryRoot + "\\InstalledProducts"))
+            using (var key = Registry.CurrentUser.OpenSubKey(_env.RegistryRoot + "\\InstalledProducts"))
             {
                 foreach (string packageId in key.GetSubKeyNames())
                 {
@@ -249,7 +254,6 @@ namespace NetIde.Services.PackageManager
                         }
 
                         LoadPackage(
-                            env,
                             packageId,
                             Guid.Parse((string)packageKey.GetValue("Package"))
                         );
@@ -279,10 +283,10 @@ namespace NetIde.Services.PackageManager
             _byPackage.Add(registration.Package, registration);
         }
 
-        private void LoadPackage(INiEnv env, string packageId, Guid guid)
+        private void LoadPackage(string packageId, Guid guid)
         {
             string packagePath = Path.Combine(
-                env.FileSystemRoot,
+                _env.FileSystemRoot,
                 "Packages",
                 packageId
             );
@@ -353,11 +357,164 @@ namespace NetIde.Services.PackageManager
             return _byPackage[package];
         }
 
+        public HResult OpenPackageManager()
+        {
+            try
+            {
+                object result;
+                return ((INiCommandManager)GetService(typeof(INiCommandManager))).Exec(
+                    NiResources.Tools_PackageManagement,
+                    null,
+                    out result
+                );
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        private void FindUpdates()
+        {
+            _notificationManager = (INiNotificationManager)GetService(typeof(INiNotificationManager));
+
+            new NotificationListener(this);
+
+            var synchronizationContext = SynchronizationContext.Current;
+
+            ThreadPool.QueueUserWorkItem(p => FindUpdates(synchronizationContext));
+        }
+
+        private void FindUpdates(SynchronizationContext synchronizationContext)
+        {
+            try
+            {
+                var context = new ContextName(_env.ContextName, _env.Experimental);
+                var installedPackages = PackageRegistry.GetInstalledPackages(context);
+
+                var packages = NuGetQuerier.GetUpdates(
+                    context,
+                    _env.NuGetSite,
+                    PackageStability.StableOnly,
+                    installedPackages.Packages
+                );
+
+                synchronizationContext.Post(
+                    p => CreateNotifications(packages),
+                    null
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Warn("Could not find updates", ex);
+            }
+        }
+
+        private void CreateNotifications(PackageQueryResult updates)
+        {
+            using (var key = Registry.CurrentUser.CreateSubKey(_env.RegistryRoot + "\\PackageManager"))
+            {
+                foreach (var update in updates.Packages)
+                {
+                    using (var packageKey = key.CreateSubKey(update.Id))
+                    {
+                        // Was this update dismissed already?
+
+                        string lastDismissed = (string)packageKey.GetValue("LastDismissedUpdate");
+                        if (lastDismissed == update.Version)
+                            continue;
+
+                        // Have we already reported this one?
+
+                        DateTime reportedDate = DateTime.Now;
+
+                        string lastReported = (string)packageKey.GetValue("LastReportedUpdate");
+                        if (lastReported != null)
+                        {
+                            string[] parts = lastReported.Split(',').Select(p => p.Trim()).ToArray();
+                            if (parts.Length == 2)
+                            {
+                                string lastReportedVersion = parts[0];
+
+                                if (lastReportedVersion == update.Version)
+                                {
+                                    DateTime lastReportedDate;
+                                    if (DateTime.TryParseExact(parts[1], "o", CultureInfo.InvariantCulture, DateTimeStyles.None, out lastReportedDate))
+                                        reportedDate = lastReportedDate;
+                                }
+                            }
+                        }
+
+                        // Update the last reported update.
+
+                        packageKey.SetValue("LastReportedUpdate", update.Version + ", " + reportedDate.ToString("o"));
+
+                        // Create the notification.
+
+                        int cookie;
+                        ErrorUtil.ThrowOnFailure(_notificationManager.AddItem(
+                            new NiNotificationItem
+                            {
+                                Subject = String.Format(Labels.UpdateAvailable, update.Title),
+                                Message = update.Description,
+                                Created = reportedDate,
+                                Priority = NiNotificationItemPriority.Informational
+                            },
+                            out cookie
+                        ));
+
+                        _notifications.Add(cookie, new Notification(update.Id, update.Version));
+                    }
+                }
+            }
+        }
+
         private class PackageCollection : KeyedCollection<Guid, PackageRegistration>
         {
             protected override Guid GetKeyForItem(PackageRegistration item)
             {
                 return item.Guid;
+            }
+        }
+
+        private class Notification
+        {
+            public string Id { get; private set; }
+            public string Version { get; private set; }
+
+            public Notification(string id, string version)
+            {
+                Id = id;
+                Version = version;
+            }
+        }
+
+        private class NotificationListener : NiEventSink, INiNotificationManagerNotify
+        {
+            private readonly NiPackageManager _packageManager;
+
+            public NotificationListener(NiPackageManager packageManager)
+                : base(packageManager._notificationManager)
+            {
+                _packageManager = packageManager;
+            }
+
+            public void OnClicked(int cookie)
+            {
+                if (_packageManager._notifications.ContainsKey(cookie))
+                    ErrorUtil.ThrowOnFailure(_packageManager.OpenPackageManager());
+            }
+
+            public void OnDismissed(int cookie)
+            {
+                Notification notification;
+                if (!_packageManager._notifications.TryGetValue(cookie, out notification))
+                    return;
+
+                using (var key = Registry.CurrentUser.CreateSubKey(_packageManager._env.RegistryRoot + "\\PackageManager\\" + notification.Id))
+                {
+                    key.SetValue("LastDismissedUpdate", notification.Version);
+                }
             }
         }
     }

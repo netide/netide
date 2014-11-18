@@ -243,6 +243,9 @@
   <data name="UninstallingPackage" xml:space="preserve">
     <value>Removing package {0}</value>
   </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update avaiable for "{0}"</value>
+  </data>
   <data name="UpdateFailed" xml:space="preserve">
     <value>Update failed: {0}</value>
   </data>

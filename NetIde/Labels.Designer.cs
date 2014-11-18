@@ -439,6 +439,15 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update avaiable for &quot;{0}&quot;.
+        /// </summary>
+        internal static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update failed: {0}.
         /// </summary>
         internal static string UpdateFailed {

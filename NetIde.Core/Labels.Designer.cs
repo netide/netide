@@ -116,6 +116,24 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} days.
+        /// </summary>
+        internal static string Days {
+            get {
+                return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} days ago.
+        /// </summary>
+        internal static string DaysAgo {
+            get {
+                return ResourceManager.GetString("DaysAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diff Viewer.
         /// </summary>
         internal static string DiffViewerName {
@@ -130,6 +148,15 @@ namespace NetIde.Core {
         internal static string Disable {
             get {
                 return ResourceManager.GetString("Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dismiss All.
+        /// </summary>
+        internal static string DismissAll {
+            get {
+                return ResourceManager.GetString("DismissAll", resourceCulture);
             }
         }
         
@@ -166,6 +193,15 @@ namespace NetIde.Core {
         internal static string Environment {
             get {
                 return ResourceManager.GetString("Environment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expires in {0}.
+        /// </summary>
+        internal static string ExpiresIn {
+            get {
+                return ResourceManager.GetString("ExpiresIn", resourceCulture);
             }
         }
         
@@ -269,6 +305,24 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} hours.
+        /// </summary>
+        internal static string Hours {
+            get {
+                return ResourceManager.GetString("Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} hours ago.
+        /// </summary>
+        internal static string HoursAgo {
+            get {
+                return ResourceManager.GetString("HoursAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Id.
         /// </summary>
         internal static string Id {
@@ -319,6 +373,24 @@ namespace NetIde.Core {
         internal static string LastPublished {
             get {
                 return ResourceManager.GetString("LastPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to less than 1 minute.
+        /// </summary>
+        internal static string LessThanOneMinute {
+            get {
+                return ResourceManager.GetString("LessThanOneMinute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to less than 1 minute ago.
+        /// </summary>
+        internal static string LessThanOneMinuteAgo {
+            get {
+                return ResourceManager.GetString("LessThanOneMinuteAgo", resourceCulture);
             }
         }
         
@@ -494,6 +566,24 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} minutes.
+        /// </summary>
+        internal static string Minutes {
+            get {
+                return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} minutes ago.
+        /// </summary>
+        internal static string MinutesAgo {
+            get {
+                return ResourceManager.GetString("MinutesAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Most Downloads.
         /// </summary>
         internal static string MostDownloads {
@@ -548,11 +638,74 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        internal static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No package updates are available..
         /// </summary>
         internal static string NoUpdatesAvailable {
             get {
                 return ResourceManager.GetString("NoUpdatesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 day.
+        /// </summary>
+        internal static string OneDay {
+            get {
+                return ResourceManager.GetString("OneDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 day ago.
+        /// </summary>
+        internal static string OneDayAgo {
+            get {
+                return ResourceManager.GetString("OneDayAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 hour.
+        /// </summary>
+        internal static string OneHour {
+            get {
+                return ResourceManager.GetString("OneHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 hour ago.
+        /// </summary>
+        internal static string OneHourAgo {
+            get {
+                return ResourceManager.GetString("OneHourAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 minute.
+        /// </summary>
+        internal static string OneMinute {
+            get {
+                return ResourceManager.GetString("OneMinute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 minute ago.
+        /// </summary>
+        internal static string OneMinuteAgo {
+            get {
+                return ResourceManager.GetString("OneMinuteAgo", resourceCulture);
             }
         }
         
@@ -625,6 +778,15 @@ namespace NetIde.Core {
         internal static string TextEditorName {
             get {
                 return ResourceManager.GetString("TextEditorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Notifications: {0}.
+        /// </summary>
+        internal static string TotalNotifications {
+            get {
+                return ResourceManager.GetString("TotalNotifications", resourceCulture);
             }
         }
         

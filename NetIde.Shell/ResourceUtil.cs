@@ -37,6 +37,23 @@ namespace NetIde.Shell
             return new ByteArrayResource(byteArray);
         }
 
+        public static Stream ToStream(this IResource resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource");
+
+            var target = new MemoryStream();
+
+            using (var source = StreamUtil.ToStream(resource))
+            {
+                source.CopyTo(target);
+            }
+
+            target.Position = 0;
+
+            return target;
+        }
+
         private class AssemblyResource : ServiceObject, IResource
         {
             private readonly Assembly _assembly;

@@ -129,14 +129,33 @@ namespace NetIde.Core {
         ///--&gt;
         ///&lt;resources xmlns=&quot;http://netide.github.io/netide-schemas/Resources.xsd&quot;&gt;
         ///  &lt;ui&gt;
-        ///    &lt;menu id=&quot;Menu_File&quot; text=&quot;@MenuFile&quot; priority=&quot;100&quot; kind=&quot;Menu&quot;&gt;
+        ///    &lt;menu id=&quot;Menu_File&quot; text=&quot;@MenuFile&quot; priority=&quot;100&quot; kind=&quot;Menu&quot; guid=&quot;{047F8695-7B12-41D8-8FF3-82F3416A9E5D}&quot;&gt;
         ///      &lt;group priority=&quot;100&quot;&gt;
-        ///        &lt;button id=&quot;File_NewProject&quot; priority=&quot;100&quot; text=&quot;@MenuFileNewProject&quot; key=&quot;Control+Shift+N&quot; image=&quot;@DocumentsNew&quot; /&gt;
-        ///        &lt;button id=&quot;File_OpenProject&quot; priori [rest of string was truncated]&quot;;.
+        ///        &lt;button id=&quot;File_NewProject&quot; priority=&quot;100&quot; text=&quot;@MenuFileNewProject&quot; key=&quot;Control+Shift+N&quot; image=&quot;@DocumentsNew&quot; gu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string NiMenu {
             get {
                 return ResourceManager.GetString("NiMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NotificationsActive {
+            get {
+                object obj = ResourceManager.GetObject("NotificationsActive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NotificationsInactive {
+            get {
+                object obj = ResourceManager.GetObject("NotificationsInactive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

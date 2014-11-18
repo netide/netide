@@ -27,7 +27,7 @@ namespace NetIde.Core.ToolWindows.FindResults
                 if (ErrorUtil.Failure(hr))
                     return hr;
 
-                Frame.Caption = Labels.FindResults;
+                ErrorUtil.ThrowOnFailure(Frame.SetCaption(Labels.FindResults));
 
                 _editor = new NiEditor
                 {
