@@ -8,6 +8,7 @@ using System.Windows.Automation;
 using System.Windows.Automation.Provider;
 using System.Windows.Automation.Text;
 using System.Windows.Forms;
+using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using UIAutomationWrapper;
 using Point = System.Windows.Point;
@@ -19,6 +20,23 @@ namespace NetIde.Core
         public TextEditorControl()
         {
             ElementProvider.Install(new TextEditorElementProvider(this));
+            ActiveTextAreaControl.TextArea.DoProcessDialogKey += TextArea_DoProcessDialogKey;
+        }
+
+        void TextArea_DoProcessDialogKey(Keys keyData, ref DialogKeyProcessorResult result)
+        {
+            if (Document.ReadOnly)
+            {
+                switch (keyData)
+                {
+                    case Keys.Tab:
+                    case Keys.Tab | Keys.Shift:
+                    case Keys.Enter:
+                    case Keys.Escape:
+                        result = DialogKeyProcessorResult.NotProcessed;
+                        break;
+                }
+            }
         }
 
         [ComVisible(true)]
