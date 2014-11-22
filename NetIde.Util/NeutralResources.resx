@@ -117,85 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AreYouSure" xml:space="preserve">
-    <value>Are you sure?</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TaskDialog_ArrowHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ArrowHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="TaskDialog_ArrowNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ArrowNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Close" xml:space="preserve">
-    <value>Close</value>
+  <data name="TaskDialog_ChevronLess" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ChevronLess.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_No" xml:space="preserve">
-    <value>No</value>
+  <data name="TaskDialog_ChevronLessHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ChevronLessHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_OK" xml:space="preserve">
-    <value>OK</value>
+  <data name="TaskDialog_ChevronLessPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ChevronLessPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Retry" xml:space="preserve">
-    <value>Retry</value>
+  <data name="TaskDialog_ChevronMore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ChevronMore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Yes" xml:space="preserve">
-    <value>Yes</value>
+  <data name="TaskDialog_ChevronMoreHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ChevronMoreHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CouldNotParseKeys" xml:space="preserve">
-    <value>Could not parse keys '{0}'</value>
+  <data name="TaskDialog_ChevronMorePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_ChevronMorePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="KeysAlt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="KeysBackslash" xml:space="preserve">
-    <value>\</value>
-  </data>
-  <data name="KeysComma" xml:space="preserve">
-    <value>,</value>
-  </data>
-  <data name="KeysControl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="KeysDelete" xml:space="preserve">
-    <value>Del</value>
-  </data>
-  <data name="KeysEnd" xml:space="preserve">
-    <value>End</value>
-  </data>
-  <data name="KeysEnter" xml:space="preserve">
-    <value>Enter</value>
-  </data>
-  <data name="KeysHome" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="KeysInsert" xml:space="preserve">
-    <value>Ins</value>
-  </data>
-  <data name="KeysMinus" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="KeysPause" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="KeysPeriod" xml:space="preserve">
-    <value>.</value>
-  </data>
-  <data name="KeysPlus" xml:space="preserve">
-    <value>+</value>
-  </data>
-  <data name="KeysQuestion" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="KeysSeparator" xml:space="preserve">
-    <value>+</value>
-  </data>
-  <data name="KeysShift" xml:space="preserve">
-    <value>Shift</value>
-  </data>
-  <data name="KeysSpace" xml:space="preserve">
-    <value>Space</value>
-  </data>
-  <data name="KeysTab" xml:space="preserve">
-    <value>Tab</value>
-  </data>
-  <data name="KeysTilde" xml:space="preserve">
-    <value>~</value>
+  <data name="TaskDialog_Shield" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TaskDialog_Shield.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

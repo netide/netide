@@ -78,6 +78,12 @@ namespace NetIde.Util.Forms
             set { _fixer.KeyAddition = value; }
         }
 
+        protected bool EnableBoundsTracking
+        {
+            get { return _fixer.EnableBoundsTracking; }
+            set { _fixer.EnableBoundsTracking = value; }
+        }
+
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]

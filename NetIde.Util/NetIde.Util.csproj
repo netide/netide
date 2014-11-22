@@ -54,6 +54,10 @@
     <Compile Include="Escaping.cs" />
     <Compile Include="FileType.cs" />
     <Compile Include="FileTypeType.cs" />
+    <Compile Include="Forms\ActivationContext.cs" />
+    <Compile Include="Forms\ActiveTaskDialog.cs" />
+    <Compile Include="Forms\AdjustControls.cs" />
+    <Compile Include="Forms\AssemblyInformation.cs" />
     <Compile Include="Forms\BrowseButton.cs" />
     <Compile Include="Forms\BrowseButtonEventHandler.cs" />
     <Compile Include="Forms\BrowserControl.cs">
@@ -65,9 +69,35 @@
     <Compile Include="Forms\CancelPreviewEventHandler.cs" />
     <Compile Include="Forms\ContextEventArgs.cs" />
     <Compile Include="Forms\CueBannerVisibility.cs" />
+    <Compile Include="Forms\EmulateCommandLink.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\EmulateCommandLink.designer.cs">
+      <DependentUpon>EmulateCommandLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmulateExpInfoButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\EmulateExpInfoButton.Designer.cs">
+      <DependentUpon>EmulateExpInfoButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmulateTaskDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmulateTaskDialog.Designer.cs">
+      <DependentUpon>EmulateTaskDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\ProgressBarState.cs" />
+    <Compile Include="Forms\TaskDialog.cs" />
+    <Compile Include="Forms\TaskDialog.Show.cs" />
+    <Compile Include="Forms\TaskDialogButton.cs" />
+    <Compile Include="Forms\TaskDialogCommonButtons.cs" />
+    <Compile Include="Forms\TaskDialogIcon.cs" />
+    <Compile Include="Forms\TaskDialogNotification.cs" />
+    <Compile Include="Forms\TaskDialogNotificationArgs.cs" />
     <Compile Include="Forms\TextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -141,6 +171,11 @@
     </Compile>
     <Compile Include="LineTermination.cs" />
     <Compile Include="MouseWheelMessageFilter.cs" />
+    <Compile Include="NeutralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NeutralResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PlatformUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlyKeyedCollection.cs" />
@@ -172,12 +207,43 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="NeutralResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
       <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
       <Name>NetIde.Shell.Interop.1.0</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ArrowHovered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ArrowNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ChevronLess.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ChevronLessHovered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ChevronLessPressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ChevronMore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ChevronMoreHovered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_ChevronMorePressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TaskDialog_Shield.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
