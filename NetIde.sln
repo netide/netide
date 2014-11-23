@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Xml", "NetIde.Xml\NetIde.Xml.csproj", "{DA664118-05BA-40FE-A51E-36E324C7BE43}"
 EndProject
@@ -27,10 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIAutomationWrapper", "UIAu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.TestPackage", "NetIde.TestPackage\NetIde.TestPackage.csproj", "{13114EF5-91C9-4E7F-980A-A9FB42B9714C}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D5A4B34F-A5DE-4ACA-BA9D-F19B5BB2154D} = {D5A4B34F-A5DE-4ACA-BA9D-F19B5BB2154D}
 		{936731A7-C461-4EE7-8E95-87FDBBCE5F52} = {936731A7-C461-4EE7-8E95-87FDBBCE5F52}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.TestPackage.Api", "NetIde.TestPackage.Api\NetIde.TestPackage.Api.csproj", "{4A88B5D3-97B3-4FD7-BD85-E1955BE38856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIde.Help", "NetIde.Help\NetIde.Help.csproj", "{3D3A772B-4615-4E52-A927-66F4AAB7D622}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -174,6 +177,16 @@ Global
 		{4A88B5D3-97B3-4FD7-BD85-E1955BE38856}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4A88B5D3-97B3-4FD7-BD85-E1955BE38856}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4A88B5D3-97B3-4FD7-BD85-E1955BE38856}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D3A772B-4615-4E52-A927-66F4AAB7D622}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

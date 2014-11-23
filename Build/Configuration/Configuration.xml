@@ -10,6 +10,7 @@
     <project name="NetIde" />
     <project name="NetIde.BuildTasks" />
     <project name="NetIde.Core" />
+    <project name="NetIde.Help" />
     <project name="NetIde.Install" />
     <project name="NetIde.MakeSetup" />
     <project name="NetIde.Setup" />

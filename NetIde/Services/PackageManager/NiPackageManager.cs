@@ -281,6 +281,7 @@ namespace NetIde.Services.PackageManager
         {
             registration.LoadPackage();
             _byPackage.Add(registration.Package, registration);
+            registration.InitializePackage();
         }
 
         private void LoadPackage(string packageId, Guid guid)
@@ -466,6 +467,33 @@ namespace NetIde.Services.PackageManager
                         _notifications.Add(cookie, new Notification(update.Id, update.Version));
                     }
                 }
+            }
+        }
+
+        public HResult GetInstallationPath(INiPackage package, out string path)
+        {
+            path = null;
+
+            try
+            {
+                if (package == null)
+                    throw new ArgumentNullException("package");
+
+                PackageRegistration registration;
+                if (!_byPackage.TryGetValue(package, out registration))
+                    return HResult.False;
+
+                path = Path.Combine(
+                    _env.FileSystemRoot,
+                    "Packages",
+                    registration.PackageId
+                );
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
             }
         }
 

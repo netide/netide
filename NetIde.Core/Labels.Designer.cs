@@ -530,6 +530,15 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string MenuHelp {
+            get {
+                return ResourceManager.GetString("MenuHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Tools.
         /// </summary>
         internal static string MenuTools {
@@ -553,6 +562,15 @@ namespace NetIde.Core {
         internal static string MenuToolsPackageManagement {
             get {
                 return ResourceManager.GetString("MenuToolsPackageManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Help.
+        /// </summary>
+        internal static string MenuViewHelp {
+            get {
+                return ResourceManager.GetString("MenuViewHelp", resourceCulture);
             }
         }
         
@@ -751,6 +769,24 @@ namespace NetIde.Core {
         internal static string PublishedDate {
             get {
                 return ResourceManager.GetString("PublishedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search results.
+        /// </summary>
+        internal static string SearchResults {
+            get {
+                return ResourceManager.GetString("SearchResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search results for.
+        /// </summary>
+        internal static string SearchResultsFor {
+            get {
+                return ResourceManager.GetString("SearchResultsFor", resourceCulture);
             }
         }
         

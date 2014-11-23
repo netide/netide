@@ -81,6 +81,10 @@ namespace NetIde.Core
                 Shell.NiResources.Edit_ReplaceInFiles,
                 p => ErrorUtil.ThrowOnFailure(_finder.OpenDialog(NiFindOptions.Replace | NiFindOptions.Project, NiFindOptions.ActionMask | NiFindOptions.TargetMask))
             );
+            _commandMapper.Add(
+                Shell.NiResources.Help_ViewHelp,
+                p => ErrorUtil.ThrowOnFailure(((INiHelp)GetService(typeof(INiHelp))).Home())
+            );
         }
 
         private NiCommandStatus CanSaveFile()

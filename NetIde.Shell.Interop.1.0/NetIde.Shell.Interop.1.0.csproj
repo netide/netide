@@ -54,6 +54,7 @@
     <Compile Include="INiFinder.cs" />
     <Compile Include="INiFindHelper.cs" />
     <Compile Include="INiFindTarget.cs" />
+    <Compile Include="INiHelp.cs" />
     <Compile Include="INiHierarchy.cs" />
     <Compile Include="INiHierarchyNotify.cs" />
     <Compile Include="INiIsolationClient.cs" />

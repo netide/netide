@@ -12,6 +12,8 @@ namespace NetIde.Util.Forms
         }
 
         public BrowseButton Button { get; private set; }
+
+        public bool Handled { get; set; }
     }
 
     public delegate void BrowseButtonEventHandler(object sender, BrowseButtonEventArgs e);

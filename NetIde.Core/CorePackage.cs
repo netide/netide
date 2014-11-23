@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using NetIde.Core.OptionPages.Environment;
 using NetIde.Core.Services.Finder;
+using NetIde.Core.Services.Help;
 using NetIde.Core.Services.LanguageServiceRegistry;
 using NetIde.Core.Services.NotificationManager;
 using NetIde.Core.Services.ProjectExplorer;
@@ -76,6 +77,11 @@ namespace NetIde.Core
                 serviceContainer.AddService(
                     typeof(INiNotificationManager),
                     new NiNotificationManager(this),
+                    true
+                );
+                serviceContainer.AddService(
+                    typeof(INiHelp),
+                    new NiHelp(this),
                     true
                 );
 

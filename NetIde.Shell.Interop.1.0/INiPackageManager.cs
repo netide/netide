@@ -8,5 +8,6 @@ namespace NetIde.Shell.Interop
     public interface INiPackageManager
     {
         HResult OpenPackageManager();
+        HResult GetInstallationPath(INiPackage package, out string path);
     }
 }

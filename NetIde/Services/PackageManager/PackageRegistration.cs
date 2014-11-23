@@ -46,7 +46,17 @@ namespace NetIde.Services.PackageManager
             try
             {
                 Package = LoadPackageIsolated();
+            }
+            catch (Exception ex)
+            {
+                throw new NetIdeException(String.Format(Labels.PackageInitializationFailed, _packagePath), ex);
+            }
+        }
 
+        public void InitializePackage()
+        {
+            try
+            {
                 ErrorUtil.ThrowOnFailure(Package.SetSite(_serviceProvider));
 
                 IResource resource;

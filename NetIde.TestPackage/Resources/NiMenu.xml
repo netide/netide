@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns="http://netide.github.io/netide-schemas/Resources.xsd">
-  <imports>
-    <import from="NetIde.Shell" type="NetIde.Shell.NiResources" prefix="Ni_" />
-  </imports>
-  <ui></ui>
+    <imports>
+        <import from="NetIde.Shell" type="NetIde.Shell.NiResources" prefix="Ni_" />
+    </imports>
+    <ui>
+        <menuRef id="Ni_Menu_Help">
+            <group priority="200">
+                <button guid="{2c086f2a-7675-4d95-aaeb-e0f19cd40d4f}" priority="100" text="@HelpTopic1"/>
+            </group>
+        </menuRef>
+    </ui>
 </resources>

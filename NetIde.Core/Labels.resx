@@ -373,4 +373,16 @@
   <data name="TotalNotifications" xml:space="preserve">
     <value>Total Notifications: {0}</value>
   </data>
+  <data name="MenuViewHelp" xml:space="preserve">
+    <value>View Help</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Search results</value>
+  </data>
+  <data name="SearchResultsFor" xml:space="preserve">
+    <value>Search results for</value>
+  </data>
+  <data name="MenuHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
 </root>

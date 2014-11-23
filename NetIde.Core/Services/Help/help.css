@@ -1,0 +1,69 @@
+﻿body {
+    font-family: 'Segoe UI',Tahoma,Verdana,Arial,sans-serif;
+    font-size: 10pt;
+}
+
+h1,h2,h3,h4,h5,h6,p,ul,ol,li {
+    font-weight: normal;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+ol,ul {
+    margin-left: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+a {
+    color: #00749e;
+    text-decoration: none;
+    vertical-align: baseline;
+}
+
+a:hover {
+    color: #0095c4;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #005179;
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+ol li {
+    list-style-position: outside;
+    margin-left: 2.5em;
+}
+
+ul li {
+    list-style-position: outside;
+    margin-left: 2em;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-family: 'Segoe UI Light','Segoe UI',Tahoma,Verdana,Arial,sans-serif;
+    font-size: 16pt;
+    color: #0ca696;
+}
+
+h2 {
+    font-family: 'Segoe UI Light','Segoe UI',Tahoma,Verdana,Arial,sans-serif;
+    font-size: 14pt;
+}
+
+span.search-query {
+    font-style: italic;
+}

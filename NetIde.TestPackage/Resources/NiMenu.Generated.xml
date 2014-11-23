@@ -5,5 +5,11 @@
     the code is regenerated.
 -->
 <resources xmlns="http://netide.github.io/netide-schemas/Resources.xsd">
-  <ui></ui>
+  <ui>
+    <menuRef id="Ni_Menu_Help" guid="{786A87C1-46E0-4198-BA05-9F84E028FEA8}">
+      <group priority="200">
+        <button guid="{2c086f2a-7675-4d95-aaeb-e0f19cd40d4f}" priority="100" text="@HelpTopic1" />
+      </group>
+    </menuRef>
+  </ui>
 </resources>

@@ -9,6 +9,8 @@ namespace NetIde.Shell
     {
         public static readonly Guid Menu_File = new Guid("047f8695-7b12-41d8-8ff3-82f3416a9e5d");
         public static readonly Guid Menu_Tools = new Guid("246a0692-718d-4751-8549-ecbc3f110d04");
+        public static readonly Guid Menu_Window = new Guid("4ac0d188-09a7-4225-b697-894c7d7c6a41");
+        public static readonly Guid Menu_Help = new Guid("786a87c1-46e0-4198-ba05-9f84e028fea8");
 
         public static readonly Guid File_Exit = new Guid("5e1bbd55-8d4a-4ce7-a504-e1f5bf4eed7f");
         public static readonly Guid File_OpenProject = new Guid("acf87dcf-df74-4f8e-bc95-b29be62d9de3");
@@ -34,5 +36,7 @@ namespace NetIde.Shell
         public static readonly Guid Edit_ReplaceInFiles = new Guid("278df93a-079b-4c58-aa80-5258d5d57947");
 
         public static readonly Guid Window_CloseAllDocuments = new Guid("5a8d22fa-ee34-4ea8-b62e-cef68915bfc3");
+
+        public static readonly Guid Help_ViewHelp = new Guid("ac076730-1811-4de3-a5d1-b0725bfa568d");
     }
 }

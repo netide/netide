@@ -278,44 +278,36 @@ namespace NetIde.Util.Forms
 
         protected override void WndProc(ref Message m)
         {
+            BrowseButtonEventArgs e;
+
             switch (m.Msg)
             {
                 case NativeMethods.WM_NCHITTEST:
                     WmNCHitTest(ref m);
                     return;
 
-                case NativeMethods.WM_PARENTNOTIFY:
-                    switch (NativeMethods.Util.LOWORD(m.WParam))
-                    {
-                        case NativeMethods.WM_XBUTTONDOWN:
-                            switch (NativeMethods.Util.HIWORD(m.WParam))
-                            {
-                                case NativeMethods.XBUTTON1:
-                                    OnBrowseButtonClick(new BrowseButtonEventArgs(BrowseButton.Back));
-                                    break;
-
-                                case NativeMethods.XBUTTON2:
-                                    OnBrowseButtonClick(new BrowseButtonEventArgs(BrowseButton.Forward));
-                                    break;
-                            }
-                            break;
-                    }
-                    break;
-
                 case NativeMethods.WM_APPCOMMAND:
-                    int cmd = NativeMethods.Util.HIWORD(m.LParam) & ~0xf000;
-
-                    switch (cmd)
+                    switch (NativeMethods.Util.HIWORD(m.LParam) & ~0xf000)
                     {
                         case NativeMethods.APPCOMMAND_BROWSER_BACKWARD:
-                            OnBrowseButtonClick(new BrowseButtonEventArgs(BrowseButton.Back));
-                            m.Result = (IntPtr)1;
-                            return;
+                            e = new BrowseButtonEventArgs(BrowseButton.Back);
+                            OnBrowseButtonClick(e);
+                            if (e.Handled)
+                            {
+                                m.Result = (IntPtr)1;
+                                return;
+                            }
+                            break;
 
                         case NativeMethods.APPCOMMAND_BROWSER_FORWARD:
-                            OnBrowseButtonClick(new BrowseButtonEventArgs(BrowseButton.Forward));
-                            m.Result = (IntPtr)1;
-                            return;
+                            e = new BrowseButtonEventArgs(BrowseButton.Forward);
+                            OnBrowseButtonClick(e);
+                            if (e.Handled)
+                            {
+                                m.Result = (IntPtr)1;
+                                return;
+                            }
+                            break;
                     }
                     break;
             }
