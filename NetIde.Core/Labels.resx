@@ -385,4 +385,13 @@
   <data name="MenuHelp" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="NeedAssistance" xml:space="preserve">
+    <value>Need assistance?</value>
+  </data>
+  <data name="UseHelpButton" xml:space="preserve">
+    <value>To get help with a specific screen, use the help button on the screen itself.</value>
+  </data>
+  <data name="UseSearchBox" xml:space="preserve">
+    <value>Use the search box to find an answer to your question.</value>
+  </data>
 </root>

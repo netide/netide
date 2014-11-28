@@ -44,7 +44,11 @@ namespace NetIde.Core.OptionPages.Environment
             INiCommandBarButton[] buttons;
             ErrorUtil.ThrowOnFailure(_mappings.GetAllButtons(out buttons));
 
-            _buttons = buttons.Select(p => new Registration(p)).OrderBy(p => p.Code).ToList();
+            _buttons = buttons
+                .Where(p => p.Code != null)
+                .Select(p => new Registration(p))
+                .OrderBy(p => p.Code)
+                .ToList();
 
             ReloadList();
         }

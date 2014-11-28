@@ -93,8 +93,6 @@ namespace NetIde.TestPackage
 
             ErrorUtil.ThrowOnFailure(help.Register("test", helpFileName));
 #endif
-
-            ErrorUtil.ThrowOnFailure(help.SetDefaultRoot("test"));
         }
     }
 }

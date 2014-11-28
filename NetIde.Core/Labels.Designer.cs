@@ -629,6 +629,15 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Need assistance?.
+        /// </summary>
+        internal static string NeedAssistance {
+            get {
+                return ResourceManager.GetString("NeedAssistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No more occurences found in the specified documents..
         /// </summary>
         internal static string NoMoreConcurrences {
@@ -850,6 +859,24 @@ namespace NetIde.Core {
         internal static string Updates {
             get {
                 return ResourceManager.GetString("Updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To get help with a specific screen, use the help button on the screen itself..
+        /// </summary>
+        internal static string UseHelpButton {
+            get {
+                return ResourceManager.GetString("UseHelpButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the search box to find an answer to your question..
+        /// </summary>
+        internal static string UseSearchBox {
+            get {
+                return ResourceManager.GetString("UseSearchBox", resourceCulture);
             }
         }
         

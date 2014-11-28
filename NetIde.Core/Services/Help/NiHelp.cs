@@ -43,7 +43,6 @@ namespace NetIde.Core.Services.Help
             }
         } 
 
-        private string _defaultRoot;
         private HelpServer _server;
         private HelpForm _form;
         private readonly List<HelpRegistration> _registrations = new List<HelpRegistration>();
@@ -97,6 +96,39 @@ namespace NetIde.Core.Services.Help
                 e.Stream = new MemoryStream(bytes);
             else if (path == "/find")
                 e.Stream = PerformFind(e.Url);
+            else if (path == "/")
+                e.Stream = PerformRoot();
+        }
+
+        private Stream PerformRoot()
+        {
+            var writer = new HtmlWriter();
+
+            FormatHome(writer);
+
+            return new MemoryStream(Encoding.UTF8.GetBytes(writer.ToString()));
+        }
+
+        private void FormatHome(HtmlWriter writer)
+        {
+            writer.OpenTag("html");
+
+            FormatHead(writer);
+            FormatHomeBody(writer);
+
+            writer.CloseTag();
+        }
+
+        private void FormatHomeBody(HtmlWriter writer)
+        {
+            writer.OpenTag("body").Attribute("class", "search-results");
+
+            writer.OpenTag("h1").Text(Labels.NeedAssistance).CloseTag();
+
+            writer.OpenTag("p").Text(Labels.UseSearchBox).CloseTag();
+            writer.OpenTag("p").Text(Labels.UseHelpButton).CloseTag();
+
+            writer.CloseTag();
         }
 
         private Stream PerformFind(string url)
@@ -124,7 +156,7 @@ namespace NetIde.Core.Services.Help
             writer.OpenTag("html");
 
             FormatHead(writer);
-            FormatBody(writer, query, hits);
+            FormatSearchResultsBody(writer, query, hits);
 
             writer.CloseTag();
         }
@@ -140,7 +172,7 @@ namespace NetIde.Core.Services.Help
             writer.CloseTag();
         }
 
-        private void FormatBody(HtmlWriter writer, string query, IList<HelpSearchResult> hits)
+        private void FormatSearchResultsBody(HtmlWriter writer, string query, IList<HelpSearchResult> hits)
         {
             writer.OpenTag("body").Attribute("class", "search-results");
 
@@ -340,8 +372,7 @@ namespace NetIde.Core.Services.Help
                 _form = new HelpForm();
                 _form.Find += _form_Find;
                 _form.Disposed += (s, e) => _form = null;
-
-                UpdateHome();
+                _form.Home = String.Format("http://localhost:{0}/", GetServer().EndPoint.Port);
             }
 
             return _form;
@@ -359,16 +390,6 @@ namespace NetIde.Core.Services.Help
                 GetServer().EndPoint.Port ,
                 Uri.EscapeDataString(text)
             ));
-        }
-
-        private void UpdateHome()
-        {
-            if (_form == null)
-                return;
-
-            _form.Home = _defaultRoot != null
-                ? String.Format("http://localhost:{0}/{1}/", GetServer().EndPoint.Port, _defaultRoot)
-                : null;
         }
 
         public HResult Show()
@@ -443,22 +464,6 @@ namespace NetIde.Core.Services.Help
                     root,
                     path
                 ));
-
-                return HResult.OK;
-            }
-            catch (Exception ex)
-            {
-                return ErrorUtil.GetHResult(ex);
-            }
-        }
-
-        public HResult SetDefaultRoot(string root)
-        {
-            try
-            {
-                _defaultRoot = root;
-
-                UpdateHome();
 
                 return HResult.OK;
             }

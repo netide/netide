@@ -11,7 +11,6 @@ namespace NetIde.Shell.Interop
         HResult Hide();
         HResult Home();
         HResult Navigate(string root, string path);
-        HResult SetDefaultRoot(string root);
         HResult Register(string root, string source);
     }
 }
