@@ -67,3 +67,7 @@ h2 {
 span.search-query {
     font-style: italic;
 }
+
+code, pre {
+    font-family: Consolas,'Courier New',mono;
+}

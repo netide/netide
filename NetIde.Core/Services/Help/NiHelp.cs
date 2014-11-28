@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Actions;
 using NetIde.Help;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -15,8 +13,8 @@ namespace NetIde.Core.Services.Help
 {
     internal class NiHelp : ServiceBase, INiHelp
     {
-        private const int SearchResultLeading = 100;
-        private const int SearchResultMaxLength = 300;
+        private const int SearchResultLeading = 60;
+        private const int SearchResultMaxLength = 160;
         private static readonly Dictionary<string, byte[]> Resources = LoadResources();
 
         private static Dictionary<string, byte[]> LoadResources()
