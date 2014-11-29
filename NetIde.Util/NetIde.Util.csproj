@@ -87,6 +87,9 @@
     <Compile Include="Forms\EmulateTaskDialog.Designer.cs">
       <DependentUpon>EmulateTaskDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InformationCollection.cs" />
+    <Compile Include="Forms\InformationIcon.cs" />
+    <Compile Include="Forms\InformationItem.cs" />
     <Compile Include="Forms\ListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,6 +166,9 @@
     <Compile Include="IKeyedCollection.cs" />
     <Compile Include="ImageFileType.cs" />
     <Compile Include="ImageListManager.cs" />
+    <Compile Include="Forms\InformationBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="KeyedCollection.cs" />
     <Compile Include="Labels.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -244,6 +250,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TaskDialog_Shield.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InformationBarClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InformationBarLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InformationBarRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

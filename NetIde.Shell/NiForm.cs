@@ -29,7 +29,7 @@ namespace NetIde.Shell
                 if (value == null)
                     value = String.Empty;
 
-                if (!HelpTopicRe.IsMatch(value))
+                if (value.Length > 0 && !HelpTopicRe.IsMatch(value))
                     throw new ArgumentException("Help topic must be formatted as \"root:path\"");
 
                 if (_helpTopic != value)
