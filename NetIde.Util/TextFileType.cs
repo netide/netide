@@ -163,12 +163,12 @@ namespace NetIde.Util
                 }
             }
 
-            stream.Position = 0;
-
             double printRatio = (double)printChars / stream.Position;
             double nullRatio = (double)nullChars / stream.Position;
             double evenNullRatio = (double)evenNullChars / stream.Position;
             double oddNullRatio = (double)oddNullChars / stream.Position;
+
+            stream.Position = 0;
 
             // Could this be UTF-16?
 
