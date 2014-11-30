@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,14 @@ namespace NetIde.Util.Forms
     public class ListView : System.Windows.Forms.ListView
     {
         public event ContextEventHandler Context;
+
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        public new bool DoubleBuffered
+        {
+            get { return base.DoubleBuffered; }
+            set { base.DoubleBuffered = value; }
+        }
 
         protected virtual void OnContext(ContextEventArgs e)
         {
@@ -42,6 +51,22 @@ namespace NetIde.Util.Forms
             }
 
             base.WndProc(ref m);
+        }
+
+        /// <summary>
+        /// Removes all list view items without calling Items.Clear.
+        /// </summary>
+        /// <remarks>
+        /// The reason for using this method is that the scroll position is maintained
+        /// when clearing a list view in this manner. Items.Clear resets the
+        /// scroll position to the top of the list view.
+        /// </remarks>
+        public void ClearItems()
+        {
+            while (Items.Count > 0)
+            {
+                Items.RemoveAt(Items.Count - 1);
+            }
         }
     }
 }
