@@ -376,7 +376,7 @@ namespace NetIde.Util.Forms
                 this.flowLayoutPanelMainAreaControls.Controls.Add ( this.progressBar );
             }
 
-            for ( int i = 0; i < this.taskDialog.RadioButtons.Length; i++ )
+            for ( int i = 0; i < this.taskDialog.RadioButtons.Count; i++ )
             {
                 RadioButton radioButton = new RadioButton ( );
                 radioButton.Text = this.taskDialog.RadioButtons[i].ButtonText;
@@ -394,7 +394,7 @@ namespace NetIde.Util.Forms
             // Command links.
             if ( this.taskDialog.UseCommandLinks )
             {
-                for ( int i = 0; i < this.taskDialog.Buttons.Length; i++ )
+                for ( int i = 0; i < this.taskDialog.Buttons.Count; i++ )
                 {
                     EmulateCommandLink cmdLink = new EmulateCommandLink ( );
                     cmdLink.Click += new EventHandler ( button_Click );
@@ -452,7 +452,7 @@ namespace NetIde.Util.Forms
             // Right side of the sub control area.
             // If there is no button, by default there will be an "Okay" button.
             if ( this.taskDialog.CommonButtons.Equals ( TaskDialogCommonButtons.None ) &&
-                this.taskDialog.Buttons.Length == 0 )
+                this.taskDialog.Buttons.Count == 0 )
             {
                 this.flowLayoutPanelSubAreaButtons.Controls.Add ( BuildControlButton ( (int)DialogResult.OK, DialogResult.OK.ToString ( ) ) );
             }
@@ -494,7 +494,7 @@ namespace NetIde.Util.Forms
                                 button = BuildControlButton ( (int)result, result.ToString ( ) );
                             }
 
-                            button.TabIndex = i + this.taskDialog.Buttons.Length;
+                            button.TabIndex = i + this.taskDialog.Buttons.Count;
 
                             this.flowLayoutPanelSubAreaButtons.Controls.Add ( button );
 
@@ -507,7 +507,7 @@ namespace NetIde.Util.Forms
                 // is right to left.
                 if ( !this.taskDialog.UseCommandLinks )
                 {
-                    for ( int i = this.taskDialog.Buttons.Length - 1; i >= 0; i-- )
+                    for ( int i = this.taskDialog.Buttons.Count - 1; i >= 0; i-- )
                     {
                         Button button = BuildControlButton ( this.taskDialog.Buttons[i].ButtonId, this.taskDialog.Buttons[i].ButtonText );
                         this.flowLayoutPanelSubAreaButtons.Controls.Add ( button );
@@ -545,7 +545,7 @@ namespace NetIde.Util.Forms
         /// </summary>
         private void CloseForm ( )
         {
-            if ( taskDialog.RadioButtons.Length > 0 )
+            if ( taskDialog.RadioButtons.Count > 0 )
             {
                 // Check all the radio buttons.
                 foreach ( Control control in this.flowLayoutPanelMainAreaControls.Controls )

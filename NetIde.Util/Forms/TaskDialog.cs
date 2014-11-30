@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -37,13 +38,14 @@ namespace NetIde.Util.Forms
 
         public static string DefaultWindowTitle { get; set; }
 
-        private TaskDialogButton[] _buttons;
-        private TaskDialogButton[] _radioButtons;
         private NativeMethods.TASKDIALOG_FLAGS _flags;
         private EmulateTaskDialog _emulateTaskDialog;
 
         public TaskDialog()
         {
+            Buttons = new TaskDialogButtonCollection();
+            RadioButtons = new TaskDialogButtonCollection();
+
             Reset();
         }
 
@@ -81,37 +83,11 @@ namespace NetIde.Util.Forms
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")] // Style of use is like single value. Array is of value types.
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")] // Returns a reference, not a copy.
-        public TaskDialogButton[] Buttons
-        {
-            get
-            {
-                return _buttons;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                _buttons = value;
-            }
-        }
+        public TaskDialogButtonCollection Buttons { get; private set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")] // Style of use is like single value. Array is of value types.
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")] // Returns a reference, not a copy.
-        public TaskDialogButton[] RadioButtons
-        {
-            get
-            {
-                return _radioButtons;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                _radioButtons = value;
-            }
-        }
+        public TaskDialogButtonCollection RadioButtons { get; private set; }
 
         public bool EnableHyperlinks
         {
@@ -228,8 +204,8 @@ namespace NetIde.Util.Forms
             CustomMainIcon = null;
             FooterIcon = TaskDialogIcon.None;
             CustomFooterIcon = null;
-            _buttons = new TaskDialogButton[0];
-            _radioButtons = new TaskDialogButton[0];
+            Buttons.Clear();
+            RadioButtons.Clear();
             _flags = 0;
             DefaultButton = 0;
             DefaultRadioButton = 0;
@@ -368,7 +344,7 @@ namespace NetIde.Util.Forms
                     config.pszContent = Content;
                 }
 
-                TaskDialogButton[] customButtons = _buttons;
+                TaskDialogButton[] customButtons = Buttons.ToArray();
                 if (customButtons.Length > 0)
                 {
                     // Hand marshal the buttons array.
@@ -382,7 +358,7 @@ namespace NetIde.Util.Forms
                     }
                 }
 
-                TaskDialogButton[] customRadioButtons = _radioButtons;
+                TaskDialogButton[] customRadioButtons = RadioButtons.ToArray();
                 if (customRadioButtons.Length > 0)
                 {
                     // Hand marshal the buttons array.
@@ -473,29 +449,25 @@ namespace NetIde.Util.Forms
 
             if (
                 CommonButtons == TaskDialogCommonButtons.None ||
-                (UseCommandLinks && Buttons.Length > 0)
+                (UseCommandLinks && Buttons.Count > 0)
             )
                 return;
 
-            var buttons = new List<TaskDialogButton>(Buttons);
-
-            PerformTranslateButton(buttons, TaskDialogCommonButtons.OK, DialogResult.OK, Labels.Button_OK);
-            PerformTranslateButton(buttons, TaskDialogCommonButtons.Yes, DialogResult.Yes, Labels.Button_Yes);
-            PerformTranslateButton(buttons, TaskDialogCommonButtons.No, DialogResult.No, Labels.Button_No);
-            PerformTranslateButton(buttons, TaskDialogCommonButtons.Retry, DialogResult.Retry, Labels.Button_Retry);
-            PerformTranslateButton(buttons, TaskDialogCommonButtons.Close, DialogResult.OK, Labels.Button_Close);
-            PerformTranslateButton(buttons, TaskDialogCommonButtons.Cancel, DialogResult.Cancel, Labels.Button_Cancel);
-
-            Buttons = buttons.ToArray();
+            PerformTranslateButton(TaskDialogCommonButtons.OK, DialogResult.OK, Labels.Button_OK);
+            PerformTranslateButton(TaskDialogCommonButtons.Yes, DialogResult.Yes, Labels.Button_Yes);
+            PerformTranslateButton(TaskDialogCommonButtons.No, DialogResult.No, Labels.Button_No);
+            PerformTranslateButton(TaskDialogCommonButtons.Retry, DialogResult.Retry, Labels.Button_Retry);
+            PerformTranslateButton(TaskDialogCommonButtons.Close, DialogResult.OK, Labels.Button_Close);
+            PerformTranslateButton(TaskDialogCommonButtons.Cancel, DialogResult.Cancel, Labels.Button_Cancel);
 
             CommonButtons = TaskDialogCommonButtons.None;
         }
 
-        private void PerformTranslateButton(List<TaskDialogButton> buttons, TaskDialogCommonButtons button, DialogResult dialogResult, string label)
+        private void PerformTranslateButton(TaskDialogCommonButtons button, DialogResult dialogResult, string label)
         {
             if ((CommonButtons & button) != 0)
             {
-                buttons.Add(new TaskDialogButton
+                Buttons.Add(new TaskDialogButton
                 {
                     ButtonId = (int)dialogResult,
                     ButtonText = label

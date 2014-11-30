@@ -97,6 +97,7 @@
     <Compile Include="Forms\TaskDialog.cs" />
     <Compile Include="Forms\TaskDialog.Show.cs" />
     <Compile Include="Forms\TaskDialogButton.cs" />
+    <Compile Include="Forms\TaskDialogButtonCollection.cs" />
     <Compile Include="Forms\TaskDialogCommonButtons.cs" />
     <Compile Include="Forms\TaskDialogIcon.cs" />
     <Compile Include="Forms\TaskDialogNotification.cs" />
