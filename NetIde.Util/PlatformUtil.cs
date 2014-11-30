@@ -91,5 +91,20 @@ namespace NetIde.Util
                 }
             }
         }
+
+        public static string GetLineTermination(LineTermination mode)
+        {
+            switch (mode)
+            {
+                case LineTermination.Pc:
+                    return "\r\n";
+                case LineTermination.Unix:
+                    return "\n";
+                case LineTermination.Mac:
+                    return "\r";
+                default:
+                    throw new ArgumentOutOfRangeException("mode");
+            }
+        }
     }
 }
