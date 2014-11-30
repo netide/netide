@@ -7,6 +7,6 @@ namespace NetIde.Shell.Interop
 {
     public interface INiDiffViewerWindowNotify
     {
-        void OnStateChanged();
+        void OnModeChanged();
     }
 }

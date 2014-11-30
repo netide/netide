@@ -8,9 +8,11 @@ namespace NetIde.Shell.Interop
     public interface INiDiffViewerWindow : INiWindowPane, INiConnectionPoint
     {
         HResult Advise(INiDiffViewerWindowNotify sink, out int cookie);
-        HResult GetState(out NiDiffViewerState state);
-        HResult SetState(NiDiffViewerState state);
+        HResult GetMode(out NiDiffViewerMode mode);
+        HResult SetMode(NiDiffViewerMode mode);
         HResult Reset();
         HResult Load(IStream left, IStream right);
+        HResult SetReadOnly(bool readOnly);
+        HResult GetReadOnly(out bool readOnly);
     }
 }

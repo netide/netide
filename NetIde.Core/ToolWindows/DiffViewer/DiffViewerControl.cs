@@ -7,8 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Core.Settings;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
+using NetIde.Shell.Settings;
 using NetIde.Util;
 
 namespace NetIde.Core.ToolWindows.DiffViewer
@@ -16,21 +18,33 @@ namespace NetIde.Core.ToolWindows.DiffViewer
     public partial class DiffViewerControl : NetIde.Util.Forms.UserControl
     {
         private Control _currentViewer;
-        private NiDiffViewerState _state;
+        private NiDiffViewerMode _mode;
 
-        public NiDiffViewerState State
+        public NiDiffViewerMode Mode
         {
-            get { return _state; }
+            get { return _mode; }
             set
             {
-                if (_state != value)
+                if (_mode != value)
                 {
-                    _state = value;
-                    _textViewer.UnifiedDiff = (value & NiDiffViewerState.Unified) != 0;
+                    _mode = value;
 
-                    OnStateChanged(EventArgs.Empty);
+                    if (value == NiDiffViewerMode.Default)
+                        value = GetDefaultMode();
+
+                    _textViewer.UnifiedDiff = value == NiDiffViewerMode.Unified;
+
+                    OnModeChanged(EventArgs.Empty);
                 }
             }
+        }
+
+        [DefaultValue(true)]
+        [Browsable(false)]
+        public bool ReadOnly
+        {
+            get { return _textViewer.ReadOnly; }
+            set { _textViewer.ReadOnly = value; }
         }
 
         public override ISite Site
@@ -40,6 +54,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             {
                 base.Site = value;
 
+                _textViewer.UnifiedDiff = GetDefaultMode() == NiDiffViewerMode.Unified;
+
                 foreach (Control control in Controls)
                 {
                     control.Site = value;
@@ -47,11 +63,11 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             }
         }
 
-        public event EventHandler StateChanged;
+        public event EventHandler ModeChanged;
 
-        protected virtual void OnStateChanged(EventArgs e)
+        protected virtual void OnModeChanged(EventArgs e)
         {
-            var ev = StateChanged;
+            var ev = ModeChanged;
             if (ev != null)
                 ev(this, e);
         }
@@ -167,10 +183,27 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         private void _textViewer_UnifiedDiffChanged(object sender, EventArgs e)
         {
+            NiDiffViewerMode mode;
+
             if (_textViewer.UnifiedDiff)
-                State |= NiDiffViewerState.Unified;
+                mode = NiDiffViewerMode.Unified;
             else
-                State &= ~NiDiffViewerState.Unified;
+                mode = NiDiffViewerMode.SideBySide;
+
+            if (Mode != NiDiffViewerMode.Default)
+                Mode = mode;
+            else
+                SetDefaultMode(mode);
+        }
+
+        private NiDiffViewerMode GetDefaultMode()
+        {
+            return SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode;
+        }
+
+        private void SetDefaultMode(NiDiffViewerMode mode)
+        {
+            SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode = mode;
         }
     }
 }

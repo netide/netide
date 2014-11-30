@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Util.Forms;
 using NGit.Diff;
 using NetIde.Core.Support;
 using NetIde.Shell.Interop;
@@ -42,6 +43,14 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     OnUnifiedDiffChanged(EventArgs.Empty);
                 }
             }
+        }
+
+        [Browsable(false)]
+        [DefaultValue(true)]
+        public bool ReadOnly
+        {
+            get { return _sideBySideViewer.ReadOnly; }
+            set { _sideBySideViewer.ReadOnly = value; }
         }
 
         public override ISite Site

@@ -44,9 +44,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.TextEditor, Version=3.3.3.6478, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.TextEditor, Version=3.3.5.6482, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NetIde.ICSharpCode.TextEditor.3.3.3.6477\lib\net20\ICSharpCode.TextEditor.dll</HintPath>
+      <HintPath>..\packages\NetIde.ICSharpCode.TextEditor.3.3.5.6482\lib\net20\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -183,6 +183,7 @@
     <Compile Include="Services\NotificationManager\NotificationItem.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\ProjectExplorer\NiProjectExplorer.cs" />
+    <Compile Include="Settings\IDiffViewerSettings.cs" />
     <Compile Include="Settings\IFinderSettings.cs" />
     <Compile Include="Settings\IFontSettings.cs" />
     <Compile Include="Support\SelectionItem.cs" />
@@ -208,6 +209,12 @@
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\DiffViewer\IViewer.cs" />
+    <Compile Include="ToolWindows\DiffViewer\SideBySideLineClickedEventHandler.cs" />
+    <Compile Include="ToolWindows\DiffViewer\SideBySideMarker.cs" />
+    <Compile Include="ToolWindows\DiffViewer\SideBySideMarkerMapControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolWindows\DiffViewer\SideBySideMarkerType.cs" />
     <Compile Include="ToolWindows\DiffViewer\SideBySideViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>

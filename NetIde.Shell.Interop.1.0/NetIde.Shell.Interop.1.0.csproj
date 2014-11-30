@@ -101,7 +101,7 @@
     <Compile Include="INiWindowPaneSelectionNotify.cs" />
     <Compile Include="NiCommandBarGroupAlign.cs" />
     <Compile Include="NiCommandBarTextBoxStyle.cs" />
-    <Compile Include="NiDiffViewerState.cs" />
+    <Compile Include="NiDiffViewerMode.cs" />
     <Compile Include="INiDiffViewerWindow.cs" />
     <Compile Include="INiDiffViewerWindowNotify.cs" />
     <Compile Include="IStream.cs" />

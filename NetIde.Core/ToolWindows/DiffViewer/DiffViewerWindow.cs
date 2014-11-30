@@ -16,13 +16,13 @@ namespace NetIde.Core.ToolWindows.DiffViewer
     {
         private readonly NiConnectionPoint<INiDiffViewerWindowNotify> _connectionPoint = new NiConnectionPoint<INiDiffViewerWindowNotify>();
 
-        public HResult GetState(out NiDiffViewerState state)
+        public HResult GetMode(out NiDiffViewerMode mode)
         {
-            state = 0;
+            mode = 0;
 
             try
             {
-                state = Control.State;
+                mode = Control.Mode;
 
                 return HResult.OK;
             }
@@ -32,11 +32,41 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             }
         }
 
-        public HResult SetState(NiDiffViewerState state)
+        public HResult SetMode(NiDiffViewerMode mode)
         {
             try
             {
-                Control.State = state;
+                Control.Mode = mode;
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult SetReadOnly(bool readOnly)
+        {
+            try
+            {
+                Control.ReadOnly = readOnly;
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult GetReadOnly(out bool readOnly)
+        {
+            readOnly = false;
+
+            try
+            {
+                readOnly = Control.ReadOnly;
 
                 return HResult.OK;
             }
@@ -70,15 +100,15 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         {
             var control = new DiffViewerControl();
 
-            control.StateChanged += control_StateChanged;
+            control.ModeChanged += control_ModeChanged;
             control.Site = new SiteProxy(this);
 
             return control;
         }
 
-        void control_StateChanged(object sender, EventArgs e)
+        void control_ModeChanged(object sender, EventArgs e)
         {
-            _connectionPoint.ForAll(p => p.OnStateChanged());
+            _connectionPoint.ForAll(p => p.OnModeChanged());
         }
 
         public HResult Reset()

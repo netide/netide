@@ -5,9 +5,10 @@ using System.Text;
 
 namespace NetIde.Shell.Interop
 {
-    [Flags]
-    public enum NiDiffViewerState
+    public enum NiDiffViewerMode
     {
-        Unified = 1
+        Default,
+        Unified,
+        SideBySide
     }
 }

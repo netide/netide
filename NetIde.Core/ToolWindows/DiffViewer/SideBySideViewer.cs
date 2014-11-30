@@ -7,7 +7,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using NGit.Diff;
 using NetIde.Core.Settings;
@@ -21,21 +20,53 @@ namespace NetIde.Core.ToolWindows.DiffViewer
     {
         private static readonly Color RedColor = Color.FromArgb(255, 200, 200);
         private static readonly Color GreenColor = Color.FromArgb(200, 255, 200);
+        private static readonly Color BlueColor = Color.FromArgb(202, 194, 255);
 
         private StringBuilder _leftOut;
         private StringBuilder _rightOut;
         private List<TextMarker> _leftMarkers;
         private List<TextMarker> _rightMarkers;
+        private List<SideBySideMarker> _markers; 
+        private bool _readOnly = true;
+
+        [Browsable(false)]
+        [DefaultValue(true)]
+        public bool ReadOnly
+        {
+            get { return _readOnly; }
+            set { _readOnly = value; }
+        }
 
         public SideBySideViewer()
         {
             InitializeComponent();
+
+            _leftEditor.ActiveTextAreaControl.VScrollBar.Visible = false;
+            _rightEditor.ActiveTextAreaControl.VScrollBar.Visible = false;
+
+            _leftEditor.ActiveTextAreaControl.VScrollBar.ValueChanged += (s, e) => UpdateVisibleLines();
+            _leftEditor.ActiveTextAreaControl.ScrollBarsAdjusted += (s, e) => UpdateVisibleLines();
+
+            UpdateMarkerPadding();
 
             _leftEditor.IsReadOnly = true;
             _rightEditor.IsReadOnly = true;
 
             SyncTo(_leftEditor, _rightEditor);
             SyncTo(_rightEditor, _leftEditor);
+        }
+
+        private void UpdateVisibleLines()
+        {
+            var vScrollBar = _leftEditor.ActiveTextAreaControl.VScrollBar;
+
+            int value = vScrollBar.Value;
+            int maximum = vScrollBar.Maximum;
+
+            double rangeStart = (double)value / maximum;
+            double rangeEnd = (double)(value + vScrollBar.LargeChange) / maximum;
+
+            _markerMap.UpdateVisibleRange(rangeStart, rangeEnd);
         }
 
         public override ISite Site
@@ -86,6 +117,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _rightOut = new StringBuilder();
             _leftMarkers = new List<TextMarker>();
             _rightMarkers = new List<TextMarker>();
+            _markers = new List<SideBySideMarker>();
 
             Format(editList, leftText, rightText);
 
@@ -99,31 +131,55 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _rightMarkers.ForEach(p => _rightEditor.Document.MarkerStrategy.AddMarker(p));
             _rightEditor.Refresh();
 
+            // This is the algorithm ICSharpTextEditor uses to determine the
+            // full size of the scroll bar.
+            int visibleLines =
+                _rightEditor.Document.GetVisibleLine(_rightEditor.Document.TotalNumberOfLines - 1) + 1 +
+                _rightEditor.ActiveTextAreaControl.TextArea.TextView.VisibleLineCount * 2 / 3;
+
+            _markerMap.SetMarkers(_markers, visibleLines);
+            UpdateVisibleLines();
+
             _leftOut = null;
             _rightOut = null;
             _leftMarkers = null;
             _rightMarkers = null;
+            _markers = null;
         }
 
         private void Format(EditList edits, Text a, Text b)
         {
             int curA = 0;
+            int rightOffset = 0;
 
             foreach (var edit in edits)
             {
                 for (int i = curA; i < edit.GetBeginA(); i++)
                 {
                     WriteContextLine(a, i);
+                    rightOffset++;
                 }
 
                 for (curA = edit.GetBeginA(); curA < edit.GetEndA(); curA++)
                 {
-                    WriteLine(_leftOut, _leftMarkers, a, curA, edit.GetType() == Edit.Type.REPLACE);
+                    WriteLine(_leftOut, _leftMarkers, a, curA, edit.GetType());
+                }
+
+                if (edit.GetEndB() > edit.GetBeginB())
+                {
+                    _markers.Add(new SideBySideMarker(
+                        edit.GetType() == Edit.Type.REPLACE
+                            ? SideBySideMarkerType.Changed
+                            : SideBySideMarkerType.Added,
+                        rightOffset,
+                        edit.GetEndB() - edit.GetBeginB()
+                    ));
                 }
 
                 for (int curB = edit.GetBeginB(); curB < edit.GetEndB(); curB++)
                 {
-                    WriteLine(_rightOut, _rightMarkers, b, curB, edit.GetType() == Edit.Type.REPLACE);
+                    WriteLine(_rightOut, _rightMarkers, b, curB, edit.GetType());
+                    rightOffset++;
                 }
 
                 for (int i = edit.GetLengthB() - edit.GetLengthA(); i > 0; i--)
@@ -131,15 +187,20 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     WriteEmptyLine(_leftOut, _leftMarkers);
                 }
 
+                if (edit.GetLengthA() > edit.GetLengthB())
+                    _markers.Add(new SideBySideMarker(SideBySideMarkerType.Removed, rightOffset, edit.GetLengthA() - edit.GetLengthB()));
+
                 for (int i = edit.GetLengthA() - edit.GetLengthB(); i > 0; i--)
                 {
                     WriteEmptyLine(_rightOut, _rightMarkers);
+                    rightOffset++;
                 }
             }
 
             for (; curA < a.Size(); curA++)
             {
                 WriteContextLine(a, curA);
+                rightOffset++;
             }
         }
 
@@ -165,17 +226,34 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             WriteLine(_rightOut, text, line);
         }
 
-        private void WriteLine(StringBuilder @out, List<TextMarker> markers, Text text, int line, bool changed)
+        private void WriteLine(StringBuilder @out, List<TextMarker> markers, Text text, int line, Edit.Type editType)
         {
             int start = @out.Length;
             WriteLine(@out, text, line);
             int end = @out.Length;
 
+            Color color;
+
+            switch (editType)
+            {
+                case Edit.Type.INSERT:
+                    color = GreenColor;
+                    break;
+                case Edit.Type.DELETE:
+                    color = RedColor;
+                    break;
+                case Edit.Type.REPLACE:
+                    color = BlueColor;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("editType");
+            }
+
             markers.Add(new TextMarker(
                 start,
                 end - start,
                 TextMarkerType.SolidBlock | TextMarkerType.ExtendToBorder,
-                changed ? RedColor : GreenColor
+                color
             ));
         }
 
@@ -191,6 +269,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _leftEditor.Refresh();
             _rightEditor.Text = null;
             _rightEditor.Refresh();
+
+            _markerMap.SetMarkers(null, 0);
         }
 
         private void _leftDetails_ContentTypeSelected(object sender, EventArgs e)
@@ -201,6 +281,38 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private void _rightDetails_ContentTypeSelected(object sender, EventArgs e)
         {
             _rightEditor.SetHighlighting(_rightDetails.ContentType);
+        }
+
+        private void _leftDetails_SizeChanged(object sender, EventArgs e)
+        {
+            UpdateMarkerPadding();
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
+            UpdateMarkerPadding();
+        }
+
+        private void UpdateMarkerPadding()
+        {
+            var editorTop = _leftEditor.PointToScreen(new Point(0, 0));
+            var editorBottom = _leftEditor.PointToScreen(new Point(0, _leftEditor.Height));
+            var markerTop = _markerMap.PointToScreen(new Point(0, 0));
+            var markerBottom = _markerMap.PointToScreen(new Point(0, _markerMap.Height));
+
+            _markerMap.Padding = new Padding(
+                2,
+                editorTop.Y - markerTop.Y,
+                0,
+                markerBottom.Y - editorBottom.Y
+            );
+        }
+
+        private void _markerMap_LineClicked(object sender, SideBySideLineClickedEventArgs e)
+        {
+            _leftEditor.ActiveTextAreaControl.CenterViewOn(e.Line, -1);
         }
     }
 }

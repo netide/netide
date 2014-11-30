@@ -35,6 +35,7 @@
             this.themedPanel2 = new NetIde.Util.Forms.ThemedPanel();
             this._rightEditor = new NetIde.Core.TextEditorControl();
             this._rightDetails = new NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl();
+            this._markerMap = new NetIde.Core.ToolWindows.DiffViewer.SideBySideMarkerMapControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,8 +59,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.themedPanel2);
             this.splitContainer1.Panel2.Controls.Add(this._rightDetails);
-            this.splitContainer1.Size = new System.Drawing.Size(500, 500);
-            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.Size = new System.Drawing.Size(484, 500);
+            this.splitContainer1.SplitterDistance = 238;
             this.splitContainer1.TabIndex = 1;
             // 
             // themedPanel1
@@ -68,7 +69,7 @@
             this.themedPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.themedPanel1.Location = new System.Drawing.Point(0, 25);
             this.themedPanel1.Name = "themedPanel1";
-            this.themedPanel1.Size = new System.Drawing.Size(247, 475);
+            this.themedPanel1.Size = new System.Drawing.Size(238, 475);
             this.themedPanel1.TabIndex = 2;
             // 
             // _leftEditor
@@ -78,7 +79,7 @@
             this._leftEditor.Location = new System.Drawing.Point(1, 1);
             this._leftEditor.Name = "_leftEditor";
             this._leftEditor.ShowLineNumbers = false;
-            this._leftEditor.Size = new System.Drawing.Size(245, 473);
+            this._leftEditor.Size = new System.Drawing.Size(236, 473);
             this._leftEditor.TabIndex = 1;
             // 
             // _leftDetails
@@ -93,9 +94,10 @@
             this._leftDetails.LineTermination = null;
             this._leftDetails.Location = new System.Drawing.Point(0, 0);
             this._leftDetails.Name = "_leftDetails";
-            this._leftDetails.Size = new System.Drawing.Size(247, 25);
+            this._leftDetails.Size = new System.Drawing.Size(238, 25);
             this._leftDetails.TabIndex = 3;
             this._leftDetails.ContentTypeSelected += new System.EventHandler(this._leftDetails_ContentTypeSelected);
+            this._leftDetails.SizeChanged += new System.EventHandler(this._leftDetails_SizeChanged);
             // 
             // themedPanel2
             // 
@@ -103,7 +105,7 @@
             this.themedPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.themedPanel2.Location = new System.Drawing.Point(0, 25);
             this.themedPanel2.Name = "themedPanel2";
-            this.themedPanel2.Size = new System.Drawing.Size(249, 475);
+            this.themedPanel2.Size = new System.Drawing.Size(242, 475);
             this.themedPanel2.TabIndex = 2;
             // 
             // _rightEditor
@@ -113,7 +115,7 @@
             this._rightEditor.Location = new System.Drawing.Point(1, 1);
             this._rightEditor.Name = "_rightEditor";
             this._rightEditor.ShowLineNumbers = false;
-            this._rightEditor.Size = new System.Drawing.Size(247, 473);
+            this._rightEditor.Size = new System.Drawing.Size(240, 473);
             this._rightEditor.TabIndex = 1;
             // 
             // _rightDetails
@@ -128,15 +130,26 @@
             this._rightDetails.LineTermination = null;
             this._rightDetails.Location = new System.Drawing.Point(0, 0);
             this._rightDetails.Name = "_rightDetails";
-            this._rightDetails.Size = new System.Drawing.Size(249, 25);
+            this._rightDetails.Size = new System.Drawing.Size(242, 25);
             this._rightDetails.TabIndex = 3;
             this._rightDetails.ContentTypeSelected += new System.EventHandler(this._rightDetails_ContentTypeSelected);
+            // 
+            // _markerMap
+            // 
+            this._markerMap.Dock = System.Windows.Forms.DockStyle.Right;
+            this._markerMap.Location = new System.Drawing.Point(484, 0);
+            this._markerMap.Name = "_markerMap";
+            this._markerMap.Size = new System.Drawing.Size(16, 500);
+            this._markerMap.TabIndex = 2;
+            this._markerMap.Text = "sideBySideMarkerIndexControl1";
+            this._markerMap.LineClicked += new NetIde.Core.ToolWindows.DiffViewer.SideBySideLineClickedEventHandler(this._markerMap_LineClicked);
             // 
             // SideBySideViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this._markerMap);
             this.Name = "SideBySideViewer";
             this.Size = new System.Drawing.Size(500, 500);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -160,5 +173,6 @@
         private NetIde.Core.TextEditorControl _rightEditor;
         private StreamDetailsControl _leftDetails;
         private StreamDetailsControl _rightDetails;
+        private SideBySideMarkerMapControl _markerMap;
     }
 }
