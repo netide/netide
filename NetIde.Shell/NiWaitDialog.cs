@@ -104,6 +104,12 @@ namespace NetIde.Shell
 
                 Wait(new WaitHandle[] { @event });
 
+                // A pending requery may have already been processed because we've
+                // had to process events. Invalidate requery to ensure we're in
+                // a valid state.
+
+                ErrorUtil.ThrowOnFailure(((INiShell)_serviceProvider.GetService(typeof(INiShell))).InvalidateRequerySuggested());
+
                 if (exception != null)
                     throw exception;
             }
