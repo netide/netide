@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using NetIde.Core.Settings;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -19,6 +20,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
     {
         private Control _currentViewer;
         private NiDiffViewerMode _mode;
+        private byte[] _leftData;
+        private byte[] _rightData;
 
         public NiDiffViewerMode Mode
         {
@@ -72,6 +75,24 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 ev(this, e);
         }
 
+        public event EventHandler LeftUpdated;
+
+        protected virtual void OnLeftUpdated(EventArgs e)
+        {
+            var ev = LeftUpdated;
+            if (ev != null)
+                ev(this, e);
+        }
+
+        public event EventHandler RightUpdated;
+
+        protected virtual void OnRightUpdated(EventArgs e)
+        {
+            var ev = RightUpdated;
+            if (ev != null)
+                ev(this, e);
+        }
+
         public DiffViewerControl()
         {
             InitializeComponent();
@@ -81,6 +102,9 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 control.Dock = DockStyle.Fill;
                 control.SuspendLayout();
             }
+
+            _textViewer.LeftUpdated += (s, e) => OnLeftUpdated(EventArgs.Empty);
+            _textViewer.RightUpdated += (s, e) => OnRightUpdated(EventArgs.Empty);
 
             Reset();
         }
@@ -109,27 +133,27 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         public new void Load(IStream left, IStream right)
         {
-            byte[] leftData = null;
+            _leftData = null;
             FileType leftFileType = null;
 
             if (left != null)
             {
-                leftData = LoadStream(left);
+                _leftData = LoadStream(left);
 
-                using (var leftStream = new MemoryStream(leftData))
+                using (var leftStream = new MemoryStream(_leftData))
                 {
                     leftFileType = FileType.FromStream(leftStream, Path.GetExtension(left.Name));
                 }
             }
 
-            byte[] rightData = null;
+            _rightData = null;
             FileType rightFileType = null;
 
             if (right != null)
             {
-                rightData = LoadStream(right);
+                _rightData = LoadStream(right);
 
-                using (var rightStream = new MemoryStream(rightData))
+                using (var rightStream = new MemoryStream(_rightData))
                 {
                     rightFileType = FileType.FromStream(rightStream, Path.GetExtension(right.Name));
                 }
@@ -167,7 +191,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     break;
             }
 
-            ((IViewer)_currentViewer).LoadStreams(left, leftFileType, leftData, right, rightFileType, rightData);
+            ((IViewer)_currentViewer).LoadStreams(left, leftFileType, _leftData, right, rightFileType, _rightData);
         }
 
         private byte[] LoadStream(IStream stream)
@@ -204,6 +228,30 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private void SetDefaultMode(NiDiffViewerMode mode)
         {
             SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode = mode;
+        }
+
+        public IStream GetLeft()
+        {
+            Stream stream;
+
+            if (_currentViewer == _textViewer)
+                stream = _textViewer.GetLeft();
+            else
+                stream = new MemoryStream(_leftData);
+
+            return StreamUtil.FromStream(stream);
+        }
+
+        public IStream GetRight()
+        {
+            Stream stream;
+
+            if (_currentViewer == _textViewer)
+                stream = _textViewer.GetRight();
+            else
+                stream = new MemoryStream(_rightData);
+
+            return StreamUtil.FromStream(stream);
         }
     }
 }

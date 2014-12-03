@@ -63,6 +63,36 @@ namespace NetIde.Core {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DiffClose {
+            get {
+                object obj = ResourceManager.GetObject("DiffClose", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DiffLaquo {
+            get {
+                object obj = ResourceManager.GetObject("DiffLaquo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DiffRaquo {
+            get {
+                object obj = ResourceManager.GetObject("DiffRaquo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NotificationClose {
             get {
                 object obj = ResourceManager.GetObject("NotificationClose", resourceCulture);

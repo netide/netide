@@ -8,5 +8,7 @@ namespace NetIde.Shell.Interop
     public interface INiDiffViewerWindowNotify
     {
         void OnModeChanged();
+        void OnLeftChanged();
+        void OnRightChanged();
     }
 }

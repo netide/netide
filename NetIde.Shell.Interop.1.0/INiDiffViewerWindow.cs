@@ -12,6 +12,8 @@ namespace NetIde.Shell.Interop
         HResult SetMode(NiDiffViewerMode mode);
         HResult Reset();
         HResult Load(IStream left, IStream right);
+        HResult GetLeft(out IStream stream);
+        HResult GetRight(out IStream stream);
         HResult SetReadOnly(bool readOnly);
         HResult GetReadOnly(out bool readOnly);
     }

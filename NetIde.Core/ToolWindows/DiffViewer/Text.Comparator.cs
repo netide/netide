@@ -31,7 +31,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     }
                     while (@as < ae)
                     {
-                        if (a._content[@as++] != b._content[bs++])
+                        if (a.Content[@as++] != b.Content[bs++])
                         {
                             return false;
                         }
@@ -68,21 +68,21 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     int bs = b._lines.Get(bi);
                     int ae = a._lines.Get(ai + 1);
                     int be = b._lines.Get(bi + 1);
-                    ae = RawCharUtil.TrimTrailingWhitespace(a._content, @as, ae);
-                    be = RawCharUtil.TrimTrailingWhitespace(b._content, bs, be);
+                    ae = RawCharUtil.TrimTrailingWhitespace(a.Content, @as, ae);
+                    be = RawCharUtil.TrimTrailingWhitespace(b.Content, bs, be);
                     while (@as < ae && bs < be)
                     {
-                        char ac = a._content[@as];
-                        char bc = b._content[bs];
+                        char ac = a.Content[@as];
+                        char bc = b.Content[bs];
                         while (@as < ae - 1 && RawCharUtil.IsWhitespace(ac))
                         {
                             @as++;
-                            ac = a._content[@as];
+                            ac = a.Content[@as];
                         }
                         while (bs < be - 1 && RawCharUtil.IsWhitespace(bc))
                         {
                             bs++;
-                            bc = b._content[bs];
+                            bc = b.Content[bs];
                         }
                         if (ac != bc)
                         {
@@ -128,15 +128,15 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     int bs = b._lines.Get(bi);
                     int ae = a._lines.Get(ai + 1);
                     int be = b._lines.Get(bi + 1);
-                    @as = RawCharUtil.TrimLeadingWhitespace(a._content, @as, ae);
-                    bs = RawCharUtil.TrimLeadingWhitespace(b._content, bs, be);
+                    @as = RawCharUtil.TrimLeadingWhitespace(a.Content, @as, ae);
+                    bs = RawCharUtil.TrimLeadingWhitespace(b.Content, bs, be);
                     if (ae - @as != be - bs)
                     {
                         return false;
                     }
                     while (@as < ae)
                     {
-                        if (a._content[@as++] != b._content[bs++])
+                        if (a.Content[@as++] != b.Content[bs++])
                         {
                             return false;
                         }
@@ -175,15 +175,15 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     int bs = b._lines.Get(bi);
                     int ae = a._lines.Get(ai + 1);
                     int be = b._lines.Get(bi + 1);
-                    ae = RawCharUtil.TrimTrailingWhitespace(a._content, @as, ae);
-                    be = RawCharUtil.TrimTrailingWhitespace(b._content, bs, be);
+                    ae = RawCharUtil.TrimTrailingWhitespace(a.Content, @as, ae);
+                    be = RawCharUtil.TrimTrailingWhitespace(b.Content, bs, be);
                     if (ae - @as != be - bs)
                     {
                         return false;
                     }
                     while (@as < ae)
                     {
-                        if (a._content[@as++] != b._content[bs++])
+                        if (a.Content[@as++] != b.Content[bs++])
                         {
                             return false;
                         }
@@ -222,19 +222,19 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     int bs = b._lines.Get(bi);
                     int ae = a._lines.Get(ai + 1);
                     int be = b._lines.Get(bi + 1);
-                    ae = RawCharUtil.TrimTrailingWhitespace(a._content, @as, ae);
-                    be = RawCharUtil.TrimTrailingWhitespace(b._content, bs, be);
+                    ae = RawCharUtil.TrimTrailingWhitespace(a.Content, @as, ae);
+                    be = RawCharUtil.TrimTrailingWhitespace(b.Content, bs, be);
                     while (@as < ae && bs < be)
                     {
-                        char ac = a._content[@as];
-                        char bc = b._content[bs];
+                        char ac = a.Content[@as];
+                        char bc = b.Content[bs];
                         if (ac != bc)
                         {
                             return false;
                         }
                         if (RawCharUtil.IsWhitespace(ac))
                         {
-                            @as = RawCharUtil.TrimLeadingWhitespace(a._content, @as, ae);
+                            @as = RawCharUtil.TrimLeadingWhitespace(a.Content, @as, ae);
                         }
                         else
                         {
@@ -242,7 +242,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                         }
                         if (RawCharUtil.IsWhitespace(bc))
                         {
-                            bs = RawCharUtil.TrimLeadingWhitespace(b._content, bs, be);
+                            bs = RawCharUtil.TrimLeadingWhitespace(b.Content, bs, be);
                         }
                         else
                         {
@@ -282,7 +282,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             {
                 int begin = seq._lines.Get(lno + 1);
                 int end = seq._lines.Get(lno + 2);
-                return HashRegion(seq._content, begin, end);
+                return HashRegion(seq.Content, begin, end);
             }
 
             public override Edit ReduceCommonStartEnd(Text a, Text b, Edit e)
@@ -296,8 +296,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 {
                     return e;
                 }
-                string aRaw = a._content;
-                string bRaw = b._content;
+                string aRaw = a.Content;
+                string bRaw = b.Content;
                 int aPtr = a._lines.Get(e.GetBeginA() + 1);
                 int bPtr = a._lines.Get(e.GetBeginB() + 1);
                 int aEnd = a._lines.Get(e.GetEndA() + 1);

@@ -44,9 +44,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.TextEditor, Version=3.3.5.6482, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.TextEditor, Version=3.3.7.6486, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NetIde.ICSharpCode.TextEditor.3.3.5.6482\lib\net20\ICSharpCode.TextEditor.dll</HintPath>
+      <HintPath>..\packages\NetIde.ICSharpCode.TextEditor.3.3.7.6487\lib\net20\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -191,6 +191,8 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Support\ToolStripSimpleRenderer.cs" />
+    <Compile Include="ToolWindows\DiffViewer\DiffColor.cs" />
+    <Compile Include="ToolWindows\DiffViewer\DiffEditorButtonType.cs" />
     <Compile Include="ToolWindows\DiffViewer\ITextViewer.cs" />
     <Compile Include="ToolWindows\DiffViewer\DiffViewerControl.cs">
       <SubType>UserControl</SubType>
@@ -209,12 +211,16 @@
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\DiffViewer\IViewer.cs" />
-    <Compile Include="ToolWindows\DiffViewer\SideBySideLineClickedEventHandler.cs" />
-    <Compile Include="ToolWindows\DiffViewer\SideBySideMarker.cs" />
-    <Compile Include="ToolWindows\DiffViewer\SideBySideMarkerMapControl.cs">
+    <Compile Include="ToolWindows\DiffViewer\DiffEditorButtonEventHandler.cs" />
+    <Compile Include="ToolWindows\DiffViewer\DiffEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolWindows\DiffViewer\SideBySideMarkerType.cs" />
+    <Compile Include="ToolWindows\DiffViewer\DiffLineClickedEventHandler.cs" />
+    <Compile Include="ToolWindows\DiffViewer\IDiffMarker.cs" />
+    <Compile Include="ToolWindows\DiffViewer\DiffMarkerMapControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolWindows\DiffViewer\DiffMarkerType.cs" />
     <Compile Include="ToolWindows\DiffViewer\SideBySideViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -396,6 +402,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\DiffClose.png" />
+    <None Include="Resources\DiffLaquo.png" />
+    <None Include="Resources\DiffRaquo.png" />
     <Content Include="Resources\NotificationClose.png" />
     <EmbeddedResource Include="Services\Help\help.css" />
     <EmbeddedResource Include="Services\Help\help.js" />

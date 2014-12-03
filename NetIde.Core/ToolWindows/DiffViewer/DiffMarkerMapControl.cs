@@ -7,34 +7,43 @@ using System.Windows.Forms;
 
 namespace NetIde.Core.ToolWindows.DiffViewer
 {
-    internal class SideBySideMarkerMapControl : Control
+    internal class DiffMarkerMapControl : Control
     {
-        private SideBySideMarker[] _markers;
+        private IDiffMarker[] _markers;
         private int _lines;
         private Pen[] _pixelMap;
-        private Pen[] _pens;
-        private bool _disposed;
+        private readonly Pen[] _pens;
         private int? _downLine;
         private double _visibleRangeStart;
         private double _visibleRangeEnd;
 
-        public event SideBySideLineClickedEventHandler LineClicked;
+        public event DiffLineClickedEventHandler LineClicked;
 
-        protected virtual void OnLineClicked(SideBySideLineClickedEventArgs e)
+        protected virtual void OnLineClicked(DiffLineClickedEventArgs e)
         {
             var ev = LineClicked;
             if (ev != null)
                 ev(this, e);
         }
 
-        public SideBySideMarkerMapControl()
+        protected override Cursor DefaultCursor
+        {
+            get { return Cursors.Hand; }
+        }
+
+        protected override Padding DefaultPadding
+        {
+            get { return new Padding(0, 1, 0, 1); }
+        }
+
+        public DiffMarkerMapControl()
         {
             DoubleBuffered = true;
 
             _pens = new Pen[3];
-            _pens[(int)SideBySideMarkerType.Added] = new Pen(Color.Green);
-            _pens[(int)SideBySideMarkerType.Removed] = new Pen(Color.Red);
-            _pens[(int)SideBySideMarkerType.Changed] = new Pen(Color.Blue);
+            _pens[(int)DiffMarkerType.Added] = DiffColor.Added.DarkPen;
+            _pens[(int)DiffMarkerType.Removed] = DiffColor.Removed.DarkPen;
+            _pens[(int)DiffMarkerType.Changed] = DiffColor.Changed.DarkPen;
         }
 
         public void UpdateVisibleRange(double rangeStart, double rangeEnd)
@@ -57,33 +66,14 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             Invalidate();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (_pens != null)
-                {
-                    foreach (var pen in _pens)
-                    {
-                        pen.Dispose();
-                    }
-
-                    _pens = null;
-                }
-
-                _disposed = true;
-            }
-
-            base.Dispose(disposing);
-        }
-
-        public void SetMarkers(IEnumerable<SideBySideMarker> markers, int lines)
+        public void SetMarkers(IEnumerable<IDiffMarker> markers, int lines)
         {
             _markers = markers.ToArray();
             _lines = lines;
 
             CalculateMarkers();
             Invalidate();
+            Update();
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -100,7 +90,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             if (_markers == null)
                 return;
 
-            int height = ClientSize.Height - Padding.Vertical;
+            int height = Height - Padding.Vertical;
             if (height < 0)
                 return;
 
@@ -126,7 +116,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 return;
 
             int offset = Padding.Left + 1;
-            int width = ClientSize.Width - Padding.Horizontal - 3;
+            int width = Width - Padding.Horizontal - 2;
 
             int start = Math.Max(e.ClipRectangle.Top, Padding.Top);
             int end = Math.Min(e.ClipRectangle.Bottom, Height - Padding.Bottom);
@@ -138,7 +128,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     e.Graphics.DrawLine(pen, offset, i, width, i);
             }
 
-            int height = ClientSize.Height - Padding.Vertical;
+            int height = Height - Padding.Vertical;
             int boxStart = Padding.Top + (int)(_visibleRangeStart * height);
             int boxEnd = Padding.Top + (int)(_visibleRangeEnd * height);
 
@@ -146,8 +136,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 SystemPens.ControlDark,
                 offset - 1,
                 boxStart - 1,
-                width - 1,
-                Math.Min(boxEnd + 2, ClientSize.Height) - boxStart
+                Width - 1,
+                Math.Min(boxEnd + 2, Height) - boxStart
             );
         }
 
@@ -155,7 +145,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         {
             _downLine = GetLineFromOffset(e.Y);
             Capture = true;
-            OnLineClicked(new SideBySideLineClickedEventArgs(_downLine.Value));
+            OnLineClicked(new DiffLineClickedEventArgs(_downLine.Value));
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -166,7 +156,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 if (line != _downLine)
                 {
                     _downLine = line;
-                    OnLineClicked(new SideBySideLineClickedEventArgs(_downLine.Value));
+                    OnLineClicked(new DiffLineClickedEventArgs(_downLine.Value));
                 }
             }
         }
@@ -187,31 +177,5 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 Capture = false;
             }
         }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == WM_SETCURSOR)
-            {
-                if (_downLine.HasValue)
-                {
-                    Cursor.Current = Cursors.Hand;
-                }
-                else 
-                {
-                    var position = PointToClient(Cursor.Position);
-                    if (position.Y < Padding.Top || position.Y >= (Height - Padding.Bottom))
-                        Cursor.Current = Cursors.Arrow;
-                    else
-                        Cursor.Current = Cursors.Hand;
-                }
-
-                m.Result = (IntPtr)1;
-                return;
-            }
-
-            base.WndProc(ref m);
-        }
-
-        private const int WM_SETCURSOR = 0x0020;
     }
 }

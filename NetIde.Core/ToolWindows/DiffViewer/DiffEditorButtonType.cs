@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace NetIde.Core.ToolWindows.DiffViewer
 {
-    internal enum SideBySideMarkerType
+    internal enum DiffEditorButtonType
     {
-        Added,
-        Removed,
-        Changed
+        CopyLeft,
+        DeleteLeft,
+        DeleteRight,
+        CopyRight
     }
 }

@@ -9,7 +9,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 {
     internal partial class Text : Sequence
     {
-		private readonly string _content;
+        public string Content { get; private set; }
+
 		private readonly IntList _lines;
 
 		/// <summary>Create a new sequence from an existing content char array.</summary>
@@ -24,8 +25,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 		/// </param>
 		public Text(string input)
 		{
-			_content = input;
-			_lines = LineMap(0, _content.Length);
+			Content = input;
+			_lines = LineMap(0, Content.Length);
 		}
 
         private IntList LineMap(int ptr, int end)
@@ -51,10 +52,10 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         private int Next(int ptr, char chrA)
         {
-            int sz = _content.Length;
+            int sz = Content.Length;
             while (ptr < sz)
             {
-                if (_content[ptr++] == chrA)
+                if (Content[ptr++] == chrA)
                 {
                     return ptr;
                 }
@@ -93,11 +94,11 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 		{
 			int start = GetStart(i);
 			int end = GetEnd(i);
-			if (_content[end - 1] == '\n')
+			if (Content[end - 1] == '\n')
 			{
 				end--;
 			}
-			@out.Append(_content, start, end - start);
+			@out.Append(Content, start, end - start);
 		}
 
 		/// <summary>Determine if the file ends with a LF ('\n').</summary>
@@ -110,7 +111,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 			{
 				return true;
 			}
-			return _content[end - 1] != '\n';
+			return Content[end - 1] != '\n';
 		}
 
 		private int GetStart(int i)

@@ -85,6 +85,19 @@ namespace NetIde.Util.Forms
             return taskDialog.Show(owner, out verificationFlagChecked);
         }
 
+        public static int Show(out bool verificationFlagChecked, out int radioButtonResult, TaskDialog taskDialog)
+        {
+            return Show(null, out verificationFlagChecked, out radioButtonResult, taskDialog);
+        }
+
+        public static int Show(IWin32Window owner, out bool verificationFlagChecked, out int radioButtonResult, TaskDialog taskDialog)
+        {
+            if (taskDialog == null)
+                throw new ArgumentNullException("taskDialog");
+
+            return taskDialog.Show(owner, out verificationFlagChecked, out radioButtonResult);
+        }
+
         public static void Alert(string text)
         {
             Alert(null, text, null);

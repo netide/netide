@@ -5,15 +5,15 @@ using System.Text;
 
 namespace NetIde.Core.ToolWindows.DiffViewer
 {
-    internal class SideBySideLineClickedEventArgs : EventArgs
+    internal class DiffLineClickedEventArgs : EventArgs
     {
         public int Line { get; private set; }
 
-        public SideBySideLineClickedEventArgs(int line)
+        public DiffLineClickedEventArgs(int line)
         {
             Line = line;
         }
     }
 
-    internal delegate void SideBySideLineClickedEventHandler(object sender, SideBySideLineClickedEventArgs e);
+    internal delegate void DiffLineClickedEventHandler(object sender, DiffLineClickedEventArgs e);
 }

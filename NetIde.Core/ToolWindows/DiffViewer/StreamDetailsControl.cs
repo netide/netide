@@ -178,7 +178,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
             var textFileType = fileType as TextFileType;
 
-            HaveBom = textFileType != null && textFileType.HaveBom;
+            HaveBom = textFileType != null && textFileType.Bom != null;
             LineTermination = textFileType == null ? (LineTermination?)null : textFileType.LineTermination;
             Encoding = textFileType == null ? null : textFileType.Encoding;
 

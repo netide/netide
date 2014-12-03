@@ -37,21 +37,29 @@ namespace NetIde.Util
                 throw new ArgumentNullException("extension");
 
             if (stream.Length == 0)
-                return new TextFileType(Encoding.UTF8, false, 0, PlatformUtil.NativeLineTermination);
+                return new TextFileType(Encoding.UTF8, null, PlatformUtil.NativeLineTermination);
 
             stream.Position = 0;
 
             var encoding = DetectEncoding(stream);
 
             int bomSize = (int)stream.Position;
+            byte[] bom = null;
+
+            if (bomSize > 0)
+            {
+                stream.Position = 0;
+                bom = new byte[bomSize];
+                stream.Read(bom, 0, bom.Length);
+            }
 
             if (encoding != null)
-                return new TextFileType(encoding, true, bomSize, DetectLineTermination(stream));
+                return new TextFileType(encoding, bom, DetectLineTermination(stream));
 
             encoding = GuessEncoding(stream);
 
             if (encoding != null)
-                return new TextFileType(encoding, false, 0, DetectLineTermination(stream));
+                return new TextFileType(encoding, null, DetectLineTermination(stream));
 
             return null;
         }
@@ -201,21 +209,23 @@ namespace NetIde.Util
 
         public Encoding Encoding { get; private set; }
 
-        public bool HaveBom { get; private set; }
+        public byte[] Bom { get; private set; }
+
+        public int BomSize
+        {
+            get { return Bom == null ? 0 : Bom.Length; }
+        }
 
         public LineTermination LineTermination { get; private set; }
 
-        public int BomSize { get; private set; }
-
-        private TextFileType(Encoding encoding, bool haveBom, int bomSize, LineTermination lineTermination)
+        private TextFileType(Encoding encoding, byte[] bom, LineTermination lineTermination)
             : base(FileTypeType.Text)
         {
             if (encoding == null)
                 throw new ArgumentNullException("encoding");
 
             Encoding = encoding;
-            HaveBom = haveBom;
-            BomSize = bomSize;
+            Bom = bom;
             LineTermination = lineTermination;
         }
 

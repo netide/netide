@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using NetIde.Util.Forms;
 using NGit.Diff;
 using NetIde.Core.Support;
 using NetIde.Shell.Interop;
@@ -18,7 +18,6 @@ namespace NetIde.Core.ToolWindows.DiffViewer
     {
         private bool _unifiedDiff;
         private Control _selectedViewer;
-        public event EventHandler UnifiedDiffChanged;
         private byte[] _leftData;
         private TextFileType _leftFileType;
         private byte[] _rightData;
@@ -67,9 +66,29 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             }
         }
 
+        public event EventHandler UnifiedDiffChanged;
+
         protected virtual void OnUnifiedDiffChanged(EventArgs e)
         {
             var ev = UnifiedDiffChanged;
+            if (ev != null)
+                ev(this, e);
+        }
+
+        public event EventHandler LeftUpdated;
+
+        protected virtual void OnLeftUpdated(EventArgs e)
+        {
+            var ev = LeftUpdated;
+            if (ev != null)
+                ev(this, e);
+        }
+
+        public event EventHandler RightUpdated;
+
+        protected virtual void OnRightUpdated(EventArgs e)
+        {
+            var ev = RightUpdated;
             if (ev != null)
                 ev(this, e);
         }
@@ -98,21 +117,43 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _rightData = rightData;
             _rightFileType = (TextFileType)rightFileType;
 
-            _leftText = new Text(_leftData == null ? String.Empty : _leftFileType.Encoding.GetString(_leftData));
-            _rightText = new Text(_rightData == null ? String.Empty : _rightFileType.Encoding.GetString(_rightData));
+            _leftText = new Text(_leftData == null ? String.Empty : _leftFileType.Encoding.GetString(_leftData, _leftFileType.BomSize, _leftData.Length - _leftFileType.BomSize));
+            _rightText = new Text(_rightData == null ? String.Empty : _rightFileType.Encoding.GetString(_rightData, _rightFileType.BomSize, _rightData.Length - _rightFileType.BomSize));
 
+            BuildEditList();
+
+            ((ITextViewer)_selectedViewer).LoadDiff(_leftText, _rightText, _editList);
+        }
+
+        private void BuildEditList()
+        {
             _editList = DiffAlgorithm.GetAlgorithm(DiffAlgorithm.SupportedAlgorithm.HISTOGRAM).Diff(
                 DiffViewer.Text.Comparator.DEFAULT,
                 _leftText,
                 _rightText
             );
+        }
 
-            ((ITextViewer)_selectedViewer).LoadDiff(_leftText, _rightText, _editList);
+        void _sideBySideViewer_LeftUpdated(object sender, EventArgs e)
+        {
+            _leftText = new Text(_sideBySideViewer.GetLeftText());
+            BuildEditList();
+            OnLeftUpdated(EventArgs.Empty);
+        }
+
+        void _sideBySideViewer_RightUpdated(object sender, EventArgs e)
+        {
+            _rightText = new Text(_sideBySideViewer.GetRightText());
+            BuildEditList();
+            OnRightUpdated(EventArgs.Empty);
         }
 
         public TextViewer()
         {
             InitializeComponent();
+
+            _sideBySideViewer.LeftUpdated += _sideBySideViewer_LeftUpdated;
+            _sideBySideViewer.RightUpdated += _sideBySideViewer_RightUpdated;
 
             toolStrip1.Renderer = ToolStripSimpleRenderer.Instance;
 
@@ -134,6 +175,30 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private void _sideBySide_Click(object sender, EventArgs e)
         {
             UnifiedDiff = false;
+        }
+
+        public Stream GetLeft()
+        {
+            return BuildStream(_leftText, _leftFileType);
+        }
+
+        public Stream GetRight()
+        {
+            return BuildStream(_rightText, _rightFileType);
+        }
+
+        private Stream BuildStream(Text text, TextFileType fileType)
+        {
+            var stream = new MemoryStream(text.Content.Length + fileType.BomSize);
+
+            if (fileType.Bom != null)
+                stream.Write(fileType.Bom, 0, fileType.Bom.Length);
+
+            var data = fileType.Encoding.GetBytes(text.Content);
+            stream.Write(data, 0, data.Length);
+            stream.Position = 0;
+
+            return stream;
         }
     }
 }

@@ -101,9 +101,21 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             var control = new DiffViewerControl();
 
             control.ModeChanged += control_ModeChanged;
+            control.LeftUpdated += control_LeftUpdated;
+            control.RightUpdated += control_RightUpdated;
             control.Site = new SiteProxy(this);
 
             return control;
+        }
+
+        void control_RightUpdated(object sender, EventArgs e)
+        {
+            _connectionPoint.ForAll(p => p.OnRightChanged());
+        }
+
+        void control_LeftUpdated(object sender, EventArgs e)
+        {
+            _connectionPoint.ForAll(p => p.OnLeftChanged());
         }
 
         void control_ModeChanged(object sender, EventArgs e)
@@ -130,6 +142,38 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             try
             {
                 Control.Load(left, right);
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult GetLeft(out IStream stream)
+        {
+            stream = null;
+
+            try
+            {
+                stream = Control.GetLeft();
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult GetRight(out IStream stream)
+        {
+            stream = null;
+
+            try
+            {
+                stream = Control.GetRight();
 
                 return HResult.OK;
             }
