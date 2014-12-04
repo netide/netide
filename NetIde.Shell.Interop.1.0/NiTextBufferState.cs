@@ -8,6 +8,7 @@ namespace NetIde.Shell.Interop
     [Flags]
     public enum NiTextBufferState
     {
+        None = 0,
         ReadOnly = 1,
         Dirty = 2
     }

@@ -13,6 +13,7 @@ namespace NetIde.Shell
         private string _text;
         private INiTextLines _textBuffer;
         private bool _disposed;
+        private Listener _listener;
 
         public INiTextLines TextBuffer
         {
@@ -43,8 +44,7 @@ namespace NetIde.Shell
             }
         }
 
-        public new NiTextChangedEventHandler TextChanged;
-        private Listener _listener;
+        public new event NiTextChangedEventHandler TextChanged;
 
         public virtual void OnTextChanged(NiTextChangedEventArgs e)
         {
