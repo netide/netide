@@ -101,7 +101,9 @@ namespace NetIde.Services.CommandManager.Controls
                 {
                     foreach (NiCommandBarControl command in e.OldItems)
                     {
-                        RemoveItem(IndexOfCommand(command));
+                        int index;
+                        if (TryGetIndexOfCommand(command, out index))
+                            RemoveItem(index);
                     }
                 }
 
@@ -115,7 +117,7 @@ namespace NetIde.Services.CommandManager.Controls
             }
         }
 
-        private int IndexOfCommand(NiCommandBarControl command)
+        private bool TryGetIndexOfCommand(NiCommandBarControl command, out int index)
         {
             var items = Bar.Items;
 
@@ -124,10 +126,14 @@ namespace NetIde.Services.CommandManager.Controls
                 var control = items[i].Tag as ControlControl;
 
                 if (control != null && control.NiCommand == command)
-                    return i;
+                {
+                    index = i;
+                    return true;
+                }
             }
 
-            throw new InvalidOperationException();
+            index = -1;
+            return false;
         }
 
         private void CreateControl(NiCommandBarControl command)

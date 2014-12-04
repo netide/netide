@@ -11,8 +11,6 @@ namespace NetIde.Services.CommandManager.Controls
         public static void UpdateSeparatorVisibility(this IBarControl self)
         {
             var items = self.Items;
-            bool previousVisible = false;
-
             for (int separatorIndex = 0; separatorIndex < items.Count; separatorIndex++)
             {
                 var separator = items[separatorIndex] as ToolStripSeparator;
@@ -33,10 +31,13 @@ namespace NetIde.Services.CommandManager.Controls
                     }
                 }
 
-                bool forceInvisible = false;
+                bool forceInvisible = separatorIndex == 0;
 
                 for (int i = separatorIndex - 1; i >= 0; i--)
                 {
+                    if (items[i] is ToolStripSeparator)
+                        break;
+
                     if (IsItemVisible(items[i]))
                     {
                         forceInvisible = items[i].Alignment != separator.Alignment;
@@ -44,8 +45,7 @@ namespace NetIde.Services.CommandManager.Controls
                     }
                 }
 
-                separator.Visible = hadVisible && previousVisible && !forceInvisible;
-                previousVisible = hadVisible;
+                separator.Visible = hadVisible && !forceInvisible;
             }
         }
 
