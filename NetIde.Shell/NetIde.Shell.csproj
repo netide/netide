@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainSetup.cs" />
+    <Compile Include="NiCommandMapperDelegateCollection.cs" />
     <Compile Include="NiIsolationClient.cs">
       <SubType>UserControl</SubType>
     </Compile>

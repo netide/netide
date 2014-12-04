@@ -10,6 +10,13 @@ namespace NetIde.Shell
     {
         private readonly Dictionary<Guid, CommandRegistration> _registrations = new Dictionary<Guid, CommandRegistration>();
 
+        public NiCommandMapperDelegateCollection Delegates { get; private set; }
+
+        public NiCommandMapper()
+        {
+            Delegates = new NiCommandMapperDelegateCollection();
+        }
+
         public void Add(Guid command, NiExecCallback exec)
         {
             Add(command, exec, null);
@@ -53,6 +60,12 @@ namespace NetIde.Shell
                     return HResult.OK;
                 }
 
+                foreach (var @delegate in Delegates)
+                {
+                    if (ErrorUtil.ThrowOnFailure(@delegate.QueryStatus(command, out status)))
+                        return HResult.OK;
+                }
+
                 return HResult.False;
             }
             catch (Exception ex)
@@ -78,6 +91,12 @@ namespace NetIde.Shell
                     result = e.Result;
 
                     return HResult.OK;
+                }
+
+                foreach (var @delegate in Delegates)
+                {
+                    if (ErrorUtil.ThrowOnFailure(@delegate.Exec(command, argument, out result)))
+                        return HResult.OK;
                 }
 
                 return HResult.False;
