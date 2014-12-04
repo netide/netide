@@ -32,13 +32,21 @@ namespace NetIde.Util
 
         public new static TextFileType FromStream(Stream stream, string extension)
         {
+            return FromStream(stream, extension, null, PlatformUtil.NativeLineTermination);
+        }
+
+        public static TextFileType FromStream(Stream stream, string extension, Encoding defaultEncoding, LineTermination defaultLineTermination)
+        {
             if (stream == null)
                 throw new ArgumentNullException("stream");
             if (extension == null)
                 throw new ArgumentNullException("extension");
 
+            if (defaultEncoding == null)
+                defaultEncoding = Encoding.ASCII;
+
             if (stream.Length == 0)
-                return new TextFileType(new UTF8Encoding(false), PlatformUtil.NativeLineTermination);
+                return new TextFileType(defaultEncoding, defaultLineTermination);
 
             stream.Position = 0;
 
@@ -61,13 +69,13 @@ namespace NetIde.Util
                     encoding.GetPreamble()
                 ));
 
-                return new TextFileType(encoding, DetectLineTermination(stream));
+                return new TextFileType(encoding, DetectLineTermination(stream, defaultLineTermination));
             }
 
-            encoding = GuessEncoding(stream);
+            encoding = GuessEncoding(stream, defaultEncoding);
 
             if (encoding != null)
-                return new TextFileType(encoding, DetectLineTermination(stream));
+                return new TextFileType(encoding, DetectLineTermination(stream, defaultLineTermination));
 
             return null;
         }
@@ -124,7 +132,7 @@ namespace NetIde.Util
             return null;
         }
 
-        private static LineTermination DetectLineTermination(Stream stream)
+        private static LineTermination DetectLineTermination(Stream stream, LineTermination defaultLineTermination)
         {
             int c;
 
@@ -146,13 +154,10 @@ namespace NetIde.Util
 
             // The default when we don't have any line ending.
 
-            return
-                PlatformUtil.IsUnix
-                ? LineTermination.Unix
-                : LineTermination.Pc;
+            return defaultLineTermination;
         }
 
-        private static Encoding GuessEncoding(Stream stream)
+        private static Encoding GuessEncoding(Stream stream, Encoding defaultEncoding)
         {
             int printChars = 0;
             int nullChars = 0;
@@ -210,7 +215,7 @@ namespace NetIde.Util
             // treat it as ASCII.
 
             if (printRatio > .95)
-                return Encoding.ASCII;
+                return defaultEncoding;
 
             return null;
         }
