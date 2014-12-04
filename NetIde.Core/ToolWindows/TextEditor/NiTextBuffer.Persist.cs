@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
+using NetIde.Util;
 
 namespace NetIde.Core.ToolWindows.TextEditor
 {
@@ -12,6 +13,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
     {
         private string _fileName;
         private IServiceProvider _serviceProvider;
+        private TextFileType _fileType;
 
         HResult INiObjectWithSite.SetSite(IServiceProvider serviceProvider)
         {
@@ -69,7 +71,31 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 _fileName = fileName;
                 _dirty = false;
 
-                InitializeContent(File.ReadAllText(fileName));
+                string content;
+
+                using (var stream = File.OpenRead(fileName))
+                {
+                    var fileType = FileType.FromStream(stream, Path.GetExtension(fileName));
+
+                    stream.Position = 0;
+
+                    var data = new byte[stream.Length];
+
+                    stream.Read(data, 0, data.Length);
+
+                    _fileType = fileType as TextFileType;
+
+                    if (_fileType == null)
+                        _fileType = new TextFileType(Encoding.Default, null, PlatformUtil.NativeLineTermination);
+
+                    content = _fileType.Encoding.GetString(
+                        data,
+                        _fileType.BomSize,
+                        data.Length - _fileType.BomSize
+                    );
+                }
+
+                InitializeContent(content);
 
                 return HResult.OK;
             }
@@ -88,7 +114,22 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 if (fileName == null)
                     throw new ArgumentNullException("fileName");
 
-                File.WriteAllText(fileName, Document.TextContent);
+                if (_fileType == null)
+                {
+                    File.WriteAllText(fileName, Document.TextContent);
+                }
+                else
+                {
+                    using (var stream = File.Create(fileName))
+                    {
+                        if (_fileType.Bom != null)
+                            stream.Write(_fileType.Bom, 0, _fileType.Bom.Length);
+
+                        var data = _fileType.Encoding.GetBytes(Document.TextContent);
+
+                        stream.Write(data, 0, data.Length);
+                    }
+                }
 
                 if (remember)
                 {

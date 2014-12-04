@@ -218,7 +218,7 @@ namespace NetIde.Util
 
         public LineTermination LineTermination { get; private set; }
 
-        private TextFileType(Encoding encoding, byte[] bom, LineTermination lineTermination)
+        public TextFileType(Encoding encoding, byte[] bom, LineTermination lineTermination)
             : base(FileTypeType.Text)
         {
             if (encoding == null)
