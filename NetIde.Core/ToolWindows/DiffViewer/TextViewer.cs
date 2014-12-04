@@ -117,8 +117,19 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _rightData = rightData;
             _rightFileType = (TextFileType)rightFileType;
 
-            _leftText = new Text(_leftData == null ? String.Empty : _leftFileType.Encoding.GetString(_leftData, _leftFileType.BomSize, _leftData.Length - _leftFileType.BomSize));
-            _rightText = new Text(_rightData == null ? String.Empty : _rightFileType.Encoding.GetString(_rightData, _rightFileType.BomSize, _rightData.Length - _rightFileType.BomSize));
+            int leftBomSize = _leftFileType != null ? _leftFileType.Encoding.GetPreamble().Length : 0;
+            int rightBomSize = _rightFileType != null ? _rightFileType.Encoding.GetPreamble().Length : 0;
+
+            _leftText = new Text(
+                _leftData == null
+                ? String.Empty
+                : _leftFileType.Encoding.GetString(_leftData, leftBomSize, _leftData.Length - leftBomSize)
+            );
+            _rightText = new Text(
+                _rightData == null
+                ? String.Empty
+                : _rightFileType.Encoding.GetString(_rightData, rightBomSize, _rightData.Length - rightBomSize)
+            );
 
             BuildEditList();
 
@@ -189,12 +200,13 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         private Stream BuildStream(Text text, TextFileType fileType)
         {
-            var stream = new MemoryStream(text.Content.Length + fileType.BomSize);
+            var preamble = fileType.Encoding.GetPreamble();
 
-            if (fileType.Bom != null)
-                stream.Write(fileType.Bom, 0, fileType.Bom.Length);
+            var stream = new MemoryStream(text.Content.Length + preamble.Length);
 
             var data = fileType.Encoding.GetBytes(text.Content);
+
+            stream.Write(preamble, 0, preamble.Length);
             stream.Write(data, 0, data.Length);
             stream.Position = 0;
 

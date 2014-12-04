@@ -58,7 +58,7 @@ namespace NetIde.Core.ToolWindows.FindResults
         public void ResetResults()
         {
             _results = new List<FindResult>();
-            _editor.TextBuffer.InitializeContent(String.Empty);
+            ErrorUtil.ThrowOnFailure(_editor.TextBuffer.InitializeContent(String.Empty));
         }
 
         public void AddResult(FindResult result, int line, string text)

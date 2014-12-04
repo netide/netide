@@ -59,28 +59,11 @@ namespace NetIde.Util.Forms
 
             foreach (var microsoftToken in knownTokens)
             {
-                if (ArrayEquals(token, microsoftToken))
+                if (ArrayUtil.Equals(token, microsoftToken))
                     return true;
             }
 
             return false;
-        }
-
-        private static bool ArrayEquals(byte[] a, byte[] b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-
-            if (a == null || b == null || a.Length != b.Length)
-                return false;
-
-            for (int i = 0; i < a.Length; i++)
-            {
-                if (a[i] != b[i])
-                    return false;
-            }
-
-            return true;
         }
     }
 }

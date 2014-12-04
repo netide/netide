@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,29 +38,36 @@ namespace NetIde.Util
                 throw new ArgumentNullException("extension");
 
             if (stream.Length == 0)
-                return new TextFileType(Encoding.UTF8, null, PlatformUtil.NativeLineTermination);
+                return new TextFileType(new UTF8Encoding(false), PlatformUtil.NativeLineTermination);
 
             stream.Position = 0;
 
             var encoding = DetectEncoding(stream);
 
-            int bomSize = (int)stream.Position;
-            byte[] bom = null;
-
-            if (bomSize > 0)
-            {
-                stream.Position = 0;
-                bom = new byte[bomSize];
-                stream.Read(bom, 0, bom.Length);
-            }
-
             if (encoding != null)
-                return new TextFileType(encoding, bom, DetectLineTermination(stream));
+            {
+                int bomSize = (int)stream.Position;
+                byte[] bom = null;
+
+                if (bomSize > 0)
+                {
+                    stream.Position = 0;
+                    bom = new byte[bomSize];
+                    stream.Read(bom, 0, bom.Length);
+                }
+
+                Debug.Assert(ArrayUtil.Equals(
+                    bom ?? new byte[0],
+                    encoding.GetPreamble()
+                ));
+
+                return new TextFileType(encoding, DetectLineTermination(stream));
+            }
 
             encoding = GuessEncoding(stream);
 
             if (encoding != null)
-                return new TextFileType(encoding, null, DetectLineTermination(stream));
+                return new TextFileType(encoding, DetectLineTermination(stream));
 
             return null;
         }
@@ -209,23 +217,15 @@ namespace NetIde.Util
 
         public Encoding Encoding { get; private set; }
 
-        public byte[] Bom { get; private set; }
-
-        public int BomSize
-        {
-            get { return Bom == null ? 0 : Bom.Length; }
-        }
-
         public LineTermination LineTermination { get; private set; }
 
-        public TextFileType(Encoding encoding, byte[] bom, LineTermination lineTermination)
+        public TextFileType(Encoding encoding, LineTermination lineTermination)
             : base(FileTypeType.Text)
         {
             if (encoding == null)
                 throw new ArgumentNullException("encoding");
 
             Encoding = encoding;
-            Bom = bom;
             LineTermination = lineTermination;
         }
 

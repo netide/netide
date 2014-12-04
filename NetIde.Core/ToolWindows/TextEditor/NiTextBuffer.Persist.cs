@@ -11,9 +11,12 @@ namespace NetIde.Core.ToolWindows.TextEditor
 {
     partial class NiTextBuffer
     {
+        private static readonly Encoding DefaultEncoding = new UTF8Encoding(true);
+        private static readonly Encoding BigEndianUTF32 = new UTF8Encoding(true, false);
+
         private string _fileName;
         private IServiceProvider _serviceProvider;
-        private TextFileType _fileType;
+        private Encoding _encoding = DefaultEncoding;
 
         HResult INiObjectWithSite.SetSite(IServiceProvider serviceProvider)
         {
@@ -25,6 +28,51 @@ namespace NetIde.Core.ToolWindows.TextEditor
         {
             serviceProvider = _serviceProvider;
             return HResult.OK;
+        }
+
+        public HResult GetCodePage(out int codePage, out bool emitPreamble)
+        {
+            codePage = 0;
+            emitPreamble = false;
+
+            try
+            {
+                codePage = _encoding.CodePage;
+                emitPreamble = _encoding.GetPreamble().Length > 0;
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
+        }
+
+        public HResult SetCodePage(int codePage, bool emitPreamble)
+        {
+            try
+            {
+                if (codePage == Encoding.UTF8.CodePage)
+                    _encoding = new UTF8Encoding(emitPreamble);
+                else if (codePage == Encoding.Unicode.CodePage)
+                    _encoding = new UnicodeEncoding(false, emitPreamble);
+                else if (codePage == Encoding.BigEndianUnicode.CodePage)
+                    _encoding = new UnicodeEncoding(true, emitPreamble);
+                else if (codePage == Encoding.UTF32.CodePage) // UTF32 is LE; there is no BE on Encoding
+                    _encoding = new UTF32Encoding(false, emitPreamble);
+                else if (codePage == BigEndianUTF32.CodePage)
+                    _encoding = new UTF32Encoding(true, emitPreamble);
+                else if (emitPreamble)
+                    throw new ArgumentException("Cannot emit preamble for specified encoding");
+                else
+                    _encoding = Encoding.GetEncoding(codePage);
+
+                return HResult.OK;
+            }
+            catch (Exception ex)
+            {
+                return ErrorUtil.GetHResult(ex);
+            }
         }
 
         HResult INiPersistDocData.IsDocDataDirty(out bool isDirty)
@@ -71,31 +119,18 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 _fileName = fileName;
                 _dirty = false;
 
-                string content;
-
                 using (var stream = File.OpenRead(fileName))
                 {
-                    var fileType = FileType.FromStream(stream, Path.GetExtension(fileName));
-
-                    stream.Position = 0;
-
-                    var data = new byte[stream.Length];
-
-                    stream.Read(data, 0, data.Length);
-
-                    _fileType = fileType as TextFileType;
-
-                    if (_fileType == null)
-                        _fileType = new TextFileType(Encoding.Default, null, PlatformUtil.NativeLineTermination);
-
-                    content = _fileType.Encoding.GetString(
-                        data,
-                        _fileType.BomSize,
-                        data.Length - _fileType.BomSize
-                    );
+                    var fileType = FileType.FromStream(stream, Path.GetExtension(fileName)) as TextFileType;
+                    if (fileType != null)
+                        _encoding = fileType.Encoding;
+                    else
+                        _encoding = DefaultEncoding;
                 }
 
-                InitializeContent(content);
+                string content = File.ReadAllText(fileName, _encoding);
+
+                ErrorUtil.ThrowOnFailure(InitializeContent(content));
 
                 return HResult.OK;
             }
@@ -114,22 +149,11 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 if (fileName == null)
                     throw new ArgumentNullException("fileName");
 
-                if (_fileType == null)
-                {
-                    File.WriteAllText(fileName, Document.TextContent);
-                }
-                else
-                {
-                    using (var stream = File.Create(fileName))
-                    {
-                        if (_fileType.Bom != null)
-                            stream.Write(_fileType.Bom, 0, _fileType.Bom.Length);
-
-                        var data = _fileType.Encoding.GetBytes(Document.TextContent);
-
-                        stream.Write(data, 0, data.Length);
-                    }
-                }
+                File.WriteAllText(
+                    fileName,
+                    Document.TextContent,
+                    _encoding
+                );
 
                 if (remember)
                 {
