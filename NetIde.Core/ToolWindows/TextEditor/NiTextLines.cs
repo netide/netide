@@ -23,6 +23,12 @@ namespace NetIde.Core.ToolWindows.TextEditor
             Document.DocumentChanged += Document_DocumentChanged;
         }
 
+        public NiTextLines(IDocument document)
+            : base(document)
+        {
+            Document.DocumentChanged += Document_DocumentChanged;
+        }
+
         void Document_DocumentChanged(object sender, DocumentEventArgs e)
         {
             int startOffset = e.Offset;

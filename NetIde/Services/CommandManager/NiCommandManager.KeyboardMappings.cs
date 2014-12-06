@@ -213,12 +213,15 @@ namespace NetIde.Services.CommandManager
                                 {
                                     foreach (string item in value.Split('|'))
                                     {
-                                        var itemKey = ShortcutKeysUtil.Parse(item);
+                                        var itemKeys = ShortcutKeysUtil.Parse(item);
 
-                                        if (!ShortcutKeysUtil.IsValid(itemKey))
-                                            Log.WarnFormat("Skipping illegal shortcut key '{0}' for button '{1}'", itemKey, guid);
-                                        else
-                                            keys.Add(itemKey);
+                                        foreach (var itemKey in itemKeys)
+                                        {
+                                            if (!ShortcutKeysUtil.IsValid(itemKey))
+                                                Log.WarnFormat("Skipping illegal shortcut key '{0}' for button '{1}'", itemKey, guid);
+                                            else
+                                                keys.Add(itemKey);
+                                        }
                                     }
                                 }
 

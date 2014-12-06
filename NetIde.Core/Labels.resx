@@ -313,7 +313,7 @@
   <data name="MenuEditReplace" xml:space="preserve">
     <value>&amp;Replace</value>
   </data>
-  <data name="NoMoreConcurrences" xml:space="preserve">
+  <data name="NoMoreOccurrences" xml:space="preserve">
     <value>No more occurences found in the specified documents.</value>
   </data>
   <data name="Keyboard" xml:space="preserve">
@@ -393,5 +393,29 @@
   </data>
   <data name="UseSearchBox" xml:space="preserve">
     <value>Use the search box to find an answer to your question.</value>
+  </data>
+  <data name="TextEditorCopy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="TextEditorCut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="TextEditorFind" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="TextEditorFindAndReplace" xml:space="preserve">
+    <value>Find and Replace</value>
+  </data>
+  <data name="TextEditorGoToLine" xml:space="preserve">
+    <value>Go To Line</value>
+  </data>
+  <data name="TextEditorPaste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="TextEditorRedo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="TextEditorUndo" xml:space="preserve">
+    <value>Undo</value>
   </data>
 </root>

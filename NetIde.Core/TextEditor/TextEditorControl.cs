@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -10,17 +11,89 @@ using System.Windows.Automation.Text;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
+using NetIde.Shell;
+using NetIde.Shell.Interop;
 using UIAutomationWrapper;
 using Point = System.Windows.Point;
 
-namespace NetIde.Core
+namespace NetIde.Core.TextEditor
 {
-    internal class TextEditorControl : ICSharpCode.TextEditor.TextEditorControl
+    internal partial class TextEditorControl : ICSharpCode.TextEditor.TextEditorControl
     {
+        private readonly CommandTarget _commandTarget;
+        private INiRegisterPriorityCommandTarget _registerPriorityCommandTarget;
+        private int _registerPriorityCommandTargetCookie = -1;
+
+        public NiCommandMapper CommandMapper { get; private set; }
+
+        public INiFindTarget FindTarget { get; private set; }
+
+        public override ISite Site
+        {
+            get { return base.Site; }
+            set
+            {
+                base.Site = value;
+
+                _registerPriorityCommandTarget = (INiRegisterPriorityCommandTarget)GetService(typeof(INiRegisterPriorityCommandTarget));
+            }
+        }
+
         public TextEditorControl()
         {
             ElementProvider.Install(new TextEditorElementProvider(this));
+
             ActiveTextAreaControl.TextArea.DoProcessDialogKey += TextArea_DoProcessDialogKey;
+            ActiveTextAreaControl.TextArea.GotFocus += TextArea_GotFocus;
+            ActiveTextAreaControl.TextArea.LostFocus += TextArea_LostFocus;
+
+            CommandMapper = new NiCommandMapper();
+            _commandTarget = new CommandTarget(CommandMapper);
+            FindTarget = new FindTargetImpl(ActiveTextAreaControl);
+
+            BuildCommands();
+
+            RemoveDefaultKeyBindings();
+        }
+
+        void TextArea_GotFocus(object sender, EventArgs e)
+        {
+            if (_registerPriorityCommandTargetCookie == -1)
+            {
+                _registerPriorityCommandTarget.RegisterPriorityCommandTarget(
+                    _commandTarget,
+                    out _registerPriorityCommandTargetCookie
+                );
+            }
+        }
+
+        void TextArea_LostFocus(object sender, EventArgs e)
+        {
+            if (_registerPriorityCommandTargetCookie != -1)
+            {
+                _registerPriorityCommandTarget.UnregisterPriorityCommandTarget(
+                    _registerPriorityCommandTargetCookie
+                );
+
+                _registerPriorityCommandTargetCookie = -1;
+            }
+        }
+
+        private void RemoveDefaultKeyBindings()
+        {
+            // These key bindings are handled from the NiMenu and are removed
+            // from the edit control itself so that the key bindings can
+            // be remapped using the key binding manager.
+
+            SetEditAction(Keys.Insert | Keys.Control, null);
+            SetEditAction(Keys.Insert | Keys.Shift, null);
+            SetEditAction(Keys.Delete | Keys.Shift, null);
+            SetEditAction(Keys.X | Keys.Control, null);
+            SetEditAction(Keys.C | Keys.Control, null);
+            SetEditAction(Keys.V | Keys.Control, null);
+            SetEditAction(Keys.Back | Keys.Alt, null);
+            SetEditAction(Keys.Z | Keys.Control, null);
+            SetEditAction(Keys.Y | Keys.Control, null);
         }
 
         void TextArea_DoProcessDialogKey(Keys keyData, ref DialogKeyProcessorResult result)
@@ -378,6 +451,26 @@ namespace NetIde.Core
 
                     return _control.ActiveTextAreaControl.TextArea.BackColor.ToArgb();
                 }
+            }
+        }
+
+        private class CommandTarget : ServiceObject, INiCommandTarget
+        {
+            private readonly NiCommandMapper _commandMapper;
+
+            public CommandTarget(NiCommandMapper commandMapper)
+            {
+                _commandMapper = commandMapper;
+            }
+
+            public HResult QueryStatus(Guid command, out NiCommandStatus status)
+            {
+                return _commandMapper.QueryStatus(command, out status);
+            }
+
+            public HResult Exec(Guid command, object argument, out object result)
+            {
+                return _commandMapper.Exec(command, argument, out result);
             }
         }
     }

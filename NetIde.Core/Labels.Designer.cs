@@ -640,9 +640,9 @@ namespace NetIde.Core {
         /// <summary>
         ///   Looks up a localized string similar to No more occurences found in the specified documents..
         /// </summary>
-        internal static string NoMoreConcurrences {
+        internal static string NoMoreOccurrences {
             get {
-                return ResourceManager.GetString("NoMoreConcurrences", resourceCulture);
+                return ResourceManager.GetString("NoMoreOccurrences", resourceCulture);
             }
         }
         
@@ -818,11 +818,83 @@ namespace NetIde.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string TextEditorCopy {
+            get {
+                return ResourceManager.GetString("TextEditorCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        internal static string TextEditorCut {
+            get {
+                return ResourceManager.GetString("TextEditorCut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find.
+        /// </summary>
+        internal static string TextEditorFind {
+            get {
+                return ResourceManager.GetString("TextEditorFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find and Replace.
+        /// </summary>
+        internal static string TextEditorFindAndReplace {
+            get {
+                return ResourceManager.GetString("TextEditorFindAndReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go To Line.
+        /// </summary>
+        internal static string TextEditorGoToLine {
+            get {
+                return ResourceManager.GetString("TextEditorGoToLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text Editor.
         /// </summary>
         internal static string TextEditorName {
             get {
                 return ResourceManager.GetString("TextEditorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        internal static string TextEditorPaste {
+            get {
+                return ResourceManager.GetString("TextEditorPaste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        internal static string TextEditorRedo {
+            get {
+                return ResourceManager.GetString("TextEditorRedo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        internal static string TextEditorUndo {
+            get {
+                return ResourceManager.GetString("TextEditorUndo", resourceCulture);
             }
         }
         

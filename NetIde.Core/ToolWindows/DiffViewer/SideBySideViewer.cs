@@ -13,12 +13,13 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Actions;
 using ICSharpCode.TextEditor.Document;
-using ICSharpCode.TextEditor.Util;
+using NetIde.Shell;
 using NGit.Diff;
 using NetIde.Core.Settings;
 using NetIde.Shell.Interop;
 using NetIde.Shell.Settings;
 using NetIde.Util;
+using TextEditorControl = NetIde.Core.TextEditor.TextEditorControl;
 
 namespace NetIde.Core.ToolWindows.DiffViewer
 {
@@ -92,21 +93,15 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             _leftEditor.IsReadOnly = true;
             _rightEditor.IsReadOnly = true;
 
-            _leftEditor.ActiveTextAreaControl.TextArea.MotherTextEditorControl.SetEditAction(
-                Keys.Insert | Keys.Control,
-                new TrimmedCopy(this, _leftEditor)
+            _leftEditor.CommandMapper.Add(
+                NiResources.TextEditor_Copy,
+                p => new TrimmedCopy(this, _leftEditor).Execute(_leftEditor.ActiveTextAreaControl.TextArea),
+                p => p.Status = _leftEditor.ActiveTextAreaControl.SelectionManager.HasSomethingSelected ? NiCommandStatus.Enabled : NiCommandStatus.Supported
             );
-            _leftEditor.ActiveTextAreaControl.TextArea.MotherTextEditorControl.SetEditAction(
-                Keys.C | Keys.Control,
-                new TrimmedCopy(this, _leftEditor)
-            );
-            _rightEditor.ActiveTextAreaControl.TextArea.MotherTextEditorControl.SetEditAction(
-                Keys.Insert | Keys.Control,
-                new TrimmedCopy(this, _rightEditor)
-            );
-            _rightEditor.ActiveTextAreaControl.TextArea.MotherTextEditorControl.SetEditAction(
-                Keys.C | Keys.Control,
-                new TrimmedCopy(this, _rightEditor)
+            _rightEditor.CommandMapper.Add(
+                NiResources.TextEditor_Copy,
+                p => new TrimmedCopy(this, _rightEditor).Execute(_rightEditor.ActiveTextAreaControl.TextArea),
+                p => p.Status = _rightEditor.ActiveTextAreaControl.SelectionManager.HasSomethingSelected ? NiCommandStatus.Enabled : NiCommandStatus.Supported
             );
 
             SyncTo(_leftEditor, _rightEditor);
@@ -217,6 +212,9 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
                 var fontSettings = SettingsBuilder.GetSettings<IFontSettings>(Site);
                 var codeFont = fontSettings.CodeFont ?? Constants.DefaultCodeFont;
+
+                _leftEditor.Site = value;
+                _rightEditor.Site = value;
 
                 _leftEditor.Font = codeFont;
                 _rightEditor.Font = codeFont;

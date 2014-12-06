@@ -186,7 +186,7 @@ namespace NetIde.Services.CommandManager
         private object OnButton(Button button)
         {
             var keys = ShortcutKeysUtil.Parse(button.Key);
-            if (keys != 0 && !ShortcutKeysUtil.IsValid(keys))
+            if (keys.Length > 0 && !ShortcutKeysUtil.IsValid(keys[0]))
                 throw new NetIdeException(String.Format(Labels.IllegalButtonShortcutKeys, button.Id, keys));
 
             INiCommandBarButton command;
@@ -200,7 +200,7 @@ namespace NetIde.Services.CommandManager
             command.Text = _package.ResolveStringResource(button.Text);
             command.ToolTip = _package.ResolveStringResource(button.ToolTip);
             command.DisplayStyle = Enum<NiCommandDisplayStyle>.Parse(button.Style.ToString());
-            command.ShortcutKeys = keys;
+            command.ShortcutKeys = keys.Length > 0 ? keys[0] : 0;
             ((NiCommandBarButton)command).Bitmap = ResolveBitmapResource(button.Image);
 
             return command;

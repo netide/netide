@@ -83,7 +83,7 @@
             // _modeFind
             // 
             this._modeFind.AutoToolTip = false;
-            this._modeFind.Image = global::NetIde.Core.NiResources.Find;
+            this._modeFind.Image = global::NetIde.Core.NeutralResources.Find;
             this._modeFind.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._modeFind.Name = "_modeFind";
             this._modeFind.Size = new System.Drawing.Size(50, 22);
@@ -99,7 +99,7 @@
             // _modeFindReplace
             // 
             this._modeFindReplace.AutoToolTip = false;
-            this._modeFindReplace.Image = global::NetIde.Core.NiResources.Replace;
+            this._modeFindReplace.Image = global::NetIde.Core.NeutralResources.Replace;
             this._modeFindReplace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._modeFindReplace.Name = "_modeFindReplace";
             this._modeFindReplace.Size = new System.Drawing.Size(117, 22);

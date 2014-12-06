@@ -38,8 +38,9 @@
     <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GdiPresentation-4">
-      <HintPath>..\packages\GdiPresentation.1.0.2.0\lib\net40-client\GdiPresentation-4.dll</HintPath>
+    <Reference Include="GdiPresentation-4, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c842c0b06ab39023, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\GdiPresentation.1.1.0.0\lib\net40\GdiPresentation-4.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -78,6 +79,26 @@
     <Compile Include="DialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Services\Finder\FindAction.cs" />
+    <Compile Include="Services\Finder\FindControl.cs" />
+    <Compile Include="Services\Finder\FindManager.cs" />
+    <Compile Include="Services\Finder\FindMode.cs" />
+    <Compile Include="Services\Finder\FindTarget.cs" />
+    <Compile Include="Services\Finder\IFindView.cs" />
+    <Compile Include="Support\GdiButton.cs" />
+    <Compile Include="Support\ImageUtil.cs" />
+    <Compile Include="TextEditor\FindControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextEditor\FindControl.Designer.cs">
+      <DependentUpon>FindControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextEditor\GoToLineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextEditor\GoToLineForm.Designer.cs">
+      <DependentUpon>GoToLineForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,11 +109,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NeutralResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="NiResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NiResources.resx</DependentUpon>
     </Compile>
     <Compile Include="NiShellUtil.cs" />
     <Compile Include="OptionPages\Environment\KeyboardOptionControl.cs">
@@ -171,9 +187,7 @@
     <Compile Include="Services\Finder\FindForm.Designer.cs">
       <DependentUpon>FindForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Services\Finder\FindForm.FindState.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Services\Finder\FindManager.FindState.cs" />
     <Compile Include="Services\Finder\NiFinder.cs" />
     <Compile Include="Services\Finder\NiFindHelper.cs" />
     <Compile Include="Services\Help\HtmlWriter.cs" />
@@ -191,6 +205,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Support\ToolStripSimpleRenderer.cs" />
+    <Compile Include="TextEditor\TextEditorControl.Commands.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextEditor\TextEditorControl.FindTarget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ToolWindows\DiffViewer\DiffColor.cs" />
     <Compile Include="ToolWindows\DiffViewer\DiffEditorButtonType.cs" />
     <Compile Include="ToolWindows\DiffViewer\ITextViewer.cs" />
@@ -276,13 +296,10 @@
     <Compile Include="ToolWindows\TextEditor\NiTextBuffer.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextBuffer.Persist.cs" />
     <Compile Include="ToolWindows\TextEditor\NiTextMarker.cs" />
-    <Compile Include="TextEditorControl.cs">
+    <Compile Include="TextEditor\TextEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ToolWindows\TextEditor\TextEditorFactory.cs" />
-    <Compile Include="ToolWindows\TextEditor\TextEditorWindow.Commands.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="ToolWindows\TextEditor\TextEditorWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -299,6 +316,9 @@
     <None Include="NiPackage.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="TextEditor\FindControl.Content.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetIde.Help\NetIde.Help.csproj">
@@ -335,6 +355,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="TextEditor\FindControl.resx">
+      <DependentUpon>FindControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextEditor\GoToLineForm.resx">
+      <DependentUpon>GoToLineForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
@@ -343,10 +369,6 @@
     <EmbeddedResource Include="NeutralResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NiResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>NiResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionPages\Environment\KeyboardOptionControl.resx">
@@ -402,9 +424,29 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\WholeWord.png" />
+    <None Include="Resources\ToggleUp.png" />
+    <None Include="Resources\ToggleDown.png" />
+    <None Include="Resources\ReplaceNext.png" />
+    <None Include="Resources\ReplaceAll.png" />
+    <None Include="Resources\RegularExpression.png" />
+    <None Include="Resources\Undo.png" />
+    <None Include="Resources\Redo.png" />
+    <None Include="Resources\Paste.png" />
     <None Include="Resources\DiffClose.png" />
     <None Include="Resources\DiffLaquo.png" />
     <None Include="Resources\DiffRaquo.png" />
+    <None Include="Resources\Copy.png" />
+    <None Include="Resources\Cut.png" />
+    <None Include="Resources\GoToLine.png" />
+    <None Include="Resources\CaseSensitive.png" />
+    <None Include="Resources\CloseFind.png" />
+    <None Include="Resources\FindNext.png" />
+    <Content Include="Resources\NiMenu.Generated.xml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NiMenu.xml</DependentUpon>
+    </Content>
     <Content Include="Resources\NotificationClose.png" />
     <EmbeddedResource Include="Services\Help\help.css" />
     <EmbeddedResource Include="Services\Help\help.js" />
@@ -426,11 +468,6 @@
     <None Include="Resources\NuGetPackage.png" />
     <None Include="Resources\Exit.png" />
     <None Include="Resources\add.png" />
-    <Content Include="Resources\NiMenu.Generated.xml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NiMenu.xml</DependentUpon>
-    </Content>
     <Content Include="Resources\NiMenu.xml">
       <SubType>Designer</SubType>
       <Generator>NetIdeResourceTransformer</Generator>

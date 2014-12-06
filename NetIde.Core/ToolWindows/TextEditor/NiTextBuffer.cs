@@ -37,10 +37,18 @@ namespace NetIde.Core.ToolWindows.TextEditor
         }
 
         public NiTextBuffer()
+            : this(new DocumentFactory().CreateDocument())
         {
+        }
+
+        public NiTextBuffer(IDocument document)
+        {
+            if (document == null)
+                throw new ArgumentNullException("document");
+
             _languageService = new Guid(NiConstants.LanguageServiceDefault);
 
-            Document = new DocumentFactory().CreateDocument();
+            Document = document;
             Document.DocumentChanged += (s, e) => _dirty = true;
         }
 

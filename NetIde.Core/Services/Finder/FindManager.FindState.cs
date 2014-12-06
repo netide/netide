@@ -10,12 +10,13 @@ using NetIde.Shell.Interop;
 
 namespace NetIde.Core.Services.Finder
 {   
-    partial class FindForm
+    partial class FindManager
     {
         private class FindState
         {
             private const NiFindOptions OptionsEqualMask = ~NiFindOptions.Backwards;
 
+            private readonly INiFindTarget _findTarget;
             private readonly HashSet<INiFindTarget> _findTargetsSeen = new HashSet<INiFindTarget>();
 
             public bool BeforeFirst { get; set; }
@@ -27,31 +28,39 @@ namespace NetIde.Core.Services.Finder
 
             public IteratorBase Iterator { get; private set; }
 
-            private FindState()
+            private FindState(INiFindTarget findTarget)
             {
+                _findTarget = findTarget;
                 BeforeFirst = true;
             }
 
-            public static FindState Create(FindForm form, NiFindOptions options)
+            public static FindState Create(FindManager manager, NiFindOptions options, INiFindTarget findTarget)
             {
-                return new FindState
+                return new FindState(findTarget)
                 {
                     Options = options,
-                    FindWhat = form._findWhat.Text,
-                    ReplaceWith = form._replaceWith.Text,
-                    LookIn = form._lookIn.Text,
-                    LookInFileTypes = form._lookInFileTypes.Text
+                    FindWhat = manager._view.GetFindWhatText(),
+                    ReplaceWith = manager._view.GetReplaceWithText(),
+                    LookIn = manager._view.GetLookInText(),
+                    LookInFileTypes = manager._view.GetLookAtFileTypesText()
                 };
             }
 
             public void CreateIterator(IServiceProvider serviceProvider)
             {
-                switch (Options & NiFindOptions.TargetMask)
+                if (_findTarget != null)
                 {
-                    case NiFindOptions.OpenDocument: Iterator = new OpenDocumentIterator(this, serviceProvider); break;
-                    case NiFindOptions.Project: Iterator = new ProjectIterator(this, serviceProvider); break;
-                    case NiFindOptions.Files: Iterator = new FilesIterator(this, serviceProvider); break;
-                    default: Iterator = new DocumentIterator(this, serviceProvider); break;
+                    Iterator = new SingleTargetIterator(_findTarget);
+                }
+                else
+                {
+                    switch (Options & NiFindOptions.TargetMask)
+                    {
+                        case NiFindOptions.OpenDocument: Iterator = new OpenDocumentIterator(this, serviceProvider); break;
+                        case NiFindOptions.Project: Iterator = new ProjectIterator(this, serviceProvider); break;
+                        case NiFindOptions.Files: Iterator = new FilesIterator(this, serviceProvider); break;
+                        default: Iterator = new DocumentIterator(this, serviceProvider); break;
+                    }
                 }
             }
 
@@ -458,6 +467,71 @@ namespace NetIde.Core.Services.Finder
                 protected override string GetAllText()
                 {
                     return File.ReadAllText(_files[_offset]);
+                }
+            }
+
+            private class SingleTargetIterator : IteratorBase
+            {
+                private readonly INiFindTarget _findTarget;
+                private int _offset = -1;
+
+                public SingleTargetIterator(INiFindTarget findTarget)
+                {
+                    _findTarget = findTarget;
+                }
+
+                protected override bool FindNext()
+                {
+                    _offset++;
+
+                    if (_offset > 0)
+                    {
+                        _offset = -1;
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                protected override string GetAllText()
+                {
+                    INiTextBuffer textBuffer;
+                    ErrorUtil.ThrowOnFailure(_findTarget.GetTextBuffer(out textBuffer));
+
+                    var textLines = textBuffer as INiTextLines;
+                    if (textLines != null)
+                    {
+                        int line;
+                        int index;
+                        ErrorUtil.ThrowOnFailure(textLines.GetLastLineIndex(out line, out index));
+
+                        string result;
+                        ErrorUtil.ThrowOnFailure(textLines.GetLineText(0, 0, line, index, out result));
+
+                        return result;
+                    }
+
+                    return null;
+                }
+
+                public override string DocumentName
+                {
+                    get
+                    {
+                        INiTextBuffer textBuffer;
+                        ErrorUtil.ThrowOnFailure(_findTarget.GetTextBuffer(out textBuffer));
+
+                        var persistFile = textBuffer as INiPersistFile;
+                        if (persistFile != null)
+                        {
+                            string fileName;
+                            ErrorUtil.ThrowOnFailure(persistFile.GetFileName(out fileName));
+
+                            return fileName;
+                        }
+
+                        return null;
+                    }
                 }
             }
         }

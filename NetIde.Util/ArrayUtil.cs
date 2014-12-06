@@ -23,5 +23,15 @@ namespace NetIde.Util
 
             return true;
         }
+
+        public static T[] GetEmptyArray<T>()
+        {
+            return EmptyArrayProvider<T>.EmptyArray;
+        }
+
+        private class EmptyArrayProvider<T>
+        {
+            public static readonly T[] EmptyArray = new T[0];
+        }
     }
 }

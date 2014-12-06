@@ -25,11 +25,24 @@ namespace NetIde.Util
         private const string KeysPlus = "Plus";
         private const string KeysMinus = "Minus";
 
-        public static Keys Parse(string keys)
+        public static Keys[] Parse(string keys)
         {
             if (String.IsNullOrEmpty(keys))
-                return Keys.None;
+                return ArrayUtil.GetEmptyArray<Keys>();
 
+            string[] keysPart = keys.Split(',');
+            var result = new Keys[keysPart.Length];
+
+            for (int i = 0; i < keysPart.Length; i++)
+            {
+                result[i] = ParseKeys(keysPart[i]);
+            }
+
+            return result;
+        }
+
+        private static Keys ParseKeys(string keys)
+        {
             Keys result = 0;
 
             foreach (string part in keys.Split('+'))

@@ -7,6 +7,8 @@ namespace NetIde.Shell
 {
     public static class NiResources
     {
+        public static readonly Guid Toolbar_TextEditor = new Guid("ac5684df-207f-4542-851b-cc4310c44961");
+
         public static readonly Guid Menu_File = new Guid("047f8695-7b12-41d8-8ff3-82f3416a9e5d");
         public static readonly Guid Menu_Tools = new Guid("246a0692-718d-4751-8549-ecbc3f110d04");
         public static readonly Guid Menu_Window = new Guid("4ac0d188-09a7-4225-b697-894c7d7c6a41");
@@ -24,12 +26,6 @@ namespace NetIde.Shell
         public static readonly Guid Tools_Options = new Guid("3e64191c-b595-48e0-99d0-e9fb99fa9f68");
         public static readonly Guid Tools_PackageManagement = new Guid("84e916ee-f199-4559-b5ae-930846b49579");
 
-        public static readonly Guid Edit_Copy = new Guid("b4a1adc9-fb8b-40d4-ad3f-0314bd5a4434");
-        public static readonly Guid Edit_Cut = new Guid("dcd5bc81-5cd4-487a-9453-bc84c9d402ec");
-        public static readonly Guid Edit_Paste = new Guid("ae7856f7-1c1b-464b-8b8d-250f52824b35");
-        public static readonly Guid Edit_Undo = new Guid("8d2c78c6-3161-42a8-b55e-6a2db4b8cda0");
-        public static readonly Guid Edit_Redo = new Guid("20cb9441-492a-444e-be52-c123c43faf95");
-
         public static readonly Guid Edit_Find = new Guid("0134d098-f018-4c1c-9632-83fde0d6573f");
         public static readonly Guid Edit_Replace = new Guid("1a196f81-c0a7-4b3f-81fb-7f9940c6885a");
         public static readonly Guid Edit_FindInFiles = new Guid("be9bf7a5-d045-47af-b301-971b3bdf8240");
@@ -38,5 +34,14 @@ namespace NetIde.Shell
         public static readonly Guid Window_CloseAllDocuments = new Guid("5a8d22fa-ee34-4ea8-b62e-cef68915bfc3");
 
         public static readonly Guid Help_ViewHelp = new Guid("ac076730-1811-4de3-a5d1-b0725bfa568d");
+
+        public static readonly Guid TextEditor_Copy = new Guid("b4a1adc9-fb8b-40d4-ad3f-0314bd5a4434");
+        public static readonly Guid TextEditor_Cut = new Guid("dcd5bc81-5cd4-487a-9453-bc84c9d402ec");
+        public static readonly Guid TextEditor_Paste = new Guid("ae7856f7-1c1b-464b-8b8d-250f52824b35");
+        public static readonly Guid TextEditor_Undo = new Guid("8d2c78c6-3161-42a8-b55e-6a2db4b8cda0");
+        public static readonly Guid TextEditor_Redo = new Guid("20cb9441-492a-444e-be52-c123c43faf95");
+        public static readonly Guid TextEditor_Find = new Guid("f7b8a8e6-121a-4930-b6c3-d74c3b971063");
+        public static readonly Guid TextEditor_FindAndReplace = new Guid("1865c90c-d3f8-497a-902b-860d8edb1cc0");
+        public static readonly Guid TextEditor_GoToLine = new Guid("e64175b7-e01a-4ae2-b14a-b248e3dfabd5");
     }
 }

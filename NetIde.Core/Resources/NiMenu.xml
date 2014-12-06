@@ -27,5 +27,23 @@
                 <button id="Help_ViewHelp" priority="100" text="@MenuViewHelp" key="F1"/>
             </group>
         </menu>
+        <menu id="Toolbar_TextEditor" kind="Toolbar">
+            <group priority="200">
+                <button id="TextEditor_Undo" priority="100" text="@TextEditorUndo" image="@Undo" key="Control+Z"/>
+                <button id="TextEditor_Redo" priority="200" text="@TextEditorRedo" image="@Redo" key="Control+Shift+Z"/>
+            </group>
+            <group priority="300">
+                <button id="TextEditor_Cut" priority="100" text="@TextEditorCut" image="@Cut" key="Control+X,Shift+Delete"/>
+                <button id="TextEditor_Copy" priority="200" text="@TextEditorCopy" image="@Copy" key="Control+C,Control+Insert"/>
+                <button id="TextEditor_Paste" priority="300" text="@TextEditorPaste" image="@Paste" key="Control+V,Shift+Insert"/>
+            </group>
+            <group priority="400">
+                <button id="TextEditor_Find" priority="100" text="@TextEditorFind" image="@Find" key="Control+F" />
+                <button id="TextEditor_FindAndReplace" priority="200" text="@TextEditorFindAndReplace" image="@Replace" key="Control+H" />
+            </group>
+            <group priority="500">
+                <button id="TextEditor_GoToLine" priority="100" text="@TextEditorGoToLine" image="@GoToLine" key="Control+G"/>
+            </group>
+        </menu>
     </ui>
 </resources>

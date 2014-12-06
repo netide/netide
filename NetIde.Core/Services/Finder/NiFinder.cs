@@ -10,13 +10,14 @@ namespace NetIde.Core.Services.Finder
 {
     internal class NiFinder : ServiceBase, INiFinder
     {
-        private readonly CorePackage _package;
         private FindForm _form;
+
+        public CorePackage CorePackage { get; private set; }
 
         public NiFinder(CorePackage package)
             : base(package)
         {
-            _package = package;
+            CorePackage = package;
         }
 
         public HResult OpenDialog(NiFindOptions options, NiFindOptions optionsMask)
@@ -33,7 +34,7 @@ namespace NetIde.Core.Services.Finder
                     // We need to set the site early because SetOptions depends
                     // on this.
 
-                    _form = new FindForm(_package)
+                    _form = new FindForm
                     {
                         Site = new SiteProxy(this)
                     };

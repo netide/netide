@@ -6,35 +6,24 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using NetIde.Core.Settings;
-using NetIde.Core.ToolWindows.FindResults;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
-using NetIde.Shell.Settings;
 using NetIde.Util.Forms;
 
 namespace NetIde.Core.Services.Finder
 {
     internal partial class FindForm : DialogForm
     {
-        private static readonly string[] DefaultLookInOptions = new[] { Labels.CurrentDocument, Labels.AllOpenDocuments, Labels.EntireProject };
+        private static readonly string[] DefaultLookInOptions = { Labels.CurrentDocument, Labels.AllOpenDocuments, Labels.EntireProject };
 
-        private readonly CorePackage _package;
         private readonly Dictionary<Control, Padding> _margins = new Dictionary<Control, Padding>();
-        private INiFindHelper _findHelper;
+        private FindManager _findManager;
 
-        private FindState _state;
-
-        public NiFindOptions Options { get; private set; }
-
-        public FindForm(CorePackage package)
+        public FindForm()
         {
-            if (package == null)
-                throw new ArgumentNullException("package");
-
-            _package = package;
-
             InitializeComponent();
+
+            _lookIn.Items.AddRange(DefaultLookInOptions);
         }
 
         public override ISite Site
@@ -44,137 +33,13 @@ namespace NetIde.Core.Services.Finder
             {
                 base.Site = value;
 
-                object obj;
-                ErrorUtil.ThrowOnFailure(((INiLocalRegistry)GetService(typeof(INiLocalRegistry))).CreateInstance(
-                    new Guid(NiConstants.FindHelper),
-                    Site,
-                    out obj
-                ));
-
-                _findHelper = (INiFindHelper)obj;
-
-                LoadSettings();
+                _findManager = new FindManager(new View(this));
             }
-        }
-
-        private void LoadSettings()
-        {
-            var settings = SettingsBuilder.GetSettings<IFinderSettings>(Site);
-
-            LoadHistory(_findWhat, settings.FindWhatHistory);
-            LoadHistory(_replaceWith, settings.ReplaceWithHistory);
-
-            _lookIn.Items.AddRange(DefaultLookInOptions);
-
-            LoadHistory(_lookIn, settings.LookInHistory);
-
-            LoadHistory(_lookInFileTypes, settings.LookAtFileTypesHistory);
-
-            SetOptions(settings.Options, settings.Options);
-        }
-
-        private void SaveSettings()
-        {
-            var settings = SettingsBuilder.GetSettings<IFinderSettings>(Site);
-
-            settings.Options = Options;
-            settings.FindWhatHistory = SaveHistory(_findWhat);
-            settings.ReplaceWithHistory = SaveHistory(_replaceWith);
-            settings.LookInHistory = SaveHistory(_lookIn, DefaultLookInOptions);
-            settings.LookAtFileTypesHistory = SaveHistory(_lookInFileTypes);
-        }
-
-        private string SaveHistory(ComboBox comboBox)
-        {
-            return SaveHistory(comboBox, null);
-        }
-
-        private string SaveHistory(ComboBox comboBox, string[] exclude)
-        {
-            var history = comboBox.Items.Cast<string>().ToList();
-
-            if (comboBox.Text.Length > 0)
-            {
-                int index = history.IndexOf(comboBox.Text);
-
-                if (index != -1)
-                    history.RemoveAt(index);
-
-                history.Insert(0, comboBox.Text);
-            }
-
-            if (exclude != null)
-                history.RemoveAll(p => Array.IndexOf(exclude, p) != -1);
-
-            if (history.Count > 20)
-                history.RemoveRange(20, history.Count - 20);
-
-            if (history.Count > 0)
-                return String.Join(Environment.NewLine, history);
-
-            return null;
-        }
-
-        private void LoadHistory(ComboBox comboBox, string history)
-        {
-            if (String.IsNullOrEmpty(history))
-                return;
-
-            foreach (string line in history.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
-            {
-                comboBox.Items.Add(line);
-            }
-
-            if (comboBox.Items.Count > 0)
-                comboBox.SelectedIndex = 0;
         }
 
         public void SetOptions(NiFindOptions options, NiFindOptions optionsMask)
         {
-            SuspendLayout();
-
-            Options = (Options & ~optionsMask) | options;
-
-            _modeFind.Checked = options.HasFlag(NiFindOptions.Find);
-            _modeFindReplace.Checked = options.HasFlag(NiFindOptions.Replace);
-
-            ShowControl(_replaceWith, _modeFindReplace.Checked);
-            ShowControl(_replaceWithLabel, _modeFindReplace.Checked);
-            ShowControl(_keepOpen, _modeFindReplace.Checked);
-            ShowControl(_skipFile, _modeFindReplace.Checked);
-            ShowControl(_replaceAll, _modeFindReplace.Checked);
-            ShowControl(_replace, _modeFindReplace.Checked);
-            ShowControl(_replaceFindNext, _modeFindReplace.Checked);
-            ShowControl(_findNext, _modeFind.Checked);
-            ShowControl(_findPrevious, _modeFind.Checked);
-            ShowControl(_findAll, _modeFind.Checked);
-
-            if ((optionsMask & NiFindOptions.TargetMask) != 0)
-            {
-                string selectLookIn;
-
-                switch (Options & NiFindOptions.TargetMask)
-                {
-                    case NiFindOptions.Document: selectLookIn = Labels.CurrentDocument; break;
-                    case NiFindOptions.OpenDocument: selectLookIn = Labels.AllOpenDocuments; break;
-                    default: selectLookIn = Labels.EntireProject; break;
-                }
-
-                _lookIn.SelectedItem = selectLookIn;
-            }
-
-            _includeSubFolders.Checked = Options.HasFlag(NiFindOptions.SubFolders);
-            _matchCase.Checked = Options.HasFlag(NiFindOptions.MatchCase);
-            _matchWholeWord.Checked = Options.HasFlag(NiFindOptions.WholeWord);
-            _useRegularExpressions.Checked = Options.HasFlag(NiFindOptions.RegExp);
-            _keepOpen.Checked = Options.HasFlag(NiFindOptions.KeepOpen);
-
-            ResumeLayout();
-
-            Height =
-                (Height - ClientSize.Height) +
-                _toolStrip.Height +
-                _clientArea.Height;
+            _findManager.SetOptions(options, optionsMask);
         }
 
         private void _modeFind_Click(object sender, EventArgs e)
@@ -211,341 +76,52 @@ namespace NetIde.Core.Services.Finder
 
         private void _replaceFindNext_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.FindNext);
+            PerformFind(FindAction.FindNext);
         }
 
         private void _replace_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.Replace);
+            PerformFind(FindAction.Replace);
         }
 
         private void _findPrevious_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.FindPrevious);
+            PerformFind(FindAction.FindPrevious);
         }
 
         private void _findNext_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.FindNext);
+            PerformFind(FindAction.FindNext);
         }
 
         private void _skipFile_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.SkipFile);
+            PerformFind(FindAction.SkipFile);
         }
 
         private void _replaceAll_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.ReplaceAll);
+            PerformFind(FindAction.ReplaceAll);
         }
 
         private void _findAll_Click(object sender, EventArgs e)
         {
-            PerformFind(Action.FindAll);
+            PerformFind(FindAction.FindAll);
         }
 
-        private void PerformFind(Action action)
+        private void PerformFind(FindAction action)
         {
-            NiShellUtil.Checked(this, () => PerformFindChecked(action));
+            _findManager.PerformFind(action);
         }
 
-        private void PerformFindChecked(Action action)
-        {
-            SaveSettings();
-
-            var options = Options & (NiFindOptions.OptionsMask | NiFindOptions.SyntaxMark | NiFindOptions.TargetMask);
-
-            options &= ~(NiFindOptions.ActionMask | NiFindOptions.Backwards);
-
-            switch (action)
-            {
-                case Action.FindNext:
-                    options |= NiFindOptions.Find;
-                    break;
-
-                case Action.FindPrevious:
-                    options |= NiFindOptions.Find | NiFindOptions.Backwards;
-                    break;
-
-                case Action.Replace:
-                    options |= NiFindOptions.Replace;
-                    break;
-
-                case Action.ReplaceAll:
-                    options |= NiFindOptions.ReplaceAll;
-                    break;
-
-                case Action.FindAll:
-                    options |= NiFindOptions.FindAll;
-                    break;
-
-                case Action.SkipFile:
-                    throw new NotImplementedException();
-
-                default:
-                    throw new ArgumentOutOfRangeException("action");
-            }
-
-            var currentFindState = FindState.Create(this, options);
-
-            if (_state == null || !_state.SettingsEqual(currentFindState))
-            {
-                _state = currentFindState;
-                _state.CreateIterator(this);
-            }
-
-            _state.Options = options;
-
-            switch (action)
-            {
-                case Action.FindNext:
-                    PerformFindSingle();
-                    break;
-
-                case Action.FindPrevious:
-                    PerformFindSingle();
-                    break;
-
-                case Action.Replace:
-                    PerformReplaceSingle();
-                    break;
-
-                case Action.ReplaceAll:
-                    PerformReplaceAll();
-                    break;
-
-                case Action.FindAll:
-                    PerformFindAll();
-                    break;
-
-                case Action.SkipFile:
-                    throw new NotImplementedException();
-
-                default:
-                    throw new ArgumentOutOfRangeException("action");
-            }
-        }
-
-        private void PerformFindSingle()
-        {
-            if (_state.BeforeFirst)
-            {
-                _state.BeforeFirst = false;
-
-                if (!_state.Iterator.MoveNext())
-                {
-                    NoMoreConcurrences();
-                    return;
-                }
-            }
-
-            do
-            {
-                string documentName = _state.Iterator.DocumentName;
-
-                INiHierarchy hier;
-                INiWindowFrame windowFrame;
-                ErrorUtil.ThrowOnFailure(((INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager))).IsDocumentOpen(
-                    documentName,
-                    out hier,
-                    out windowFrame
-                ));
-
-                if (windowFrame == null)
-                {
-                    // Check whether the file has any match at all.
-
-                    if (!HasAnyMatch(_state.Iterator.AllText))
-                        continue;
-
-                    // If we found a match, open the window frame and retry.
-
-                    var activeProject = ((INiProjectManager)GetService(typeof(INiProjectManager))).ActiveProject;
-
-                    if (activeProject != null)
-                    {
-                        hier = activeProject.FindByDocument(documentName);
-
-                        if (hier != null)
-                            ErrorUtil.ThrowOnFailure(activeProject.OpenItem(hier, out windowFrame));
-                    }
-
-                    // If we couldn't open the window frame, continue.
-
-                    if (windowFrame == null)
-                        continue;
-                }
-
-                // Now retry on the window frame.
-
-                var docView = (INiWindowPane)windowFrame.GetPropertyEx(NiFrameProperty.DocView);
-                if (docView != null)
-                {
-                    var findTarget = docView as INiFindTarget;
-                    if (findTarget != null)
-                    {
-                        bool reset = _state.IsNewFindTarget(findTarget);
-
-                        NiFindResult result;
-                        ErrorUtil.ThrowOnFailure(findTarget.Find(
-                            _state.FindWhat,
-                            _state.Options,
-                            reset,
-                            _findHelper,
-                            out result
-                        ));
-
-                        if (result == NiFindResult.Found)
-                            return;
-                    }
-                }
-            }
-            while (_state.Iterator.MoveNext());
-
-            NoMoreConcurrences();
-        }
-
-        private void NoMoreConcurrences()
+        private void NoMoreOccurrences()
         {
             ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).ShowMessageBox(
-                Labels.NoMoreConcurrences,
+                Labels.NoMoreOccurrences,
                 null,
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             ));
-
-            _state.ResetSeenFindTargets();
-            _state.BeforeFirst = true;
-        }
-
-        private bool HasAnyMatch(string content)
-        {
-            int found;
-            int matchLength;
-            string replacementText;
-            bool isFound;
-
-            ErrorUtil.ThrowOnFailure(_findHelper.FindInText(
-                _state.FindWhat,
-                null,
-                _state.Options,
-                content,
-                0,
-                out found,
-                out matchLength,
-                out replacementText,
-                out isFound
-            ));
-
-            return isFound;
-        }
-
-        private void PerformFindAll()
-        {
-            var toolWindow = (FindResultsWindow)_package.FindToolWindow(typeof(FindResultsWindow), true);
-
-            ErrorUtil.ThrowOnFailure(toolWindow.Frame.Show());
-
-            toolWindow.ResetResults();
-
-            while (_state.Iterator.MoveNext())
-            {
-                string content = _state.Iterator.AllText;
-                List<int> lineOffsets = null;
-                int offset = 0;
-
-                while (true)
-                {
-                    int found;
-                    int matchLength;
-                    string replacementText;
-                    bool isFound;
-
-                    ErrorUtil.ThrowOnFailure(_findHelper.FindInText(
-                        _state.FindWhat,
-                        null,
-                        _state.Options,
-                        content,
-                        offset,
-                        out found,
-                        out matchLength,
-                        out replacementText,
-                        out isFound
-                    ));
-
-                    if (!isFound)
-                        break;
-
-                    if (lineOffsets == null)
-                        lineOffsets = GetLineOffsets(content);
-
-                    int line = lineOffsets.Count;
-
-                    for (int i = 0; i < lineOffsets.Count; i++)
-                    {
-                        if (found <= lineOffsets[i])
-                        {
-                            line = i;
-                            break;
-                        }
-                    }
-
-                    string lineContent;
-
-                    if (lineOffsets.Count == 0)
-                    {
-                        lineContent = content;
-                    }
-                    else if (line == 0)
-                    {
-                        lineContent = content.Substring(0, lineOffsets[0]);
-                    }
-                    else if (line == lineOffsets.Count)
-                    {
-                        lineContent = content.Substring(lineOffsets[lineOffsets.Count - 1]);
-                    }
-                    else
-                    {
-                        int lineOffset = lineOffsets[line - 1] + 1;
-                        lineContent = content.Substring(lineOffset, lineOffsets[line] - lineOffset);
-                    }
-
-                    toolWindow.AddResult(
-                        new FindResult(_state.Iterator.DocumentName, found, matchLength),
-                        line,
-                        lineContent.TrimEnd()
-                    );
-
-                    offset = found + matchLength;
-                }
-            }
-
-            // FindAll doesn't re-use state.
-
-            _state = null;
-        }
-
-        private List<int> GetLineOffsets(string content)
-        {
-            var result = new List<int>();
-
-            for (int i = 0; i < content.Length; i++)
-            {
-                if (content[i] == '\n')
-                    result.Add(i);
-            }
-
-            return result;
-        }
-
-        private void PerformReplaceSingle()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void PerformReplaceAll()
-        {
-            throw new NotImplementedException();
         }
 
         private void _includeSubFolders_CheckedChanged(object sender, EventArgs e)
@@ -556,9 +132,9 @@ namespace NetIde.Core.Services.Finder
         private void SetOption(NiFindOptions option, bool value)
         {
             if (value)
-                Options |= option;
+                _findManager.Options |= option;
             else
-                Options &= ~option;
+                _findManager.Options &= ~option;
         }
 
         private void _matchCase_CheckedChanged(object sender, EventArgs e)
@@ -594,9 +170,9 @@ namespace NetIde.Core.Services.Finder
             else
                 options = NiFindOptions.Files;
 
-            Options = (Options & ~NiFindOptions.TargetMask) | options;
+            _findManager.Options = (_findManager.Options & ~NiFindOptions.TargetMask) | options;
 
-            _includeSubFolders.Enabled = Options.HasFlag(NiFindOptions.Files);
+            _includeSubFolders.Enabled = _findManager.Options.HasFlag(NiFindOptions.Files);
         }
 
         private void _lookInBrowser_Browse(object sender, EventArgs e)
@@ -607,14 +183,196 @@ namespace NetIde.Core.Services.Finder
                 _lookIn.Text = browser.SelectedPath;
         }
 
-        private enum Action
+        private class View : IFindView
         {
-            FindNext,
-            FindPrevious,
-            Replace,
-            SkipFile,
-            ReplaceAll,
-            FindAll
+            private readonly FindForm _form;
+
+            public View(FindForm form)
+            {
+                _form = form;
+            }
+
+            public void BeginUpdate()
+            {
+                _form.SuspendLayout();
+            }
+
+            public void EndUpdate()
+            {
+                _form.ResumeLayout();
+
+                _form.Height =
+                    (_form.Height - _form.ClientSize.Height) +
+                    _form._toolStrip.Height +
+                    _form._clientArea.Height;
+            }
+
+            public void SetMode(FindMode findMode)
+            {
+                _form._modeFind.Checked = findMode == FindMode.Find;
+                _form._modeFindReplace.Checked = findMode == FindMode.Replace;
+
+                bool replace = findMode == FindMode.Replace;
+
+                _form.ShowControl(_form._replaceWith, replace);
+                _form.ShowControl(_form._replaceWithLabel, replace);
+                _form.ShowControl(_form._keepOpen, replace);
+                _form.ShowControl(_form._skipFile, replace);
+                _form.ShowControl(_form._replaceAll, replace);
+                _form.ShowControl(_form._replace, replace);
+                _form.ShowControl(_form._replaceFindNext, replace);
+                _form.ShowControl(_form._findNext, !replace);
+                _form.ShowControl(_form._findPrevious, !replace);
+                _form.ShowControl(_form._findAll, !replace);
+            }
+
+            public void SetTarget(FindTarget findTarget)
+            {
+                string selectLookIn;
+
+                switch (findTarget)
+                {
+                    case FindTarget.CurrentDocument: selectLookIn = Labels.CurrentDocument; break;
+                    case FindTarget.AllOpenDocuments: selectLookIn = Labels.AllOpenDocuments; break;
+                    default: selectLookIn = Labels.EntireProject; break;
+                }
+
+                _form._lookIn.SelectedItem = selectLookIn;
+            }
+
+            public void SetIncludeSubFolders(bool value)
+            {
+                _form._includeSubFolders.Checked = value;
+            }
+
+            public void SetMatchCase(bool value)
+            {
+                _form._matchCase.Checked = value;
+            }
+
+            public void SetMatchWholeWord(bool value)
+            {
+                _form._matchWholeWord.Checked = value;
+            }
+
+            public void SetUseRegularExpressions(bool value)
+            {
+                _form._useRegularExpressions.Checked = value;
+            }
+
+            public void SetKeepOpen(bool value)
+            {
+                _form._keepOpen.Checked = value;
+            }
+
+            public void NoMoreOccurrences()
+            {
+                _form.NoMoreOccurrences();
+            }
+
+            public void LoadFindWhatHistory(string[] history)
+            {
+                LoadHistory(_form._findWhat, history);
+            }
+
+            public void LoadReplaceWithHistory(string[] history)
+            {
+                LoadHistory(_form._replaceWith, history);
+            }
+
+            public void LoadLookInHistory(string[] history)
+            {
+                LoadHistory(_form._lookIn, history);
+            }
+
+            public void LoadLookAtFileTypesHistory(string[] history)
+            {
+                LoadHistory(_form._lookInFileTypes, history);
+            }
+
+            public string[] GetFindWhatHistory()
+            {
+                return GetHistory(_form._findWhat);
+            }
+
+            public string[] GetReplaceWithHistory()
+            {
+                return GetHistory(_form._replaceWith);
+            }
+
+            public string[] GetLookInHistory()
+            {
+                return GetHistory(_form._lookIn, DefaultLookInOptions);
+            }
+
+            public string[] GetLookAtFileTypesHistory()
+            {
+                return GetHistory(_form._lookInFileTypes);
+            }
+
+            private string[] GetHistory(ComboBox comboBox)
+            {
+                return GetHistory(comboBox, null);
+            }
+
+            private string[] GetHistory(ComboBox comboBox, string[] exclude)
+            {
+                var history = comboBox.Items.Cast<string>().ToList();
+
+                if (comboBox.Text.Length > 0)
+                {
+                    int index = history.IndexOf(comboBox.Text);
+
+                    if (index != -1)
+                        history.RemoveAt(index);
+
+                    history.Insert(0, comboBox.Text);
+                }
+
+                if (exclude != null)
+                    history.RemoveAll(p => Array.IndexOf(exclude, p) != -1);
+
+                if (history.Count > 20)
+                    history.RemoveRange(20, history.Count - 20);
+
+                return history.ToArray();
+            }
+
+            public string GetFindWhatText()
+            {
+                return _form._findWhat.Text;
+            }
+
+            public string GetReplaceWithText()
+            {
+                return _form._replaceWith.Text;
+            }
+
+            public string GetLookInText()
+            {
+                return _form._lookIn.Text;
+            }
+
+            public string GetLookAtFileTypesText()
+            {
+                return _form._lookInFileTypes.Text;
+            }
+
+            public object GetService(Type serviceType)
+            {
+                return _form.Site.GetService(serviceType);
+            }
+
+            private void LoadHistory(ComboBox comboBox, string[] history)
+            {
+                foreach (string line in history)
+                {
+                    comboBox.Items.Add(line);
+                }
+
+                if (comboBox.Items.Count > 0)
+                    comboBox.SelectedIndex = 0;
+            }
         }
     }
 }

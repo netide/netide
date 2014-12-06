@@ -12,13 +12,14 @@ using NetIde.Core.Support;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Shell.Settings;
+using NetIde.Util.Forms;
+using TextEditorControl = NetIde.Core.TextEditor.TextEditorControl;
 
 namespace NetIde.Core.ToolWindows.TextEditor
 {
     [Guid("9e5f682c-1308-4d12-9136-05b820a78989")]
     internal partial class TextEditorWindow : EditorWindow, INiCodeWindow, INiConnectionPoint
     {
-        private readonly NiCommandMapper _commandMapper = new NiCommandMapper();
         private readonly NiConnectionPoint _connectionPoint = new NiConnectionPoint();
         private NiTextLines _textLines;
 
@@ -35,8 +36,6 @@ namespace NetIde.Core.ToolWindows.TextEditor
         public TextEditorWindow(INiTextLines textLines)
         {
             _textLines = (NiTextLines)textLines;
-
-            BuildCommands();
         }
 
         public HResult Advise(object sink, out int cookie)
@@ -83,7 +82,8 @@ namespace NetIde.Core.ToolWindows.TextEditor
             var control = new TextEditorControl
             {
                 Font = fontSettings.CodeFont ?? Constants.DefaultCodeFont,
-                ConvertTabsToSpaces = true
+                ConvertTabsToSpaces = true,
+                Site = new SiteProxy(this)
             };
 
             HookEvents(control.ActiveTextAreaControl);
@@ -185,12 +185,12 @@ namespace NetIde.Core.ToolWindows.TextEditor
 
         public HResult QueryStatus(Guid command, out NiCommandStatus status)
         {
-            return _commandMapper.QueryStatus(command, out status);
+            return Control.CommandMapper.QueryStatus(command, out status);
         }
 
         public HResult Exec(Guid command, object argument, out object result)
         {
-            return _commandMapper.Exec(command, argument, out result);
+            return Control.CommandMapper.Exec(command, argument, out result);
         }
 
         public HResult GetCaretPosition(out int line, out int index)

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.themedPanel1 = new NetIde.Util.Forms.ThemedPanel();
-            this._leftEditor = new NetIde.Core.TextEditorControl();
+            this._leftEditor = new NetIde.Core.TextEditor.TextEditorControl();
             this.themedPanel2 = new NetIde.Util.Forms.ThemedPanel();
-            this._rightEditor = new NetIde.Core.TextEditorControl();
+            this._rightEditor = new NetIde.Core.TextEditor.TextEditorControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this._markerMap = new NetIde.Core.ToolWindows.DiffViewer.DiffMarkerMapControl();
             this._leftDetails = new NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl();
@@ -179,9 +179,9 @@
         #endregion
 
         private Util.Forms.ThemedPanel themedPanel1;
-        private NetIde.Core.TextEditorControl _leftEditor;
+        private NetIde.Core.TextEditor.TextEditorControl _leftEditor;
         private Util.Forms.ThemedPanel themedPanel2;
-        private NetIde.Core.TextEditorControl _rightEditor;
+        private NetIde.Core.TextEditor.TextEditorControl _rightEditor;
         private StreamDetailsControl _leftDetails;
         private StreamDetailsControl _rightDetails;
         private DiffMarkerMapControl _markerMap;

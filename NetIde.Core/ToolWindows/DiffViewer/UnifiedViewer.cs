@@ -42,6 +42,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
                 var fontSettings = SettingsBuilder.GetSettings<IFontSettings>(Site);
 
+                _editor.Site = value;
                 _editor.Font = fontSettings.CodeFont ?? Constants.DefaultCodeFont;
             }
         }

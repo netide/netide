@@ -29,5 +29,23 @@
         <button id="Help_ViewHelp" priority="100" text="@MenuViewHelp" key="F1" guid="{AC076730-1811-4DE3-A5D1-B0725BFA568D}" />
       </group>
     </menu>
+    <menu id="Toolbar_TextEditor" kind="Toolbar" guid="{AC5684DF-207F-4542-851B-CC4310C44961}">
+      <group priority="200">
+        <button id="TextEditor_Undo" priority="100" text="@TextEditorUndo" image="@Undo" key="Control+Z" guid="{8D2C78C6-3161-42A8-B55E-6A2DB4B8CDA0}" />
+        <button id="TextEditor_Redo" priority="200" text="@TextEditorRedo" image="@Redo" key="Control+Shift+Z" guid="{20CB9441-492A-444E-BE52-C123C43FAF95}" />
+      </group>
+      <group priority="300">
+        <button id="TextEditor_Cut" priority="100" text="@TextEditorCut" image="@Cut" key="Control+X,Shift+Delete" guid="{DCD5BC81-5CD4-487A-9453-BC84C9D402EC}" />
+        <button id="TextEditor_Copy" priority="200" text="@TextEditorCopy" image="@Copy" key="Control+C,Control+Insert" guid="{B4A1ADC9-FB8B-40D4-AD3F-0314BD5A4434}" />
+        <button id="TextEditor_Paste" priority="300" text="@TextEditorPaste" image="@Paste" key="Control+V,Shift+Insert" guid="{AE7856F7-1C1B-464B-8B8D-250F52824B35}" />
+      </group>
+      <group priority="400">
+        <button id="TextEditor_Find" priority="100" text="@TextEditorFind" image="@Find" key="Control+F" guid="{F7B8A8E6-121A-4930-B6C3-D74C3B971063}" />
+        <button id="TextEditor_FindAndReplace" priority="200" text="@TextEditorFindAndReplace" image="@Replace" key="Control+H" guid="{1865C90C-D3F8-497A-902B-860D8EDB1CC0}" />
+      </group>
+      <group priority="500">
+        <button id="TextEditor_GoToLine" priority="100" text="@TextEditorGoToLine" image="@GoToLine" key="Control+G" guid="{E64175B7-E01A-4AE2-B14A-B248E3DFABD5}" />
+      </group>
+    </menu>
   </ui>
 </resources>

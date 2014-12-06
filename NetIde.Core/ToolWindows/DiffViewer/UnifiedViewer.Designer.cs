@@ -30,7 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.themedPanel1 = new NetIde.Util.Forms.ThemedPanel();
-            this._editor = new NetIde.Core.TextEditorControl();
+            this._editor = new NetIde.Core.TextEditor.TextEditorControl();
             this._leftDetails = new NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl();
             this._rightDetails = new NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl();
             this.tableLayoutPanel1.SuspendLayout();
@@ -126,6 +126,6 @@
         private StreamDetailsControl _leftDetails;
         private StreamDetailsControl _rightDetails;
         private Util.Forms.ThemedPanel themedPanel1;
-        private NetIde.Core.TextEditorControl _editor;
+        private NetIde.Core.TextEditor.TextEditorControl _editor;
     }
 }
