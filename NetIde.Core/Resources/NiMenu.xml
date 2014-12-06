@@ -5,29 +5,8 @@
     </imports>
     <ui>
         <menu id="Menu_File" text="@MenuFile" priority="100" kind="Menu">
-            <group priority="100">
-                <button id="File_NewProject" priority="100" text="@MenuFileNewProject" key="Control+Shift+N" image="@DocumentsNew"/>
-                <button id="File_OpenProject" priority="200" text="@MenuFileOpenProject" key="Control+Shift+O" image="@Documents"/>
-            </group>
-            <group priority="200">
-                <button id="File_Close" priority="100" text="@MenuFileClose" key="Control+F4" />
-                <button id="File_CloseProject" priority="200" text="@MenuFileCloseProject" image="@Exit" />
-            </group>
-            <group priority="300">
-                <button id="File_Save" priority="100" text="@MenuFileSave" key="Control+S" image="@DiskBlue" />
-                <button id="File_SaveAs" priority="200" text="@MenuFileSaveAs" />
-                <button id="File_SaveAll" priority="300" text="@MenuFileSaveAll" key="Control+Shift+S" image="@Disks" />
-            </group>
             <group priority="1000">
                 <button id="File_Exit" priority="1000" text="@MenuFileExit" key="Alt+F4" image="@Exit" />
-            </group>
-        </menu>
-        <menu id="Menu_Edit" text="@MenuEdit" priority="1000" kind="Menu">
-            <group priority="100">
-                <button id="Edit_Find" priority="100" text="@MenuEditFind" key="Control+F" image="@Find" />
-                <button id="Edit_Replace" priority="100" text="@MenuEditReplace" key="Control+H" image="@Replace" />
-                <button id="Edit_FindInFiles" priority="100" text="@MenuEditFindInFiles" key="Control+Shift+F" image="@Find" />
-                <button id="Edit_ReplaceInFiles" priority="100" text="@MenuEditReplaceInFiles" key="Control+Shift+H" image="@Replace" />
             </group>
         </menu>
         <menu id="Menu_Tools" text="@MenuTools" priority="2000" kind="Menu">
