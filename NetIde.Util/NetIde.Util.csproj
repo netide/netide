@@ -95,6 +95,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\ProgressBarState.cs" />
+    <Compile Include="Forms\RichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\TaskDialog.cs" />
     <Compile Include="Forms\TaskDialog.Show.cs" />
     <Compile Include="Forms\TaskDialogButton.cs" />
