@@ -158,7 +158,7 @@ namespace NetIde.Services.MenuManager
 
                 var contextMenu = (ContextMenuStrip)host.Control;
 
-                contextMenu.Disposed += (s, e) => host.Dispose();
+                contextMenu.Closed += (s, e) => contextMenu.BeginInvoke(new Action(host.Dispose));
 
                 contextMenu.Show(location);
 
