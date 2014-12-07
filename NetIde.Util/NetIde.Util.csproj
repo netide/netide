@@ -106,7 +106,6 @@
     <Compile Include="Forms\TextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ToolStripUtil.cs" />
     <Compile Include="Forms\ControlUtil.cs" />
     <Compile Include="Forms\DateTimePicker.cs">
       <SubType>Component</SubType>

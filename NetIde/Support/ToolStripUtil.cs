@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Services.CommandManager.Controls;
 
-namespace NetIde.Services.CommandManager.Controls
+namespace NetIde.Support
 {
-    internal static class IBarControlExtensions
+    internal static class ToolStripUtil
     {
-        public static void UpdateSeparatorVisibility(this IBarControl self)
+        public static void UpdateSeparatorVisibility(this ToolStripItemCollection items)
         {
-            var items = self.Items;
+            if (items == null)
+                throw new ArgumentNullException("items");
+
+            bool hadAnyVisible = false;
+
             for (int separatorIndex = 0; separatorIndex < items.Count; separatorIndex++)
             {
                 var separator = items[separatorIndex] as ToolStripSeparator;
                 if (separator == null)
+                {
+                    if (IsItemVisible(items[separatorIndex]))
+                        hadAnyVisible = true;
                     continue;
+                }
 
                 bool hadVisible = false;
 
@@ -31,7 +40,7 @@ namespace NetIde.Services.CommandManager.Controls
                     }
                 }
 
-                bool forceInvisible = separatorIndex == 0;
+                bool forceInvisible = !hadAnyVisible;
 
                 for (int i = separatorIndex - 1; i >= 0; i--)
                 {

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Shell.Interop;
+using NetIde.Support;
+using NetIde.Util.Forms;
 
 namespace NetIde.Services.CommandManager.Controls
 {
@@ -64,7 +66,7 @@ namespace NetIde.Services.CommandManager.Controls
                 CreateControl(command);
             }
 
-            Bar.UpdateSeparatorVisibility();
+            Bar.Items.UpdateSeparatorVisibility();
         }
 
         void Group_AppearanceChanged(object sender, EventArgs e)
@@ -175,12 +177,12 @@ namespace NetIde.Services.CommandManager.Controls
 
             items.Insert(insertIndex, control.Item);
 
-            Bar.UpdateSeparatorVisibility();
+            Bar.Items.UpdateSeparatorVisibility();
         }
 
         void command_AppearanceChanged(object sender, EventArgs e)
         {
-            Bar.UpdateSeparatorVisibility();
+            Bar.Items.UpdateSeparatorVisibility();
         }
 
         private void RemoveAllItems()
@@ -202,7 +204,7 @@ namespace NetIde.Services.CommandManager.Controls
             control.NiCommand.AppearanceChanged += command_AppearanceChanged;
             control.Dispose();
 
-            Bar.UpdateSeparatorVisibility();
+            Bar.Items.UpdateSeparatorVisibility();
         }
 
         public void Dispose()

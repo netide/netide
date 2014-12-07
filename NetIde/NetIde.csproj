@@ -162,7 +162,6 @@
     <Compile Include="Services\CommandManager\Controls\ButtonControl.cs" />
     <Compile Include="Services\CommandManager\Controls\GroupManager.cs" />
     <Compile Include="Services\CommandManager\Controls\IBarControl.cs" />
-    <Compile Include="Services\CommandManager\Controls\IBarControlExtensions.cs" />
     <Compile Include="Services\CommandManager\Controls\MenuItemBarControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -271,6 +270,7 @@
     <Compile Include="Support\DockPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Support\ToolStripUtil.cs" />
     <Compile Include="TypeUtil.cs" />
     <Compile Include="Win32\ExternDll.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
