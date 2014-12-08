@@ -95,6 +95,24 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 ev(this, e);
         }
 
+        public event CancelEventHandler LeftUpdating;
+
+        protected virtual void OnLeftUpdating(CancelEventArgs e)
+        {
+            var handler = LeftUpdating;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public event CancelEventHandler RightUpdating;
+
+        protected virtual void OnRightUpdating(CancelEventArgs e)
+        {
+            var handler = RightUpdating;
+            if (handler != null)
+                handler(this, e);
+        }
+
         public DiffViewerControl()
         {
             InitializeComponent();
@@ -107,6 +125,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
             _textViewer.LeftUpdated += (s, e) => OnLeftUpdated(EventArgs.Empty);
             _textViewer.RightUpdated += (s, e) => OnRightUpdated(EventArgs.Empty);
+            _textViewer.LeftUpdating += (s, e) => OnLeftUpdating(e);
+            _textViewer.RightUpdating += (s, e) => OnRightUpdating(e);
 
             Reset();
         }

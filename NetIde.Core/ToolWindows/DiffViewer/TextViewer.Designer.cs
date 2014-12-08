@@ -99,6 +99,10 @@
             this._sideBySideViewer.Name = "_sideBySideViewer";
             this._sideBySideViewer.Size = new System.Drawing.Size(269, 215);
             this._sideBySideViewer.TabIndex = 3;
+            this._sideBySideViewer.LeftUpdated += new System.EventHandler(this._sideBySideViewer_LeftUpdated);
+            this._sideBySideViewer.RightUpdated += new System.EventHandler(this._sideBySideViewer_RightUpdated);
+            this._sideBySideViewer.LeftUpdating += new System.ComponentModel.CancelEventHandler(this._sideBySideViewer_LeftUpdating);
+            this._sideBySideViewer.RightUpdating += new System.ComponentModel.CancelEventHandler(this._sideBySideViewer_RightUpdating);
             // 
             // _container
             // 

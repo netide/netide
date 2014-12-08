@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -103,9 +104,33 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             control.ModeChanged += control_ModeChanged;
             control.LeftUpdated += control_LeftUpdated;
             control.RightUpdated += control_RightUpdated;
+            control.LeftUpdating += control_LeftUpdating;
+            control.RightUpdating += control_RightUpdating;
             control.Site = new SiteProxy(this);
 
             return control;
+        }
+
+        void control_RightUpdating(object sender, CancelEventArgs e)
+        {
+            _connectionPoint.ForAll(p =>
+            {
+                bool cancel;
+                p.OnRightChanging(out cancel);
+                if (cancel)
+                    e.Cancel = true;
+            });
+        }
+
+        void control_LeftUpdating(object sender, CancelEventArgs e)
+        {
+            _connectionPoint.ForAll(p =>
+            {
+                bool cancel;
+                p.OnLeftChanging(out cancel);
+                if (cancel)
+                    e.Cancel = true;
+            });
         }
 
         void control_RightUpdated(object sender, EventArgs e)

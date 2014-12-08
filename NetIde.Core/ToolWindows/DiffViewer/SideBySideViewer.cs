@@ -68,6 +68,24 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 ev(this, e);
         }
 
+        public event CancelEventHandler LeftUpdating;
+
+        protected virtual void OnLeftUpdating(CancelEventArgs e)
+        {
+            var handler = LeftUpdating;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public event CancelEventHandler RightUpdating;
+
+        protected virtual void OnRightUpdating(CancelEventArgs e)
+        {
+            var handler = RightUpdating;
+            if (handler != null)
+                handler(this, e);
+        }
+
         public SideBySideViewer()
         {
             _designing = ControlUtil.GetIsInDesignMode(this);
@@ -444,6 +462,24 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         private void _editor_ButtonClick(object sender, DiffEditorButtonEventArgs e)
         {
+            var cancelArgs = new CancelEventArgs();
+
+            switch (e.Type)
+            {
+                case DiffEditorButtonType.CopyLeft:
+                case DiffEditorButtonType.DeleteRight:
+                    OnLeftUpdating(cancelArgs);
+                    break;
+
+                case DiffEditorButtonType.DeleteLeft:
+                case DiffEditorButtonType.CopyRight:
+                    OnRightUpdating(cancelArgs);
+                    break;
+            }
+
+            if (cancelArgs.Cancel)
+                return;
+
             Debug.Assert(!_readOnly);
 
             switch (e.Type)

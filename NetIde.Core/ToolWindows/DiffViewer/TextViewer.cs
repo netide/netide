@@ -106,6 +106,24 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 ev(this, e);
         }
 
+        public event CancelEventHandler LeftUpdating;
+
+        protected virtual void OnLeftUpdating(CancelEventArgs e)
+        {
+            var handler = LeftUpdating;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public event CancelEventHandler RightUpdating;
+
+        protected virtual void OnRightUpdating(CancelEventArgs e)
+        {
+            var handler = RightUpdating;
+            if (handler != null)
+                handler(this, e);
+        }
+
         public event EventHandler IgnoreWhitespaceChanged;
 
         protected virtual void OnIgnoreWhitespaceChanged(EventArgs e)
@@ -191,14 +209,21 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             OnRightUpdated(EventArgs.Empty);
         }
 
+        private void _sideBySideViewer_LeftUpdating(object sender, CancelEventArgs e)
+        {
+            OnLeftUpdating(e);
+        }
+
+        private void _sideBySideViewer_RightUpdating(object sender, CancelEventArgs e)
+        {
+            OnRightUpdating(e);
+        }
+
         public TextViewer()
         {
             _designing = ControlUtil.GetIsInDesignMode(this);
 
             InitializeComponent();
-
-            _sideBySideViewer.LeftUpdated += _sideBySideViewer_LeftUpdated;
-            _sideBySideViewer.RightUpdated += _sideBySideViewer_RightUpdated;
 
             _toolStrip.Renderer = ToolStripSimpleRenderer.Instance;
 
