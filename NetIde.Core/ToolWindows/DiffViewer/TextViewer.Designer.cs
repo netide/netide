@@ -29,27 +29,29 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextViewer));
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this._toolStrip = new System.Windows.Forms.ToolStrip();
             this._unified = new System.Windows.Forms.ToolStripButton();
             this._sideBySide = new System.Windows.Forms.ToolStripButton();
+            this._ignoreWhitespace = new System.Windows.Forms.ToolStripButton();
             this._unifiedViewer = new NetIde.Core.ToolWindows.DiffViewer.UnifiedViewer();
             this._sideBySideViewer = new NetIde.Core.ToolWindows.DiffViewer.SideBySideViewer();
             this._container = new System.Windows.Forms.Panel();
-            this.toolStrip1.SuspendLayout();
+            this._toolStrip.SuspendLayout();
             this._container.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip1
+            // _toolStrip
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._toolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._unified,
-            this._sideBySide});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 527);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(608, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this._sideBySide,
+            this._ignoreWhitespace});
+            this._toolStrip.Location = new System.Drawing.Point(0, 527);
+            this._toolStrip.Name = "_toolStrip";
+            this._toolStrip.Size = new System.Drawing.Size(608, 25);
+            this._toolStrip.TabIndex = 1;
+            this._toolStrip.Text = "toolStrip1";
             // 
             // _unified
             // 
@@ -71,8 +73,21 @@
             this._sideBySide.Text = "Side by side";
             this._sideBySide.Click += new System.EventHandler(this._sideBySide_Click);
             // 
+            // _ignoreWhitespace
+            // 
+            this._ignoreWhitespace.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this._ignoreWhitespace.CheckOnClick = true;
+            this._ignoreWhitespace.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._ignoreWhitespace.Image = global::NetIde.Core.NeutralResources.IgnoreWhitespace;
+            this._ignoreWhitespace.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._ignoreWhitespace.Name = "_ignoreWhitespace";
+            this._ignoreWhitespace.Size = new System.Drawing.Size(23, 22);
+            this._ignoreWhitespace.Text = "Ignore Whitespace";
+            this._ignoreWhitespace.CheckedChanged += new System.EventHandler(this._ignoreWhitespace_CheckedChanged);
+            // 
             // _unifiedViewer
             // 
+            this._unifiedViewer.Context = 3;
             this._unifiedViewer.Location = new System.Drawing.Point(42, 31);
             this._unifiedViewer.Name = "_unifiedViewer";
             this._unifiedViewer.Size = new System.Drawing.Size(273, 248);
@@ -100,11 +115,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._container);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this._toolStrip);
             this.Name = "TextViewer";
             this.Size = new System.Drawing.Size(608, 552);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this._toolStrip.ResumeLayout(false);
+            this._toolStrip.PerformLayout();
             this._container.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -113,11 +128,12 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip _toolStrip;
         private System.Windows.Forms.ToolStripButton _unified;
         private System.Windows.Forms.ToolStripButton _sideBySide;
         private UnifiedViewer _unifiedViewer;
         private SideBySideViewer _sideBySideViewer;
         private System.Windows.Forms.Panel _container;
+        private System.Windows.Forms.ToolStripButton _ignoreWhitespace;
     }
 }

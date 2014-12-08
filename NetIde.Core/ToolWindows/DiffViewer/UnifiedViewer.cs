@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Util.Forms;
 using NGit.Diff;
 using NetIde.Core.Settings;
 using NetIde.Shell.Interop;
@@ -20,11 +21,14 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private const string NoNewLine = "\\ No newline at end of file\n";
 
         private StringBuilder _out;
+        private bool _designing;
 
         public int Context { get; set; }
 
         public UnifiedViewer()
         {
+            _designing = ControlUtil.GetIsInDesignMode(this);
+
             InitializeComponent();
 
             _editor.IsReadOnly = true;
@@ -39,6 +43,9 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             set
             {
                 base.Site = value;
+
+                if (_designing)
+                    return;
 
                 var fontSettings = SettingsBuilder.GetSettings<IFontSettings>(Site);
 

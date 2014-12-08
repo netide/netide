@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using NetIde.Core.Settings;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -33,7 +32,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                     _mode = value;
 
                     if (value == NiDiffViewerMode.Default)
-                        value = GetDefaultMode();
+                        value = SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode;
 
                     _textViewer.UnifiedDiff = value == NiDiffViewerMode.Unified;
 
@@ -57,7 +56,10 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             {
                 base.Site = value;
 
-                _textViewer.UnifiedDiff = GetDefaultMode() == NiDiffViewerMode.Unified;
+                var settings = SettingsBuilder.GetSettings<IDiffViewerSettings>(Site);
+
+                _textViewer.UnifiedDiff = settings.DefaultMode == NiDiffViewerMode.Unified;
+                _textViewer.IgnoreWhitespace = settings.IgnoreWhitespace;
 
                 foreach (Control control in Controls)
                 {
@@ -217,17 +219,12 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             if (Mode != NiDiffViewerMode.Default)
                 Mode = mode;
             else
-                SetDefaultMode(mode);
+                SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode = mode;
         }
 
-        private NiDiffViewerMode GetDefaultMode()
+        private void _textViewer_IgnoreWhitespaceChanged(object sender, EventArgs e)
         {
-            return SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode;
-        }
-
-        private void SetDefaultMode(NiDiffViewerMode mode)
-        {
-            SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).DefaultMode = mode;
+            SettingsBuilder.GetSettings<IDiffViewerSettings>(Site).IgnoreWhitespace = _textViewer.IgnoreWhitespace;
         }
 
         public IStream GetLeft()

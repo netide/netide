@@ -13,5 +13,7 @@ namespace NetIde.Core.Settings
     {
         [DefaultValue(NiDiffViewerMode.SideBySide)]
         NiDiffViewerMode DefaultMode { get; set; }
+
+        bool IgnoreWhitespace { get; set; }
     }
 }

@@ -41,6 +41,7 @@
             this._textViewer.TabIndex = 4;
             this._textViewer.UnifiedDiff = true;
             this._textViewer.UnifiedDiffChanged += new System.EventHandler(this._textViewer_UnifiedDiffChanged);
+            this._textViewer.IgnoreWhitespaceChanged += new System.EventHandler(this._textViewer_IgnoreWhitespaceChanged);
             // 
             // _summaryViewer
             // 

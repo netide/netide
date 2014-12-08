@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Util.Forms;
 using NGit.Diff;
 using NetIde.Core.Support;
 using NetIde.Shell.Interop;
@@ -16,6 +17,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 {
     internal partial class TextViewer : NetIde.Util.Forms.UserControl, IViewer
     {
+        private readonly bool _designing;
         private bool _unifiedDiff;
         private Control _selectedViewer;
         private byte[] _leftData;
@@ -59,11 +61,22 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             {
                 base.Site = value;
 
+                if (_designing)
+                    return;
+
                 foreach (Control control in _container.Controls)
                 {
                     control.Site = value;
                 }
             }
+        }
+
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        public bool IgnoreWhitespace
+        {
+            get { return _ignoreWhitespace.Checked; }
+            set { _ignoreWhitespace.Checked = value; }
         }
 
         public event EventHandler UnifiedDiffChanged;
@@ -91,6 +104,15 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             var ev = RightUpdated;
             if (ev != null)
                 ev(this, e);
+        }
+
+        public event EventHandler IgnoreWhitespaceChanged;
+
+        protected virtual void OnIgnoreWhitespaceChanged(EventArgs e)
+        {
+            var handler = IgnoreWhitespaceChanged;
+            if (handler != null)
+                handler(this, e);
         }
 
         private void SelectViewer(Control control)
@@ -131,6 +153,14 @@ namespace NetIde.Core.ToolWindows.DiffViewer
                 : _rightFileType.Encoding.GetString(_rightData, rightBomSize, _rightData.Length - rightBomSize)
             );
 
+            LoadDiff();
+        }
+
+        private void LoadDiff()
+        {
+            if (_leftText == null && _rightText == null)
+                return;
+
             BuildEditList();
 
             ((ITextViewer)_selectedViewer).LoadDiff(_leftText, _rightText, _editList);
@@ -139,7 +169,9 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private void BuildEditList()
         {
             _editList = DiffAlgorithm.GetAlgorithm(DiffAlgorithm.SupportedAlgorithm.HISTOGRAM).Diff(
-                DiffViewer.Text.Comparator.DEFAULT,
+                IgnoreWhitespace
+                ? DiffViewer.Text.Comparator.WS_IGNORE_ALL
+                : DiffViewer.Text.Comparator.DEFAULT,
                 _leftText,
                 _rightText
             );
@@ -161,12 +193,14 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         public TextViewer()
         {
+            _designing = ControlUtil.GetIsInDesignMode(this);
+
             InitializeComponent();
 
             _sideBySideViewer.LeftUpdated += _sideBySideViewer_LeftUpdated;
             _sideBySideViewer.RightUpdated += _sideBySideViewer_RightUpdated;
 
-            toolStrip1.Renderer = ToolStripSimpleRenderer.Instance;
+            _toolStrip.Renderer = ToolStripSimpleRenderer.Instance;
 
             foreach (Control control in _container.Controls)
             {
@@ -211,6 +245,13 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             stream.Position = 0;
 
             return stream;
+        }
+
+        private void _ignoreWhitespace_CheckedChanged(object sender, EventArgs e)
+        {
+            OnIgnoreWhitespaceChanged(EventArgs.Empty);
+
+            LoadDiff();
         }
     }
 }

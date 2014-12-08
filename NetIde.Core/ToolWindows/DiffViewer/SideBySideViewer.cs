@@ -14,6 +14,7 @@ using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Actions;
 using ICSharpCode.TextEditor.Document;
 using NetIde.Shell;
+using NetIde.Util.Forms;
 using NGit.Diff;
 using NetIde.Core.Settings;
 using NetIde.Shell.Interop;
@@ -28,6 +29,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private List<IDiffMarker> _markers;
         private int _visibleLines;
         private bool _readOnly = true;
+        private bool _designing;
 
         [Browsable(false)]
         [DefaultValue(true)]
@@ -68,6 +70,8 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         public SideBySideViewer()
         {
+            _designing = ControlUtil.GetIsInDesignMode(this);
+
             InitializeComponent();
 
             _editor.Margin = new Padding(
@@ -209,6 +213,9 @@ namespace NetIde.Core.ToolWindows.DiffViewer
             set
             {
                 base.Site = value;
+
+                if (_designing)
+                    return;
 
                 var fontSettings = SettingsBuilder.GetSettings<IFontSettings>(Site);
                 var codeFont = fontSettings.CodeFont ?? Constants.DefaultCodeFont;
