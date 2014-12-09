@@ -29,6 +29,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private EditList _editList;
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool UnifiedDiff
         {
             get { return _unifiedDiff; }
@@ -47,6 +48,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(true)]
         public bool ReadOnly
         {

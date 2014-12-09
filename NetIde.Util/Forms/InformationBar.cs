@@ -141,6 +141,7 @@ namespace NetIde.Util.Forms
         public bool ShowRandomItem { get; set; }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(false)]
         public new bool TabStop
         {

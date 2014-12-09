@@ -34,6 +34,7 @@ namespace NetIde.Util.Forms
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public new Padding Padding
         {
             get { return base.Padding; }

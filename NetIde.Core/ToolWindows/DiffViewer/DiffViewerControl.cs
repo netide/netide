@@ -43,6 +43,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
 
         [DefaultValue(true)]
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ReadOnly
         {
             get { return _textViewer.ReadOnly; }

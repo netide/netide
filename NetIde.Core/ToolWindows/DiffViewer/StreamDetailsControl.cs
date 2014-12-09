@@ -46,6 +46,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DateTime? LastWriteTime
         {
             get { return (DateTime?)_lastWriteTime.Tag; }
@@ -60,6 +61,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long? FileSize
         {
             get { return (long?)_fileSize.Tag; }
@@ -105,6 +107,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HaveBom
         {
             get { return _bom.Visible; }
@@ -112,6 +115,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public LineTermination? LineTermination
         {
             get { return (LineTermination?)_lineEnding.Tag; }
@@ -126,6 +130,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Encoding Encoding
         {
             get { return (Encoding)_encoding.Tag; }
@@ -140,6 +145,7 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ContentType
         {
             get { return _contentType.Text; }

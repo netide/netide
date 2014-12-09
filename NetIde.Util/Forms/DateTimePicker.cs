@@ -74,6 +74,7 @@ namespace NetIde.Util.Forms
         /// </remarks>
         [Bindable(true)]
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(null)]
         public new DateTime? Value
         {

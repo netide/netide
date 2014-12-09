@@ -29,9 +29,10 @@ namespace NetIde.Core.ToolWindows.DiffViewer
         private List<IDiffMarker> _markers;
         private int _visibleLines;
         private bool _readOnly = true;
-        private bool _designing;
+        private readonly bool _designing;
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(true)]
         public bool ReadOnly
         {

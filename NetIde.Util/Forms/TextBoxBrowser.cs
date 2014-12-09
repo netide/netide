@@ -22,6 +22,7 @@ namespace NetIde.Util.Forms
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TextBox TextBox
         {
             get { return _textBox; }
