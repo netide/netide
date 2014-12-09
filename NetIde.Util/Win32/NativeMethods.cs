@@ -23,6 +23,7 @@ namespace NetIde.Util.Win32
         public const int WM_MOUSEWHEEL = 0x020a;
         public const int WM_MOUSEHWHEEL = 0x020e;
         public const int WM_USER = 0x0400;
+        public const int WM_SETCURSOR = 0x0020;
 
         public const int APPCOMMAND_BROWSER_BACKWARD = 1;
         public const int APPCOMMAND_BROWSER_FORWARD = 2;

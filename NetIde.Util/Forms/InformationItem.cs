@@ -10,6 +10,16 @@ namespace NetIde.Util.Forms
     {
         private InformationIcon _icon;
         private string _text;
+        private bool _isLink;
+
+        public event EventHandler Click;
+
+        protected virtual void OnClick(EventArgs e)
+        {
+            var handler = Click;
+            if (handler != null)
+                handler(this, e);
+        }
 
         internal InformationBar Bar { get; set; }
 
@@ -65,6 +75,22 @@ namespace NetIde.Util.Forms
             }
         }
 
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        public bool IsLink
+        {
+            get { return _isLink; }
+            set
+            {
+                if (_isLink != value)
+                {
+                    _isLink = value;
+                    if (Selected)
+                        Bar.SelectedItem = this;
+                }
+            }
+        }
+
         public InformationItem()
             : this(InformationIcon.None, null)
         {
@@ -74,6 +100,11 @@ namespace NetIde.Util.Forms
         {
             _icon = icon;
             _text = text ?? String.Empty;
+        }
+
+        public void PerformClick()
+        {
+            OnClick(EventArgs.Empty);
         }
     }
 }

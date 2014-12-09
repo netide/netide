@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Util.Win32;
 
 namespace NetIde.Util.Forms
 {
@@ -28,6 +29,11 @@ namespace NetIde.Util.Forms
         private readonly List<Button> _buttons = new List<Button>();
         private bool _canClose;
         private bool _buttonsMeasureValid;
+        private bool _isLink;
+        private ButtonState _linkState;
+        private Rectangle _textBounds;
+        private Font _underlineFont;
+        private bool _designMode;
 
         [Category("Appearance")]
         [DefaultValue(InformationIcon.None)]
@@ -41,6 +47,20 @@ namespace NetIde.Util.Forms
                     _icon = value;
 
                     Height = 0;
+                    Invalidate();
+                }
+            }
+        }
+
+        public bool IsLink
+        {
+            get { return _isLink; }
+            set
+            {
+                if (_isLink != value)
+                {
+                    _isLink = value;
+
                     Invalidate();
                 }
             }
@@ -88,6 +108,9 @@ namespace NetIde.Util.Forms
             get { return _selectedItem; }
             internal set
             {
+                if (_designMode)
+                    return;
+
                 // We specifically do not check whether the item has changed. The
                 // reason for this is that InformationItem uses this setter to
                 // signal that something has changed in the item.
@@ -98,11 +121,13 @@ namespace NetIde.Util.Forms
                 {
                     Icon = InformationIcon.None;
                     Text = null;
+                    IsLink = false;
                 }
                 else
                 {
                     Icon = value.Icon;
                     Text = value.Text;
+                    IsLink = value.IsLink;
                 }
             }
         }
@@ -132,13 +157,38 @@ namespace NetIde.Util.Forms
                 ev(this, e);
         }
 
+        public event EventHandler ItemClick;
+
+        protected virtual void OnItemClick(EventArgs e)
+        {
+            var handler = ItemClick;
+            if (handler != null)
+                handler(this, e);
+        }
+
         public InformationBar()
         {
+            _designMode = ControlUtil.GetIsInDesignMode(this);
+
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
 
             Items = new InformationCollection(this);
 
             TabStop = false;
+
+            UpdateFont();
+        }
+
+        protected override void OnFontChanged(EventArgs e)
+        {
+            base.OnFontChanged(e);
+
+            UpdateFont();
+        }
+
+        private void UpdateFont()
+        {
+            _underlineFont = new Font(Font, FontStyle.Underline);
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -241,19 +291,34 @@ namespace NetIde.Util.Forms
                 if (_buttons.Count > 0)
                     right = Width - _buttons[0].Bounds.Left;
 
+                var font =
+                    (_linkState & ButtonState.Over) != 0
+                    ? _underlineFont
+                    : Font;
+
+                var size = TextRenderer.MeasureText(
+                    e.Graphics,
+                    Text,
+                    font,
+                    new Size(Width - (left + right), height),
+                    FormatFlags
+                );
+
+                _textBounds = new Rectangle(
+                    left,
+                    Padding.Top + (height - size.Height) / 2,
+                    size.Width,
+                    size.Height
+                );
+
                 TextRenderer.DrawText(
                     e.Graphics,
                     Text,
-                    Font,
-                    new Rectangle(
-                        left,
-                        Padding.Top,
-                        Width - (left + right),
-                        height
-                    ),
+                    font,
+                    _textBounds,
                     SystemColors.InfoText,
                     SystemColors.Info,
-                    FormatFlags | TextFormatFlags.VerticalCenter
+                    FormatFlags
                 );
             }
 
@@ -382,6 +447,8 @@ namespace NetIde.Util.Forms
 
             EnsureButtonMeasureValid();
 
+            _linkState &= ~ButtonState.Down;
+
             foreach (var button in _buttons)
             {
                 if (button.Bounds.Contains(e.Location))
@@ -392,6 +459,9 @@ namespace NetIde.Util.Forms
                     return;
                 }
             }
+
+            if (IsLink && _textBounds.Contains(e.Location))
+                _linkState |= ButtonState.Down;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -411,6 +481,16 @@ namespace NetIde.Util.Forms
                 if (button.State.HasFlag(ButtonState.Down))
                     down = button;
             }
+
+            var previousLinkState = _linkState;
+
+            if (IsLink && _textBounds.Contains(e.Location))
+                _linkState |= ButtonState.Over;
+            else
+                _linkState &= ~ButtonState.Over;
+
+            if (previousLinkState != _linkState)
+                Invalidate(_textBounds);
 
             Button newOver = null;
 
@@ -442,6 +522,15 @@ namespace NetIde.Util.Forms
         {
             base.OnMouseUp(e);
 
+            if (_linkState.HasFlag(ButtonState.Down))
+            {
+                _linkState &= ~ButtonState.Down;
+                Invalidate(_textBounds);
+                if (_linkState.HasFlag(ButtonState.Over))
+                    PerformItemClick();
+                return;
+            }
+
             foreach (var button in _buttons)
             {
                 if (button.State.HasFlag(ButtonState.Down))
@@ -455,6 +544,30 @@ namespace NetIde.Util.Forms
                     return;
                 }
             }
+        }
+
+        private void PerformItemClick()
+        {
+            OnItemClick(EventArgs.Empty);
+
+            if (SelectedItem != null)
+                SelectedItem.PerformClick();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == NativeMethods.WM_SETCURSOR && IsLink)
+            {
+                var location = PointToClient(Cursor.Position);
+                if (_textBounds.Contains(location))
+                {
+                    Cursor.Current = Cursors.Hand;
+                    m.Result = (IntPtr)1;
+                    return;
+                }
+            }
+
+            base.WndProc(ref m);
         }
 
         private class Button

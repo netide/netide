@@ -27,10 +27,15 @@ namespace NetIde.Util.Forms
         {
             foreach (var item in this)
             {
+                if (item.Selected)
+                    _bar.SelectedItem = null;
+
                 item.Bar = null;
             }
 
             base.ClearItems();
+
+            EnsureSelection();
 
             _bar.RebuildButtons();
         }
@@ -44,14 +49,21 @@ namespace NetIde.Util.Forms
 
             item.Bar = _bar;
 
+            EnsureSelection();
+
             _bar.RebuildButtons();
         }
 
         protected override void RemoveItem(int index)
         {
+            if (this[index].Selected)
+                _bar.SelectedItem = null;
+
             this[index].Bar = null;
 
             base.RemoveItem(index);
+
+            EnsureSelection();
 
             _bar.RebuildButtons();
         }
@@ -61,11 +73,24 @@ namespace NetIde.Util.Forms
             if (item.Bar != null)
                 throw new InvalidOperationException("Information item cannot be added to two collections");
 
+            bool wasSelected = this[index].Selected;
+            if (wasSelected)
+                _bar.SelectedItem = null;
+
             this[index].Bar = null;
 
             base.SetItem(index, item);
 
             item.Bar = _bar;
+
+            if (wasSelected)
+                item.Selected = true;
+        }
+
+        private void EnsureSelection()
+        {
+            if (_bar.SelectedItem == null && Count > 0)
+                _bar.SelectedItem = this[0];
         }
     }
 }
