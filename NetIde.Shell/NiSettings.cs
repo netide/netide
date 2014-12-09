@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using NetIde.Shell.Interop;
 
@@ -10,6 +11,8 @@ namespace NetIde.Shell
 {
     public class NiSettings : ServiceObject, INiSettings, IServiceProvider
     {
+        private static readonly Regex MultiStringRe = new Regex("\r?\n", RegexOptions.Compiled);
+
         private readonly INiPackage _package;
         private readonly NiConnectionPoint<INiSettingsNotify> _connectionPoint = new NiConnectionPoint<INiSettingsNotify>();
         private readonly string _registryKey;
@@ -71,6 +74,8 @@ namespace NetIde.Shell
                             value = (string)rawValue;
                         else if (rawValue is int)
                             value = ((int)rawValue).ToString(CultureInfo.InvariantCulture);
+                        else if (rawValue is string[])
+                            value = String.Join(Environment.NewLine, (string[])rawValue);
 
                         if (value != null)
                             return HResult.OK;
@@ -104,6 +109,8 @@ namespace NetIde.Shell
 
                         if (int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out intValue))
                             registryKey.SetValue(key, intValue);
+                        else if (value.Contains('\n'))
+                            registryKey.SetValue(key, MultiStringRe.Split(value), RegistryValueKind.MultiString);
                         else
                             registryKey.SetValue(key, value);
                     }
