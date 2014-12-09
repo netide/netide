@@ -408,6 +408,11 @@ namespace NetIde.Services.CommandManager
                 cookie = _nextPriorityCommandTargetCookie++;
                 _priorityCommandTargets.Add(cookie, commandTarget);
                 _priorityCommandTargetsOrdered.Add(commandTarget);
+
+                // The available command targets have changed; force a requery.
+
+                ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).InvalidateRequerySuggested());
+
                 return HResult.OK;
             }
             catch (Exception ex)
@@ -425,6 +430,10 @@ namespace NetIde.Services.CommandManager
                     return HResult.False;
 
                 _priorityCommandTargetsOrdered.Remove(commandTarget);
+
+                // The available command targets have changed; force a requery.
+
+                ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).InvalidateRequerySuggested());
 
                 return HResult.OK;
             }

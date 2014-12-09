@@ -84,10 +84,6 @@ namespace NetIde.Shell
                         out _cookie
                     )
                 );
-
-                // New command targets are available; force a requery.
-
-                ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).InvalidateRequerySuggested());
             }
 
             base.OnShown(e);
