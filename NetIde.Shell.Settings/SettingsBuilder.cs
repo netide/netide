@@ -219,7 +219,7 @@ namespace NetIde.Shell.Settings
                     if (underlyingType == typeof(string))
                         value = _settings.GetString(key);
                     else if (underlyingType == typeof(string[]))
-                        value = DeserializeStringArray((string)_settings.GetString(key));
+                        value = DeserializeStringArray(_settings.GetString(key));
                     else if (underlyingType == typeof(int))
                         value = _settings.GetInt32(key);
                     else if (underlyingType == typeof(decimal))
@@ -349,13 +349,13 @@ namespace NetIde.Shell.Settings
                         // The last line should be empty. Otherwise someone has
                         // tampered with the input.
 
-                        Debug.Assert(line.Length == 0);
-                        if (line.Length > 0)
-                            result.Add(line);
+                        Debug.Assert(sb.Length == 0);
+                        if (sb.Length > 0)
+                            result.Add(sb.ToString());
                     }
                     else
                     {
-                        result.Add(line);
+                        result.Add(sb.ToString());
                     }
                 }
 
