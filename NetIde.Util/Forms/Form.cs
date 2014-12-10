@@ -22,6 +22,7 @@ namespace NetIde.Util.Forms
         private bool _closeButtonEnabled = true;
         private bool _disposed;
 
+        [Category("Behavior")]
         public event CancelPreviewEventHandler CancelPreview;
 
         protected virtual void OnCancelPreview(CancelPreviewEventArgs e)
@@ -31,6 +32,7 @@ namespace NetIde.Util.Forms
                 ev(this, e);
         }
 
+        [Category("Behavior")]
         public event EventHandler Showing;
 
         protected virtual void OnShowing(EventArgs e)
@@ -40,6 +42,7 @@ namespace NetIde.Util.Forms
                 ev(this, e);
         }
 
+        [Category("Behavior")]
         public event BrowseButtonEventHandler BrowseButtonClick;
 
         protected virtual void OnBrowseButtonClick(BrowseButtonEventArgs e)
@@ -47,6 +50,26 @@ namespace NetIde.Util.Forms
             var ev = BrowseButtonClick;
             if (ev != null)
                 ev(this, e);
+        }
+
+        [Category("Focus")]
+        public event EventHandler ApplicationActivated;
+
+        protected virtual void OnApplicationActivated(EventArgs e)
+        {
+            var handler = ApplicationActivated;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        [Category("Focus")]
+        public event EventHandler ApplicationDeactivated;
+
+        protected virtual void OnApplicationDeactivated(EventArgs e)
+        {
+            var handler = ApplicationDeactivated;
+            if (handler != null)
+                handler(this, e);
         }
 
         [DefaultValue(true)]
@@ -309,6 +332,13 @@ namespace NetIde.Util.Forms
                             }
                             break;
                     }
+                    break;
+
+                case NativeMethods.WM_ACTIVATEAPP:
+                    if (m.LParam == IntPtr.Zero)
+                        OnApplicationActivated(EventArgs.Empty);
+                    else
+                        OnApplicationDeactivated(EventArgs.Empty);
                     break;
             }
 
