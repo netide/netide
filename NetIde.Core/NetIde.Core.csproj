@@ -38,9 +38,9 @@
     <AssemblyOriginatorKeyFile>..\Support\Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GdiPresentation-4, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c842c0b06ab39023, processorArchitecture=MSIL">
+    <Reference Include="GdiPresentation-4, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c842c0b06ab39023, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GdiPresentation.1.1.0.0\lib\net40\GdiPresentation-4.dll</HintPath>
+      <HintPath>..\packages\GdiPresentation.1.2.0.0\lib\net40\GdiPresentation-4.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>

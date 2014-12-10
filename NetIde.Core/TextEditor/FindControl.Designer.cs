@@ -33,6 +33,7 @@
             // 
             // _elementControl
             // 
+            this._elementControl.AutoSize = true;
             this._elementControl.BackColor = System.Drawing.SystemColors.Control;
             this._elementControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this._elementControl.Location = new System.Drawing.Point(1, 0);
@@ -40,19 +41,22 @@
             this._elementControl.ResizeTarget = null;
             this._elementControl.ShowHorizontalScrollBar = GdiPresentation.ScrollBarVisibility.Hidden;
             this._elementControl.ShowVerticalScrollBar = GdiPresentation.ScrollBarVisibility.Hidden;
-            this._elementControl.Size = new System.Drawing.Size(311, 200);
+            this._elementControl.Size = new System.Drawing.Size(0, 0);
             this._elementControl.TabIndex = 0;
             // 
             // FindControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this._elementControl);
             this.Name = "FindControl";
             this.Padding = new System.Windows.Forms.Padding(1, 0, 0, 1);
-            this.Size = new System.Drawing.Size(312, 201);
+            this.Size = new System.Drawing.Size(1, 1);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -67,7 +67,6 @@ namespace NetIde.Core.TextEditor
             InitializeComponent();
 
             _elementControl.Content = BuildContent();
-            _elementControl.PreferredSizeChanged += _elementControl_PreferredSizeChanged;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -84,21 +83,6 @@ namespace NetIde.Core.TextEditor
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        void _elementControl_PreferredSizeChanged(object sender, PreferredSizeChangedEventArgs e)
-        {
-            var size = new Size(
-                _elementControl.Content.DesiredSize.Width + 1,
-                _elementControl.Content.DesiredSize.Height + 1
-            );
-
-            SetBounds(
-                Parent.ClientSize.Width - size.Width,
-                0,
-                size.Width,
-                size.Height
-            );
         }
 
         public override ISite Site
