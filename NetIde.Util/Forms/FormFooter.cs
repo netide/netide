@@ -15,6 +15,7 @@ namespace NetIde.Util.Forms
         private static readonly Padding WizardPadding = new Padding(8, 8, 10, 8);
         private static readonly Padding DialogPadding = new Padding(4, 0, 4, 8);
         private const int SizeGripSize = 16;
+        private const int ButtonPadding = 15;
 
         private Color _bumpLightColor = SystemColors.ControlDark;
         private Color _bumpDarkColor = SystemColors.ControlLightLight;
@@ -23,9 +24,12 @@ namespace NetIde.Util.Forms
         private VisualStyleRenderer _sizeGripRenderer;
         private FormFooterStyle _style;
         private FormFooterBorderStyle _borderStyle = FormFooterBorderStyle.Auto;
+        private bool _designMode;
 
         public FormFooter()
         {
+            _designMode = ControlUtil.GetIsInDesignMode(this);
+
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
 
             Dock = DockStyle.Bottom;
@@ -306,6 +310,40 @@ namespace NetIde.Util.Forms
             }
 
             base.WndProc(ref m);
+        }
+
+        protected override void OnControlAdded(ControlEventArgs e)
+        {
+            base.OnControlAdded(e);
+
+            AutoSizeControl(e.Control);
+        }
+
+        protected override void OnFontChanged(EventArgs e)
+        {
+            base.OnFontChanged(e);
+
+            foreach (Control control in Controls)
+            {
+                AutoSizeControl(control);
+            }
+        }
+
+        private void AutoSizeControl(Control control)
+        {
+            if (_designMode)
+                return;
+
+            var button = control as Button;
+            if (button == null)
+                return;
+
+            // Make the buttons larger if the labels don't fit so that
+            // we don't get too many issues from translated labels.
+
+            int width = button.GetPreferredSize(new Size(int.MaxValue, int.MaxValue)).Width + ButtonPadding;
+            if (width > button.Width)
+                button.Width = width;
         }
     }
 }
