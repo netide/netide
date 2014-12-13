@@ -88,6 +88,9 @@
     <Compile Include="Forms\EmulateTaskDialog.Designer.cs">
       <DependentUpon>EmulateTaskDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormFooterSeparator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\InformationCollection.cs" />
     <Compile Include="Forms\InformationIcon.cs" />
     <Compile Include="Forms\InformationItem.cs" />
