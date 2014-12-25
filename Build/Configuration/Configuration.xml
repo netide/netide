@@ -13,6 +13,8 @@
     <project name="NetIde.Help" />
     <project name="NetIde.Install" />
     <project name="NetIde.MakeSetup" />
+    <project name="NetIde.Project" />
+    <project name="NetIde.Project.Interop.1.0" version="1.0.0.0" />
     <project name="NetIde.Setup" />
     <project name="NetIde.Shell" />
     <project name="NetIde.Shell.Interop.1.0" version="1.0.0.0" />

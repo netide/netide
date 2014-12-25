@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,7 +11,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
     [Guid(NiConstants.TextEditor)]
     internal class TextEditorFactory : NiEditorFactory
     {
-        public override HResult CreateEditor(string document, INiHierarchy hier, out string editorCaption, out INiWindowPane editor)
+        public override HResult CreateEditor(string document, out string editorCaption, out INiWindowPane editor)
         {
             editor = null;
             editorCaption = null;
@@ -24,7 +23,7 @@ namespace NetIde.Core.ToolWindows.TextEditor
                 // If we were opened from a real document or hier, set a text buffer.
                 // NiOpenDocumentManager will initialize this.
 
-                if (document != null || hier != null)
+                if (document != null)
                 {
                     var registry = (INiLocalRegistry)GetService(typeof(INiLocalRegistry));
 
@@ -35,22 +34,16 @@ namespace NetIde.Core.ToolWindows.TextEditor
 
                     textLines = (INiTextLines)instance;
 
-                    if (document == null)
-                        document = (string)hier.GetPropertyEx(NiHierarchyProperty.Name);
+                    Guid languageServiceId;
+                    hr = ((INiLanguageServiceRegistry)GetService(typeof(INiLanguageServiceRegistry))).FindForFileName(
+                        document, out languageServiceId
+                    );
+                    if (ErrorUtil.Failure(hr))
+                        return hr;
 
-                    if (document != null)
-                    {
-                        Guid languageServiceId;
-                        hr = ((INiLanguageServiceRegistry)GetService(typeof(INiLanguageServiceRegistry))).FindForFileName(
-                            document, out languageServiceId
-                        );
-                        if (ErrorUtil.Failure(hr))
-                            return hr;
-
-                        hr = textLines.SetLanguageServiceID(languageServiceId);
-                        if (ErrorUtil.Failure(hr))
-                            return hr;
-                    }
+                    hr = textLines.SetLanguageServiceID(languageServiceId);
+                    if (ErrorUtil.Failure(hr))
+                        return hr;
                 }
 
                 editor = new TextEditorWindow(textLines);

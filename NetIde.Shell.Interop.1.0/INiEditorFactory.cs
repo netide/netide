@@ -7,6 +7,6 @@ namespace NetIde.Shell.Interop
 {
     public interface INiEditorFactory : IServiceProvider, INiObjectWithSite
     {
-        HResult CreateEditor(string document, INiHierarchy hier, out string editorCaption, out INiWindowPane editor);
+        HResult CreateEditor(string document, out string editorCaption, out INiWindowPane editor);
     }
 }

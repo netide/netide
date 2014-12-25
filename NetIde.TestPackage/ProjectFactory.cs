@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.TestPackage.Api;

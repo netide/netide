@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NetIde.Project</id>
+    <version>1.0.0.0</version>
+    <authors>Pieter van Ginkel</authors>
+    <title>Net IDE project package</title>
+    <description>Net IDE project package.</description>
+    <dependencies>
+      <dependency id="NetIde.Project.Interop.1.0" version="1.0.0.0" />
+      <dependency id="NetIde.Shell" version="[$version$]" />
+      <dependency id="NetIde.Shell.Interop.1.0" version="1.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="NetIde.Project.dll" target="Lib\Net40" />
+  </files>
+</package>

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NetIde.Project.Interop;
+using NetIde.Shell;
 using NetIde.Shell.Interop;
 
-namespace NetIde.Shell
+namespace NetIde.Project
 {
     public static class NiRunningDocumentTableExtensions
     {

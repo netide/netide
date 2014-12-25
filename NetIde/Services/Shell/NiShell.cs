@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using NetIde.Project.Interop;
 using NetIde.Services.Env;
 using NetIde.Services.PackageManager;
 using NetIde.Shell;
@@ -15,7 +17,7 @@ using ListView = System.Windows.Forms.ListView;
 
 namespace NetIde.Services.Shell
 {
-    internal class NiShell : ServiceBase, INiShell
+    internal class NiShell : ServiceBase, INiShell, INiQuerySave
     {
         private const string AutomationAccessButtonName = "89db2dd3-10f4-43f7-a09c-8b1d1038f137";
 
@@ -42,6 +44,11 @@ namespace NetIde.Services.Shell
             : base(serviceProvider)
         {
             _env = (NiEnv)GetService(typeof(INiEnv));
+
+            ((IServiceContainer)GetService(typeof(IServiceContainer))).AddService(
+                typeof(INiQuerySave),
+                this
+            );
 
             Application.AddMessageFilter(new MessageFilter(this));
 

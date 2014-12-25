@@ -23,7 +23,7 @@ namespace NetIde.Shell
             return HResult.OK;
         }
 
-        public abstract HResult CreateEditor(string document, INiHierarchy hier, out string editorCaption, out INiWindowPane editor);
+        public abstract HResult CreateEditor(string document, out string editorCaption, out INiWindowPane editor);
 
         [DebuggerStepThrough]
         public object GetService(Type serviceType)

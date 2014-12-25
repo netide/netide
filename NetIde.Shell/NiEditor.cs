@@ -71,15 +71,15 @@ namespace NetIde.Shell
 
         protected override INiIsolationClient CreateWindow()
         {
-            var manager = (INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager));
+            var env = (INiEnv)GetService(typeof(INiEnv));
             var registry = (INiLocalRegistry)GetService(typeof(INiLocalRegistry));
 
             INiEditorFactory editorFactory;
-            ErrorUtil.ThrowOnFailure(manager.GetStandardEditorFactory(new Guid(NiConstants.TextEditor), null, out editorFactory));
+            ErrorUtil.ThrowOnFailure(env.GetStandardEditorFactory(new Guid(NiConstants.TextEditor), null, out editorFactory));
 
             string unused;
             INiWindowPane windowPane;
-            ErrorUtil.ThrowOnFailure(editorFactory.CreateEditor(null, null, out unused, out windowPane));
+            ErrorUtil.ThrowOnFailure(editorFactory.CreateEditor(null, out unused, out windowPane));
 
             var window = (INiCodeWindow)windowPane;
 

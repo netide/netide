@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows.Forms;
 using NetIde.Core.Settings;
 using NetIde.Core.ToolWindows.FindResults;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Shell.Settings;

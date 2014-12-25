@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using log4net;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Util.Forms;

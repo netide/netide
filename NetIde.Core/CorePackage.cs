@@ -16,6 +16,7 @@ using NetIde.Core.ToolWindows.DiffViewer;
 using NetIde.Core.ToolWindows.FindResults;
 using NetIde.Core.ToolWindows.Notifications;
 using NetIde.Core.ToolWindows.ProjectExplorer;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.Core.ToolWindows.TextEditor;

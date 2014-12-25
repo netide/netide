@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Services.CommandLine;
 using NetIde.Services.PackageManager;
 using NetIde.Shell;
@@ -20,7 +22,7 @@ using log4net;
 
 namespace NetIde.Services.Env
 {
-    internal class NiEnv : ServiceBase, INiEnv
+    internal partial class NiEnv : ServiceBase, INiEnv
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(NiEnv));
 
@@ -268,7 +270,7 @@ namespace NetIde.Services.Env
                     return HResult.OK;
 
                 NiQuerySaveResult querySaveResult;
-                ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).QuerySaveViaDialog(
+                ErrorUtil.ThrowOnFailure(((INiQuerySave)GetService(typeof(INiQuerySave))).QuerySaveViaDialog(
                     dirtyDocuments.Select(p => p.Item1).ToArray(),
                     out querySaveResult
                 ));

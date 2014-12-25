@@ -19,6 +19,7 @@ namespace NetIde.Shell.Interop
         HResult Quit();
         HResult ExecuteCommand(Guid command, object argument);
         HResult RestartApplication();
+        HResult GetStandardEditorFactory(Guid? editorGuid, string document, out INiEditorFactory editorFactory);
         HResult SaveAllDocuments(NiSaveAllMode mode, bool prompt);
         HResult CloseAllDocuments(NiSaveAllMode mode);
     }

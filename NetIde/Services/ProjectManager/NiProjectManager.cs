@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Services.LocalRegistry;
 using NetIde.Services.OpenDocumentManager;
 using NetIde.Services.PackageManager;

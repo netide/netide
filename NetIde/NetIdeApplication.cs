@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using NetIde.Project.Interop;
 using NetIde.Services.CommandLine;
 using NetIde.Services.CommandManager;
 using NetIde.Services.EditorFactoryRegistry;
@@ -102,9 +103,7 @@ namespace NetIde
 
                 serviceContainer.AddService(typeof(INiLocalRegistry), new NiLocalRegistry(serviceContainer));
                 serviceContainer.AddService(typeof(INiEditorFactoryRegistry), new NiEditorFactoryRegistry(serviceContainer));
-                var commandManager = new NiCommandManager(serviceContainer);
-                serviceContainer.AddService(typeof(INiCommandManager), commandManager);
-                serviceContainer.AddService(typeof(INiRegisterPriorityCommandTarget), commandManager);
+                serviceContainer.AddService(typeof(INiCommandManager), new NiCommandManager(serviceContainer));
                 serviceContainer.AddService(typeof(INiWindowPaneSelection), new NiWindowPaneSelection(serviceContainer));
                 serviceContainer.AddService(typeof(INiShell), new NiShell(serviceContainer));
                 serviceContainer.AddService(typeof(INiMenuManager), new NiMenuManager(serviceContainer));

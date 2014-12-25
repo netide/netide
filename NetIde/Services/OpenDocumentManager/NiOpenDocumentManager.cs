@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using NetIde.Project.Interop;
 using NetIde.Services.EditorFactoryRegistry;
+using NetIde.Services.Env;
 using NetIde.Services.Shell;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
@@ -58,75 +60,6 @@ namespace NetIde.Services.OpenDocumentManager
             });
         }
 
-        public HResult GetStandardEditorFactory(Guid? editorGuid, string document, out INiEditorFactory editorFactory)
-        {
-            Guid resolvedEditorFactory;
-            return GetStandardEditorFactory(editorGuid, document, out editorFactory, out resolvedEditorFactory);
-        }
-
-        private HResult GetStandardEditorFactory(Guid? editorGuid, string document, out INiEditorFactory editorFactory, out Guid resolvedEditorGuid)
-        {
-            editorFactory = null;
-            resolvedEditorGuid = Guid.Empty;
-
-            try
-            {
-                if (editorGuid.HasValue == (document != null))
-                    throw new ArgumentOutOfRangeException("editorGuid", NeutralResources.SpecifyEitherDocumentOrEditorGuid);
-
-                var editorFactoryRegistry = (NiEditorFactoryRegistry)GetService(typeof(INiEditorFactoryRegistry));
-
-                if (document != null)
-                {
-                    string extension = Path.GetExtension(document);
-
-                    if (!String.IsNullOrEmpty(extension))
-                    {
-                        var activeProject = ((INiProjectManager)GetService(typeof(INiProjectManager))).ActiveProject;
-                        ExtensionRegistration registration = null;
-
-                        if (activeProject != null)
-                        {
-                            var projectGuid = (Guid?)activeProject.GetPropertyEx(NiHierarchyProperty.OwnerType);
-
-                            if (projectGuid.HasValue)
-                            {
-                                IKeyedCollection<string, ExtensionRegistration> registry;
-                                if (editorFactoryRegistry.ProjectRegistries.TryGetValue(projectGuid.Value, out registry))
-                                    registry.TryGetValue(extension, out registration);
-                            }
-                        }
-
-                        if (registration == null)
-                            editorFactoryRegistry.DefaultRegistry.TryGetValue(extension, out registration);
-
-                        if (registration != null)
-                            editorGuid = registration.FactoryType;
-                    }
-
-                    if (!editorGuid.HasValue)
-                    {
-                        // If we cannot find an editor for the extension, we fall
-                        // back to the default editor which opens the document as
-                        // plain text.
-
-                        editorGuid = new Guid(NiConstants.TextEditor);
-                    }
-                }
-
-                if (!editorFactoryRegistry.TryGetEditorFactory(editorGuid.Value, out editorFactory))
-                    return HResult.False;
-
-                resolvedEditorGuid = editorGuid.Value;
-
-                return HResult.OK;
-            }
-            catch (Exception ex)
-            {
-                return ErrorUtil.GetHResult(ex);
-            }
-        }
-
         public HResult IsDocumentOpen(string document, out INiHierarchy hier, out INiWindowFrame windowFrame)
         {
             hier = null;
@@ -167,7 +100,7 @@ namespace NetIde.Services.OpenDocumentManager
 
                 INiEditorFactory editorFactory;
                 Guid resolvedEditorGuid;
-                var hr = GetStandardEditorFactory(null, document, out editorFactory, out resolvedEditorGuid);
+                var hr = ((NiEnv)GetService(typeof(INiEnv))).GetStandardEditorFactory(null, document, out editorFactory, out resolvedEditorGuid);
 
                 if (ErrorUtil.Failure(hr))
                     return hr;
@@ -195,9 +128,8 @@ namespace NetIde.Services.OpenDocumentManager
 
             try
             {
-                var manager = (INiOpenDocumentManager)GetService(typeof(INiOpenDocumentManager));
                 INiEditorFactory editorFactory;
-                var hr = manager.GetStandardEditorFactory(editorType, null, out editorFactory);
+                var hr = ((INiEnv)GetService(typeof(INiEnv))).GetStandardEditorFactory(editorType, null, out editorFactory);
 
                 if (ErrorUtil.Failure(hr))
                     return hr;
@@ -232,7 +164,7 @@ namespace NetIde.Services.OpenDocumentManager
 
                 string editorCaption;
                 INiWindowPane windowPane;
-                var hr = editorFactory.CreateEditor(document, hier, out editorCaption, out windowPane);
+                var hr = editorFactory.CreateEditor(document, out editorCaption, out windowPane);
 
                 if (ErrorUtil.Failure(hr))
                     return hr;

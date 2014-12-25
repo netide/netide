@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 

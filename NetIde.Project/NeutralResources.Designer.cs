@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NetIde.Shell {
+namespace NetIde.Project {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NetIde.Shell {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NetIde.Shell.NeutralResources", typeof(NeutralResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NetIde.Project.NeutralResources", typeof(NeutralResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,47 @@ namespace NetIde.Shell {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find the NiResources attribute.
+        ///   Looks up a localized string similar to Cannot resolve project.
         /// </summary>
-        internal static string CouldNotFindResourcesAttribute {
+        internal static string CannotResolveProject {
             get {
-                return ResourceManager.GetString("CouldNotFindResourcesAttribute", resourceCulture);
+                return ResourceManager.GetString("CannotResolveProject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find the NiStringResources attribute.
+        ///   Looks up a localized string similar to Cannot set property.
         /// </summary>
-        internal static string CouldNotFindStringResourcesAttribute {
+        internal static string CannotSetProperty {
             get {
-                return ResourceManager.GetString("CouldNotFindStringResourcesAttribute", resourceCulture);
+                return ResourceManager.GetString("CannotSetProperty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hosted tool strip.
+        ///   Looks up a localized string similar to Invalid property type.
         /// </summary>
-        internal static string HostedToolStrip {
+        internal static string InvalidPropertyType {
             get {
-                return ResourceManager.GetString("HostedToolStrip", resourceCulture);
+                return ResourceManager.GetString("InvalidPropertyType", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resource &apos;{0}&apos; could not be resolved..
+        ///   Looks up a localized string similar to Parent must be a NiHierarchy.
         /// </summary>
-        internal static string InvalidResource {
+        internal static string ParentMustBeHierarchy {
             get {
-                return ResourceManager.GetString("InvalidResource", resourceCulture);
+                return ResourceManager.GetString("ParentMustBeHierarchy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type &apos;{0}&apos; does not specify an ImplGuidAttribute.
+        ///   Looks up a localized string similar to Unknown property.
         /// </summary>
-        internal static string NoImplGuidAttribute {
+        internal static string UnknownProperty {
             get {
-                return ResourceManager.GetString("NoImplGuidAttribute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot find resource &apos;{0}&apos; in assembly &apos;{1}&apos;.
-        /// </summary>
-        internal static string ResourceNotFound {
-            get {
-                return ResourceManager.GetString("ResourceNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service is already registered.
-        /// </summary>
-        internal static string ServiceAlreadyRegistered {
-            get {
-                return ResourceManager.GetString("ServiceAlreadyRegistered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provided service is not of a valid type.
-        /// </summary>
-        internal static string ServiceNotOfValidType {
-            get {
-                return ResourceManager.GetString("ServiceNotOfValidType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No ProvideToolWindowAttribute registration is available for the tool type.
-        /// </summary>
-        internal static string ToolWindowNotRegistered {
-            get {
-                return ResourceManager.GetString("ToolWindowNotRegistered", resourceCulture);
+                return ResourceManager.GetString("UnknownProperty", resourceCulture);
             }
         }
     }

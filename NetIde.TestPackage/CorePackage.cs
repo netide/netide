@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Project;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using NetIde.TestPackage.Api;
@@ -18,7 +20,7 @@ namespace NetIde.TestPackage
     [NiStringResources("Labels")]
     [ProvideStartupSplashImage("Splash.png")]
     [ProvideProjectFactory(typeof(ProjectFactory), "@PackageDescription", "@ProjectFileExtensions", "niproj", "niproj")]
-    public sealed partial class CorePackage : NiPackage, INiCommandTarget
+    public sealed partial class CorePackage : NiProjectPackage, INiCommandTarget
     {
         private readonly NiCommandMapper _commandMapper = new NiCommandMapper();
 

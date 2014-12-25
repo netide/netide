@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>NetIde.Shell.Interop.1.0</id>
-    <version>$version$</version>
+    <version>1.0.0.0</version>
     <authors>Pieter van Ginkel</authors>
     <title>Net IDE shell interop 1.0 package</title>
     <description>Net IDE shell interop 1.0 package.</description>

@@ -9,7 +9,7 @@
     <dependencies>
       <dependency id="LinFu.DynamicProxy.OfficialRelease" version="[1.0.5]" />
       <dependency id="NetIde.Shell" version="[$version$]" />
-      <dependency id="NetIde.Shell.Interop.1.0" version="[$version$]" />
+      <dependency id="NetIde.Shell.Interop.1.0" version="1.0.0.0" />
     </dependencies>
   </metadata>
   <files>

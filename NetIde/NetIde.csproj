@@ -175,6 +175,7 @@
     <Compile Include="Services\EditorFactoryRegistry\ExtensionRegistry.cs" />
     <Compile Include="Services\EditorFactoryRegistry\NiEditorFactoryRegistry.cs" />
     <Compile Include="Services\Env\NiEnv.cs" />
+    <Compile Include="Services\Env\NiEnv.EditorFactory.cs" />
     <Compile Include="Services\JobManager\JobForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,6 +319,14 @@
     <ProjectReference Include="..\..\NetIde\NetIde.Util\NetIde.Util.csproj">
       <Project>{5cca6341-958e-4170-83ba-c8bb88d95ff4}</Project>
       <Name>NetIde.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Project.Interop.1.0\NetIde.Project.Interop.1.0.csproj">
+      <Project>{4f41746b-a490-401e-b4b0-cd6c1dc0d976}</Project>
+      <Name>NetIde.Project.Interop.1.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetIde.Project\NetIde.Project.csproj">
+      <Project>{05434992-de4a-476e-997a-6d184233f1d6}</Project>
+      <Name>NetIde.Project</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetIde.Shell.Interop.1.0\NetIde.Shell.Interop.1.0.csproj">
       <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>

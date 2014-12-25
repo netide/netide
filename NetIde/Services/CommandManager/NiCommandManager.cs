@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Resources;
@@ -25,6 +26,11 @@ namespace NetIde.Services.CommandManager
             : base(serviceProvider)
         {
             _env = (INiEnv)serviceProvider.GetService(typeof(INiEnv));
+
+            ((IServiceContainer)GetService(typeof(IServiceContainer))).AddService(
+                typeof(INiRegisterPriorityCommandTarget),
+                this
+            );
 
             Application.AddMessageFilter(new ShortcutMessageFilter(this));
         }

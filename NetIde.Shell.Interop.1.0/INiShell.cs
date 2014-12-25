@@ -15,7 +15,6 @@ namespace NetIde.Shell.Interop
         HResult BrowseForFolder(string title, NiBrowseForFolderOptions options, out string selectedFolder);
         HResult SaveDocDataToFile(NiSaveMode mode, INiPersistFile persistFile, string fileName, out string newFileName, out bool saved);
         HResult GetDocumentWindowIterator(out INiIterator<INiWindowFrame> iterator);
-        HResult QuerySaveViaDialog(INiHierarchy[] hiers, out NiQuerySaveResult result);
         HResult GetWindowFrameForWindowPane(INiWindowPane windowPane, out INiWindowFrame windowFrame);
         HResult BroadcastPreMessageFilter(ref NiMessage message);
         HResult InvalidateRequerySuggested();

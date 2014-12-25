@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NetIde.Project.Interop;
 using NetIde.Services.CommandManager.Controls;
 using NetIde.Services.ProjectManager;
 using NetIde.Services.WindowPaneSelection;

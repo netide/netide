@@ -173,21 +173,6 @@ namespace NetIde.Shell
             }
         }
 
-        public void RegisterProjectFactory(INiProjectFactory projectFactory)
-        {
-            if (projectFactory == null)
-                throw new ArgumentNullException("projectFactory");
-
-            var projectManager = (INiProjectManager)GetService(typeof(INiProjectManager));
-
-            projectFactory.SetSite(this);
-
-            ErrorUtil.ThrowOnFailure(projectManager.RegisterProjectFactory(
-                projectFactory.GetType().GUID,
-                projectFactory
-            ));
-        }
-
         public HResult SetSite(IServiceProvider serviceProvider)
         {
             try

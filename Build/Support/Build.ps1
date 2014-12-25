@@ -237,6 +237,30 @@ Function AssemblyInfo-Write-All
     Console-Update-Status "[OK]" -ForegroundColor Green
 }
 
+Function Get-Project-Version([string]$ProjectName)
+{
+    $Projects = Select-Xml -Path ($Global:Root + "\Build\Configuration\Configuration.xml") -XPath "//project"
+
+    foreach ($Project in $Projects)
+    {
+        if ($Project.Node.Name -ne $ProjectName)
+        {
+            continue
+        }
+
+        $ProjectVersion = $Project.Node.version
+
+        if ($ProjectVersion -ne $Null)
+        {
+            return $ProjectVersion
+        }
+
+        break
+    }
+
+    return (Get-Config-Parameter "version")
+}
+
 Function AssemblyInfo-Write([string]$Project, [string]$ClsCompliant, [string]$Template)
 {
     if ($ClsCompliant -eq "")
@@ -360,7 +384,8 @@ Function Build-NuGet-Packages
                 Build-NuGet-Package `
                     -NuSpec $NuSpec `
                     -Package $PackageId `
-                    -TargetPath ($Global:Distrib + "\Packages") -BasePath ($BasePath + "\bin\" + $Global:Configuration)
+                    -TargetPath ($Global:Distrib + "\Packages") `
+                    -BasePath ($BasePath + "\bin\" + $Global:Configuration)
             }
         }
     }
@@ -386,7 +411,8 @@ Function Build-NuGet-Packages
     Build-NuGet-Package `
         -NuSpec ($Global:Root + "\Build\Configuration\NuGet\NetIde.Support.nuspec") `
         -Package "NetIde.Support" `
-        -TargetPath ($Global:Distrib + "\Packages") -BasePath ($Global:Root + "\NetIde\bin\" + $Global:Configuration)
+        -TargetPath ($Global:Distrib + "\Packages") `
+        -BasePath ($Global:Root + "\NetIde\bin\" + $Global:Configuration)
 
     # Remove the zip file; it was just there to include it in the package.
 
@@ -397,7 +423,7 @@ Function Build-NuGet-Package([string]$NuSpec, [string]$Package, [string]$TargetP
 {
     Write-Host "Building NuGet $Package package"
     
-    $Version = (Get-Config-Parameter "version")
+    $Version = (Get-Project-Version $Package)
     
     # Execute NuGet
     

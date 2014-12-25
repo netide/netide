@@ -1,4 +1,5 @@
 ﻿using NetIde.Core.ToolWindows.ProjectExplorer;
+using NetIde.Project.Interop;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 using System;

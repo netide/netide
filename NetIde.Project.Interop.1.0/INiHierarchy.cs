@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NetIde.Shell.Interop;
 
-namespace NetIde.Shell.Interop
+namespace NetIde.Project.Interop
 {
     public interface INiHierarchy : INiConnectionPoint, IServiceProvider, INiObjectWithSite
     {
