@@ -73,7 +73,7 @@ namespace NetIde.Shell
             {
                 TextRenderer.DrawText(
                     e.Graphics,
-                    Labels.HostedToolStrip,
+                    NeutralResources.HostedToolStrip,
                     font,
                     ClientRectangle,
                     SystemColors.GrayText,

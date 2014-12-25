@@ -72,7 +72,7 @@ namespace NetIde.Services.OpenDocumentManager
             try
             {
                 if (editorGuid.HasValue == (document != null))
-                    throw new ArgumentOutOfRangeException("editorGuid", Labels.SpecifyEitherDocumentOrEditorGuid);
+                    throw new ArgumentOutOfRangeException("editorGuid", NeutralResources.SpecifyEitherDocumentOrEditorGuid);
 
                 var editorFactoryRegistry = (NiEditorFactoryRegistry)GetService(typeof(INiEditorFactoryRegistry));
 

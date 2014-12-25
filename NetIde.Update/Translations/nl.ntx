@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/pvginkel/NTranslate/Translations">
+  <File name="NetIde.Update.Labels.resx">
+    <Node name="CannotDetermineInstallationPath">
+      <Source>Cannot determine installation path</Source>
+      <Text>Kan installatie pad niet vinden</Text>
+    </Node>
+    <Node name="ContextDoesNotExist">
+      <Source>No context exists with the specified name</Source>
+      <Text>Er bestaat geen omgeving met de opgegeven naam</Text>
+    </Node>
+    <Node name="ContextNameInvalid">
+      <Source>Context name is invalid</Source>
+      <Text>Omgeving naam is ongeldig</Text>
+    </Node>
+    <Node name="CorruptRuntimePackage">
+      <Source>NetIde.Runtime package is corrupt</Source>
+      <Text>NetIde.Runtime plug-in is corrupt</Text>
+    </Node>
+    <Node name="CouldNotFindNuSpecManifest">
+      <Source>Could not find nuspec manifest</Source>
+      <Text>Kan het nuspec manifest niet vinden</Text>
+    </Node>
+    <Node name="InvalidManifest">
+      <Source>Could not load package manifest</Source>
+      <Text>Kon het plug-in manifest niet laden</Text>
+    </Node>
+    <Node name="InvalidPackage">
+      <Source>Package is invalid or corrupt</Source>
+      <Text>Plug-in is ongeldig of corrupt</Text>
+    </Node>
+    <Node name="InvalidPackageId">
+      <Source>The specified package cannot be installed into this context</Source>
+      <Text>De opgegeven plug-in kon niet in deze omgeving geïnstalleerd worden</Text>
+    </Node>
+    <Node name="InvalidPackagePath">
+      <Source>Invalid path to package</Source>
+      <Text>Ongeldig pad naar plug-in</Text>
+    </Node>
+    <Node name="RollbackFailed">
+      <Source>Failed to roll back package installation: {0}</Source>
+      <Text>Kon installatie van plug-in niet terugdraaien: {0}</Text>
+    </Node>
+  </File>
+</Translations>

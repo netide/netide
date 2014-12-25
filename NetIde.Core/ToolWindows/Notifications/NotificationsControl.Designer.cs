@@ -28,21 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationsControl));
             this._elementControl = new GdiPresentation.ElementControl();
             this.SuspendLayout();
             // 
             // _elementControl
             // 
-            this._elementControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._elementControl.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this._elementControl, "_elementControl");
             this._elementControl.Name = "_elementControl";
             this._elementControl.ResizeTarget = null;
-            this._elementControl.Size = new System.Drawing.Size(150, 150);
-            this._elementControl.TabIndex = 0;
             // 
             // NotificationsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._elementControl);
             this.Name = "NotificationsControl";

@@ -42,35 +42,25 @@
             // 
             // _toolStrip
             // 
-            this._toolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            resources.ApplyResources(this._toolStrip, "_toolStrip");
             this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._unified,
             this._sideBySide,
             this._ignoreWhitespace});
-            this._toolStrip.Location = new System.Drawing.Point(0, 527);
             this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(608, 25);
-            this._toolStrip.TabIndex = 1;
-            this._toolStrip.Text = "toolStrip1";
             // 
             // _unified
             // 
             this._unified.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this._unified.Image = ((System.Drawing.Image)(resources.GetObject("_unified.Image")));
-            this._unified.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this._unified, "_unified");
             this._unified.Name = "_unified";
-            this._unified.Size = new System.Drawing.Size(49, 22);
-            this._unified.Text = "Unified";
             this._unified.Click += new System.EventHandler(this._unified_Click);
             // 
             // _sideBySide
             // 
             this._sideBySide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this._sideBySide.Image = ((System.Drawing.Image)(resources.GetObject("_sideBySide.Image")));
-            this._sideBySide.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this._sideBySide, "_sideBySide");
             this._sideBySide.Name = "_sideBySide";
-            this._sideBySide.Size = new System.Drawing.Size(73, 22);
-            this._sideBySide.Text = "Side by side";
             this._sideBySide.Click += new System.EventHandler(this._sideBySide_Click);
             // 
             // _ignoreWhitespace
@@ -79,26 +69,20 @@
             this._ignoreWhitespace.CheckOnClick = true;
             this._ignoreWhitespace.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this._ignoreWhitespace.Image = global::NetIde.Core.NeutralResources.IgnoreWhitespace;
-            this._ignoreWhitespace.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this._ignoreWhitespace, "_ignoreWhitespace");
             this._ignoreWhitespace.Name = "_ignoreWhitespace";
-            this._ignoreWhitespace.Size = new System.Drawing.Size(23, 22);
-            this._ignoreWhitespace.Text = "Ignore Whitespace";
             this._ignoreWhitespace.CheckedChanged += new System.EventHandler(this._ignoreWhitespace_CheckedChanged);
             // 
             // _unifiedViewer
             // 
             this._unifiedViewer.Context = 3;
-            this._unifiedViewer.Location = new System.Drawing.Point(42, 31);
+            resources.ApplyResources(this._unifiedViewer, "_unifiedViewer");
             this._unifiedViewer.Name = "_unifiedViewer";
-            this._unifiedViewer.Size = new System.Drawing.Size(273, 248);
-            this._unifiedViewer.TabIndex = 2;
             // 
             // _sideBySideViewer
             // 
-            this._sideBySideViewer.Location = new System.Drawing.Point(295, 268);
+            resources.ApplyResources(this._sideBySideViewer, "_sideBySideViewer");
             this._sideBySideViewer.Name = "_sideBySideViewer";
-            this._sideBySideViewer.Size = new System.Drawing.Size(269, 215);
-            this._sideBySideViewer.TabIndex = 3;
             this._sideBySideViewer.LeftUpdated += new System.EventHandler(this._sideBySideViewer_LeftUpdated);
             this._sideBySideViewer.RightUpdated += new System.EventHandler(this._sideBySideViewer_RightUpdated);
             this._sideBySideViewer.LeftUpdating += new System.ComponentModel.CancelEventHandler(this._sideBySideViewer_LeftUpdating);
@@ -108,20 +92,16 @@
             // 
             this._container.Controls.Add(this._sideBySideViewer);
             this._container.Controls.Add(this._unifiedViewer);
-            this._container.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._container.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this._container, "_container");
             this._container.Name = "_container";
-            this._container.Size = new System.Drawing.Size(608, 527);
-            this._container.TabIndex = 4;
             // 
             // TextViewer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._container);
             this.Controls.Add(this._toolStrip);
             this.Name = "TextViewer";
-            this.Size = new System.Drawing.Size(608, 552);
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
             this._container.ResumeLayout(false);

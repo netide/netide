@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/pvginkel/NTranslate/Translations">
+  <File name="NetIde.TestPackage.Labels.resx">
+    <Node name="HelpTopic1">
+      <Source>Topic 1</Source>
+      <Text>Onderwerp 1</Text>
+    </Node>
+    <Node name="PackageDescription">
+      <Source>Net IDE Test Package</Source>
+      <Text>Net IDE Test Plug-in</Text>
+    </Node>
+    <Node name="ProjectFileExtensions">
+      <Source>Net IDE Test Project (*.niproj)|*.niproj</Source>
+      <Text>Net IDE Test Project (*.niproj)|*.niproj</Text>
+    </Node>
+  </File>
+</Translations>

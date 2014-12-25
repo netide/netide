@@ -28,19 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PackageDetailsControl));
             this._moreInformationLink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // _moreInformationLink
             // 
-            this._moreInformationLink.AutoSize = true;
-            this._moreInformationLink.Location = new System.Drawing.Point(7, 7);
-            this._moreInformationLink.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            resources.ApplyResources(this._moreInformationLink, "_moreInformationLink");
             this._moreInformationLink.Name = "_moreInformationLink";
-            this._moreInformationLink.Size = new System.Drawing.Size(86, 13);
-            this._moreInformationLink.TabIndex = 24;
             this._moreInformationLink.TabStop = true;
-            this._moreInformationLink.Text = "More Information";
             this._moreInformationLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._moreInformationLink_LinkClicked);
             // 
             // PackageDetailsControl
@@ -48,8 +44,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this._moreInformationLink);
             this.Name = "PackageDetailsControl";
-            this.Padding = new System.Windows.Forms.Padding(6);
-            this.Size = new System.Drawing.Size(250, 400);
+            resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
             this.PerformLayout();
 

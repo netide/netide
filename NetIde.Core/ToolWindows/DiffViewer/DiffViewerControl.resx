@@ -117,4 +117,84 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="_textViewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 44</value>
+  </data>
+  <data name="_textViewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 162</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_textViewer.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;_textViewer.Name" xml:space="preserve">
+    <value>_textViewer</value>
+  </data>
+  <data name="&gt;&gt;_textViewer.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.TextViewer, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_textViewer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_textViewer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="_summaryViewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 277</value>
+  </data>
+  <data name="_summaryViewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 149</value>
+  </data>
+  <data name="_summaryViewer.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;_summaryViewer.Name" xml:space="preserve">
+    <value>_summaryViewer</value>
+  </data>
+  <data name="&gt;&gt;_summaryViewer.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.SummaryViewer, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_summaryViewer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_summaryViewer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="_imageViewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 27</value>
+  </data>
+  <data name="_imageViewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 140</value>
+  </data>
+  <data name="_imageViewer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;_imageViewer.Name" xml:space="preserve">
+    <value>_imageViewer</value>
+  </data>
+  <data name="&gt;&gt;_imageViewer.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.ImageViewer, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_imageViewer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_imageViewer.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 534</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DiffViewerControl</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>NetIde.Util.Forms.UserControl, NetIde.Util, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
 </root>

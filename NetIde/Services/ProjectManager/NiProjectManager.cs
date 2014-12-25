@@ -88,7 +88,7 @@ namespace NetIde.Services.ProjectManager
                 }
 
                 if (factory == null)
-                    throw new ArgumentException(Labels.CannotFindProjectFactory, "fileName");
+                    throw new ArgumentException(NeutralResources.CannotFindProjectFactory, "fileName");
 
                 // Close the existing project.
 

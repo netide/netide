@@ -16,7 +16,7 @@ using NetIde.Util.Forms;
 
 namespace NetIde.Core.ToolWindows.ProjectExplorer
 {
-    public partial class ProjectExplorerControl : NetIde.Util.Forms.UserControl
+    internal partial class ProjectExplorerControl : NetIde.Util.Forms.UserControl
     {
         private INiProjectManager _projectManager;
         private ResourceManager _resourceManager;

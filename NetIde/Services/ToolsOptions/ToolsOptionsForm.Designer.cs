@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolsOptionsForm));
             this.formFooter1 = new NetIde.Util.Forms.FormFooter();
             this._cancelButton = new System.Windows.Forms.Button();
             this._acceptButton = new System.Windows.Forms.Button();
@@ -46,101 +47,66 @@
             // 
             this.formFooter1.Controls.Add(this._cancelButton);
             this.formFooter1.Controls.Add(this._acceptButton);
-            this.formFooter1.Location = new System.Drawing.Point(0, 365);
+            resources.ApplyResources(this.formFooter1, "formFooter1");
             this.formFooter1.Name = "formFooter1";
-            this.formFooter1.Size = new System.Drawing.Size(741, 37);
             this.formFooter1.Style = NetIde.Util.Forms.FormFooterStyle.Dialog;
-            this.formFooter1.TabIndex = 1;
             // 
             // _cancelButton
             // 
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this._cancelButton.Location = new System.Drawing.Point(655, 3);
+            resources.ApplyResources(this._cancelButton, "_cancelButton");
             this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(75, 23);
-            this._cancelButton.TabIndex = 1;
-            this._cancelButton.Text = "Cancel";
             this._cancelButton.UseVisualStyleBackColor = true;
             // 
             // _acceptButton
             // 
-            this._acceptButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this._acceptButton.Location = new System.Drawing.Point(574, 3);
+            resources.ApplyResources(this._acceptButton, "_acceptButton");
             this._acceptButton.Name = "_acceptButton";
-            this._acceptButton.Size = new System.Drawing.Size(75, 23);
-            this._acceptButton.TabIndex = 0;
-            this._acceptButton.Text = "OK";
             this._acceptButton.UseVisualStyleBackColor = true;
             this._acceptButton.Click += new System.EventHandler(this._acceptButton_Click);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(9);
-            this.panel1.Size = new System.Drawing.Size(741, 365);
-            this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 248F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 12F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this._treeView, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.pageContainer1, 2, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(723, 347);
-            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // _treeView
             // 
-            this._treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this._treeView, "_treeView");
             this._treeView.HideSelection = false;
-            this._treeView.Location = new System.Drawing.Point(3, 3);
             this._treeView.Name = "_treeView";
             this._treeView.ShowLines = false;
-            this._treeView.Size = new System.Drawing.Size(242, 341);
-            this._treeView.TabIndex = 0;
             this._treeView.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this._treeView_BeforeSelect);
             // 
             // pageContainer1
             // 
             this.pageContainer1.Controls.Add(this._pageHost);
-            this.pageContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pageContainer1.Location = new System.Drawing.Point(263, 3);
+            resources.ApplyResources(this.pageContainer1, "pageContainer1");
             this.pageContainer1.Name = "pageContainer1";
-            this.pageContainer1.Size = new System.Drawing.Size(457, 341);
-            this.pageContainer1.TabIndex = 1;
             // 
             // _pageHost
             // 
-            this._pageHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._pageHost.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this._pageHost, "_pageHost");
             this._pageHost.Name = "_pageHost";
-            this._pageHost.Size = new System.Drawing.Size(457, 335);
-            this._pageHost.TabIndex = 0;
-            this._pageHost.Text = "pageHost1";
             // 
             // ToolsOptionsForm
             // 
             this.AcceptButton = this._acceptButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(741, 402);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.formFooter1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "ToolsOptionsForm";
-            this.Text = "Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToolsOptionsForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ToolsOptionsForm_FormClosed);
             this.Load += new System.EventHandler(this.ToolsOptionsDialog_Load);

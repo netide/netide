@@ -124,15 +124,6 @@ namespace NetIde.Util {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not parse keys &apos;{0}&apos;.
-        /// </summary>
-        internal static string CouldNotParseKeys {
-            get {
-                return ResourceManager.GetString("CouldNotParseKeys", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alt.
         /// </summary>
         internal static string KeysAlt {

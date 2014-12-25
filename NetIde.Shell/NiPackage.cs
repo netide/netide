@@ -51,7 +51,7 @@ namespace NetIde.Shell
                 value = _stringResourceManager.GetString(key);
 
                 if (String.IsNullOrEmpty(value))
-                    throw new ArgumentException(String.Format(Labels.InvalidResource, key));
+                    throw new ArgumentException(String.Format(NeutralResources.InvalidResource, key));
 
                 return HResult.OK;
             }
@@ -69,7 +69,7 @@ namespace NetIde.Shell
             var attribute = GetType().GetCustomAttributes(typeof(NiStringResourcesAttribute), false);
 
             if (attribute.Length == 0)
-                throw new InvalidOperationException(Labels.CouldNotFindStringResourcesAttribute);
+                throw new InvalidOperationException(NeutralResources.CouldNotFindStringResourcesAttribute);
 
             string resourceName = GetType().Namespace + "." + ((NiStringResourcesAttribute)attribute[0]).ResourceName;
 
@@ -85,7 +85,7 @@ namespace NetIde.Shell
                 var attribute = GetType().GetCustomAttributes(typeof(NiResourcesAttribute), false);
 
                 if (attribute.Length == 0)
-                    throw new InvalidOperationException(Labels.CouldNotFindResourcesAttribute);
+                    throw new InvalidOperationException(NeutralResources.CouldNotFindResourcesAttribute);
 
                 string resourceName = GetType().Namespace + "." + ((NiResourcesAttribute)attribute[0]).ResourceName + ".resources";
 
@@ -272,7 +272,7 @@ namespace NetIde.Shell
                 .SingleOrDefault(p => p.ToolType == toolType);
 
             if (registration == null)
-                throw new InvalidOperationException(Labels.ToolWindowNotRegistered);
+                throw new InvalidOperationException(NeutralResources.ToolWindowNotRegistered);
 
             var toolWindow = (NiWindowPane)Activator.CreateInstance(toolType);
 

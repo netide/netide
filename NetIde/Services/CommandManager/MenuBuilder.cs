@@ -135,7 +135,7 @@ namespace NetIde.Services.CommandManager
             ));
 
             if (commandBar == null)
-                throw new NetIdeException(String.Format(Labels.CannotFindCommandBar, menuRef.Guid));
+                throw new NetIdeException(String.Format(NeutralResources.CannotFindCommandBar, menuRef.Guid));
 
             foreach (INiCommandBarGroup group in Build(menuRef.Items))
             {
@@ -173,7 +173,7 @@ namespace NetIde.Services.CommandManager
             ));
 
             if (commandGroup == null)
-                throw new NetIdeException(String.Format(Labels.CannotFindCommandGroup, groupRef.Guid));
+                throw new NetIdeException(String.Format(NeutralResources.CannotFindCommandGroup, groupRef.Guid));
 
             foreach (INiCommandBarControl control in Build(groupRef.Items))
             {
@@ -215,7 +215,7 @@ namespace NetIde.Services.CommandManager
             ));
 
             if (control == null)
-                throw new NetIdeException(String.Format(Labels.CannotFindCommand, buttonRef.Guid));
+                throw new NetIdeException(String.Format(NeutralResources.CannotFindCommand, buttonRef.Guid));
 
             return control;
         }
@@ -245,7 +245,7 @@ namespace NetIde.Services.CommandManager
             ));
 
             if (control == null)
-                throw new NetIdeException(String.Format(Labels.CannotFindCommand, comboBoxRef.Guid));
+                throw new NetIdeException(String.Format(NeutralResources.CannotFindCommand, comboBoxRef.Guid));
 
             return control;
         }
@@ -274,7 +274,7 @@ namespace NetIde.Services.CommandManager
             ));
 
             if (control == null)
-                throw new NetIdeException(String.Format(Labels.CannotFindCommand, textBoxRef.Guid));
+                throw new NetIdeException(String.Format(NeutralResources.CannotFindCommand, textBoxRef.Guid));
 
             return control;
         }
@@ -303,7 +303,7 @@ namespace NetIde.Services.CommandManager
             ));
 
             if (control == null)
-                throw new NetIdeException(String.Format(Labels.CannotFindCommand, labelRef.Guid));
+                throw new NetIdeException(String.Format(NeutralResources.CannotFindCommand, labelRef.Guid));
 
             return control;
         }
@@ -323,7 +323,7 @@ namespace NetIde.Services.CommandManager
                     return (Image)resource;
             }
 
-            throw new NetIdeException(String.Format(Labels.InvalidBitmapResource, key));
+            throw new NetIdeException(String.Format(NeutralResources.InvalidBitmapResource, key));
         }
     }
 }

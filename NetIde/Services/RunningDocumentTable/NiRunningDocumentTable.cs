@@ -67,7 +67,7 @@ namespace NetIde.Services.RunningDocumentTable
             try
             {
                 if (!_registrations.Remove(cookie))
-                    throw new ArgumentOutOfRangeException("cookie", Labels.DocumentNotRegistered);
+                    throw new ArgumentOutOfRangeException("cookie", NeutralResources.DocumentNotRegistered);
 
                 return HResult.OK;
             }
@@ -87,7 +87,7 @@ namespace NetIde.Services.RunningDocumentTable
             {
                 Registration registration;
                 if (!_registrations.TryGetValue(cookie, out registration))
-                    throw new ArgumentOutOfRangeException("cookie", Labels.DocumentNotRegistered);
+                    throw new ArgumentOutOfRangeException("cookie", NeutralResources.DocumentNotRegistered);
 
                 document = registration.Document;
                 hier = registration.Item;

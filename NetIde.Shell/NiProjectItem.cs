@@ -27,7 +27,7 @@ namespace NetIde.Shell
             var project = ((INiProject)this.GetPropertyEx(NiHierarchyProperty.ContainingProject));
 
             if (project == null)
-                throw new InvalidOperationException(Labels.CannotResolveProject);
+                throw new InvalidOperationException(NeutralResources.CannotResolveProject);
 
             return project;
         }

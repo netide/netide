@@ -120,6 +120,10 @@
   <metadata name="_toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_toolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="_unified.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -136,6 +140,15 @@
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="_unified.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="_unified.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 22</value>
+  </data>
+  <data name="_unified.Text" xml:space="preserve">
+    <value>Unified</value>
+  </data>
   <data name="_sideBySide.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -150,5 +163,147 @@
         kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="_sideBySide.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="_sideBySide.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 22</value>
+  </data>
+  <data name="_sideBySide.Text" xml:space="preserve">
+    <value>Side by side</value>
+  </data>
+  <data name="_ignoreWhitespace.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="_ignoreWhitespace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="_ignoreWhitespace.Text" xml:space="preserve">
+    <value>Ignore Whitespace</value>
+  </data>
+  <data name="_toolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 527</value>
+  </data>
+  <data name="_toolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 25</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_toolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="_toolStrip.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.Name" xml:space="preserve">
+    <value>_toolStrip</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="_unifiedViewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 31</value>
+  </data>
+  <data name="_unifiedViewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 248</value>
+  </data>
+  <data name="_unifiedViewer.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;_unifiedViewer.Name" xml:space="preserve">
+    <value>_unifiedViewer</value>
+  </data>
+  <data name="&gt;&gt;_unifiedViewer.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.UnifiedViewer, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_unifiedViewer.Parent" xml:space="preserve">
+    <value>_container</value>
+  </data>
+  <data name="&gt;&gt;_unifiedViewer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="_sideBySideViewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>295, 268</value>
+  </data>
+  <data name="_sideBySideViewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 215</value>
+  </data>
+  <data name="_sideBySideViewer.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;_sideBySideViewer.Name" xml:space="preserve">
+    <value>_sideBySideViewer</value>
+  </data>
+  <data name="&gt;&gt;_sideBySideViewer.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.SideBySideViewer, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_sideBySideViewer.Parent" xml:space="preserve">
+    <value>_container</value>
+  </data>
+  <data name="&gt;&gt;_sideBySideViewer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="_container.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="_container.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="_container.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 527</value>
+  </data>
+  <data name="_container.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;_container.Name" xml:space="preserve">
+    <value>_container</value>
+  </data>
+  <data name="&gt;&gt;_container.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_container.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_container.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 552</value>
+  </data>
+  <data name="&gt;&gt;_unified.Name" xml:space="preserve">
+    <value>_unified</value>
+  </data>
+  <data name="&gt;&gt;_unified.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_sideBySide.Name" xml:space="preserve">
+    <value>_sideBySide</value>
+  </data>
+  <data name="&gt;&gt;_sideBySide.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_ignoreWhitespace.Name" xml:space="preserve">
+    <value>_ignoreWhitespace</value>
+  </data>
+  <data name="&gt;&gt;_ignoreWhitespace.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>TextViewer</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>NetIde.Util.Forms.UserControl, NetIde.Util, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
   </data>
 </root>

@@ -26,7 +26,7 @@ namespace NetIde.Shell.Settings
             var settingsAttributes = typeof(T).GetCustomAttributes(typeof(SettingsAttribute), true);
 
             if (settingsAttributes.Length == 0)
-                throw new InvalidOperationException(Labels.SettingsDoesNotSpecifyAttribute);
+                throw new InvalidOperationException(NeutralResources.SettingsDoesNotSpecifyAttribute);
 
             var settingsAttribute = (SettingsAttribute)settingsAttributes[0];
 
@@ -160,7 +160,7 @@ namespace NetIde.Shell.Settings
                         }
                     }
 
-                    throw new InvalidOperationException(Labels.InvalidRequest);
+                    throw new InvalidOperationException(NeutralResources.InvalidRequest);
                 }
             }
 
@@ -200,7 +200,7 @@ namespace NetIde.Shell.Settings
                     else if (typeof(Enum).IsAssignableFrom(underlyingType))
                         _settings.SetValue(key, (int)value);
                     else
-                        throw new InvalidOperationException(Labels.InvalidRequest);
+                        throw new InvalidOperationException(NeutralResources.InvalidRequest);
 
                     _cache[name] = value;
                 }
@@ -235,7 +235,7 @@ namespace NetIde.Shell.Settings
                     else if (typeof(Enum).IsAssignableFrom(underlyingType))
                         value = GetEnum(underlyingType, key);
                     else
-                        throw new InvalidOperationException(Labels.InvalidRequest);
+                        throw new InvalidOperationException(NeutralResources.InvalidRequest);
 
                     if (value == null)
                         value = GetDefaultValue(member);

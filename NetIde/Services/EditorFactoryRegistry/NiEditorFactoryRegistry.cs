@@ -33,7 +33,7 @@ namespace NetIde.Services.EditorFactoryRegistry
                     throw new ArgumentNullException("editorFactory");
 
                 if (_factories.ContainsKey(guid))
-                    throw new InvalidOperationException(Labels.EditorFactoryAlreadyRegistered);
+                    throw new InvalidOperationException(NeutralResources.EditorFactoryAlreadyRegistered);
 
                 _factories.Add(guid, editorFactory);
 

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/pvginkel/NTranslate/Translations">
+  <File name="NetIde.Labels.resx">
+    <Node name="AllFiles">
+      <Source>All Files (*.*)|*.*</Source>
+      <Text>Alle Bestanden (*.*)|*.*</Text>
+    </Node>
+    <Node name="CannotCancelOperation">
+      <Source>The current operation cannot be cancelled.</Source>
+      <Text>De huidige operatie kan niet geannuleerd worden.</Text>
+    </Node>
+    <Node name="CannotCreateProject">
+      <Source>Cannot create project</Source>
+      <Text>Project kan niet opgeslagen worden</Text>
+    </Node>
+    <Node name="CannotLoadContext">
+      <Source>Cannot find the file NiContext.xml. Your installation may be corrupt.</Source>
+      <Text>Het bestand NiContext.xml kon niet gevonden worden. Uw installatie is corrupt.</Text>
+    </Node>
+    <Node name="CannotOpenProject">
+      <Source>Cannot open project</Source>
+      <Text>Kan project niet openen</Text>
+    </Node>
+    <Node name="CannotProcessSwitch">
+      <Source>Cannot process switch '{0}'.</Source>
+      <Text>Kan argument '{0}' niet verwerken.</Text>
+    </Node>
+    <Node name="CorePackageMissing">
+      <Source>The NetIde.Package.Core package is missing.</Source>
+      <Text>De plug-in NetIde.Package.Core kon niet gevonden worden.</Text>
+    </Node>
+    <Node name="CreateProject">
+      <Source>Create Project</Source>
+      <Text>Nieuw Project</Text>
+    </Node>
+    <Node name="DownloadingPackage">
+      <Source>Downloading package {0}</Source>
+      <Text>Bezig met downloaden van plug-in {0}</Text>
+    </Node>
+    <Node name="ExperimentalInstancePostfix">
+      <Source> - Experimental Instance</Source>
+      <Text> - Experimentele Instantie</Text>
+    </Node>
+    <Node name="IllegalButtonShortcutKeys">
+      <Source>Button '{0}' has an illegal shortcut key '{1}'</Source>
+      <Text>Knop '{0}' heeft een ongeldige snelkoppeling toets '{1}'</Text>
+    </Node>
+    <Node name="InsertModeInsert">
+      <Source>INS</Source>
+      <Text>INS</Text>
+    </Node>
+    <Node name="InsertModeOverwrite">
+      <Source>OVR</Source>
+      <Text>OVR</Text>
+    </Node>
+    <Node name="InstallingPackage">
+      <Source>Installing package {0}</Source>
+      <Text>Installeren van plug-in {0}</Text>
+    </Node>
+    <Node name="InvalidPackageManifest">
+      <Source>Package manifest '{0}' is invalid</Source>
+      <Text>Plug-in manifest van '{0}' is ongeldig</Text>
+    </Node>
+    <Node name="LessDetails">
+      <Source>&lt;&lt; Details</Source>
+      <Text>&lt;&lt; Details</Text>
+    </Node>
+    <Node name="MoreDetails">
+      <Source>&gt;&gt; Details</Source>
+      <Text>&gt;&gt; Details</Text>
+    </Node>
+    <Node name="NetIde">
+      <Source>Net IDE</Source>
+      <Text>Net IDE</Text>
+    </Node>
+    <Node name="NiMenuMissing">
+      <Source>Resource file does not contain a NiMenu resource</Source>
+      <Text>Het resource bestand bevat geen NiMenu resource</Text>
+    </Node>
+    <Node name="OpenDocumentsPresent">
+      <Source>Cannot close the project until all open documents have been closed</Source>
+      <Text>Het project kan niet gesloten worden voor dat alle documenten gesloten zijn</Text>
+    </Node>
+    <Node name="OpenProject">
+      <Source>Open Project</Source>
+      <Text>Open Project</Text>
+    </Node>
+    <Node name="PackageInitializationFailed">
+      <Source>Failed to load and initialize package '{0}'</Source>
+      <Text>Plug-in '{0}' kon niet geladen en geïnitialiseerd worden</Text>
+    </Node>
+    <Node name="StatusBarCharIndex">
+      <Source>Ch {0}</Source>
+      <Text>Kar {0}</Text>
+    </Node>
+    <Node name="StatusBarDefaultStatus">
+      <Source>Ready</Source>
+      <Text>Klaar</Text>
+    </Node>
+    <Node name="StatusBarIndex">
+      <Source>Col {0}</Source>
+      <Text>Kol {0}</Text>
+    </Node>
+    <Node name="StatusBarLine">
+      <Source>Ln {0}</Source>
+      <Text>Reg {0}</Text>
+    </Node>
+    <Node name="UninstallingPackage">
+      <Source>Removing package {0}</Source>
+      <Text>Verwijderen van plug-in {0}</Text>
+    </Node>
+    <Node name="UpdateAvailable">
+      <Source>Update available for {0}</Source>
+      <Text>Update beschikbaar voor {0}</Text>
+    </Node>
+    <Node name="UpdateFailed">
+      <Source>Update failed: {0}</Source>
+      <Text>Update is mislukt: {0}</Text>
+    </Node>
+    <Node name="UpdatingPackage">
+      <Source>Updating package {0}</Source>
+      <Text>Bezig met updaten van plug-in {0}</Text>
+    </Node>
+  </File>
+  <File name="NetIde.MainForm.resx">
+    <Node name="$this.Text">
+      <Source>Net IDE</Source>
+      <Text>Net IDE</Text>
+    </Node>
+    <Node name="_statusStripCharIndex.Text">
+      <Source>Ch 00</Source>
+      <Text>Kar 00</Text>
+    </Node>
+    <Node name="_statusStripIndex.Text">
+      <Source>Col 00</Source>
+      <Text>Kol 00</Text>
+    </Node>
+    <Node name="_statusStripInsertMode.Text">
+      <Source>INS</Source>
+      <Text>INS</Text>
+    </Node>
+    <Node name="_statusStripLine.Text">
+      <Source>Ln 00</Source>
+      <Text>Reg 00</Text>
+    </Node>
+    <Node name="_toolStripContainer.Text">
+      <Source>toolStripContainer1</Source>
+      <Text>toolStripContainer1</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Services.JobManager.JobForm.resx">
+    <Node name="$this.Text">
+      <Source>Processing</Source>
+      <Text>Bezig</Text>
+    </Node>
+    <Node name="_acceptButton.Text">
+      <Source>Close</Source>
+      <Text>Sluiten</Text>
+    </Node>
+    <Node name="_inProgressLabel.Text">
+      <Source>Operation in progress...</Source>
+      <Text>Bezig...</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Services.JobManager.JobProgressControl.resx">
+    <Node name="_statusLabel.Text">
+      <Source>Initializing...</Source>
+      <Text>Initialiseren...</Text>
+    </Node>
+    <Node name="_titleLabel.Text">
+      <Source>Initializing...</Source>
+      <Text>Initialiseren...</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Services.PackageManager.UpdateForm.resx">
+    <Node name="$this.Text">
+      <Source>Processing Updates</Source>
+      <Text>Verwerken Updates</Text>
+    </Node>
+    <Node name="_progressLabel.Text">
+      <Source>Initializing...</Source>
+      <Text>Initialiseren...</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Services.Shell.SaveHierarchiesForm.resx">
+    <Node name="$this.Text">
+      <Source>Save</Source>
+      <Text>Opslaan</Text>
+    </Node>
+    <Node name="label1.Text">
+      <Source>&amp;Save changes to the following items?</Source>
+      <Text>&amp;Sla de volgende wijzigingen op?</Text>
+    </Node>
+    <Node name="_cancel.Text">
+      <Source>&amp;Cancel</Source>
+      <Text>&amp;Annuleren</Text>
+    </Node>
+    <Node name="_no.Text">
+      <Source>&amp;No</Source>
+      <Text>&amp;Nee</Text>
+    </Node>
+    <Node name="_yes.Text">
+      <Source>&amp;Yes</Source>
+      <Text>&amp;Ja</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Services.ToolsOptions.ToolsOptionsForm.resx">
+    <Node name="$this.Text">
+      <Source>Options</Source>
+      <Text>Opties</Text>
+    </Node>
+    <Node name="_acceptButton.Text">
+      <Source>OK</Source>
+      <Text>OK</Text>
+    </Node>
+    <Node name="_cancelButton.Text">
+      <Source>Cancel</Source>
+      <Text>Annuleren</Text>
+    </Node>
+    <Node name="_pageHost.Text">
+      <Source>pageHost1</Source>
+      <Text>pageHost1</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Services.WaitDialog.WaitDialogForm.resx">
+    <Node name="_cancelButton.Text">
+      <Source>Cancel</Source>
+      <Text>Annuleren</Text>
+    </Node>
+  </File>
+  <File name="NetIde.SplashForm.resx">
+    <Node name="$this.Text">
+      <Source>SplashForm</Source>
+      <Text>SplashForm</Text>
+    </Node>
+  </File>
+</Translations>

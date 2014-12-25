@@ -232,6 +232,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(ProjectDir)\..\Libraries\NTranslate\NTranslate.targets" />
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)\..\Libraries\7-Zip\7za.exe" a -x!*.vshost.* "$(ProjectDir)\..\NetIde.MakeSetup\Resources\nisetup.7z" *.exe *.dll</PostBuildEvent>
   </PropertyGroup>

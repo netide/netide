@@ -36,7 +36,7 @@ namespace NetIde.Services.MenuManager
                 var command = (NiCommandBar)commandBar;
 
                 if (command.Control != null)
-                    throw new NetIdeException(Labels.CommandBarAlreadyRegistered);
+                    throw new NetIdeException(NeutralResources.CommandBarAlreadyRegistered);
 
                 _commandBars.Add(command);
 
@@ -66,7 +66,7 @@ namespace NetIde.Services.MenuManager
                     return new BarControl<ContextMenuStripBarControl>(this, commandBar);
 
                 default:
-                    throw new NetIdeException(Labels.InvalidCommandBarStyle);
+                    throw new NetIdeException(NeutralResources.InvalidCommandBarStyle);
             }
         }
 
@@ -150,7 +150,7 @@ namespace NetIde.Services.MenuManager
                     return HResult.False;
 
                 if (commandBar.Kind != NiCommandBarKind.Popup)
-                    throw new NetIdeException(Labels.MenuIsNotPopup);
+                    throw new NetIdeException(NeutralResources.MenuIsNotPopup);
 
                 var host = CreateHost((NiCommandBar)commandBar);
 

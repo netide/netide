@@ -30,6 +30,7 @@ namespace NetIde
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin1 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
             WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin1 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
             WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
@@ -65,21 +66,15 @@ namespace NetIde
             // _toolStripContainer.ContentPanel
             // 
             this._toolStripContainer.ContentPanel.Controls.Add(this._dockPanel);
-            this._toolStripContainer.ContentPanel.Size = new System.Drawing.Size(855, 573);
-            this._toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._toolStripContainer.Location = new System.Drawing.Point(0, 24);
+            resources.ApplyResources(this._toolStripContainer.ContentPanel, "_toolStripContainer.ContentPanel");
+            resources.ApplyResources(this._toolStripContainer, "_toolStripContainer");
             this._toolStripContainer.Name = "_toolStripContainer";
-            this._toolStripContainer.Size = new System.Drawing.Size(855, 598);
-            this._toolStripContainer.TabIndex = 1;
-            this._toolStripContainer.Text = "toolStripContainer1";
             // 
             // _dockPanel
             // 
-            this._dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this._dockPanel, "_dockPanel");
             this._dockPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
-            this._dockPanel.Location = new System.Drawing.Point(0, 0);
             this._dockPanel.Name = "_dockPanel";
-            this._dockPanel.Size = new System.Drawing.Size(855, 573);
             dockPanelGradient1.EndColor = System.Drawing.SystemColors.ControlLight;
             dockPanelGradient1.StartColor = System.Drawing.SystemColors.ControlLight;
             autoHideStripSkin1.DockStripGradient = dockPanelGradient1;
@@ -126,15 +121,12 @@ namespace NetIde
             dockPaneStripSkin1.ToolWindowGradient = dockPaneStripToolWindowGradient1;
             dockPanelSkin1.DockPaneStripSkin = dockPaneStripSkin1;
             this._dockPanel.Skin = dockPanelSkin1;
-            this._dockPanel.TabIndex = 0;
             this._dockPanel.ActiveDocumentChanged += new System.EventHandler(this._dockPanel_ActiveDocumentChanged);
             // 
             // _menuStrip
             // 
-            this._menuStrip.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this._menuStrip, "_menuStrip");
             this._menuStrip.Name = "_menuStrip";
-            this._menuStrip.Size = new System.Drawing.Size(855, 24);
-            this._menuStrip.TabIndex = 2;
             // 
             // _statusStrip
             // 
@@ -144,59 +136,43 @@ namespace NetIde
             this._statusStripIndex,
             this._statusStripCharIndex,
             this._statusStripInsertMode});
-            this._statusStrip.Location = new System.Drawing.Point(0, 622);
+            resources.ApplyResources(this._statusStrip, "_statusStrip");
             this._statusStrip.Name = "_statusStrip";
-            this._statusStrip.Size = new System.Drawing.Size(855, 22);
-            this._statusStrip.TabIndex = 3;
             // 
             // _statusStripText
             // 
             this._statusStripText.Name = "_statusStripText";
-            this._statusStripText.Size = new System.Drawing.Size(575, 17);
+            resources.ApplyResources(this._statusStripText, "_statusStripText");
             this._statusStripText.Spring = true;
-            this._statusStripText.Text = "<< TEXT >>";
-            this._statusStripText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _statusStripLine
             // 
-            this._statusStripLine.AutoSize = false;
+            resources.ApplyResources(this._statusStripLine, "_statusStripLine");
             this._statusStripLine.Name = "_statusStripLine";
-            this._statusStripLine.Size = new System.Drawing.Size(80, 17);
-            this._statusStripLine.Text = "Ln 00";
-            this._statusStripLine.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _statusStripIndex
             // 
-            this._statusStripIndex.AutoSize = false;
+            resources.ApplyResources(this._statusStripIndex, "_statusStripIndex");
             this._statusStripIndex.Name = "_statusStripIndex";
-            this._statusStripIndex.Size = new System.Drawing.Size(80, 17);
-            this._statusStripIndex.Text = "Col 00";
-            this._statusStripIndex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _statusStripCharIndex
             // 
-            this._statusStripCharIndex.AutoSize = false;
+            resources.ApplyResources(this._statusStripCharIndex, "_statusStripCharIndex");
             this._statusStripCharIndex.Name = "_statusStripCharIndex";
-            this._statusStripCharIndex.Size = new System.Drawing.Size(80, 17);
-            this._statusStripCharIndex.Text = "Ch 00";
-            this._statusStripCharIndex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _statusStripInsertMode
             // 
             this._statusStripInsertMode.Name = "_statusStripInsertMode";
-            this._statusStripInsertMode.Size = new System.Drawing.Size(25, 17);
-            this._statusStripInsertMode.Text = "INS";
+            resources.ApplyResources(this._statusStripInsertMode, "_statusStripInsertMode");
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 644);
             this.Controls.Add(this._toolStripContainer);
             this.Controls.Add(this._statusStrip);
             this.Controls.Add(this._menuStrip);
             this.Name = "MainForm";
-            this.Text = "Net IDE";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this._toolStripContainer.ContentPanel.ResumeLayout(false);

@@ -88,42 +88,6 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot find command &apos;{0}&apos;..
-        /// </summary>
-        internal static string CannotFindCommand {
-            get {
-                return ResourceManager.GetString("CannotFindCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot find command bar &apos;{0}&apos;..
-        /// </summary>
-        internal static string CannotFindCommandBar {
-            get {
-                return ResourceManager.GetString("CannotFindCommandBar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot find command group &apos;{0}&apos;..
-        /// </summary>
-        internal static string CannotFindCommandGroup {
-            get {
-                return ResourceManager.GetString("CannotFindCommandGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot find project factory.
-        /// </summary>
-        internal static string CannotFindProjectFactory {
-            get {
-                return ResourceManager.GetString("CannotFindProjectFactory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cannot find the file NiContext.xml. Your installation may be corrupt..
         /// </summary>
         internal static string CannotLoadContext {
@@ -151,24 +115,6 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Combo boxes are only supported in menus.
-        /// </summary>
-        internal static string ComboBoxNotSupported {
-            get {
-                return ResourceManager.GetString("ComboBoxNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The command bar has already been registered.
-        /// </summary>
-        internal static string CommandBarAlreadyRegistered {
-            get {
-                return ResourceManager.GetString("CommandBarAlreadyRegistered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The NetIde.Package.Core package is missing..
         /// </summary>
         internal static string CorePackageMissing {
@@ -187,29 +133,11 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No document is registered for the provided cookie.
-        /// </summary>
-        internal static string DocumentNotRegistered {
-            get {
-                return ResourceManager.GetString("DocumentNotRegistered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Downloading package {0}.
         /// </summary>
         internal static string DownloadingPackage {
             get {
                 return ResourceManager.GetString("DownloadingPackage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Editor factory has already been registered.
-        /// </summary>
-        internal static string EditorFactoryAlreadyRegistered {
-            get {
-                return ResourceManager.GetString("EditorFactoryAlreadyRegistered", resourceCulture);
             }
         }
         
@@ -259,24 +187,6 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resource name &apos;{0}&apos; is invalid or could not be found..
-        /// </summary>
-        internal static string InvalidBitmapResource {
-            get {
-                return ResourceManager.GetString("InvalidBitmapResource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CommandBar style must be Menu or ToolStrip.
-        /// </summary>
-        internal static string InvalidCommandBarStyle {
-            get {
-                return ResourceManager.GetString("InvalidCommandBarStyle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Package manifest &apos;{0}&apos; is invalid.
         /// </summary>
         internal static string InvalidPackageManifest {
@@ -286,29 +196,11 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Labels are not supported in menus.
-        /// </summary>
-        internal static string LabelNotSupported {
-            get {
-                return ResourceManager.GetString("LabelNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;&lt; Details.
         /// </summary>
         internal static string LessDetails {
             get {
                 return ResourceManager.GetString("LessDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menu is not a popup menu.
-        /// </summary>
-        internal static string MenuIsNotPopup {
-            get {
-                return ResourceManager.GetString("MenuIsNotPopup", resourceCulture);
             }
         }
         
@@ -358,29 +250,11 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entry point &apos;{0}&apos; is invalid; must be of format &apos;&lt;assembly&gt;, &lt;type&gt;&apos;.
-        /// </summary>
-        internal static string PackageEntryPointInvalid {
-            get {
-                return ResourceManager.GetString("PackageEntryPointInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Failed to load and initialize package &apos;{0}&apos;.
         /// </summary>
         internal static string PackageInitializationFailed {
             get {
                 return ResourceManager.GetString("PackageInitializationFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify either the editor guid or document.
-        /// </summary>
-        internal static string SpecifyEitherDocumentOrEditorGuid {
-            get {
-                return ResourceManager.GetString("SpecifyEitherDocumentOrEditorGuid", resourceCulture);
             }
         }
         
@@ -421,15 +295,6 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text boxes are not supported in menus.
-        /// </summary>
-        internal static string TextBoxNotSupported {
-            get {
-                return ResourceManager.GetString("TextBoxNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Removing package {0}.
         /// </summary>
         internal static string UninstallingPackage {
@@ -439,7 +304,7 @@ namespace NetIde {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update avaiable for &quot;{0}&quot;.
+        ///   Looks up a localized string similar to Update available for {0}.
         /// </summary>
         internal static string UpdateAvailable {
             get {

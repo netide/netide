@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/pvginkel/NTranslate/Translations">
+  <File name="NetIde.Core.Labels.resx">
+    <Node name="AllOpenDocuments">
+      <Source>All Open Documents</Source>
+      <Text>Alle Geopende Bestanden</Text>
+    </Node>
+    <Node name="AreYouSure">
+      <Source>Are you sure?</Source>
+      <Text>Weet u het zeker?</Text>
+    </Node>
+    <Node name="BinaryFileSummary">
+      <Source>Binary file differs.</Source>
+      <Text>Binair bestand verschilt.</Text>
+    </Node>
+    <Node name="CreatedBy">
+      <Source>Created by</Source>
+      <Text>Aangemaakt op</Text>
+    </Node>
+    <Node name="CurrentDocument">
+      <Source>Current Document</Source>
+      <Text>Huidig Document</Text>
+    </Node>
+    <Node name="Days">
+      <Source>{0} days</Source>
+      <Text>{0} dagen</Text>
+    </Node>
+    <Node name="DaysAgo">
+      <Source>{0} days ago</Source>
+      <Text>{0} dagen geleden</Text>
+    </Node>
+    <Node name="DiffViewerName">
+      <Source>Diff Viewer</Source>
+      <Text>Diff Kijker</Text>
+    </Node>
+    <Node name="Disable">
+      <Source>Disable</Source>
+      <Text>Uitschakelen</Text>
+    </Node>
+    <Node name="DismissAll">
+      <Source>Dismiss All</Source>
+      <Text>Allen Sluiten</Text>
+    </Node>
+    <Node name="Downloads">
+      <Source>Downloads</Source>
+      <Text>Downloads</Text>
+    </Node>
+    <Node name="Enable">
+      <Source>Enable</Source>
+      <Text>Inschakelen</Text>
+    </Node>
+    <Node name="EntireProject">
+      <Source>Entire Project</Source>
+      <Text>Volledig Project</Text>
+    </Node>
+    <Node name="Environment">
+      <Source>Environment</Source>
+      <Text>Omgeving</Text>
+    </Node>
+    <Node name="ExpiresIn">
+      <Source>Expires in {0}</Source>
+      <Text>Verloopt na {0}</Text>
+    </Node>
+    <Node name="FileSizeBytes">
+      <Source>{0:0} bytes</Source>
+      <Text>{0:0} bytes</Text>
+    </Node>
+    <Node name="FileSizeGigaBytes">
+      <Source>{0:0.0} GB</Source>
+      <Text>{0:0.0} GB</Text>
+    </Node>
+    <Node name="FileSizeKiloBytes">
+      <Source>{0:0.0} KB</Source>
+      <Text>{0:0.0} KB</Text>
+    </Node>
+    <Node name="FileSizeMegaBytes">
+      <Source>{0:0.0} MB</Source>
+      <Text>{0:0.0} MB</Text>
+    </Node>
+    <Node name="FindResults">
+      <Source>Find Results</Source>
+      <Text>Zoekresultaten</Text>
+    </Node>
+    <Node name="FontBold">
+      <Source>Bold</Source>
+      <Text>Vet</Text>
+    </Node>
+    <Node name="FontItalic">
+      <Source>Italic</Source>
+      <Text>Cursief</Text>
+    </Node>
+    <Node name="FontRegular">
+      <Source>Regular</Source>
+      <Text>Normaal</Text>
+    </Node>
+    <Node name="Fonts">
+      <Source>Fonts</Source>
+      <Text>Lettertypen</Text>
+    </Node>
+    <Node name="FontStrikeout">
+      <Source>Strikeout</Source>
+      <Text>Doorgestreept</Text>
+    </Node>
+    <Node name="FontUnderline">
+      <Source>Underline</Source>
+      <Text>Onderstreept</Text>
+    </Node>
+    <Node name="Hours">
+      <Source>{0} hours</Source>
+      <Text>{0} uren</Text>
+    </Node>
+    <Node name="HoursAgo">
+      <Source>{0} hours ago</Source>
+      <Text>{0} uren geleden</Text>
+    </Node>
+    <Node name="Id">
+      <Source>Id</Source>
+      <Text>Id</Text>
+    </Node>
+    <Node name="IncludePrerelease">
+      <Source>Include Prerelease</Source>
+      <Text>Toon Pre-release</Text>
+    </Node>
+    <Node name="Install">
+      <Source>Install</Source>
+      <Text>Installeren</Text>
+    </Node>
+    <Node name="Installed">
+      <Source>Installed</Source>
+      <Text>Geïnstalleerd</Text>
+    </Node>
+    <Node name="Keyboard">
+      <Source>Keyboard</Source>
+      <Text>Toetsenbord</Text>
+    </Node>
+    <Node name="LastPublished">
+      <Source>Last published</Source>
+      <Text>Laatst gepubliceerd</Text>
+    </Node>
+    <Node name="LessThanOneMinute">
+      <Source>less than 1 minute</Source>
+      <Text>minder dan 1 minuut</Text>
+    </Node>
+    <Node name="LessThanOneMinuteAgo">
+      <Source>less than 1 minute ago</Source>
+      <Text>minder dan 1 minuut geleden</Text>
+    </Node>
+    <Node name="MenuCloseAllDocuments">
+      <Source>Close A&amp;ll Documents</Source>
+      <Text>Sluit A&amp;lle Bestanden</Text>
+    </Node>
+    <Node name="MenuEdit">
+      <Source>&amp;Edit</Source>
+      <Text>&amp;Wijzig</Text>
+    </Node>
+    <Node name="MenuEditFind">
+      <Source>&amp;Find</Source>
+      <Text>&amp;Zoeken</Text>
+    </Node>
+    <Node name="MenuEditFindInFiles">
+      <Source>&amp;Find in Files</Source>
+      <Text>&amp;Zoeken in Bestanden</Text>
+    </Node>
+    <Node name="MenuEditReplace">
+      <Source>&amp;Replace</Source>
+      <Text>&amp;Vervang</Text>
+    </Node>
+    <Node name="MenuEditReplaceInFiles">
+      <Source>&amp;Replace in Files</Source>
+      <Text>&amp;Vervangen in Bestanden</Text>
+    </Node>
+    <Node name="MenuFile">
+      <Source>&amp;File</Source>
+      <Text>&amp;Bestand</Text>
+    </Node>
+    <Node name="MenuFileClose">
+      <Source>C&amp;lose</Source>
+      <Text>S&amp;luiten</Text>
+    </Node>
+    <Node name="MenuFileCloseProject">
+      <Source>Close Pro&amp;ject</Source>
+      <Text>Sluit Pro&amp;ject</Text>
+    </Node>
+    <Node name="MenuFileExit">
+      <Source>E&amp;xit</Source>
+      <Text>S&amp;luiten</Text>
+    </Node>
+    <Node name="MenuFileNewProject">
+      <Source>New P&amp;roject</Source>
+      <Text>Nieuw P&amp;roject</Text>
+    </Node>
+    <Node name="MenuFileOpenProject">
+      <Source>Open &amp;Project</Source>
+      <Text>Open &amp;Project</Text>
+    </Node>
+    <Node name="MenuFileSave">
+      <Source>&amp;Save</Source>
+      <Text>&amp;Opslaan</Text>
+    </Node>
+    <Node name="MenuFileSaveAll">
+      <Source>Sa&amp;ve All</Source>
+      <Text>Sla All&amp;es Op</Text>
+    </Node>
+    <Node name="MenuFileSaveAs">
+      <Source>Save &amp;As</Source>
+      <Text>Opslaan &amp;Als</Text>
+    </Node>
+    <Node name="MenuHelp">
+      <Source>Help</Source>
+      <Text>Help</Text>
+    </Node>
+    <Node name="MenuTools">
+      <Source>&amp;Tools</Source>
+      <Text>&amp;Hulpmiddelen</Text>
+    </Node>
+    <Node name="MenuToolsOptions">
+      <Source>&amp;Options...</Source>
+      <Text>&amp;Opties...</Text>
+    </Node>
+    <Node name="MenuToolsPackageManagement">
+      <Source>Extensions and Updates...</Source>
+      <Text>Plug-ins en Updates...</Text>
+    </Node>
+    <Node name="MenuViewHelp">
+      <Source>View Help</Source>
+      <Text>Toon Help</Text>
+    </Node>
+    <Node name="MenuWindow">
+      <Source>&amp;Window</Source>
+      <Text>&amp;Venster</Text>
+    </Node>
+    <Node name="Minutes">
+      <Source>{0} minutes</Source>
+      <Text>{0} minuten</Text>
+    </Node>
+    <Node name="MinutesAgo">
+      <Source>{0} minutes ago</Source>
+      <Text>{0} minuten geleden</Text>
+    </Node>
+    <Node name="MostDownloads">
+      <Source>Most Downloads</Source>
+      <Text>Meest Gedownload</Text>
+    </Node>
+    <Node name="NameAscending">
+      <Source>Name: Ascending</Source>
+      <Text>Naam: Oplopend</Text>
+    </Node>
+    <Node name="NameDescending">
+      <Source>Name: Descending</Source>
+      <Text>Naam: Aflopend</Text>
+    </Node>
+    <Node name="NeedAssistance">
+      <Source>Need assistance?</Source>
+      <Text>Hulp nodig?</Text>
+    </Node>
+    <Node name="NoMoreOccurrences">
+      <Source>No more occurences found in the specified documents.</Source>
+      <Text>Geen nieuwe voorkomens gevonden in het huidige document.</Text>
+    </Node>
+    <Node name="NoPackagesAvailable">
+      <Source>No packages are available.</Source>
+      <Text>Er zijn geen plug-ins beschikbaar.</Text>
+    </Node>
+    <Node name="NoPackagesInstalled">
+      <Source>No packages are installed.</Source>
+      <Text>Er zijn geen plug-ins geïnstalleerd.</Text>
+    </Node>
+    <Node name="Notifications">
+      <Source>Notifications</Source>
+      <Text>Notificaties</Text>
+    </Node>
+    <Node name="NoUpdatesAvailable">
+      <Source>No package updates are available.</Source>
+      <Text>Er zijn geen plug-in updates beschikbaar.</Text>
+    </Node>
+    <Node name="OneDay">
+      <Source>1 day</Source>
+      <Text>1 dag</Text>
+    </Node>
+    <Node name="OneDayAgo">
+      <Source>1 day ago</Source>
+      <Text>1 dag geleden</Text>
+    </Node>
+    <Node name="OneHour">
+      <Source>1 hour</Source>
+      <Text>1 uur</Text>
+    </Node>
+    <Node name="OneHourAgo">
+      <Source>1 hour ago</Source>
+      <Text>1 uur geleden</Text>
+    </Node>
+    <Node name="OneMinute">
+      <Source>1 minute</Source>
+      <Text>1 minuut</Text>
+    </Node>
+    <Node name="OneMinuteAgo">
+      <Source>1 minute ago</Source>
+      <Text>1 minuut geleden</Text>
+    </Node>
+    <Node name="Online">
+      <Source>Online</Source>
+      <Text>Online</Text>
+    </Node>
+    <Node name="PackageDescription">
+      <Source>Net IDE Core</Source>
+      <Text>Net IDE Core</Text>
+    </Node>
+    <Node name="PlainText">
+      <Source>Plain Text</Source>
+      <Text>Platte Tekst</Text>
+    </Node>
+    <Node name="ProjectExplorer">
+      <Source>Project Explorer</Source>
+      <Text>Project Verkenner</Text>
+    </Node>
+    <Node name="PublishedDate">
+      <Source>Published Date</Source>
+      <Text>Datum Gepubliceerd</Text>
+    </Node>
+    <Node name="SearchResults">
+      <Source>Search results</Source>
+      <Text>Zoekresultaten</Text>
+    </Node>
+    <Node name="SearchResultsFor">
+      <Source>Search results for</Source>
+      <Text>Zoekresultaten voor</Text>
+    </Node>
+    <Node name="StableOnly">
+      <Source>Stable Only</Source>
+      <Text>Alleen Stabiel</Text>
+    </Node>
+    <Node name="Tags">
+      <Source>Tags</Source>
+      <Text>Labels</Text>
+    </Node>
+    <Node name="TextEditorCopy">
+      <Source>Copy</Source>
+      <Text>Kopieer</Text>
+    </Node>
+    <Node name="TextEditorCut">
+      <Source>Cut</Source>
+      <Text>Knippen</Text>
+    </Node>
+    <Node name="TextEditorFind">
+      <Source>Find</Source>
+      <Text>Zoeken</Text>
+    </Node>
+    <Node name="TextEditorFindAndReplace">
+      <Source>Find and Replace</Source>
+      <Text>Zoek en Vervang</Text>
+    </Node>
+    <Node name="TextEditorGoToLine">
+      <Source>Go To Line</Source>
+      <Text>Ga Naar Regel</Text>
+    </Node>
+    <Node name="TextEditorName">
+      <Source>Text Editor</Source>
+      <Text>Textverwerker</Text>
+    </Node>
+    <Node name="TextEditorPaste">
+      <Source>Paste</Source>
+      <Text>Plakken</Text>
+    </Node>
+    <Node name="TextEditorRedo">
+      <Source>Redo</Source>
+      <Text>Opnieuw</Text>
+    </Node>
+    <Node name="TextEditorUndo">
+      <Source>Undo</Source>
+      <Text>Ongedaan Maken</Text>
+    </Node>
+    <Node name="TotalNotifications">
+      <Source>Total Notifications: {0}</Source>
+      <Text>Aantal Notificaties: {0}</Text>
+    </Node>
+    <Node name="Uninstall">
+      <Source>Uninstall</Source>
+      <Text>Verwijder</Text>
+    </Node>
+    <Node name="Update">
+      <Source>Update</Source>
+      <Text>Update</Text>
+    </Node>
+    <Node name="Updates">
+      <Source>Updates</Source>
+      <Text>Updates</Text>
+    </Node>
+    <Node name="UseHelpButton">
+      <Source>To get help with a specific screen, use the help button on the screen itself.</Source>
+      <Text>Gebruik de help knop op het scherm om hulp te tonen voor dat scherm.</Text>
+    </Node>
+    <Node name="UseSearchBox">
+      <Source>Use the search box to find an answer to your question.</Source>
+      <Text>Gebruik het zoek veld om een antwoord op je vraag te vinden.</Text>
+    </Node>
+    <Node name="Version">
+      <Source>Version</Source>
+      <Text>Versie</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.OptionPages.Environment.FontOptionControl.resx">
+    <Node name="label1.Text">
+      <Source>Code font:</Source>
+      <Text>Code lettertype:</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.OptionPages.Environment.KeyboardOptionControl.resx">
+    <Node name="label1.Text">
+      <Source>&amp;Show commands containing:</Source>
+      <Text>&amp;Toon commando's met:</Text>
+    </Node>
+    <Node name="label2.Text">
+      <Source>Shor&amp;tcut for selected command:</Source>
+      <Text>S&amp;nelkoppeling voor het geselecteerde commando:</Text>
+    </Node>
+    <Node name="label3.Text">
+      <Source>&amp;Press shortcut keys:</Source>
+      <Text>&amp;Type snelkoppeling:</Text>
+    </Node>
+    <Node name="label4.Text">
+      <Source>Shortcut c&amp;urrently used by:</Source>
+      <Text>Snelkoppeling &amp;in gebruik door:</Text>
+    </Node>
+    <Node name="_assign.Text">
+      <Source>A&amp;ssign</Source>
+      <Text>To&amp;ekennen</Text>
+    </Node>
+    <Node name="_remove.Text">
+      <Source>Remove</Source>
+      <Text>Verwijder</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.PackageManagement.LoadingControl.resx">
+    <Node name="_retrievingInformationLabel.Text">
+      <Source>Retrieving information...</Source>
+      <Text>Ophalen van informatie...</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.PackageManagement.PackageDetailsControl.resx">
+    <Node name="_moreInformationLink.Text">
+      <Source>More Information</Source>
+      <Text>Meer Informatie</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.PackageManagement.PackageListControl.resx">
+    <Node name="label1.Text">
+      <Source>Sort by:</Source>
+      <Text>Sorteren op:</Text>
+    </Node>
+    <Node name="label2.Text">
+      <Source>You must restart the application in order for the changes to take effect.</Source>
+      <Text>De applicatie moet opnieuw opgestart worden om de wijzigingen door te voeren.</Text>
+    </Node>
+    <Node name="_page1Button.Text">
+      <Source>1</Source>
+      <Text>1</Text>
+    </Node>
+    <Node name="_page2Button.Text">
+      <Source>2</Source>
+      <Text>2</Text>
+    </Node>
+    <Node name="_page3Button.Text">
+      <Source>3</Source>
+      <Text>3</Text>
+    </Node>
+    <Node name="_page4Button.Text">
+      <Source>4</Source>
+      <Text>4</Text>
+    </Node>
+    <Node name="_page5Button.Text">
+      <Source>5</Source>
+      <Text>5</Text>
+    </Node>
+    <Node name="_restartButton.Text">
+      <Source>Restart Now</Source>
+      <Text>Opnieuw Opstarten</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.PackageManagement.PackageManagementForm.resx">
+    <Node name="$this.Text">
+      <Source>Extensions and Updates</Source>
+      <Text>Plug-ins en Updates</Text>
+    </Node>
+    <Node name="_cancelButton.Text">
+      <Source>&amp;Close</Source>
+      <Text>&amp;Sluiten</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.Services.Finder.FindForm.resx">
+    <Node name="$this.Text">
+      <Source>Find and Replace</Source>
+      <Text>Zoek en Vervang</Text>
+    </Node>
+    <Node name="groupBox1.Text">
+      <Source>Find &amp;options</Source>
+      <Text>Zoek &amp;opties</Text>
+    </Node>
+    <Node name="label1.Text">
+      <Source>Fi&amp;nd what:</Source>
+      <Text>Z&amp;oek naar:</Text>
+    </Node>
+    <Node name="label3.Text">
+      <Source>&amp;Look in:</Source>
+      <Text>&amp;Kijk in:</Text>
+    </Node>
+    <Node name="label4.Text">
+      <Source>Look at these file &amp;types:</Source>
+      <Text>Kijk in deze bestands&amp;types:</Text>
+    </Node>
+    <Node name="_findAll.Text">
+      <Source>Find &amp;All</Source>
+      <Text>Zoek &amp;Alles</Text>
+    </Node>
+    <Node name="_findNext.Text">
+      <Source>&amp;Find Next</Source>
+      <Text>&amp;Zoek Volgende</Text>
+    </Node>
+    <Node name="_findPrevious.Text">
+      <Source>Find &amp;Previous</Source>
+      <Text>Zoek Vo&amp;rige</Text>
+    </Node>
+    <Node name="_includeSubFolders.Text">
+      <Source>Include su&amp;b-folders</Source>
+      <Text>Zoek in &amp;onderliggende directories</Text>
+    </Node>
+    <Node name="_keepOpen.Text">
+      <Source>Keep &amp;modified files open after Replace All</Source>
+      <Text>Houd &amp;gewijzigde bestanden open na Vervang Alles</Text>
+    </Node>
+    <Node name="_matchCase.Text">
+      <Source>Match &amp;case</Source>
+      <Text>Hoofdlettergevoelig</Text>
+    </Node>
+    <Node name="_matchWholeWord.Text">
+      <Source>Match &amp;whole word</Source>
+      <Text>Volledig woord</Text>
+    </Node>
+    <Node name="_modeFind.Text">
+      <Source>&amp;Find</Source>
+      <Text>&amp;Zoeken</Text>
+    </Node>
+    <Node name="_modeFind.ToolTipText">
+      <Source>Switch to Find</Source>
+      <Text>Open Zoeken</Text>
+    </Node>
+    <Node name="_modeFindReplace.Text">
+      <Source>Find and &amp;Replace</Source>
+      <Text>Zoeken en &amp;Vervangen</Text>
+    </Node>
+    <Node name="_modeFindReplace.ToolTipText">
+      <Source>Switch to Find and Replace</Source>
+      <Text>Open Zoeken en Vervangen</Text>
+    </Node>
+    <Node name="_replace.Text">
+      <Source>&amp;Replace</Source>
+      <Text>&amp;Vervang</Text>
+    </Node>
+    <Node name="_replaceAll.Text">
+      <Source>Replace &amp;All</Source>
+      <Text>Vervang &amp;Alles</Text>
+    </Node>
+    <Node name="_replaceFindNext.Text">
+      <Source>&amp;Find Next</Source>
+      <Text>&amp;Zoek Volgende</Text>
+    </Node>
+    <Node name="_replaceWithLabel.Text">
+      <Source>Re&amp;place with:</Source>
+      <Text>Ve&amp;rvangen met:</Text>
+    </Node>
+    <Node name="_skipFile.Text">
+      <Source>Sk&amp;ip File</Source>
+      <Text>Sla &amp;Bestand Over</Text>
+    </Node>
+    <Node name="_toolStrip.Text">
+      <Source>toolStrip1</Source>
+      <Text>toolStrip1</Text>
+    </Node>
+    <Node name="_useRegularExpressions.Text">
+      <Source>Us&amp;e Regular Expressions</Source>
+      <Text>Gebruik &amp;Reguliere Expressies</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.TextEditor.GoToLineForm.resx">
+    <Node name="$this.Text">
+      <Source>Go To Line</Source>
+      <Text>Ga Naar Regel</Text>
+    </Node>
+    <Node name="_acceptButton.Text">
+      <Source>OK</Source>
+      <Text>OK</Text>
+    </Node>
+    <Node name="_cancelButton.Text">
+      <Source>Cancel</Source>
+      <Text>Annuleren</Text>
+    </Node>
+    <Node name="_lineNumberLabel.Text">
+      <Source>&amp;Line number (1 - {0}):</Source>
+      <Text>&amp;Regel nummer (1 - {0}):</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.ToolWindows.DiffViewer.SideBySideViewer.resx">
+    <Node name="_markerMap.Text">
+      <Source>sideBySideMarkerIndexControl1</Source>
+      <Text>sideBySideMarkerIndexControl1</Text>
+    </Node>
+  </File>
+  <File name="NetIde.Core.ToolWindows.DiffViewer.TextViewer.resx">
+    <Node name="_ignoreWhitespace.Text">
+      <Source>Ignore Whitespace</Source>
+      <Text>Negeer Witruimte</Text>
+    </Node>
+    <Node name="_sideBySide.Text">
+      <Source>Side by side</Source>
+      <Text>Naast elkaar</Text>
+    </Node>
+    <Node name="_toolStrip.Text">
+      <Source>toolStrip1</Source>
+      <Text>toolStrip1</Text>
+    </Node>
+    <Node name="_unified.Text">
+      <Source>Unified</Source>
+      <Text>Verenigd</Text>
+    </Node>
+  </File>
+</Translations>

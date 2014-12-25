@@ -14,7 +14,6 @@ namespace NetIde.Services.ToolsOptions
     internal class PageHost : NiWindowHost
     {
         [Browsable(false)]
-        [DefaultValue(null)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public INiOptionPage Page
         {

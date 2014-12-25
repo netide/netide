@@ -117,10 +117,268 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;_toolStripContainer.BottomToolStripPanel.Name" xml:space="preserve">
+    <value>_toolStripContainer.BottomToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.BottomToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.BottomToolStripPanel.Parent" xml:space="preserve">
+    <value>_toolStripContainer</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.BottomToolStripPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_dockPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="_dockPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="_dockPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>855, 573</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_dockPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;_dockPanel.Name" xml:space="preserve">
+    <value>_dockPanel</value>
+  </data>
+  <data name="&gt;&gt;_dockPanel.Type" xml:space="preserve">
+    <value>NetIde.Support.DockPanel, NetIde, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_dockPanel.Parent" xml:space="preserve">
+    <value>_toolStripContainer.ContentPanel</value>
+  </data>
+  <data name="&gt;&gt;_dockPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="_toolStripContainer.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>855, 573</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.ContentPanel.Name" xml:space="preserve">
+    <value>_toolStripContainer.ContentPanel</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.ContentPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.ContentPanel.Parent" xml:space="preserve">
+    <value>_toolStripContainer</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.ContentPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="_toolStripContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.LeftToolStripPanel.Name" xml:space="preserve">
+    <value>_toolStripContainer.LeftToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.LeftToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.LeftToolStripPanel.Parent" xml:space="preserve">
+    <value>_toolStripContainer</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.LeftToolStripPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="_toolStripContainer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 24</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.RightToolStripPanel.Name" xml:space="preserve">
+    <value>_toolStripContainer.RightToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.RightToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.RightToolStripPanel.Parent" xml:space="preserve">
+    <value>_toolStripContainer</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.RightToolStripPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="_toolStripContainer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>855, 598</value>
+  </data>
+  <data name="_toolStripContainer.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="_toolStripContainer.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.TopToolStripPanel.Name" xml:space="preserve">
+    <value>_toolStripContainer.TopToolStripPanel</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.TopToolStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.TopToolStripPanel.Parent" xml:space="preserve">
+    <value>_toolStripContainer</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.TopToolStripPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.Name" xml:space="preserve">
+    <value>_toolStripContainer</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_toolStripContainer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="_menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="_menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="_menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>855, 24</value>
+  </data>
+  <data name="_menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;_menuStrip.Name" xml:space="preserve">
+    <value>_menuStrip</value>
+  </data>
+  <data name="&gt;&gt;_menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_menuStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="_statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>130, 17</value>
   </metadata>
+  <data name="_statusStripText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>575, 17</value>
+  </data>
+  <data name="_statusStripText.Text" xml:space="preserve">
+    <value>&lt;&lt; TEXT &gt;&gt;</value>
+  </data>
+  <data name="_statusStripText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="_statusStripLine.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="_statusStripLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="_statusStripLine.Text" xml:space="preserve">
+    <value>Ln 00</value>
+  </data>
+  <data name="_statusStripLine.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="_statusStripIndex.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="_statusStripIndex.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="_statusStripIndex.Text" xml:space="preserve">
+    <value>Col 00</value>
+  </data>
+  <data name="_statusStripIndex.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="_statusStripCharIndex.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="_statusStripCharIndex.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="_statusStripCharIndex.Text" xml:space="preserve">
+    <value>Ch 00</value>
+  </data>
+  <data name="_statusStripCharIndex.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="_statusStripInsertMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 17</value>
+  </data>
+  <data name="_statusStripInsertMode.Text" xml:space="preserve">
+    <value>INS</value>
+  </data>
+  <data name="_statusStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 622</value>
+  </data>
+  <data name="_statusStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>855, 22</value>
+  </data>
+  <data name="_statusStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;_statusStrip.Name" xml:space="preserve">
+    <value>_statusStrip</value>
+  </data>
+  <data name="&gt;&gt;_statusStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_statusStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_statusStrip.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>855, 644</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Net IDE</value>
+  </data>
+  <data name="&gt;&gt;_statusStripText.Name" xml:space="preserve">
+    <value>_statusStripText</value>
+  </data>
+  <data name="&gt;&gt;_statusStripText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_statusStripLine.Name" xml:space="preserve">
+    <value>_statusStripLine</value>
+  </data>
+  <data name="&gt;&gt;_statusStripLine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_statusStripIndex.Name" xml:space="preserve">
+    <value>_statusStripIndex</value>
+  </data>
+  <data name="&gt;&gt;_statusStripIndex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_statusStripCharIndex.Name" xml:space="preserve">
+    <value>_statusStripCharIndex</value>
+  </data>
+  <data name="&gt;&gt;_statusStripCharIndex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_statusStripInsertMode.Name" xml:space="preserve">
+    <value>_statusStripInsertMode</value>
+  </data>
+  <data name="&gt;&gt;_statusStripInsertMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>NetIde.Util.Forms.Form, NetIde.Util, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,6 +18,9 @@ namespace NetIde.Shell
         private INiIsolationClient _window;
         private int _select;
 
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public INiIsolationClient Window
         {
             get

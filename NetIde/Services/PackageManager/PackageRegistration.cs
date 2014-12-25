@@ -84,7 +84,7 @@ namespace NetIde.Services.PackageManager
             int pos = Manifest.EntryPoint.IndexOf(',');
 
             if (pos == -1)
-                throw new NetIdeException(String.Format(Labels.PackageEntryPointInvalid, Manifest.EntryPoint));
+                throw new NetIdeException(String.Format(NeutralResources.PackageEntryPointInvalid, Manifest.EntryPoint));
 
             string typeName = Manifest.EntryPoint.Substring(0, pos).Trim();
             string assemblyName = Manifest.EntryPoint.Substring(pos + 1).Trim();

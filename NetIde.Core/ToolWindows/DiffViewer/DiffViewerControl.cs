@@ -15,7 +15,7 @@ using NetIde.Util;
 
 namespace NetIde.Core.ToolWindows.DiffViewer
 {
-    public partial class DiffViewerControl : NetIde.Util.Forms.UserControl
+    internal partial class DiffViewerControl : NetIde.Util.Forms.UserControl
     {
         private Control _currentViewer;
         private NiDiffViewerMode _mode;

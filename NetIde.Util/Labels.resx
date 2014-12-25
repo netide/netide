@@ -138,9 +138,6 @@
   <data name="Button_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="CouldNotParseKeys" xml:space="preserve">
-    <value>Could not parse keys '{0}'</value>
-  </data>
   <data name="KeysAlt" xml:space="preserve">
     <value>Alt</value>
   </data>

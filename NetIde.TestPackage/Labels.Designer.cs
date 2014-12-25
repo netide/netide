@@ -79,7 +79,7 @@ namespace NetIde.TestPackage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Net IDE Test Projct (*.niproj)|*.niproj.
+        ///   Looks up a localized string similar to Net IDE Test Project (*.niproj)|*.niproj.
         /// </summary>
         internal static string ProjectFileExtensions {
             get {

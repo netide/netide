@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/pvginkel/NTranslate/Translations">
+  <File name="NetIde.Util.Labels.resx">
+    <Node name="AreYouSure">
+      <Source>Are you sure?</Source>
+      <Text>Weet u het zeker?</Text>
+    </Node>
+    <Node name="Button_Cancel">
+      <Source>Cancel</Source>
+      <Text>Annuleren</Text>
+    </Node>
+    <Node name="Button_Close">
+      <Source>Close</Source>
+      <Text>Sluiten</Text>
+    </Node>
+    <Node name="Button_No">
+      <Source>No</Source>
+      <Text>Nee</Text>
+    </Node>
+    <Node name="Button_OK">
+      <Source>OK</Source>
+      <Text>OK</Text>
+    </Node>
+    <Node name="Button_Retry">
+      <Source>Retry</Source>
+      <Text>Opnieuw</Text>
+    </Node>
+    <Node name="Button_Yes">
+      <Source>Yes</Source>
+      <Text>Ja</Text>
+    </Node>
+    <Node name="KeysAlt">
+      <Source>Alt</Source>
+      <Text>Alt</Text>
+    </Node>
+    <Node name="KeysBackslash">
+      <Source>\</Source>
+      <Text>\</Text>
+    </Node>
+    <Node name="KeysComma">
+      <Source>,</Source>
+      <Text>,</Text>
+    </Node>
+    <Node name="KeysControl">
+      <Source>Ctrl</Source>
+      <Text>Ctrl</Text>
+    </Node>
+    <Node name="KeysDelete">
+      <Source>Del</Source>
+      <Text>Del</Text>
+    </Node>
+    <Node name="KeysEnd">
+      <Source>End</Source>
+      <Text>End</Text>
+    </Node>
+    <Node name="KeysEnter">
+      <Source>Enter</Source>
+      <Text>Enter</Text>
+    </Node>
+    <Node name="KeysHome">
+      <Source>Home</Source>
+      <Text>Home</Text>
+    </Node>
+    <Node name="KeysInsert">
+      <Source>Ins</Source>
+      <Text>Ins</Text>
+    </Node>
+    <Node name="KeysMinus">
+      <Source>-</Source>
+      <Text>-</Text>
+    </Node>
+    <Node name="KeysPause">
+      <Source>Pause</Source>
+      <Text>Pause</Text>
+    </Node>
+    <Node name="KeysPeriod">
+      <Source>.</Source>
+      <Text>.</Text>
+    </Node>
+    <Node name="KeysPlus">
+      <Source>+</Source>
+      <Text>+</Text>
+    </Node>
+    <Node name="KeysQuestion">
+      <Source>?</Source>
+      <Text>?</Text>
+    </Node>
+    <Node name="KeysSeparator">
+      <Source>+</Source>
+      <Text>+</Text>
+    </Node>
+    <Node name="KeysShift">
+      <Source>Shift</Source>
+      <Text>Shift</Text>
+    </Node>
+    <Node name="KeysSpace">
+      <Source>Space</Source>
+      <Text>Spatie</Text>
+    </Node>
+    <Node name="KeysTab">
+      <Source>Tab</Source>
+      <Text>Tab</Text>
+    </Node>
+    <Node name="KeysTilde">
+      <Source>~</Source>
+      <Text>~</Text>
+    </Node>
+  </File>
+</Translations>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/pvginkel/NTranslate/Translations">
+  <File name="NetIde.Help.HelpForm.resx">
+    <Node name="$this.Text">
+      <Source>Help</Source>
+      <Text>Help</Text>
+    </Node>
+    <Node name="_back.Text">
+      <Source>&amp;Back</Source>
+      <Text>&amp;Terug</Text>
+    </Node>
+    <Node name="_find.Text">
+      <Source>&amp;Find</Source>
+      <Text>&amp;Zoeken</Text>
+    </Node>
+    <Node name="_find.ToolTipText">
+      <Source>Find (Ctrl+F)</Source>
+      <Text>Zoeken (Ctrl+F)</Text>
+    </Node>
+    <Node name="_forward.Text">
+      <Source>&amp;Forward</Source>
+      <Text>&amp;Vooruit</Text>
+    </Node>
+    <Node name="_home.Text">
+      <Source>&amp;Home</Source>
+      <Text>&amp;Beginpagina</Text>
+    </Node>
+    <Node name="_print.Text">
+      <Source>&amp;Print (Ctrl+P)</Source>
+      <Text>&amp;Printen (Ctrl+P)</Text>
+    </Node>
+    <Node name="_refresh.Text">
+      <Source>&amp;Refresh (F5)</Source>
+      <Text>Ve&amp;rversen (F5)</Text>
+    </Node>
+    <Node name="_statusStrip.Text">
+      <Source>statusStrip1</Source>
+      <Text>statusStrip1</Text>
+    </Node>
+    <Node name="_stop.Text">
+      <Source>&amp;Stop</Source>
+      <Text>&amp;Stop</Text>
+    </Node>
+    <Node name="_toolStrip2.Text">
+      <Source>toolStrip2</Source>
+      <Text>toolStrip2</Text>
+    </Node>
+    <Node name="_toopStrip1.Text">
+      <Source>toolStrip1</Source>
+      <Text>toolStrip1</Text>
+    </Node>
+  </File>
+</Translations>

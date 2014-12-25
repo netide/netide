@@ -9,7 +9,7 @@ using NetIde.Win32;
 
 namespace NetIde.Services.JobManager
 {
-    public partial class JobProgressControl : NetIde.Util.Forms.UserControl
+    internal partial class JobProgressControl : NetIde.Util.Forms.UserControl
     {
         public JobProgressControl()
         {

@@ -124,6 +124,6 @@
     <value>Net IDE Test Package</value>
   </data>
   <data name="ProjectFileExtensions" xml:space="preserve">
-    <value>Net IDE Test Projct (*.niproj)|*.niproj</value>
+    <value>Net IDE Test Project (*.niproj)|*.niproj</value>
   </data>
 </root>

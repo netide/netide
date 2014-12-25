@@ -64,10 +64,10 @@ namespace NetIde.Shell
                 !serviceInstance.GetType().IsCOMObject &&
                 !serviceType.IsInstanceOfType(serviceInstance)
             )
-                throw new ArgumentException(Labels.ServiceNotOfValidType);
+                throw new ArgumentException(NeutralResources.ServiceNotOfValidType);
 
             if (Services.ContainsKey(serviceType))
-                throw new ArgumentException(Labels.ServiceAlreadyRegistered, "serviceType");
+                throw new ArgumentException(NeutralResources.ServiceAlreadyRegistered, "serviceType");
 
             Services[serviceType] = serviceInstance;
         }
@@ -96,7 +96,7 @@ namespace NetIde.Shell
                 throw new ArgumentNullException("callback");
 
             if (Services.ContainsKey(serviceType))
-                throw new ArgumentException(Labels.ServiceAlreadyRegistered, "serviceType");
+                throw new ArgumentException(NeutralResources.ServiceAlreadyRegistered, "serviceType");
 
             Services[serviceType] = callback;
         }

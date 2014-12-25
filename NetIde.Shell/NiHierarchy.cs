@@ -144,33 +144,33 @@ namespace NetIde.Shell
                         {
                             case NiHierarchyProperty.FirstChild:
                             case NiHierarchyProperty.NextSibling:
-                                throw new ArgumentOutOfRangeException("property", Labels.CannotSetProperty);
+                                throw new ArgumentOutOfRangeException("property", NeutralResources.CannotSetProperty);
 
                             case NiHierarchyProperty.Parent:
                                 if (value != null && !(value is NiHierarchy))
-                                    throw new ArgumentOutOfRangeException("value", Labels.ParentMustBeHierarchy);
+                                    throw new ArgumentOutOfRangeException("value", NeutralResources.ParentMustBeHierarchy);
 
                                 return ProcessParentChange((NiHierarchy)value);
 
                             case NiHierarchyProperty.Image:
                             case NiHierarchyProperty.OverlayImage:
                                 if (value != null && !(value is IResource))
-                                    throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
+                                    throw new ArgumentOutOfRangeException("value", NeutralResources.InvalidPropertyType);
                                 break;
 
                             case NiHierarchyProperty.ItemType:
                                 if (value != null && !(value is NiHierarchyType))
-                                    throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
+                                    throw new ArgumentOutOfRangeException("value", NeutralResources.InvalidPropertyType);
                                 break;
 
                             case NiHierarchyProperty.OwnerType:
                                 if (value != null && !(value is Guid))
-                                    throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
+                                    throw new ArgumentOutOfRangeException("value", NeutralResources.InvalidPropertyType);
                                 break;
 
                             case NiHierarchyProperty.Name:
                                 if (value != null && !(value is string))
-                                    throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
+                                    throw new ArgumentOutOfRangeException("value", NeutralResources.InvalidPropertyType);
 
                                 string oldName = _name;
                                 _name = (string)value;
@@ -184,7 +184,7 @@ namespace NetIde.Shell
 
                             case NiHierarchyProperty.SortPriority:
                                 if (value != null && !(value is int))
-                                    throw new ArgumentOutOfRangeException("value", Labels.InvalidPropertyType);
+                                    throw new ArgumentOutOfRangeException("value", NeutralResources.InvalidPropertyType);
 
                                 var oldSortPriority = _sortPriority;
                                 _sortPriority = (int?)value;
@@ -197,7 +197,7 @@ namespace NetIde.Shell
                                 return HResult.OK;
 
                             default:
-                                throw new ArgumentOutOfRangeException("property", Labels.UnknownProperty);
+                                throw new ArgumentOutOfRangeException("property", NeutralResources.UnknownProperty);
                         }
                     }
 

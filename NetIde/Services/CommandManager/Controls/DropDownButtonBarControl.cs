@@ -34,12 +34,12 @@ namespace NetIde.Services.CommandManager.Controls
 
         public ControlControl CreateComboBox(IServiceProvider serviceProvider, NiCommandBarComboBox comboBox)
         {
-            throw new NetIdeException(Labels.ComboBoxNotSupported);
+            throw new NetIdeException(NeutralResources.ComboBoxNotSupported);
         }
 
         public ControlControl CreateTextBox(IServiceProvider serviceProvider, NiCommandBarTextBox textBox)
         {
-            throw new NetIdeException(Labels.TextBoxNotSupported);
+            throw new NetIdeException(NeutralResources.TextBoxNotSupported);
         }
 
         public ControlControl CreatePopup(IServiceProvider serviceProvider, NiCommandBarPopup popup)
@@ -49,7 +49,7 @@ namespace NetIde.Services.CommandManager.Controls
 
         public ControlControl CreateLabel(IServiceProvider serviceProvider, NiCommandBarLabel label)
         {
-            throw new NetIdeException(Labels.LabelNotSupported);
+            throw new NetIdeException(NeutralResources.LabelNotSupported);
         }
     }
 }

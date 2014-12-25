@@ -11,7 +11,7 @@ using NetIde.Xml.PackageMetadata;
 
 namespace NetIde.Core.PackageManagement
 {
-    public partial class PackageDetailsControl : NetIde.Util.Forms.UserControl
+    internal partial class PackageDetailsControl : NetIde.Util.Forms.UserControl
     {
         private const int LineSpacing = 3;
         private static readonly Padding TextPadding = new Padding(7);

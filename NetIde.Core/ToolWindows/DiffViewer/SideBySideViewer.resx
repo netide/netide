@@ -117,10 +117,262 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_leftEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="_leftEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="_leftEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 473</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_leftEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;_leftEditor.Name" xml:space="preserve">
+    <value>_leftEditor</value>
+  </data>
+  <data name="&gt;&gt;_leftEditor.Type" xml:space="preserve">
+    <value>NetIde.Core.TextEditor.TextEditorControl, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_leftEditor.Parent" xml:space="preserve">
+    <value>themedPanel1</value>
+  </data>
+  <data name="&gt;&gt;_leftEditor.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="themedPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="themedPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
+  </data>
+  <data name="themedPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="themedPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 475</value>
+  </data>
+  <data name="themedPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;themedPanel1.Name" xml:space="preserve">
+    <value>themedPanel1</value>
+  </data>
+  <data name="&gt;&gt;themedPanel1.Type" xml:space="preserve">
+    <value>NetIde.Util.Forms.ThemedPanel, NetIde.Util, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;themedPanel1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;themedPanel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="_rightEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="_rightEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="_rightEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 473</value>
+  </data>
+  <data name="_rightEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;_rightEditor.Name" xml:space="preserve">
+    <value>_rightEditor</value>
+  </data>
+  <data name="&gt;&gt;_rightEditor.Type" xml:space="preserve">
+    <value>NetIde.Core.TextEditor.TextEditorControl, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_rightEditor.Parent" xml:space="preserve">
+    <value>themedPanel2</value>
+  </data>
+  <data name="&gt;&gt;_rightEditor.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="themedPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="themedPanel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 25</value>
+  </data>
+  <data name="themedPanel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="themedPanel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 475</value>
+  </data>
+  <data name="themedPanel2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;themedPanel2.Name" xml:space="preserve">
+    <value>themedPanel2</value>
+  </data>
+  <data name="&gt;&gt;themedPanel2.Type" xml:space="preserve">
+    <value>NetIde.Util.Forms.ThemedPanel, NetIde.Util, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;themedPanel2.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;themedPanel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="_markerMap.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="_markerMap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>484, 25</value>
+  </data>
+  <data name="_markerMap.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="_markerMap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 475</value>
+  </data>
+  <data name="_markerMap.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="_markerMap.Text" xml:space="preserve">
+    <value>sideBySideMarkerIndexControl1</value>
+  </data>
+  <data name="&gt;&gt;_markerMap.Name" xml:space="preserve">
+    <value>_markerMap</value>
+  </data>
+  <data name="&gt;&gt;_markerMap.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.DiffMarkerMapControl, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_markerMap.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;_markerMap.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="_leftDetails.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="_leftDetails.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="_leftDetails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 25</value>
+  </data>
+  <data name="_leftDetails.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;_leftDetails.Name" xml:space="preserve">
+    <value>_leftDetails</value>
+  </data>
+  <data name="&gt;&gt;_leftDetails.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_leftDetails.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;_leftDetails.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <metadata name="_rightDetails.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>128, 17</value>
   </metadata>
+  <data name="_rightDetails.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 0</value>
+  </data>
+  <data name="_rightDetails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 25</value>
+  </data>
+  <data name="_rightDetails.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;_rightDetails.Name" xml:space="preserve">
+    <value>_rightDetails</value>
+  </data>
+  <data name="&gt;&gt;_rightDetails.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.StreamDetailsControl, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_rightDetails.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;_rightDetails.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="_editor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="_editor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>240, 25</value>
+  </data>
+  <data name="_editor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="_editor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 475</value>
+  </data>
+  <data name="_editor.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;_editor.Name" xml:space="preserve">
+    <value>_editor</value>
+  </data>
+  <data name="&gt;&gt;_editor.Type" xml:space="preserve">
+    <value>NetIde.Core.ToolWindows.DiffViewer.DiffEditorControl, NetIde.Core, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
+  <data name="&gt;&gt;_editor.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;_editor.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>500, 500</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="themedPanel2" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="themedPanel1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="_markerMap" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="_leftDetails" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="_rightDetails" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="_editor" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,AutoSize,0,Percent,50,Absolute,16" /&gt;&lt;Rows Styles="AutoSize,0,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>500, 500</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>SideBySideViewer</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>NetIde.Util.Forms.UserControl, NetIde.Util, Version=0.0.0.24, Culture=neutral, PublicKeyToken=8f71ed8b78ca6102</value>
+  </data>
 </root>

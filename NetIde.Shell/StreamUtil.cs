@@ -27,7 +27,7 @@ namespace NetIde.Shell
             var stream = assembly.GetManifestResourceStream(resourceName);
 
             if (stream == null)
-                throw new IOException(String.Format(Labels.ResourceNotFound, resourceName, assembly.FullName));
+                throw new IOException(String.Format(NeutralResources.ResourceNotFound, resourceName, assembly.FullName));
 
             if (streamInfo == null)
             {
