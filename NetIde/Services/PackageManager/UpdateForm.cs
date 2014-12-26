@@ -43,12 +43,10 @@ namespace NetIde.Services.PackageManager
             {
                 e.Cancel = true;
 
-                ErrorUtil.ThrowOnFailure(_shell.ShowMessageBox(
-                    Labels.CannotCancelOperation,
-                    null,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                ));
+                Site.CreateTaskDialog()
+                    .MainIcon(NiTaskDialogIcon.Information)
+                    .MainInstruction(Labels.CannotCancelOperation)
+                    .Alert(this);
             }
         }
 
@@ -72,12 +70,9 @@ namespace NetIde.Services.PackageManager
 
             if (exception != null)
             {
-                ErrorUtil.ThrowOnFailure(_shell.ShowMessageBox(
-                    String.Format(Labels.UpdateFailed, exception.Message),
-                    null,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                ));
+                Site.CreateTaskDialog()
+                    .MainInstruction(String.Format(Labels.UpdateFailed, exception.Message))
+                    .Alert(this);
             }
 
             Dispose();

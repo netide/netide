@@ -197,6 +197,96 @@ namespace NetIde {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ArrowHovered {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ArrowHovered", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ArrowNormal {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ArrowNormal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ChevronLess {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ChevronLess", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ChevronLessHovered {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ChevronLessHovered", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ChevronLessPressed {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ChevronLessPressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ChevronMore {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ChevronMore", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ChevronMoreHovered {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ChevronMoreHovered", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TaskDialog_ChevronMorePressed {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_ChevronMorePressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon TaskDialog_Shield {
+            get {
+                object obj = ResourceManager.GetObject("TaskDialog_Shield", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text boxes are not supported in menus.
         /// </summary>
         internal static string TextBoxNotSupported {

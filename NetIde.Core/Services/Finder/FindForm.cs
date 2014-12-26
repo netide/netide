@@ -116,12 +116,10 @@ namespace NetIde.Core.Services.Finder
 
         private void NoMoreOccurrences()
         {
-            ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).ShowMessageBox(
-                Labels.NoMoreOccurrences,
-                null,
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            ));
+            this.CreateTaskDialog()
+                .MainInstruction(Labels.NoMoreOccurrences)
+                .MainIcon(NiTaskDialogIcon.Information)
+                .Alert(this);
         }
 
         private void _includeSubFolders_CheckedChanged(object sender, EventArgs e)

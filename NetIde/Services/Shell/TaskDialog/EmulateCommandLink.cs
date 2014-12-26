@@ -22,7 +22,7 @@ using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
     [DesignTimeVisible(false)]
     internal partial class EmulateCommandLink : Button

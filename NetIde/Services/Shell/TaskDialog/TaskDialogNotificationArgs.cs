@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
-    public class TaskDialogNotificationArgs
+    internal class TaskDialogNotificationArgs
     {
         public TaskDialogNotification Notification { get; set; }
 

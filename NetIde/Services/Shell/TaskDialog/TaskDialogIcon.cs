@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
-    public enum TaskDialogIcon
+    internal enum TaskDialogIcon
     {
         None = 0,
         Warning = 0xFFFF, // MAKEINTRESOURCEW(-1)

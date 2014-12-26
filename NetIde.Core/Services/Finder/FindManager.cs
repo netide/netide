@@ -110,7 +110,7 @@ namespace NetIde.Core.Services.Finder
 
         public void PerformFind(FindAction action)
         {
-            NiShellUtil.Checked(_view, () => PerformFindChecked(action));
+            Checked.Execute(_view, () => PerformFindChecked(action));
         }
 
         private void PerformFindChecked(FindAction action)

@@ -214,8 +214,30 @@
     </Compile>
     <Compile Include="Services\ProjectManager\NiProjectManager.cs" />
     <Compile Include="Services\RunningDocumentTable\NiRunningDocumentTable.cs" />
+    <Compile Include="Services\Shell\NiShell.TaskDialog.cs" />
+    <Compile Include="Services\Shell\TaskDialog\ActivationContext.cs" />
+    <Compile Include="Services\Shell\TaskDialog\ActiveTaskDialog.cs" />
+    <Compile Include="Services\Shell\TaskDialog\AdjustControls.cs" />
     <Compile Include="Services\Shell\DockContent.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\Shell\TaskDialog\EmulateCommandLink.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\Shell\TaskDialog\EmulateCommandLink.designer.cs">
+      <DependentUpon>EmulateCommandLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Shell\TaskDialog\EmulateExpInfoButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Services\Shell\TaskDialog\EmulateExpInfoButton.Designer.cs">
+      <DependentUpon>EmulateExpInfoButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Shell\TaskDialog\EmulateTaskDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\Shell\TaskDialog\EmulateTaskDialog.Designer.cs">
+      <DependentUpon>EmulateTaskDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\Shell\NiShell.cs" />
     <Compile Include="Services\PackageManager\PackageDomain.cs" />
@@ -223,12 +245,21 @@
     <Compile Include="Services\PackageManager\PackageRegistration.cs" />
     <Compile Include="Services\LocalRegistry\NiLocalRegistry.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\Shell\TaskDialog\ProgressBarState.cs" />
     <Compile Include="Services\Shell\SaveHierarchiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Services\Shell\SaveHierarchiesForm.Designer.cs">
       <DependentUpon>SaveHierarchiesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\Shell\TaskDialog\TaskDialog.cs" />
+    <Compile Include="Services\Shell\TaskDialog\NativeMethods.cs" />
+    <Compile Include="Services\Shell\TaskDialog\TaskDialogButton.cs" />
+    <Compile Include="Services\Shell\TaskDialog\TaskDialogButtonCollection.cs" />
+    <Compile Include="Services\Shell\TaskDialog\TaskDialogCommonButtons.cs" />
+    <Compile Include="Services\Shell\TaskDialog\TaskDialogIcon.cs" />
+    <Compile Include="Services\Shell\TaskDialog\TaskDialogNotification.cs" />
+    <Compile Include="Services\Shell\TaskDialog\TaskDialogNotificationArgs.cs" />
     <Compile Include="Services\TitleBarButtonManager\NiTitleBarButtonManager.cs" />
     <Compile Include="Services\ToolsOptions\NiToolsOptions.cs" />
     <Compile Include="Services\LocalRegistry\OptionPageRegistration.cs" />
@@ -361,6 +392,15 @@
     <Content Include="..\Support\Main Icon\mainicon.ico">
       <Link>mainicon.ico</Link>
     </Content>
+    <None Include="Resources\TaskDialog_Shield.ico" />
+    <None Include="Resources\TaskDialog_ChevronMorePressed.png" />
+    <None Include="Resources\TaskDialog_ChevronMoreHovered.png" />
+    <None Include="Resources\TaskDialog_ChevronMore.png" />
+    <None Include="Resources\TaskDialog_ChevronLessPressed.png" />
+    <None Include="Resources\TaskDialog_ChevronLessHovered.png" />
+    <None Include="Resources\TaskDialog_ChevronLess.png" />
+    <None Include="Resources\TaskDialog_ArrowNormal.png" />
+    <None Include="Resources\TaskDialog_ArrowHovered.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)\..\Libraries\NTranslate\NTranslate.targets" />

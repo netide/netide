@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INiActiveTaskDialog.cs" />
     <Compile Include="INiCommandBarLabel.cs" />
     <Compile Include="INiCommandBarTextBox.cs" />
     <Compile Include="INiEditorFactoryRegistry.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="INiStatusBar.cs" />
     <Compile Include="INiStatusBarProgress.cs" />
     <Compile Include="INiStatusBarUser.cs" />
+    <Compile Include="INiTaskDialog.cs" />
+    <Compile Include="INiTaskDialogNotify.cs" />
     <Compile Include="INiTextLinesEvents.cs" />
     <Compile Include="INiTextBufferProvider.cs" />
     <Compile Include="INiTextMarker.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="NiFindResult.cs" />
     <Compile Include="NiFindTargetNotify.cs" />
     <Compile Include="NiNotificationItemPriority.cs" />
+    <Compile Include="NiProgressBarState.cs" />
     <Compile Include="NiSaveAllMode.cs" />
     <Compile Include="NiFrameCloseMode.cs" />
     <Compile Include="NiFrameProperty.cs" />
@@ -150,6 +154,9 @@
     <Compile Include="NiInsertMode.cs" />
     <Compile Include="NiMessage.cs" />
     <Compile Include="NiSaveMode.cs" />
+    <Compile Include="NiTaskDialogCommonButtons.cs" />
+    <Compile Include="NiTaskDialogFlags.cs" />
+    <Compile Include="NiTaskDialogIcon.cs" />
     <Compile Include="NiTextMarkerHatchStyle.cs" />
     <Compile Include="NiTextMarkerType.cs" />
     <Compile Include="NiTextSpan.cs" />

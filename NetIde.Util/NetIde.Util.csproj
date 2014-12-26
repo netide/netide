@@ -55,9 +55,6 @@
     <Compile Include="Escaping.cs" />
     <Compile Include="FileType.cs" />
     <Compile Include="FileTypeType.cs" />
-    <Compile Include="Forms\ActivationContext.cs" />
-    <Compile Include="Forms\ActiveTaskDialog.cs" />
-    <Compile Include="Forms\AdjustControls.cs" />
     <Compile Include="Forms\AssemblyInformation.cs" />
     <Compile Include="Forms\BrowseButton.cs" />
     <Compile Include="Forms\BrowseButtonEventHandler.cs" />
@@ -70,24 +67,6 @@
     <Compile Include="Forms\CancelPreviewEventHandler.cs" />
     <Compile Include="Forms\ContextEventArgs.cs" />
     <Compile Include="Forms\CueBannerVisibility.cs" />
-    <Compile Include="Forms\EmulateCommandLink.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\EmulateCommandLink.designer.cs">
-      <DependentUpon>EmulateCommandLink.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\EmulateExpInfoButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\EmulateExpInfoButton.Designer.cs">
-      <DependentUpon>EmulateExpInfoButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\EmulateTaskDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EmulateTaskDialog.Designer.cs">
-      <DependentUpon>EmulateTaskDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormFooterSeparator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,18 +76,9 @@
     <Compile Include="Forms\ListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ProgressBarState.cs" />
     <Compile Include="Forms\RichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\TaskDialog.cs" />
-    <Compile Include="Forms\TaskDialog.Show.cs" />
-    <Compile Include="Forms\TaskDialogButton.cs" />
-    <Compile Include="Forms\TaskDialogButtonCollection.cs" />
-    <Compile Include="Forms\TaskDialogCommonButtons.cs" />
-    <Compile Include="Forms\TaskDialogIcon.cs" />
-    <Compile Include="Forms\TaskDialogNotification.cs" />
-    <Compile Include="Forms\TaskDialogNotificationArgs.cs" />
     <Compile Include="Forms\TextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -219,9 +189,11 @@
     <EmbeddedResource Include="Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NeutralResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -230,33 +202,6 @@
       <Project>{658f4b9e-db2a-4e5e-802a-cd9697f2daf4}</Project>
       <Name>NetIde.Shell.Interop.1.0</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ArrowHovered.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ArrowNormal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ChevronLess.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ChevronLessHovered.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ChevronLessPressed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ChevronMore.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ChevronMoreHovered.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_ChevronMorePressed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TaskDialog_Shield.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\error.png" />

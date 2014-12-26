@@ -19,24 +19,14 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using NetIde.Util.Win32;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
-    public partial class TaskDialog
+    internal class TaskDialog
     {
         public static readonly Version RequiredOSVersion = new Version(6, 0, 5243);
 
-        static TaskDialog()
-        {
-            DefaultWindowTitle = AssemblyInformation.GetProductTitle(AssemblyInformation.FindEntryAssembly());
-        }
-
         public static bool ForceEmulation { get; set; }
-
-        public static bool TranslateCommonButtons { get; set; }
-
-        public static string DefaultWindowTitle { get; set; }
 
         private NativeMethods.TASKDIALOG_FLAGS _flags;
         private EmulateTaskDialog _emulateTaskDialog;
@@ -277,9 +267,6 @@ namespace NetIde.Util.Forms
 
         private int PrivateShow(IntPtr hwndOwner, out bool verificationFlagChecked, out int radioButtonResult)
         {
-            if (TranslateCommonButtons)
-                PerformTranslate();
-
             verificationFlagChecked = false;
             radioButtonResult = 0;
             int result;
@@ -317,15 +304,7 @@ namespace NetIde.Util.Forms
                 config.hwndParent = hwndOwner;
                 config.dwFlags = _flags;
                 config.dwCommonButtons = CommonButtons;
-
-                if (!string.IsNullOrEmpty(WindowTitle))
-                {
-                    config.pszWindowTitle = WindowTitle;
-                }
-                else
-                {
-                    config.pszWindowTitle = TaskDialog.DefaultWindowTitle;
-                }
+                config.pszWindowTitle = WindowTitle;
 
                 config.MainIcon = (IntPtr)MainIcon;
                 if (CustomMainIcon != null)
@@ -442,39 +421,6 @@ namespace NetIde.Util.Forms
             return result;
         }
 
-        private void PerformTranslate()
-        {
-            // We can't translate dialogs that have command link buttons since
-            // we have no way of forcing these buttons into the footer.
-
-            if (
-                CommonButtons == TaskDialogCommonButtons.None ||
-                (UseCommandLinks && Buttons.Count > 0)
-            )
-                return;
-
-            PerformTranslateButton(TaskDialogCommonButtons.OK, DialogResult.OK, Labels.Button_OK);
-            PerformTranslateButton(TaskDialogCommonButtons.Yes, DialogResult.Yes, Labels.Button_Yes);
-            PerformTranslateButton(TaskDialogCommonButtons.No, DialogResult.No, Labels.Button_No);
-            PerformTranslateButton(TaskDialogCommonButtons.Retry, DialogResult.Retry, Labels.Button_Retry);
-            PerformTranslateButton(TaskDialogCommonButtons.Close, DialogResult.OK, Labels.Button_Close);
-            PerformTranslateButton(TaskDialogCommonButtons.Cancel, DialogResult.Cancel, Labels.Button_Cancel);
-
-            CommonButtons = TaskDialogCommonButtons.None;
-        }
-
-        private void PerformTranslateButton(TaskDialogCommonButtons button, DialogResult dialogResult, string label)
-        {
-            if ((CommonButtons & button) != 0)
-            {
-                Buttons.Add(new TaskDialogButton
-                {
-                    ButtonId = (int)dialogResult,
-                    ButtonText = label
-                });
-            }
-        }
-
         private int PrivateCallback([In] IntPtr hwnd, [In] uint msg, [In] UIntPtr wparam, [In] IntPtr lparam, [In] IntPtr refData)
         {
             TaskDialogCallback callback = Callback;
@@ -531,5 +477,5 @@ namespace NetIde.Util.Forms
         }
     }
 
-    public delegate bool TaskDialogCallback(ActiveTaskDialog taskDialog, TaskDialogNotificationArgs args, object callbackData);
+    internal delegate bool TaskDialogCallback(ActiveTaskDialog taskDialog, TaskDialogNotificationArgs args, object callbackData);
 }

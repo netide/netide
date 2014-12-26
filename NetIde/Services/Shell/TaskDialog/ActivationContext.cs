@@ -5,9 +5,8 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
-using NetIde.Util.Win32;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
     internal class ActivationContext : IDisposable
     {

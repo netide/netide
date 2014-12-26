@@ -74,6 +74,7 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Checked.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CorePackage.Commands.cs" />
     <Compile Include="DialogForm.cs">
@@ -110,7 +111,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NeutralResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="NiShellUtil.cs" />
     <Compile Include="OptionPages\Environment\KeyboardOptionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

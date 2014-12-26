@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
-    public enum TaskDialogNotification
+    internal enum TaskDialogNotification
     {
         Created = 0,
         // Navigated = 1,

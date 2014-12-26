@@ -146,7 +146,7 @@ namespace NetIde.Core.ToolWindows.ProjectExplorer
 
                 if (projectItem != null)
                 {
-                    NiShellUtil.Checked(Site, () =>
+                    Checked.Execute(Site, () =>
                     {
                         INiWindowFrame unused;
                         ErrorUtil.ThrowOnFailure(projectItem.Open(out unused));

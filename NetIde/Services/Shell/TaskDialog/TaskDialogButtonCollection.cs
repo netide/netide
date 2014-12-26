@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
-    public class TaskDialogButtonCollection : Collection<TaskDialogButton>
+    internal class TaskDialogButtonCollection : Collection<TaskDialogButton>
     {
         public void Add(int id, string text)
         {

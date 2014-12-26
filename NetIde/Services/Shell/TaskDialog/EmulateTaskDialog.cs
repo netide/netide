@@ -74,15 +74,14 @@ using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using NetIde.Util.Win32;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
     /// <summary>
     /// Tries to emulate the Task Dialog. Form will be called when the call to
     /// Task Dialog is not supported.
     /// </summary>
-    internal partial class EmulateTaskDialog : Form
+    internal partial class EmulateTaskDialog : NetIde.Util.Forms.Form
     {
         public static readonly Font LargeThemedFont = CreateFont(true);
         public static readonly Font ThemedFont = CreateFont(false);
@@ -236,7 +235,7 @@ namespace NetIde.Util.Forms
                 // .Net framework does not provide a way to generate an icon.
             }
             this.StartPosition = taskDialog.PositionRelativeToWindow ? FormStartPosition.CenterParent : FormStartPosition.CenterScreen;
-            this.Text = String.IsNullOrEmpty ( taskDialog.WindowTitle ) ? TaskDialog.DefaultWindowTitle : taskDialog.WindowTitle;
+            this.Text = taskDialog.WindowTitle;
             
             BuildFormMainArea ( );
             BuildFormFooterArea ( );

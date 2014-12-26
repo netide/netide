@@ -20,16 +20,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NetIde.Util.Win32;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
     /// <summary>
     /// The active Task Dialog window. Provides several methods for acting on the active TaskDialog.
     /// You should not use this object after the TaskDialog Destroy notification callback. Doing so
     /// will result in undefined behavior and likely crash.
     /// </summary>
-    public class ActiveTaskDialog : IWin32Window
+    internal class ActiveTaskDialog : IWin32Window
     {
         /// <summary>
         /// The Task Dialog's window handle.

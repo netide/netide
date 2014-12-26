@@ -15,10 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
     [Flags]
-    public enum TaskDialogCommonButtons
+    internal enum TaskDialogCommonButtons
     {
         None = 0,
         OK = 0x0001,

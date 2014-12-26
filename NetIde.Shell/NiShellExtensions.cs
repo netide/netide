@@ -18,5 +18,13 @@ namespace NetIde.Shell
 
             return iterator.GetEnumerable();
         }
+
+        public static NiTaskDialogBuilder CreateTaskDialog(this IServiceProvider self)
+        {
+            if (self == null)
+                throw new ArgumentNullException("self");
+
+            return new NiTaskDialogBuilder((INiShell)self.GetService(typeof(INiShell)));
+        }
     }
 }

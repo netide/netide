@@ -133,33 +133,6 @@
   <data name="InformationBarRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\InformationBarRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TaskDialog_ArrowHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ArrowHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ArrowNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ArrowNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ChevronLess" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ChevronLess.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ChevronLessHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ChevronLessHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ChevronLessPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ChevronLessPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ChevronMore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ChevronMore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ChevronMoreHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ChevronMoreHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_ChevronMorePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_ChevronMorePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TaskDialog_Shield" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TaskDialog_Shield.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

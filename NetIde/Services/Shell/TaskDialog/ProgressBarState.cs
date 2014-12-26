@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NetIde.Util.Win32;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
-    public enum ProgressBarState
+    internal enum ProgressBarState
     {
         Normal = NativeMethods.PBST_NORMAL,
         Error = NativeMethods.PBST_ERROR,

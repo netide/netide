@@ -17,7 +17,7 @@ using ListView = System.Windows.Forms.ListView;
 
 namespace NetIde.Services.Shell
 {
-    internal class NiShell : ServiceBase, INiShell, INiQuerySave
+    internal partial class NiShell : ServiceBase, INiShell, INiQuerySave
     {
         private const string AutomationAccessButtonName = "89db2dd3-10f4-43f7-a09c-8b1d1038f137";
 
@@ -130,34 +130,6 @@ namespace NetIde.Services.Shell
         void dockContent_Disposed(object sender, EventArgs e)
         {
             _dockContents.Remove(((DockContent)sender).WindowPane);
-        }
-
-        public HResult ShowMessageBox(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            DialogResult result;
-            return ShowMessageBox(text, caption, buttons, icon, out result);
-        }
-
-        public HResult ShowMessageBox(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, out DialogResult result)
-        {
-            result = DialogResult.None;
-
-            try
-            {
-                result = MessageBox.Show(
-                    GetActiveWindow(),
-                    text,
-                    caption ?? _env.MainWindow.Caption,
-                    buttons,
-                    icon
-                );
-
-                return HResult.OK;
-            }
-            catch (Exception ex)
-            {
-                return ErrorUtil.GetHResult(ex);
-            }
         }
 
         public HResult BrowseForFolder(string title, NiBrowseForFolderOptions options, out string selectedFolder)

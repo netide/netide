@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Windows.Forms;
 using NetIde.Project;
@@ -167,14 +168,9 @@ namespace NetIde.Services.ProjectManager
                         if (ErrorUtil.Success(hr))
                             return HResult.OK;
 
-                        var shell = (NiShell)GetService(typeof(INiShell));
-
-                        ErrorUtil.ThrowOnFailure(shell.ShowMessageBox(
-                            Labels.CannotOpenProject,
-                            null,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        ));
+                        this.CreateTaskDialog()
+                            .MainInstruction(Labels.CannotOpenProject)
+                            .Alert();
                     }
 
                     return HResult.False;
@@ -208,14 +204,9 @@ namespace NetIde.Services.ProjectManager
                         if (ErrorUtil.Success(hr))
                             return HResult.OK;
 
-                        var shell = (NiShell)GetService(typeof(INiShell));
-
-                        ErrorUtil.ThrowOnFailure(shell.ShowMessageBox(
-                            Labels.CannotCreateProject,
-                            null,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        ));
+                        this.CreateTaskDialog()
+                            .MainInstruction(Labels.CannotCreateProject)
+                            .Alert();
                     }
 
                     return HResult.False;

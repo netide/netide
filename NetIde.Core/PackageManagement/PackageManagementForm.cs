@@ -276,7 +276,7 @@ namespace NetIde.Core.PackageManagement
 
         private void _packageList_RestartClick(object sender, EventArgs e)
         {
-            if (NiShellUtil.Confirm(Site))
+            if (Site.CreateTaskDialog().Confirm(this))
                 ErrorUtil.ThrowOnFailure(_env.RestartApplication());
         }
     }

@@ -281,12 +281,10 @@ namespace NetIde.Core.TextEditor
 
             public void NoMoreOccurrences()
             {
-                ErrorUtil.ThrowOnFailure(((INiShell)GetService(typeof(INiShell))).ShowMessageBox(
-                    Labels.NoMoreOccurrences,
-                    null,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                ));
+                this.CreateTaskDialog()
+                    .MainIcon(NiTaskDialogIcon.Information)
+                    .MainInstruction(Labels.NoMoreOccurrences)
+                    .Alert();
             }
 
             public void SetIncludeSubFolders(bool value)

@@ -18,7 +18,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NetIde.Util.Forms
+namespace NetIde.Services.Shell.TaskDialog
 {
     [DesignTimeVisible(false)]
     internal partial class EmulateExpInfoButton : System.Windows.Forms.UserControl
