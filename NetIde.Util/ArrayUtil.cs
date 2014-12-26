@@ -33,5 +33,17 @@ namespace NetIde.Util
         {
             public static readonly T[] EmptyArray = new T[0];
         }
+
+        public static void DisposeAll(IEnumerable<IDisposable> disposables)
+        {
+            if (disposables == null)
+                throw new ArgumentNullException("disposables");
+
+            foreach (var disposable in disposables)
+            {
+                if (disposable != null)
+                    disposable.Dispose();
+            }
+        }
     }
 }
