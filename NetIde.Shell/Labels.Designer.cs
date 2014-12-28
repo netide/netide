@@ -68,5 +68,34 @@ namespace NetIde.Shell {
                 return ResourceManager.GetString("AreYouSure", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to === Caused ===.
+        /// </summary>
+        internal static string ExceptionCaused {
+            get {
+                return ResourceManager.GetString("ExceptionCaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected situation has occurred.
+        ///
+        ///{0}.
+        /// </summary>
+        internal static string UnexpectedSituationMessage {
+            get {
+                return ResourceManager.GetString("UnexpectedSituationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show stack trace.
+        /// </summary>
+        internal static string UnexpectedSituationShowStackTrace {
+            get {
+                return ResourceManager.GetString("UnexpectedSituationShowStackTrace", resourceCulture);
+            }
+        }
     }
 }

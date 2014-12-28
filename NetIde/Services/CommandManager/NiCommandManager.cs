@@ -310,10 +310,24 @@ namespace NetIde.Services.CommandManager
             {
                 foreach (var commandTarget in GetCommandTargets())
                 {
-                    object thisResult;
-                    if (ErrorUtil.ThrowOnFailure(commandTarget.Exec(command, argument, out thisResult)))
+                    try
                     {
-                        result = thisResult;
+                        object thisResult;
+                        if (ErrorUtil.ThrowOnFailure(commandTarget.Exec(command, argument, out thisResult)))
+                        {
+                            result = thisResult;
+                            return HResult.OK;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        this.CreateTaskDialog()
+                            .FromException(ex)
+                            .Show();
+
+                        // We still return OK because the command was executed.
+                        // We don't want the search to continue.
+
                         return HResult.OK;
                     }
                 }

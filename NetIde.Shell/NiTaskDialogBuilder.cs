@@ -62,6 +62,55 @@ namespace NetIde.Shell
             return this;
         }
 
+        public NiTaskDialogBuilder FromException(Exception exception)
+        {
+            if (exception == null)
+                throw new ArgumentNullException("exception");
+
+            _content = String.Format(Labels.UnexpectedSituationMessage, exception.Message);
+            _expandedControlText = Labels.UnexpectedSituationShowStackTrace;
+            _expandedInformation = GetExceptionLog(exception);
+            _mainIcon = NiTaskDialogIcon.Error;
+            _commonButtons = NiTaskDialogCommonButtons.OK;
+            _flags |= NiTaskDialogFlags.AllowDialogCancellation;
+
+            return this;
+        }
+
+        private static string GetExceptionLog(Exception exception)
+        {
+            var sb = new StringBuilder();
+
+            GetExceptionLog(exception, sb);
+
+            return sb.ToString();
+        }
+
+        private static void GetExceptionLog(Exception exception, StringBuilder stringBuilder)
+        {
+            LogException(stringBuilder, exception);
+        }
+
+        private static void LogException(StringBuilder sb, Exception exception)
+        {
+            if (exception.InnerException != null)
+            {
+                LogException(sb, exception.InnerException);
+
+                sb.AppendLine();
+                sb.AppendLine(Labels.ExceptionCaused);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine(String.Format("{0} ({1})", exception.Message, exception.GetType().FullName));
+
+            if (exception.StackTrace != null)
+            {
+                sb.AppendLine();
+                sb.AppendLine(exception.StackTrace.TrimEnd());
+            }
+        }
+
         public void Alert()
         {
             Alert(null);

@@ -418,15 +418,4 @@
   <data name="TextEditorUndo" xml:space="preserve">
     <value>Undo</value>
   </data>
-  <data name="ExceptionCaused" xml:space="preserve">
-    <value>=== Caused ===</value>
-  </data>
-  <data name="UnexpectedSituationMessage" xml:space="preserve">
-    <value>An unexpected situation has occurred.
-
-{0}</value>
-  </data>
-  <data name="UnexpectedSituationShowStackTrace" xml:space="preserve">
-    <value>Show stack trace</value>
-  </data>
 </root>
