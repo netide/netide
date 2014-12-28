@@ -42,9 +42,6 @@ namespace NetIde.Services.Shell.TaskDialog
         [DllImport("user32")]
         public static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
 
-        [DllImport("user32")]
-        public static extern IntPtr GetActiveWindow();
-
         [SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible")]
         [DllImport("kernel32")]
         public extern static bool ActivateActCtx(IntPtr hActCtx, out uint lpCookie);
@@ -66,7 +63,7 @@ namespace NetIde.Services.Shell.TaskDialog
         /// <param name="pfVerificationFlagChecked">The state of the verification checkbox on dismiss of the Task Dialog.</param>
         [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
         [SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible")]
-        [DllImport("comctl32", CharSet = CharSet.Unicode, PreserveSig = false)]
+        [DllImport("comctl32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
         public static extern void TaskDialogIndirect(
             [In] ref TASKDIALOGCONFIG pTaskConfig,
             [Out] out int pnButton,

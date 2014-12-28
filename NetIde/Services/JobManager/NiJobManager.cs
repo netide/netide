@@ -200,9 +200,7 @@ namespace NetIde.Services.JobManager
                 {
                     using (var form = new JobForm())
                     {
-                        form.Site = new SiteProxy(this);
-
-                        form.ShowDialog(_shell.GetActiveWindow());
+                        form.ShowDialog(this);
                     }
 
                     return HResult.OK;

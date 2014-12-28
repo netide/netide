@@ -415,7 +415,7 @@ namespace NetIde.Util.Forms
             if (serviceProvider != null)
                 Site = new SiteProxy(serviceProvider);
 
-            Show(owner ?? GetDefaultShowWindow(serviceProvider));
+            Show(owner ?? FindDefaultOwnerWindow(serviceProvider));
         }
 
         public DialogResult ShowDialog(IServiceProvider serviceProvider)
@@ -428,16 +428,66 @@ namespace NetIde.Util.Forms
             if (serviceProvider != null)
                 Site = new SiteProxy(serviceProvider);
 
-            return ShowDialog(owner ?? GetDefaultShowWindow(serviceProvider));
+            return ShowDialog(owner ?? FindDefaultOwnerWindow(serviceProvider));
         }
 
-        private IWin32Window GetDefaultShowWindow(IServiceProvider serviceProvider)
+        public static IWin32Window FindDefaultOwnerWindow(IServiceProvider serviceProvider)
         {
-            var owner = FromHandle(NativeMethods.GetActiveWindow());
-            if (owner != null || serviceProvider == null)
-                return owner;
+            if (serviceProvider == null)
+                throw new ArgumentNullException("serviceProvider");
 
-            return ((INiEnv)serviceProvider.GetService(typeof(INiEnv))).MainWindow;
+            // If the main window is enabled (i.e. there is no modal dialog showing),
+            // we return that.
+
+            var mainWindow = ((INiEnv)serviceProvider.GetService(typeof(INiEnv))).MainWindow;
+            if (NativeMethods.IsWindowEnabled(mainWindow.Handle))
+                return mainWindow;
+
+            // Otherwise iterate over all top level windows of the process and
+            // return the first valid one that is enabled.
+
+            uint processId = NativeMethods.GetCurrentProcessId();
+            IntPtr foundHWnd = IntPtr.Zero;
+            IntPtr foundOverlappedHWnd = IntPtr.Zero;
+
+            NativeMethods.EnumWindows(
+                (hWnd, lParam) =>
+                {
+                    if (
+                        NativeMethods.IsWindow(hWnd) &&
+                        NativeMethods.IsWindowVisible(hWnd) &&
+                        NativeMethods.IsWindowEnabled(hWnd)
+                    ) {
+                        uint windowProcessId;
+                        NativeMethods.GetWindowThreadProcessId(hWnd, out windowProcessId);
+
+                        if (processId == windowProcessId)
+                        {
+                            uint style = NativeMethods.GetWindowLong(hWnd, NativeMethods.GWL_STYLE);
+                            if ((style & (NativeMethods.WS_CHILD | NativeMethods.WS_POPUP)) == 0)
+                            {
+                                foundOverlappedHWnd = hWnd;
+                                return false;
+                            }
+
+                            foundHWnd = hWnd;
+                        }
+                    }
+
+                    return true;
+                },
+                IntPtr.Zero
+            );
+
+            // We (very much) prefer overlapped windows over others. If we have one,
+            // we return it. Otherwise we fall back to the popup/child window.
+
+            if (foundOverlappedHWnd != IntPtr.Zero)
+                return new NativeWindowWrapper(foundOverlappedHWnd);
+            if (foundHWnd != IntPtr.Zero)
+                return new NativeWindowWrapper(foundHWnd);
+
+            return null;
         }
 
         protected override void Dispose(bool disposing)
@@ -451,6 +501,16 @@ namespace NetIde.Util.Forms
             }
 
             base.Dispose(disposing);
+        }
+
+        private class NativeWindowWrapper : IWin32Window
+        {
+            public NativeWindowWrapper(IntPtr handle)
+            {
+                Handle = handle;
+            }
+
+            public IntPtr Handle { get; private set; }
         }
     }
 }

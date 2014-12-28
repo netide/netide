@@ -145,7 +145,7 @@ namespace NetIde.Services.Shell
                     ShowNewFolderButton = (options & NiBrowseForFolderOptions.HideNewFolderButton) == 0
                 };
 
-                if (browser.ShowDialog(GetActiveWindow()) == DialogResult.OK)
+                if (browser.ShowDialog(NetIde.Util.Forms.Form.FindDefaultOwnerWindow(this)) == DialogResult.OK)
                 {
                     selectedFolder = browser.SelectedPath;
 
@@ -158,11 +158,6 @@ namespace NetIde.Services.Shell
             {
                 return ErrorUtil.GetHResult(ex);
             }
-        }
-
-        public IWin32Window GetActiveWindow()
-        {
-            return new NativeWindowWrapper(NativeMethods.GetActiveWindow());
         }
 
         public HResult SaveDocDataToFile(NiSaveMode mode, INiPersistFile persistFile, string fileName, out string newFileName, out bool saved)
@@ -482,16 +477,6 @@ namespace NetIde.Services.Shell
             private const int WM_SETFOCUS = 0x7;
             private const int WM_KILLFOCUS = 0x8;
             private const int WM_NCXBUTTONUP = 0xAC;
-        }
-
-        private class NativeWindowWrapper : IWin32Window
-        {
-            public IntPtr Handle { get; private set; }
-
-            public NativeWindowWrapper(IntPtr handle)
-            {
-                Handle = handle;
-            }
         }
     }
 }

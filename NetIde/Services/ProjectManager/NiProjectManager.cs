@@ -241,9 +241,7 @@ namespace NetIde.Services.ProjectManager
             else
                 dialog.RestoreDirectory = true;
 
-            var shell = (NiShell)GetService(typeof(INiShell));
-
-            if (dialog.ShowDialog(shell.GetActiveWindow()) == DialogResult.OK)
+            if (dialog.ShowDialog(NetIde.Util.Forms.Form.FindDefaultOwnerWindow(this)) == DialogResult.OK)
                 return dialog.FileName;
 
             return null;

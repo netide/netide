@@ -27,9 +27,6 @@ namespace NetIde.Win32
         public const int XBUTTON2 = 0x2;
 
         [DllImport(ExternDll.User32)]
-        public static extern IntPtr GetActiveWindow();
-
-        [DllImport(ExternDll.User32)]
         public static extern IntPtr SendMessage(HandleRef hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         public static void SetProgressBarState(ProgressBar progressBar, int state)

@@ -136,10 +136,14 @@ namespace NetIde.Services.Shell
                 try
                 {
                     if (owner == IntPtr.Zero)
-                        owner = NativeMethods.GetActiveWindow();
+                    {
+                        var ownerWindow = NetIde.Util.Forms.Form.FindDefaultOwnerWindow(_serviceProvider);
+                        if (ownerWindow != null)
+                            owner = ownerWindow.Handle;
+                    }
 
-                    if (String.IsNullOrEmpty(_taskDialog.MainInstruction))
-                        _taskDialog.MainInstruction = ((INiEnv)_serviceProvider.GetService(typeof(INiEnv))).ContextName;
+                    if (String.IsNullOrEmpty(_taskDialog.WindowTitle))
+                        _taskDialog.WindowTitle = ((INiEnv)_serviceProvider.GetService(typeof(INiEnv))).ContextName;
 
                     result = _taskDialog.Show(owner, out verificationFlagChecked, out radioButtonResult);
 

@@ -53,6 +53,8 @@ namespace NetIde.Util.Win32
 
         public const int WS_VSCROLL = 0x00200000;
         public const int WS_HSCROLL = 0x00100000;
+        public const uint WS_CHILD = 0x40000000;
+        public const uint WS_POPUP = 0x80000000;
 
         public const int SB_HORZ = 0x0;
         public const int SB_VERT = 0x1;
@@ -115,13 +117,10 @@ namespace NetIde.Util.Win32
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParram);
 
         [DllImport(ExternDll.User32)]
-        public static extern IntPtr GetActiveWindow();
-
-        [DllImport(ExternDll.User32)]
         public static extern IntPtr WindowFromPoint(Point pt);
 
         [DllImport(ExternDll.User32)]
-        public static extern int GetWindowLong(IntPtr hWnd, int index);
+        public static extern uint GetWindowLong(IntPtr hWnd, int index);
 
         [DllImport(ExternDll.User32)]
         public static extern IntPtr GetParent(IntPtr hwnd);
@@ -129,6 +128,30 @@ namespace NetIde.Util.Win32
         [DllImport(ExternDll.User32)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetScrollInfo(IntPtr hwnd, int fnBar, SCROLLINFO lpsi);
+
+        [DllImport(ExternDll.User32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowEnabled(IntPtr hwnd);
+
+        [DllImport(ExternDll.User32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowVisible(IntPtr hwnd);
+
+        [DllImport(ExternDll.User32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindow(IntPtr hWnd);
+
+        [DllImport(ExternDll.User32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport(ExternDll.Kernel32)]
+        public static extern uint GetCurrentProcessId();
+
+        [DllImport(ExternDll.User32, SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
         public static class Util
         {

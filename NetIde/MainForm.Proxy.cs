@@ -25,12 +25,12 @@ namespace NetIde
             public Proxy(MainForm owner)
             {
                 _owner = owner;
+
+                // Cache the handle to allow non-UI threads to get it.
+                owner.HandleCreated += (s, e) => Handle = _owner.Handle;
             }
 
-            public IntPtr Handle
-            {
-                get { return _owner.Handle; }
-            }
+            public IntPtr Handle { get; private set; }
 
             public HResult Close()
             {
