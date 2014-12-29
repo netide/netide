@@ -9,9 +9,27 @@ using System.Windows.Forms;
 
 namespace NetIde.Util.Forms
 {
-    public partial class FileBrowser : FileBrowserBase
+    public partial class MruFileBrowser : FileBrowserBase
     {
-        public FileBrowser()
+        public event MruHistoryEventHandler LoadHistory;
+
+        protected virtual void OnLoadHistory(MruHistoryEventArgs e)
+        {
+            var handler = LoadHistory;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public event MruHistoryEventHandler SaveHistory;
+
+        protected virtual void OnSaveHistory(MruHistoryEventArgs e)
+        {
+            var handler = SaveHistory;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public MruFileBrowser()
         {
             InitializeComponent();
 
@@ -34,7 +52,7 @@ namespace NetIde.Util.Forms
 
         protected override void OnReadOnlyChanged(EventArgs e)
         {
-            _path.ReadOnly = ReadOnly;
+            _path.Enabled = !ReadOnly;
 
             base.OnReadOnlyChanged(e);
         }
@@ -49,6 +67,21 @@ namespace NetIde.Util.Forms
         private void _path_TextChanged(object sender, EventArgs e)
         {
             Path = _path.Text;
+        }
+
+        public void AddTextToMru()
+        {
+            _path.AddTextToMru();
+        }
+
+        private void _path_LoadHistory(object sender, MruHistoryEventArgs e)
+        {
+            OnLoadHistory(e);
+        }
+
+        private void _path_SaveHistory(object sender, MruHistoryEventArgs e)
+        {
+            OnSaveHistory(e);
         }
     }
 }

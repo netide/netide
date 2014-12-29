@@ -67,6 +67,18 @@
     <Compile Include="Forms\CancelPreviewEventHandler.cs" />
     <Compile Include="Forms\ContextEventArgs.cs" />
     <Compile Include="Forms\CueBannerVisibility.cs" />
+    <Compile Include="Forms\MruComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\MruFileBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\MruFileBrowser.Designer.cs">
+      <DependentUpon>MruFileBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileBrowserBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\FormFooterSeparator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -76,6 +88,7 @@
     <Compile Include="Forms\ListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\MruHistoryEventHandler.cs" />
     <Compile Include="Forms\RichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -179,6 +192,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\BrowserControl.resx">
       <DependentUpon>BrowserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MruFileBrowser.resx">
+      <DependentUpon>MruFileBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileBrowser.resx">
       <DependentUpon>FileBrowser.cs</DependentUpon>
