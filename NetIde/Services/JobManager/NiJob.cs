@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using NetIde.Shell;
 using NetIde.Shell.Interop;
 
@@ -13,6 +14,7 @@ namespace NetIde.Services.JobManager
         private string _currentStatus;
         private double? _progress;
         private bool _cancelled;
+        private readonly SynchronizationContext _syncContext;
 
         public Exception Exception { get; private set; }
         public bool Completed { get; private set; }
@@ -74,6 +76,8 @@ namespace NetIde.Services.JobManager
             if (handler == null)
                 throw new ArgumentNullException("handler");
 
+            _syncContext = SynchronizationContext.Current;
+
             _jobManager = jobManager;
             Handler = handler;
         }
@@ -90,6 +94,13 @@ namespace NetIde.Services.JobManager
             }
             catch (Exception ex)
             {
+                _syncContext.Send(
+                    p => _jobManager.CreateTaskDialog()
+                        .FromException(ex)
+                        .Show(),
+                    null
+                );
+
                 Exception = ex;
             }
             finally
