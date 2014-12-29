@@ -15,14 +15,14 @@ namespace NetIde.Shell
     public class NiTaskDialog : Component
     {
         private readonly Dictionary<int, NiTaskDialogButton> _buttons = new Dictionary<int, NiTaskDialogButton>();
-        private string _windowTitle = String.Empty;
-        private string _mainInstruction = String.Empty;
-        private string _content = String.Empty;
-        private string _verificationText = String.Empty;
-        private string _expandedInformation = String.Empty;
-        private string _expandedControlText = String.Empty;
-        private string _collapsedControlText = String.Empty;
-        private string _footerText = String.Empty;
+        private readonly Formattable _windowTitle = new Formattable();
+        private readonly Formattable _mainInstruction = new Formattable();
+        private readonly Formattable _content = new Formattable();
+        private readonly Formattable _verificationText = new Formattable();
+        private readonly Formattable _expandedInformation = new Formattable();
+        private readonly Formattable _expandedControlText = new Formattable();
+        private readonly Formattable _collapsedControlText = new Formattable();
+        private readonly Formattable _footerText = new Formattable();
 
         [Description("Text shown in the title bar")]
         [Category("Appearance")]
@@ -31,8 +31,8 @@ namespace NetIde.Shell
         [DefaultValue("")]
         public string WindowTitle
         {
-            get { return _windowTitle; }
-            set { _windowTitle = value ?? String.Empty; }
+            get { return _windowTitle.Text; }
+            set { _windowTitle.Text = value; }
         }
 
         [Description("Main instruction message")]
@@ -43,8 +43,8 @@ namespace NetIde.Shell
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public string MainInstruction
         {
-            get { return _mainInstruction; }
-            set { _mainInstruction = value ?? String.Empty; }
+            get { return _mainInstruction.Text; }
+            set { _mainInstruction.Text = value; }
         }
 
         [Description("Descriptive message")]
@@ -55,8 +55,8 @@ namespace NetIde.Shell
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public string Content
         {
-            get { return _content; }
-            set { _content = value ?? String.Empty; }
+            get { return _content.Text; }
+            set { _content.Text = value; }
         }
 
         [Description("Text of the verification check box")]
@@ -66,8 +66,8 @@ namespace NetIde.Shell
         [DefaultValue("")]
         public string VerificationText
         {
-            get { return _verificationText; }
-            set { _verificationText = value ?? String.Empty; }
+            get { return _verificationText.Text; }
+            set { _verificationText.Text = value; }
         }
 
         [Description("Text shown when the expanded information is expanded")]
@@ -77,8 +77,8 @@ namespace NetIde.Shell
         [DefaultValue("")]
         public string ExpandedInformation
         {
-            get { return _expandedInformation; }
-            set { _expandedInformation = value ?? String.Empty; }
+            get { return _expandedInformation.Text; }
+            set { _expandedInformation.Text = value; }
         }
 
         [Description("Text of the button that shows the expanded information")]
@@ -88,8 +88,8 @@ namespace NetIde.Shell
         [DefaultValue("")]
         public string ExpandedControlText
         {
-            get { return _expandedControlText; }
-            set { _expandedControlText = value ?? String.Empty; }
+            get { return _expandedControlText.Text; }
+            set { _expandedControlText.Text = value; }
         }
 
         [Description("Text of the button that hides the expanded information")]
@@ -99,8 +99,8 @@ namespace NetIde.Shell
         [DefaultValue("")]
         public string CollapsedControlText
         {
-            get { return _collapsedControlText; }
-            set { _collapsedControlText = value ?? String.Empty; }
+            get { return _collapsedControlText.Text; }
+            set { _collapsedControlText.Text = value; }
         }
 
         [Description("Footer text")]
@@ -110,8 +110,8 @@ namespace NetIde.Shell
         [DefaultValue("")]
         public string FooterText
         {
-            get { return _footerText; }
-            set { _footerText = value ?? String.Empty; }
+            get { return _footerText.Text; }
+            set { _footerText.Text = value; }
         }
 
         [Description("Visible common buttons")]
@@ -377,6 +377,46 @@ namespace NetIde.Shell
             RadioButtons = new NiTaskDialogButtonCollection();
         }
 
+        public void FormatWindowTitle(params object[] args)
+        {
+            _windowTitle.Format(args);
+        }
+
+        public void FormatMainInstruction(params object[] args)
+        {
+            _mainInstruction.Format(args);
+        }
+
+        public void FormatContent(params object[] args)
+        {
+            _content.Format(args);
+        }
+
+        public void FormatVerificationText(params object[] args)
+        {
+            _verificationText.Format(args);
+        }
+
+        public void FormatExpandedInformation(params object[] args)
+        {
+            _expandedInformation.Format(args);
+        }
+
+        public void FormatExpandedControlText(params object[] args)
+        {
+            _expandedControlText.Format(args);
+        }
+
+        public void FormatCollapsedControlText(params object[] args)
+        {
+            _collapsedControlText.Format(args);
+        }
+
+        public void FormatFooterText(params object[] args)
+        {
+            _footerText.Format(args);
+        }
+
         public NiTaskDialogButton FindButton(int id)
         {
             NiTaskDialogButton button;
@@ -484,7 +524,7 @@ namespace NetIde.Shell
                 var id = AddButton(_buttons, button);
                 ErrorUtil.ThrowOnFailure(taskDialog.AddButton(
                     id,
-                    button.Text
+                    button.FormattedText
                 ));
 
                 if (!hadDefault && button.Default)
@@ -501,7 +541,7 @@ namespace NetIde.Shell
                 var id = AddButton(_buttons, button);
                 ErrorUtil.ThrowOnFailure(taskDialog.AddRadioButton(
                     id,
-                    button.Text
+                    button.FormattedText
                 ));
 
                 if (!hadDefault && button.Default)
@@ -514,22 +554,30 @@ namespace NetIde.Shell
             if (Width != 0)
                 ErrorUtil.ThrowOnFailure(taskDialog.SetWidth(Width));
 
-            if (CollapsedControlText.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetCollapsedControlText(CollapsedControlText));
-            if (Content.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetContent(Content));
-            if (ExpandedControlText.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetExpandedControlText(ExpandedControlText));
-            if (ExpandedInformation.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetExpandedInformation(ExpandedInformation));
-            if (FooterText.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetFooter(FooterText));
-            if (MainInstruction.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetMainInstruction(MainInstruction));
-            if (VerificationText.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetVerificationText(VerificationText));
-            if (WindowTitle.Length > 0)
-                ErrorUtil.ThrowOnFailure(taskDialog.SetWindowTitle(WindowTitle));
+            string collapsedControlText = _collapsedControlText.Formatted;
+            if (collapsedControlText.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetCollapsedControlText(collapsedControlText));
+            string content = _content.Formatted;
+            if (content.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetContent(content));
+            string expandedControlText = _expandedControlText.Formatted;
+            if (expandedControlText.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetExpandedControlText(expandedControlText));
+            string expandedInformation = _expandedInformation.Formatted;
+            if (expandedInformation.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetExpandedInformation(expandedInformation));
+            string footerText = _footerText.Formatted;
+            if (footerText.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetFooter(footerText));
+            string mainInstruction = _mainInstruction.Formatted;
+            if (mainInstruction.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetMainInstruction(mainInstruction));
+            string verificationText = _verificationText.Formatted;
+            if (verificationText.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetVerificationText(verificationText));
+            string windowTitle = _windowTitle.Formatted;
+            if (windowTitle.Length > 0)
+                ErrorUtil.ThrowOnFailure(taskDialog.SetWindowTitle(windowTitle));
 
             new Notify(this, taskDialog);
 

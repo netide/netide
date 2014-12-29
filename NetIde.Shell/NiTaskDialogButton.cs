@@ -13,6 +13,7 @@ namespace NetIde.Shell
     public class NiTaskDialogButton : Component
     {
         private string _name;
+        private readonly Formattable _text = new Formattable();
 
         [Description("Button name")]
         [Browsable(false)]
@@ -36,7 +37,17 @@ namespace NetIde.Shell
         [Localizable(true)]
         [Bindable(true)]
         [DefaultValue("")]
-        public string Text { get; set; }
+        public string Text
+        {
+            get { return _text.Text; }
+            set { _text.Text = value; }
+        }
+
+        [Browsable(false)]
+        internal string FormattedText
+        {
+            get { return _text.Formatted; }
+        }
 
         [Description("Whether this button is the default button")]
         [Category("Behavior")]
@@ -67,6 +78,11 @@ namespace NetIde.Shell
         {
             Text = text;
             DialogResult = dialogResult;
+        }
+
+        public void FormatText(params object[] args)
+        {
+            _text.Format(args);
         }
     }
 }
